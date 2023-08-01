@@ -73,7 +73,7 @@ class PandasFormatter():
         zones = self.get_zones()
 
         prefixes = ['', 'close_neighbour_', 'distant_neighbour_']
-        columns = [''.join([prefix, z]) for prefix in prefixes for z in zones] + \
+        columns = [''.join([prefix, z, '_zone']) for prefix in prefixes for z in zones] + \
                 [''.join([prefix,b]) for prefix in prefixes for b in behaviours]
         
         return columns
@@ -91,14 +91,14 @@ class PandasFormatter():
                 None, None
             else:
                 row = df_i.iloc[0]
-                return PandasFormatter.format_column(row[self.zone_key]), PandasFormatter.format_column(row[self.behaviour_key])
+                return PandasFormatter.format_column(row[self.zone_key]) + '_zone', PandasFormatter.format_column(row[self.behaviour_key])
 
         for individual in individuals:
             ts = pd.DataFrame(columns=columns)
 
             df_i = self.df[self.df[self.individual_key] == individual]
             for _, row in df_i.iterrows():
-                zone = PandasFormatter.format_column(row[self.zone_key])
+                zone = PandasFormatter.format_column(row[self.zone_key]) + '_zone'
                 behaviour = PandasFormatter.format_column(row[self.behaviour_key])
                 time = row[self.time_key]
 
