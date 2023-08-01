@@ -79,7 +79,7 @@ class PandasFormatter():
         return columns
 
 
-    def format(self, merge : bool = False, to_np : bool = True):
+    def format(self, merge : bool = False, to_np : bool = True, event_driven : bool = False):
         individuals = self.get_individuals()
         sequences = {i : None for i in individuals}
 
@@ -121,6 +121,34 @@ class PandasFormatter():
                 ts.loc[len(ts)] = vec
                 sequences[individual] = ts
 
+        if event_driven: # keep only rows where there is a change in the sequence, discard contiguous duplicates
+            # constants = []
+            # non_constant_min_row = 5
+            for individual in individuals:
+                ts = sequences[individual]
+                duplicates = ts.duplicated(keep='first')
+                
+                last_non_duplicate = None
+                idx = 0
+                while idx < len(ts):
+                    if duplicates.iloc[idx].all() and (ts.iloc[idx] == last_non_duplicate).all():
+                        pass
+                    elif duplicates.iloc[idx].all() and (ts.iloc[idx] != last_non_duplicate).all(): # keep only contiguous duplicates
+                        print(f"Warning: non-contiguous duplicate found for individual {individual} at index {idx}. Discarding it from the duplicate sequence.")
+                        duplicates.iloc[idx] = False
+                    else:
+                        last_non_duplicate = ts.iloc[idx]
+                    idx += 1
+
+                # old_ts_len = len(ts)
+                ts = ts[-duplicates]
+                # if len(ts) < non_constant_min_row:
+                #     print(f"Warning: individual {individual} has less than {non_constant_min_row} rows after removing duplicates ({old_ts_len} --> {len(ts)}). Discarding it from the sequence.")
+                #     constants.append(individual)
+                sequences[individual] = ts
+            # for individual in constants:
+            #     del sequences[individual]
+
         if merge:
             res = pd.concat(sequences.values())
             if to_np:
@@ -133,3 +161,80 @@ class PandasFormatter():
                 return [ts.to_numpy(dtype=np.float64) for ts in res]
             else:
                 return res
+
+
+
+class ResultsFormatter():
+
+    @staticmethod
+    def from_pandas(results : pd.DataFrame, var_names : list, tau_max : int):
+        graph = np.zeros((len(var_names), len(var_names), tau_max+1), dtype='<U3')
+        graph[:] = ""
+
+        val_matrix = np.zeros((len(var_names), len(var_names), tau_max + 1))
+
+        for idx, i, j, tau, link_type, link_value in results.itertuples(): # TODO: fix, put links in BOTH directions
+            i = var_names.index(i)
+            j = var_names.index(j)
+            link_value = float(link_value)
+
+            graph[i,j,tau] = link_type
+            val_matrix[i,j,tau] = link_value
+            
+        return ResultsFormatter(graph, val_matrix)
+
+
+    def __init__(self, graph : np.array, val_matrix : np.array):
+        self.graph = graph
+        self.val_matrix = val_matrix
+
+    
+    def get_graph(self):
+        return self.graph
+    
+    def get_val_matrix(self):
+        return self.val_matrix
+
+    def get_results(self):
+        return {"graph": self.graph, "val_matrix": self.val_matrix}
+
+    
+    def low_filter(self, abs_min = 0.5):
+        graph = self.graph.copy()
+        val_matrix = self.val_matrix.copy()
+
+        graph[np.abs(val_matrix) < abs_min] = ""
+        val_matrix[np.abs(val_matrix) < abs_min] = 0
+
+        return ResultsFormatter(graph, val_matrix)
+
+    def var_filter(self, cause_vars_to_remove : list = [], effect_vars_to_remove : list = []):
+        graph = self.graph.copy()
+        val_matrix = self.val_matrix.copy()
+
+        # If the link is bidirectional, do not remove
+        for i in cause_vars_to_remove:
+            graph[i,:,:][np.where(graph[i,:,:] != "o-o")] = ""
+            val_matrix[i,:,:][np.where(graph[i,:,:] != "o-o")] = 0
+        for j in effect_vars_to_remove:
+            graph[:,j,:][np.where(graph[:,j,:] != "o-o")] = ""
+            val_matrix[:,j,:][np.where(graph[:,j,:] != "o-o")] = 0
+
+        return ResultsFormatter(graph, val_matrix)
+
+    def corr_filter(self):
+        graph = self.graph.copy()
+        val_matrix = self.val_matrix.copy()
+        
+        graph[np.where(graph == "o-o")] = ""
+        val_matrix[np.where(graph == "o-o")] = 0
+
+        return ResultsFormatter(graph, val_matrix)
+
+
+
+
+    
+
+
+    
