@@ -47,13 +47,15 @@ dataset = SeriesDataset(sequences, tau_max=tau_max+1)
 # Get model
 print(f"Save provided. Loading results from {save}...")
 val_matrix = np.load(f'{save}/val_matrix.npy')
-graph = np.load(f'{save}/graph.npy')
+val_matrix = torch.nan_to_num(torch.from_numpy(val_matrix).float())
 
+graph = np.load(f'{save}/graph.npy')
 graph[np.where(graph != "-->")] = "0"
 graph[np.where(graph == "-->")] = "1"
 graph = graph.astype(np.int64)
+graph = torch.from_numpy(graph).float()
 
-model = TSLinearCausal(num_var, tau_max+1, weights=torch.from_numpy(graph * val_matrix).float())
+model = TSLinearCausal(num_var, tau_max+1, weights=graph*val_matrix)
 loader = DataLoader(dataset, batch_size=4, shuffle=True)
 
 
