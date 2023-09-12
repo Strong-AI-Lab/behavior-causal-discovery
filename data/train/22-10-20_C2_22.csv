@@ -1,0 +1,3953 @@
+Time,ID,Behaviour,Zone,Meerkat type,Close_neighbours,Distant_neighbours
+0,0,Low sitting/standing (stationary),Waiting Area,Adult,{},{3;1;7}
+0,1,Foraging,Waiting Area,Adult,{3;2},{3;7;0;2}
+0,2,Foraging,Foraging,Adult,{3;1},{3;1;7}
+0,3,Foraging,Foraging,Adult,{1;2},{1;0;7;2}
+0,7,Foraging,Foraging,Adult,{},{3;1;0;2}
+1,0,Foraging,Waiting Area,Adult,{},{3;1;7;2}
+1,1,Foraging,Waiting Area,Adult,{2},{3;0;2}
+1,2,Foraging,Foraging,Adult,{3;1},{3;1;0;7}
+1,3,Foraging,Foraging,Adult,{2},{1;0;7;2}
+1,7,Foraging,Foraging,Adult,{},{3;0;2}
+2,0,Foraging,Waiting Area,Adult,{},{3;7}
+2,1,Foraging,Waiting Area,Adult,{2},{3;2}
+2,2,Foraging,Foraging,Adult,{3;1},{3;1;7}
+2,3,Foraging,Foraging,Adult,{2},{1;0;7;2}
+2,7,Foraging,Foraging,Adult,{},{3;0;2}
+3,0,Foraging,Waiting Area,Adult,{},{3;6;7}
+3,1,Foraging,Waiting Area,Adult,{2},{3;2}
+3,2,Foraging,Foraging,Adult,{3;1},{3;6;1;7}
+3,3,Foraging,Foraging,Adult,{2},{1;7;6;0;2}
+3,6,Foraging,Foraging,Adult,{7},{3;7;0;2}
+3,7,Foraging,Foraging,Adult,{6},{3;6;0;2}
+4,0,Foraging,Waiting Area,Adult,{5},{3;4;5;7}
+4,1,Foraging,Foraging,Adult,{3;2},{4;5;3;7;2}
+4,2,Foraging,Foraging,Adult,{3;1},{1;4;5;3;7}
+4,3,Foraging,Foraging,Adult,{4;1;2},{4;1;5;7;0;2}
+4,4,Foraging,Foraging,Adult,{3;7;5},{1;7;5;3;0;2}
+4,5,Foraging,Foraging,Adult,{4;0;7},{1;4;7;3;0;2}
+4,7,Foraging,Foraging,Adult,{4;5},{1;4;5;3;0;2}
+5,0,Foraging,Waiting Area,Adult,{5},{3;4;5;7}
+5,1,Foraging,Foraging,Adult,{3;2},{4;5;3;7;2}
+5,2,Foraging,Foraging,Adult,{3;1},{1;4;5;3;7}
+5,3,Foraging,Foraging,Adult,{4;1;2},{4;1;5;7;0;2}
+5,4,Foraging,Foraging,Adult,{3;7;5},{1;7;5;3;0;2}
+5,5,Foraging,Foraging,Adult,{4;0;7},{1;4;7;3;0;2}
+5,7,Foraging,Foraging,Adult,{4;5},{1;4;5;3;0;2}
+6,0,Foraging,Waiting Area,Adult,{5},{3;4;5;7}
+6,1,Foraging,Foraging,Adult,{3;2},{3;4;2}
+6,2,Foraging,Foraging,Adult,{3;1},{1;4;5;3;7}
+6,3,Foraging,Foraging,Adult,{4;1;2},{4;1;5;7;0;2}
+6,4,Foraging,Foraging,Adult,{3;7;5},{1;7;5;3;0;2}
+6,5,Foraging,Foraging,Adult,{4;0;7},{4;7;3;0;2}
+6,7,Foraging,Foraging,Adult,{4;5},{4;5;3;0;2}
+7,0,Foraging,Waiting Area,Adult,{5},{4;5;7}
+7,1,Foraging,Foraging,Adult,{3;2},{4;5;3;7;2}
+7,2,Foraging,Foraging,Adult,{3;1;4},{1;4;5;3;7}
+7,3,Foraging,Foraging,Adult,{4;1;2},{4;1;5;7;2}
+7,4,Foraging,Foraging,Adult,{3;7;5;2},{1;7;5;3;0;2}
+7,5,Foraging,Foraging,Adult,{4;0;7},{1;4;7;3;0;2}
+7,7,Foraging,Foraging,Adult,{4;5},{1;4;5;3;0;2}
+8,0,Foraging,Waiting Area,Adult,{},{4;5}
+8,1,Foraging,Foraging,Adult,{3;2},{3;4;5;2}
+8,2,Foraging,Foraging,Adult,{3;1;4},{3;1;5;4}
+8,3,Foraging,Foraging,Adult,{4;1;2},{4;1;5;2}
+8,4,Foraging,Foraging,Adult,{3;5;2},{1;5;3;0;2}
+8,5,Foraging,Foraging,Adult,{4},{1;4;3;0;2}
+9,0,Foraging,Waiting Area,Adult,{},{4;5}
+9,1,Foraging,Foraging,Adult,{3;4;2},{3;4;5;2}
+9,2,Foraging,Foraging,Adult,{3;1;4},{3;1;5;4}
+9,3,Foraging,Foraging,Adult,{4;1;2},{4;1;5;2}
+9,4,Foraging,Foraging,Adult,{3;1;5;2},{1;5;3;0;2}
+9,5,Foraging,Foraging,Adult,{4},{1;4;3;0;2}
+10,0,Foraging,Waiting Area,Adult,{},{3;1;4}
+10,1,Foraging,Waiting Area,Adult,{3;4;2},{3;4;0;2}
+10,2,Foraging,Foraging,Adult,{3;1},{3;1;4}
+10,3,Foraging,Foraging,Adult,{4;1;2},{4;1;0;2}
+10,4,Foraging,Foraging,Adult,{3;1},{3;1;0;2}
+11,0,Foraging,Waiting Area,Adult,{},{3;1;4}
+11,1,Foraging,Waiting Area,Adult,{3;4;2},{3;4;0;2}
+11,2,Foraging,Foraging,Adult,{3;1},{3;1;4}
+11,3,Foraging,Foraging,Adult,{4;1;2},{4;1;0;2}
+11,4,Foraging,Foraging,Adult,{3;1},{3;1;0;2}
+12,0,Foraging,Waiting Area,Adult,{},{3;1;7;4}
+12,1,Foraging,Waiting Area,Adult,{3;4;2},{4;7;3;0;2}
+12,2,Foraging,Foraging,Adult,{3;1},{3;1;7;4}
+12,3,Foraging,Foraging,Adult,{4;1;2},{4;1;7;0;2}
+12,4,Foraging,Foraging,Adult,{3;1;7},{1;7;3;0;2}
+12,7,Foraging,Foraging,Adult,{4},{1;4;3;0;2}
+13,0,Foraging,Waiting Area,Adult,{},{3;1;4}
+13,1,Foraging,Waiting Area,Adult,{3;4;2},{3;4;0;2}
+13,2,Foraging,Foraging,Adult,{3;1},{3;1;4}
+13,3,Foraging,Foraging,Adult,{4;1;2},{4;1;0;2}
+13,4,Foraging,Foraging,Adult,{3;1},{3;1;0;2}
+14,0,Foraging,Waiting Area,Adult,{},{1;7}
+14,1,Foraging,Waiting Area,Adult,{3;2},{3;7;0;2}
+14,2,Foraging,Foraging,Adult,{3;1},{3;1;7}
+14,3,Foraging,Foraging,Adult,{1;2},{1;7;2}
+14,7,Foraging,Foraging,Adult,{},{3;1;0;2}
+15,0,Foraging,Waiting Area,Adult,{},{1;7}
+15,1,Foraging,Waiting Area,Adult,{3;2},{3;7;0;2}
+15,2,Foraging,Foraging,Adult,{3;1},{3;1;7}
+15,3,Foraging,Foraging,Adult,{1;2},{1;7;2}
+15,7,Foraging,Foraging,Adult,{},{3;1;0;2}
+16,0,Foraging,Waiting Area,Adult,{},{1;7}
+16,1,Foraging,Waiting Area,Adult,{3;2},{3;7;0;2}
+16,2,Foraging,Foraging,Adult,{3;1},{3;1;7}
+16,3,Foraging,Foraging,Adult,{1;2},{1;7;2}
+16,7,Foraging,Foraging,Adult,{},{3;1;0;2}
+17,0,Foraging,Waiting Area,Adult,{},{1;7}
+17,1,Foraging,Waiting Area,Adult,{3;2},{3;7;0;2}
+17,2,Foraging,Foraging,Adult,{3;1},{3;1}
+17,3,Foraging,Foraging,Adult,{1;2},{1;7;2}
+17,7,Foraging,Foraging,Adult,{},{3;1;0}
+18,0,Foraging,Waiting Area,Adult,{},{3;6;1;7}
+18,1,Foraging,Waiting Area,Adult,{3;2},{3;0;6;7;2}
+18,2,Foraging,Foraging,Adult,{3;1},{3;6;1}
+18,3,Foraging,Foraging,Adult,{6;1;2},{1;7;6;0;2}
+18,6,Foraging,Foraging,Adult,{3;7},{1;7;3;0;2}
+18,7,Foraging,Foraging,Adult,{6},{3;6;1;0}
+19,0,Foraging,Waiting Area,Adult,{},{3;6;1;7}
+19,1,Foraging,Waiting Area,Adult,{3},{3;0;6;7;2}
+19,2,Foraging,Foraging,Adult,{3},{3;6;1}
+19,3,Foraging,Foraging,Adult,{6;1;2},{1;7;6;0;2}
+19,6,Foraging,Foraging,Adult,{3;7},{1;7;3;0;2}
+19,7,Foraging,Foraging,Adult,{6},{3;6;1;0}
+20,0,Foraging,Waiting Area,Adult,{5},{1;5;3;6;7}
+20,1,Foraging,Waiting Area,Adult,{3},{7;5;3;6;0;2}
+20,2,Foraging,Foraging,Adult,{},{3;6;1}
+20,3,Foraging,Foraging,Adult,{6;1},{1;7;5;6;0;2}
+20,5,Foraging,Foraging,Adult,{6;7;0},{1;7;3;6;0}
+20,6,Foraging,Foraging,Adult,{3;7;5},{1;7;5;3;0;2}
+20,7,Foraging,Foraging,Adult,{6;5},{1;5;3;6;0}
+21,0,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;5;3;6;7}
+21,1,Foraging,Waiting Area,Adult,{3},{7;5;3;6;0;2}
+21,2,Foraging,Foraging,Adult,{},{3;6;1}
+21,3,Foraging,Foraging,Adult,{6;1},{1;7;5;6;0;2}
+21,5,Foraging,Foraging,Adult,{6;7},{1;7;3;6;0}
+21,6,Foraging,Foraging,Adult,{3;7;5},{1;7;5;3;0;2}
+21,7,Foraging,Foraging,Adult,{6;5},{1;5;3;6;0}
+22,0,Low sitting/standing (stationary),Waiting Area,Adult,{},{3;6;7;5}
+22,2,Foraging,Foraging,Adult,{},{3;6}
+22,3,Foraging,Foraging,Adult,{6},{5;0;6;7;2}
+22,5,Foraging,Foraging,Adult,{7},{3;6;7;0}
+22,6,Foraging,Foraging,Adult,{3;7},{5;3;0;7;2}
+22,7,Foraging,Foraging,Adult,{6;5},{3;6;0;5}
+23,0,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7;5}
+23,2,Foraging,Foraging,Adult,{},{6}
+23,5,Foraging,Foraging,Adult,{7},{6;7;0}
+23,6,Moving,Foraging,Adult,{7},{5;7;0;2}
+23,7,Foraging,Foraging,Adult,{6;5},{5;6;0}
+24,0,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7;5}
+24,2,Foraging,Foraging,Adult,{},{6}
+24,5,Foraging,Foraging,Adult,{7},{6;7;0}
+24,6,Moving,Foraging,Adult,{},{5;7;0;2}
+24,7,Foraging,Foraging,Adult,{5},{5;6;0}
+25,0,Foraging,Waiting Area,Adult,{},{6;7;5}
+25,2,Foraging,Foraging,Adult,{},{6}
+25,5,Foraging,Foraging,Adult,{7},{6;7;0}
+25,6,Foraging,Foraging,Adult,{},{5;7;0;2}
+25,7,Foraging,Foraging,Adult,{5},{5;6;0}
+26,0,Foraging,Waiting Area,Adult,{},{3;6;7;5}
+26,2,Foraging,Foraging,Adult,{},{3;6}
+26,3,Foraging,Foraging,Adult,{6;7},{5;0;6;7;2}
+26,5,Foraging,Foraging,Adult,{7},{3;6;7;0}
+26,6,Foraging,Foraging,Adult,{3},{5;3;0;7;2}
+26,7,Foraging,Foraging,Adult,{3;5},{3;6;0;5}
+27,0,Foraging,Waiting Area,Adult,{},{3;6;7;5}
+27,3,Foraging,Foraging,Adult,{6;7},{5;6;7;0}
+27,5,Foraging,Foraging,Adult,{7},{3;6;7;0}
+27,6,Foraging,Foraging,Adult,{3},{3;7;0;5}
+27,7,Foraging,Foraging,Adult,{3;5},{3;6;0;5}
+28,0,Foraging,Waiting Area,Adult,{},{6;7;5}
+28,2,Foraging,Foraging,Adult,{},{6}
+28,5,Foraging,Foraging,Adult,{7},{6;7;0}
+28,6,Foraging,Foraging,Adult,{},{5;7;0;2}
+28,7,Foraging,Foraging,Adult,{5},{5;6;0}
+29,0,Foraging,Waiting Area,Adult,{6},{6;7;5}
+29,2,Foraging,Foraging,Adult,{},{6}
+29,5,Foraging,Foraging,Adult,{7},{6;7;0}
+29,6,Foraging,Foraging,Adult,{0},{5;7;0;2}
+29,7,Foraging,Foraging,Adult,{5},{5;6;0}
+30,0,Foraging,Waiting Area,Adult,{6},{5;3;6;7;2}
+30,2,Foraging,Foraging,Adult,{},{3;6;0}
+30,3,Foraging,Foraging,Adult,{6},{5;0;6;7;2}
+30,5,Foraging,Foraging,Adult,{7},{3;6;7;0}
+30,6,Foraging,Foraging,Adult,{3;0},{5;3;0;7;2}
+30,7,Foraging,Foraging,Adult,{5},{3;6;0;5}
+31,0,Foraging,Waiting Area,Adult,{6},{5;3;6;7;2}
+31,2,Foraging,Foraging,Adult,{},{3;6;0}
+31,3,Foraging,Foraging,Adult,{6},{5;0;6;7;2}
+31,5,Foraging,Foraging,Adult,{7},{3;6;7;0}
+31,6,Foraging,Foraging,Adult,{3;0},{5;3;0;7;2}
+31,7,Foraging,Foraging,Adult,{5},{3;6;0;5}
+32,0,Foraging,Waiting Area,Adult,{6},{5;3;6;7;2}
+32,2,Foraging,Foraging,Adult,{},{3;6;0}
+32,3,Foraging,Foraging,Adult,{6},{5;0;6;7;2}
+32,5,Foraging,Foraging,Adult,{7},{3;6;7;0}
+32,6,Foraging,Foraging,Adult,{3;0},{5;3;0;7;2}
+32,7,Foraging,Foraging,Adult,{5},{3;6;0;5}
+33,0,Foraging,Waiting Area,Adult,{6},{5;3;6;7;2}
+33,2,Foraging,Foraging,Adult,{},{3;6;0}
+33,3,Foraging,Foraging,Adult,{6},{5;0;6;7;2}
+33,5,Foraging,Foraging,Adult,{7},{3;6;7;0}
+33,6,Foraging,Foraging,Adult,{3;0},{5;3;0;7;2}
+33,7,Foraging,Foraging,Adult,{5},{3;6;0;5}
+34,0,Foraging,Waiting Area,Adult,{},{3;6;5;2}
+34,2,Foraging,Foraging,Adult,{},{3;6;0}
+34,3,Foraging,Foraging,Adult,{6},{5;0;6;7;2}
+34,5,Foraging,Foraging,Adult,{7},{3;6;7;0}
+34,6,Foraging,Foraging,Adult,{3},{5;3;0;7;2}
+34,7,Foraging,Foraging,Adult,{5},{3;6;5}
+35,0,Foraging,Waiting Area,Adult,{},{3;6;5;2}
+35,2,Foraging,Foraging,Adult,{},{3;6;0}
+35,3,Foraging,Foraging,Adult,{6},{5;0;6;7;2}
+35,5,Foraging,Foraging,Adult,{7},{3;6;7;0}
+35,6,Foraging,Foraging,Adult,{3},{5;3;0;7;2}
+35,7,Foraging,Foraging,Adult,{5},{3;6;5}
+36,0,Foraging,Waiting Area,Adult,{},{3;6;5;2}
+36,2,Foraging,Foraging,Adult,{},{3;6;0}
+36,3,Foraging,Foraging,Adult,{6;7},{5;0;6;7;2}
+36,5,Foraging,Foraging,Adult,{7},{3;6;7;0}
+36,6,Foraging,Foraging,Adult,{3},{5;3;0;7;2}
+36,7,Foraging,Foraging,Adult,{3;5},{3;6;5}
+37,0,Foraging,Waiting Area,Adult,{},{3;6;5;2}
+37,2,Foraging,Foraging,Adult,{},{3;6;0}
+37,3,Foraging,Foraging,Adult,{6},{5;0;6;7;2}
+37,5,Foraging,Foraging,Adult,{7},{3;6;7;0}
+37,6,Foraging,Foraging,Adult,{3},{5;3;0;7;2}
+37,7,Foraging,Foraging,Adult,{5},{3;6;5}
+38,0,Foraging,Waiting Area,Adult,{},{3;6;5;2}
+38,2,Foraging,Foraging,Adult,{},{3;6;0}
+38,3,Foraging,Foraging,Adult,{6},{5;0;6;7;2}
+38,5,Foraging,Foraging,Adult,{7},{3;6;7;0}
+38,6,Foraging,Foraging,Adult,{3},{5;3;0;7;2}
+38,7,Foraging,Foraging,Adult,{5},{3;6;5}
+39,0,Foraging,Waiting Area,Adult,{},{3;6;5;2}
+39,2,Foraging,Foraging,Adult,{},{3;6;0}
+39,3,Foraging,Foraging,Adult,{6;7},{5;0;6;7;2}
+39,5,Foraging,Foraging,Adult,{7},{3;6;7;0}
+39,6,Foraging,Foraging,Adult,{3},{5;3;0;7;2}
+39,7,Foraging,Foraging,Adult,{3;5},{3;6;5}
+40,0,Foraging,Waiting Area,Adult,{},{3;5;2}
+40,2,Foraging,Foraging,Adult,{3},{3;7;0;5}
+40,3,Foraging,Foraging,Adult,{7;2},{5;7;0;2}
+40,5,Foraging,Foraging,Adult,{7},{3;7;0;2}
+40,7,Foraging,Foraging,Adult,{3;5},{3;5;2}
+41,0,Foraging,Waiting Area,Adult,{},{5;3;6;7;2}
+41,2,Foraging,Foraging,Adult,{3},{3;6;7;0}
+41,3,Foraging,Foraging,Adult,{6;7;2},{5;0;6;7;2}
+41,5,Foraging,Foraging,Adult,{6;7},{3;6;7;0}
+41,6,Foraging,Foraging,Adult,{3;7;5},{5;3;0;7;2}
+41,7,Foraging,Foraging,Adult,{3;6;5},{5;3;6;0;2}
+42,0,Foraging,Waiting Area,Adult,{},{3;7;5;2}
+42,2,Foraging,Foraging,Adult,{3},{3;7;0;5}
+42,3,Foraging,Foraging,Adult,{7;2},{5;7;0;2}
+42,5,Foraging,Foraging,Adult,{7},{3;7;0;2}
+42,7,Foraging,Foraging,Adult,{3;5},{3;0;5;2}
+43,0,Foraging,Waiting Area,Adult,{},{3;7;5;2}
+43,2,Foraging,Foraging,Adult,{3},{3;7;0;5}
+43,3,Foraging,Foraging,Adult,{7;2},{5;7;0;2}
+43,5,Foraging,Foraging,Adult,{7},{3;7;0;2}
+43,7,Foraging,Foraging,Adult,{3;5},{3;0;5;2}
+44,0,Foraging,Waiting Area,Adult,{},{3;7;5}
+44,2,Foraging,Foraging,Adult,{},{3;7}
+44,3,Foraging,Foraging,Adult,{7},{5;7;0;2}
+44,5,Foraging,Foraging,Adult,{7},{3;7;0}
+44,7,Foraging,Foraging,Adult,{3;5},{3;0;5;2}
+45,0,Foraging,Waiting Area,Adult,{},{3;7;5}
+45,2,Foraging,Foraging,Adult,{},{3;7}
+45,3,Foraging,Foraging,Adult,{7},{5;7;0;2}
+45,5,Foraging,Foraging,Adult,{7},{3;7;0}
+45,7,Foraging,Foraging,Adult,{3;5},{3;0;5;2}
+46,0,Foraging,Waiting Area,Adult,{},{3;7;5}
+46,2,Foraging,Foraging,Adult,{},{3;7}
+46,3,Foraging,Foraging,Adult,{7},{5;7;0;2}
+46,5,Foraging,Foraging,Adult,{7},{3;7;0}
+46,7,Foraging,Foraging,Adult,{3;5},{3;0;5;2}
+47,0,Foraging,Waiting Area,Adult,{},{3;7;5}
+47,2,Foraging,Foraging,Adult,{},{3;7}
+47,3,Foraging,Foraging,Adult,{7},{5;7;0;2}
+47,5,Foraging,Foraging,Adult,{7},{3;7;0}
+47,7,Foraging,Foraging,Adult,{3;5},{3;0;5;2}
+48,0,Foraging,Waiting Area,Adult,{},{3;7;5;2}
+48,2,Foraging,Foraging,Adult,{},{3;7;0}
+48,3,Foraging,Foraging,Adult,{7},{5;7;0;2}
+48,5,Foraging,Foraging,Adult,{7},{3;7;0}
+48,7,Foraging,Foraging,Adult,{3;5},{3;0;5;2}
+49,0,Foraging,Waiting Area,Adult,{},{3;7;5;2}
+49,2,Foraging,Foraging,Adult,{},{3;0}
+49,3,Foraging,Foraging,Adult,{7},{5;7;0;2}
+49,5,Foraging,Foraging,Adult,{7},{3;7;0}
+49,7,Foraging,Foraging,Adult,{3;5},{3;0;5}
+50,0,Foraging,Waiting Area,Adult,{},{3;7;5;2}
+50,2,Foraging,Foraging,Adult,{},{3;0}
+50,3,Foraging,Foraging,Adult,{7},{5;7;0;2}
+50,5,Foraging,Foraging,Adult,{7},{3;7;0}
+50,7,Foraging,Foraging,Adult,{3;5},{3;0;5}
+51,0,Foraging,Waiting Area,Adult,{},{3;5;2}
+51,2,Foraging,Foraging,Adult,{},{3;0;5}
+51,3,Foraging,Foraging,Adult,{7},{5;7;0;2}
+51,5,Foraging,Foraging,Adult,{7},{3;7;0;2}
+51,7,Foraging,Foraging,Adult,{3;5},{3;5}
+52,0,Foraging,Waiting Area,Adult,{},{3;5;2}
+52,2,Foraging,Foraging,Adult,{},{3;7;0}
+52,3,Foraging,Foraging,Adult,{7},{5;7;0;2}
+52,5,Foraging,Waiting Area,Adult,{7},{3;7;0}
+52,7,Foraging,Foraging,Adult,{3;5},{3;5;2}
+53,0,Foraging,Waiting Area,Adult,{},{3;5;2}
+53,2,Foraging,Foraging,Adult,{},{3;7;0}
+53,3,Foraging,Foraging,Adult,{7},{5;7;0;2}
+53,5,Foraging,Waiting Area,Adult,{7},{3;7;0}
+53,7,Foraging,Foraging,Adult,{3;5},{3;5;2}
+54,0,Foraging,Waiting Area,Adult,{},{5;2}
+54,2,Foraging,Foraging,Adult,{},{7;0}
+54,5,Foraging,Foraging,Adult,{7},{7;0}
+54,7,Foraging,Foraging,Adult,{5},{5;2}
+55,0,Foraging,Waiting Area,Adult,{},{4;2}
+55,2,Foraging,Foraging,Adult,{},{4;0;7}
+55,4,Foraging,Foraging,Adult,{7;5},{5;7;0;2}
+55,5,Foraging,Foraging,Adult,{4;7},{4;7}
+55,7,Foraging,Foraging,Adult,{4;5},{4;5;2}
+56,0,Foraging,Waiting Area,Adult,{},{4;2}
+56,2,Foraging,Foraging,Adult,{},{5;4;0;7}
+56,4,Foraging,Foraging,Adult,{7;5},{5;7;0;2}
+56,5,Foraging,Foraging,Adult,{4;7},{4;7;2}
+56,7,Foraging,Foraging,Adult,{4;5},{4;5;2}
+57,0,Foraging,Waiting Area,Adult,{},{4;2}
+57,2,Foraging,Foraging,Adult,{},{4;0;7}
+57,4,Foraging,Foraging,Adult,{7},{7;0;2}
+57,7,Foraging,Foraging,Adult,{4},{4;2}
+58,0,Foraging,Waiting Area,Adult,{},{4;2}
+58,2,Foraging,Foraging,Adult,{},{4;0;7}
+58,4,Foraging,Foraging,Adult,{7},{7;0;2}
+58,7,Foraging,Foraging,Adult,{4},{4;2}
+59,0,Foraging,Waiting Area,Adult,{},{4;7;2}
+59,2,Foraging,Foraging,Adult,{},{4;0;7}
+59,4,Foraging,Foraging,Adult,{7},{7;0;2}
+59,7,Foraging,Foraging,Adult,{4},{4;0;2}
+60,0,Foraging,Waiting Area,Adult,{},{4;2}
+60,2,Foraging,Foraging,Adult,{},{4;0;7}
+60,4,Foraging,Foraging,Adult,{7},{7;0;2}
+60,7,Foraging,Foraging,Adult,{4},{4;2}
+61,0,Foraging,Waiting Area,Adult,{},{4;2}
+61,2,Foraging,Foraging,Adult,{},{4;0;7}
+61,4,Foraging,Foraging,Adult,{7},{7;0;2}
+61,7,Foraging,Foraging,Adult,{4},{4;2}
+62,0,Foraging,Waiting Area,Adult,{},{4;2}
+62,2,Foraging,Foraging,Adult,{},{4;0;7}
+62,4,Foraging,Foraging,Adult,{7},{7;0;2}
+62,7,Foraging,Foraging,Adult,{4},{4;2}
+63,0,Foraging,Waiting Area,Adult,{},{4;7;2}
+63,2,Foraging,Foraging,Adult,{},{4;0;7}
+63,4,Foraging,Foraging,Adult,{7},{7;0;2}
+63,7,Foraging,Foraging,Adult,{4},{4;0;2}
+64,0,Foraging,Waiting Area,Adult,{},{4;7}
+64,2,Foraging,Foraging,Adult,{},{4;7}
+64,4,Foraging,Foraging,Adult,{7},{7;0;2}
+64,7,Foraging,Foraging,Adult,{4},{4;0;2}
+65,0,Foraging,Waiting Area,Adult,{},{4;7}
+65,2,Foraging,Foraging,Adult,{},{4;7}
+65,4,Foraging,Foraging,Adult,{7},{7;0;2}
+65,7,Foraging,Foraging,Adult,{4},{4;0;2}
+66,0,Foraging,Waiting Area,Adult,{},{3;4;7}
+66,2,Foraging,Foraging,Adult,{},{3;4;7}
+66,3,Foraging,Foraging,Adult,{4;7},{4;0;7;2}
+66,4,Foraging,Foraging,Adult,{3;7},{3;7;0;2}
+66,7,Foraging,Foraging,Adult,{3;4},{3;4;0;2}
+67,0,Foraging,Waiting Area,Adult,{1},{1;7;4}
+67,1,Foraging,Foraging,Adult,{0},{4;0;7}
+67,2,Foraging,Foraging,Adult,{},{4;7}
+67,4,Foraging,Foraging,Adult,{7},{1;0;7;2}
+67,7,Foraging,Foraging,Adult,{4},{4;1;0;2}
+68,0,Foraging,Waiting Area,Adult,{1},{3;1;7;4}
+68,1,Foraging,Waiting Area,Adult,{0},{4;0;7}
+68,2,Foraging,Foraging,Adult,{},{3;4;7}
+68,3,Foraging,Foraging,Adult,{4;7},{4;0;7;2}
+68,4,Foraging,Foraging,Adult,{3;7},{1;7;3;0;2}
+68,7,Foraging,Foraging,Adult,{3;4},{1;4;3;0;2}
+69,0,Foraging,Waiting Area,Adult,{1;7},{3;1;7}
+69,1,Foraging,Waiting Area,Adult,{0},{7;0}
+69,2,Foraging,Foraging,Adult,{},{3;7}
+69,3,Foraging,Foraging,Adult,{7},{7;0;2}
+69,7,Foraging,Foraging,Adult,{3;0},{3;1;0;2}
+70,0,Foraging,Waiting Area,Adult,{1;4},{3;1;7;4}
+70,1,Foraging,Waiting Area,Adult,{0},{4;0;7}
+70,2,Foraging,Foraging,Adult,{},{3;4}
+70,3,Foraging,Foraging,Adult,{4;7},{4;0;7;2}
+70,4,Foraging,Foraging,Adult,{3;7;0},{1;7;3;0;2}
+70,7,Foraging,Foraging,Adult,{3;4},{3;1;0;4}
+71,0,Foraging,Waiting Area,Adult,{4;7},{3;4;7}
+71,2,Foraging,Foraging,Adult,{},{3;4}
+71,3,Foraging,Foraging,Adult,{4;7},{4;0;7;2}
+71,4,Foraging,Foraging,Adult,{3;7;0},{3;7;0;2}
+71,7,Foraging,Foraging,Adult,{3;4;0},{3;4;0}
+72,0,Foraging,Waiting Area,Adult,{4;7},{3;1;7;4}
+72,1,Foraging,Waiting Area,Adult,{},{4;0;7}
+72,2,Foraging,Foraging,Adult,{},{3;4}
+72,3,Foraging,Foraging,Adult,{4},{4;0;7;2}
+72,4,Foraging,Foraging,Adult,{3;7;0},{1;7;3;0;2}
+72,7,Foraging,Foraging,Adult,{4;0},{3;1;0;4}
+73,0,Foraging,Waiting Area,Adult,{7},{3;1;7}
+73,1,Foraging,Waiting Area,Adult,{},{7;0}
+73,2,Foraging,Foraging,Adult,{},{3}
+73,3,Foraging,Foraging,Adult,{7},{7;0;2}
+73,7,Foraging,Foraging,Adult,{3;0},{3;1;0}
+74,0,Foraging,Waiting Area,Adult,{7},{3;6;1;7}
+74,1,Foraging,Waiting Area,Adult,{},{7;0}
+74,2,Foraging,Foraging,Adult,{},{3;6}
+74,3,Foraging,Foraging,Adult,{6;7},{6;7;0;2}
+74,6,Foraging,Foraging,Adult,{3;7},{3;7;0;2}
+74,7,Foraging,Foraging,Adult,{3;6;0},{3;6;1;0}
+75,0,Foraging,Waiting Area,Adult,{7},{3;6;1;7}
+75,1,Foraging,Foraging,Adult,{},{7;0}
+75,2,Foraging,Foraging,Adult,{6},{3;6;7}
+75,3,Foraging,Foraging,Adult,{6;7},{6;7;0;2}
+75,6,Foraging,Foraging,Adult,{3;2},{3;7;0;2}
+75,7,Foraging,Foraging,Adult,{3;0},{1;3;6;0;2}
+76,0,Foraging,Waiting Area,Adult,{7},{6;1;7}
+76,1,Foraging,Foraging,Adult,{},{7;0}
+76,2,Foraging,Foraging,Adult,{6},{6;7}
+76,6,Foraging,Foraging,Adult,{2},{7;0;2}
+76,7,Foraging,Foraging,Adult,{0},{6;1;0;2}
+77,0,Foraging,Waiting Area,Adult,{7},{6;7}
+77,2,Foraging,Foraging,Adult,{6},{6;7}
+77,6,Foraging,Foraging,Adult,{2},{7;0;2}
+77,7,Foraging,Foraging,Adult,{0},{6;0;2}
+78,0,Foraging,Waiting Area,Adult,{7},{3;6;7}
+78,2,Foraging,Foraging,Adult,{6},{3;6;7}
+78,3,Foraging,Foraging,Adult,{6;7},{6;7;0;2}
+78,6,Foraging,Foraging,Adult,{3;2},{3;7;0;2}
+78,7,Foraging,Foraging,Adult,{3;0},{3;6;0;2}
+79,0,Foraging,Waiting Area,Adult,{7},{6;7}
+79,2,Foraging,Foraging,Adult,{6},{6;7}
+79,6,Foraging,Foraging,Adult,{2},{7;0;2}
+79,7,Foraging,Foraging,Adult,{0},{6;0;2}
+80,0,Foraging,Waiting Area,Adult,{},{3;6}
+80,2,Foraging,Foraging,Adult,{6},{3;6}
+80,3,Foraging,Foraging,Adult,{},{6;0;2}
+80,6,Foraging,Foraging,Adult,{2},{3;0;2}
+81,0,Foraging,Waiting Area,Adult,{},{3;6}
+81,2,Foraging,Foraging,Adult,{6},{3;6}
+81,3,Foraging,Foraging,Adult,{},{6;0;2}
+81,6,Foraging,Foraging,Adult,{2},{3;0;2}
+82,0,Foraging,Waiting Area,Adult,{},{3;6}
+82,2,Foraging,Foraging,Adult,{6},{3;6}
+82,3,Foraging,Foraging,Adult,{},{6;0;2}
+82,6,Foraging,Foraging,Adult,{2},{3;0;2}
+83,2,Foraging,Foraging,Adult,{6},{3;6}
+83,3,Foraging,Foraging,Adult,{},{6;2}
+83,6,Foraging,Foraging,Adult,{2},{3;2}
+84,2,Foraging,Foraging,Adult,{6},{3;6}
+84,3,Foraging,Foraging,Adult,{},{6;2}
+84,6,Foraging,Foraging,Adult,{2},{3;2}
+85,0,Foraging,Waiting Area,Adult,{},{3;4}
+85,2,Foraging,Foraging,Adult,{3;6},{3;6;4}
+85,3,Foraging,Foraging,Adult,{4;2},{6;4;0;2}
+85,4,Foraging,Foraging,Adult,{3},{3;6;0;2}
+85,6,Foraging,Foraging,Adult,{2},{3;4;2}
+86,2,Foraging,Foraging,Adult,{3;6},{3;6;4}
+86,3,Foraging,Foraging,Adult,{4;2},{6;4;2}
+86,4,Foraging,Foraging,Adult,{3},{3;6;2}
+86,6,Foraging,Foraging,Adult,{2},{3;4;2}
+87,0,Foraging,Foraging,Adult,{1},{1;4}
+87,1,Foraging,Foraging,Adult,{0},{4;0}
+87,2,Foraging,Foraging,Adult,{3;6},{3;6;4}
+87,3,Foraging,Foraging,Adult,{4;2},{6;4;2}
+87,4,Foraging,Foraging,Adult,{3},{1;3;6;0;2}
+87,6,Foraging,Foraging,Adult,{2},{3;4;2}
+88,0,Foraging,Foraging,Adult,{1},{1;4}
+88,1,Foraging,Foraging,Adult,{0},{4;0}
+88,2,Foraging,Foraging,Adult,{3;6},{3;6;4}
+88,3,Foraging,Foraging,Adult,{4;2},{6;4;2}
+88,4,Foraging,Foraging,Adult,{3},{1;3;6;0;2}
+88,6,Foraging,Foraging,Adult,{2},{3;4;2}
+89,0,Foraging,Waiting Area,Adult,{1},{1;4}
+89,1,Foraging,Foraging,Adult,{0},{4;0}
+89,2,Foraging,Foraging,Adult,{3;6},{3;6;4}
+89,3,Foraging,Foraging,Adult,{4;2},{6;4;2}
+89,4,Foraging,Foraging,Adult,{3},{1;3;6;0;2}
+89,6,Foraging,Foraging,Adult,{2},{3;4;2}
+90,0,Foraging,Waiting Area,Adult,{1},{1}
+90,1,Foraging,Foraging,Adult,{0},{0}
+90,2,Foraging,Foraging,Adult,{3;6},{3;6}
+90,3,Foraging,Foraging,Adult,{2},{6;2}
+90,6,Foraging,Foraging,Adult,{2},{3;2}
+91,0,Foraging,Waiting Area,Adult,{1},{1;4}
+91,1,Foraging,Foraging,Adult,{0},{4;0}
+91,2,Foraging,Foraging,Adult,{3;6},{3;6;4}
+91,3,Foraging,Foraging,Adult,{4;2},{6;4;2}
+91,4,Foraging,Foraging,Adult,{3},{1;3;6;0;2}
+91,6,Foraging,Foraging,Adult,{2},{3;4;2}
+92,0,Foraging,Waiting Area,Adult,{1},{1;4}
+92,1,Foraging,Foraging,Adult,{0},{4;0}
+92,2,Foraging,Foraging,Adult,{3;6},{3;6;4}
+92,3,Foraging,Foraging,Adult,{4;2},{6;4;2}
+92,4,Foraging,Foraging,Adult,{3},{1;3;6;0;2}
+92,6,Foraging,Foraging,Adult,{2},{3;4;2}
+93,0,Foraging,Waiting Area,Adult,{1},{1;4}
+93,1,Foraging,Foraging,Adult,{0},{4;0}
+93,2,Foraging,Foraging,Adult,{3;6},{3;6;4}
+93,3,Foraging,Foraging,Adult,{4;2},{6;4;2}
+93,4,Foraging,Foraging,Adult,{3},{1;3;6;0;2}
+93,6,Foraging,Foraging,Adult,{2},{3;4;2}
+94,0,Foraging,Foraging,Adult,{1},{1;4}
+94,1,Foraging,Foraging,Adult,{0},{4;0}
+94,2,Foraging,Foraging,Adult,{3},{3;6;4}
+94,3,Foraging,Foraging,Adult,{4;2},{6;4;2}
+94,4,Foraging,Foraging,Adult,{3},{1;3;6;0;2}
+94,6,Foraging,Foraging,Adult,{},{3;4;2}
+95,0,Foraging,Foraging,Adult,{1},{1;4}
+95,1,Foraging,Foraging,Adult,{0},{4;0}
+95,2,Foraging,Foraging,Adult,{3;5},{3;6;4;5}
+95,3,Foraging,Foraging,Adult,{4;5;2},{6;4;5;2}
+95,4,Foraging,Foraging,Adult,{3;5},{1;5;3;6;0;2}
+95,5,Foraging,Foraging,Adult,{3;6;4;2},{3;6;4;2}
+95,6,Foraging,Foraging,Adult,{5},{3;4;5;2}
+96,0,Foraging,Foraging,Adult,{1},{1;4}
+96,1,Foraging,Foraging,Adult,{0},{4;0}
+96,2,Foraging,Foraging,Adult,{3;5},{3;6;4;5}
+96,3,Foraging,Foraging,Adult,{4;5;2},{6;4;5;2}
+96,4,Foraging,Foraging,Adult,{3;5},{1;5;3;6;0;2}
+96,5,Foraging,Foraging,Adult,{3;6;4;2},{3;6;4;2}
+96,6,Foraging,Foraging,Adult,{5},{3;4;5;2}
+97,0,Foraging,Foraging,Adult,{1},{1;4}
+97,1,Foraging,Foraging,Adult,{0},{4;0}
+97,2,Foraging,Foraging,Adult,{3;5},{3;6;4;5}
+97,3,Foraging,Foraging,Adult,{4;5;2},{6;4;5;2}
+97,4,Foraging,Foraging,Adult,{3;5},{1;5;3;6;0;2}
+97,5,Foraging,Foraging,Adult,{3;6;4;2},{3;6;4;2}
+97,6,Foraging,Waiting Area,Adult,{5},{3;4;5;2}
+98,0,Foraging,Foraging,Adult,{1},{1;4}
+98,1,Foraging,Foraging,Adult,{0},{4;0}
+98,2,Foraging,Foraging,Adult,{3;5},{3;6;4;5}
+98,3,Foraging,Foraging,Adult,{4;5;2},{6;4;5;2}
+98,4,Foraging,Foraging,Adult,{3;5},{1;5;3;6;0;2}
+98,5,Foraging,Foraging,Adult,{3;4;2},{3;6;4;2}
+98,6,Foraging,Waiting Area,Adult,{},{3;4;5;2}
+99,0,Foraging,Foraging,Adult,{1},{1;4}
+99,1,Foraging,Foraging,Adult,{0},{4;0}
+99,2,Foraging,Foraging,Adult,{3;5},{3;6;4;5}
+99,3,Foraging,Foraging,Adult,{4;5;2},{6;4;5;2}
+99,4,Foraging,Foraging,Adult,{3;5},{1;5;3;6;0;2}
+99,5,Foraging,Foraging,Adult,{3;4;2},{3;6;4;2}
+99,6,Foraging,Waiting Area,Adult,{},{3;4;5;2}
+100,0,Foraging,Foraging,Adult,{1},{1;4}
+100,1,Foraging,Foraging,Adult,{0},{4;0}
+100,2,Foraging,Foraging,Adult,{5},{3;6;4;5}
+100,3,Foraging,Foraging,Adult,{4;5},{6;4;5;2}
+100,4,High sitting/standing (Vigilant),Foraging,Adult,{3;5},{1;5;3;6;0;2}
+100,5,Foraging,Foraging,Adult,{3;4;2},{3;6;4;2}
+100,6,Foraging,Waiting Area,Adult,{},{3;4;5;2}
+101,0,Foraging,Foraging,Adult,{1},{1;4}
+101,1,Foraging,Foraging,Adult,{0},{4;0}
+101,2,Foraging,Foraging,Adult,{5},{3;6;4;5}
+101,3,Foraging,Foraging,Adult,{4;5},{6;4;5;2}
+101,4,High sitting/standing (Vigilant),Foraging,Adult,{3;5},{1;5;3;6;0;2}
+101,5,Foraging,Foraging,Adult,{3;4;2},{3;6;4;2}
+101,6,Foraging,Waiting Area,Adult,{},{3;4;5;2}
+102,0,Foraging,Foraging,Adult,{1},{1;4}
+102,1,Foraging,Foraging,Adult,{0},{4;0}
+102,2,Foraging,Foraging,Adult,{},{3;6;4}
+102,3,Foraging,Foraging,Adult,{4},{6;4;2}
+102,4,High sitting/standing (Vigilant),Waiting Area,Adult,{3},{1;3;6;0;2}
+102,6,Foraging,Waiting Area,Adult,{},{3;4;2}
+103,0,Foraging,Foraging,Adult,{1},{1;4}
+103,1,Foraging,Foraging,Adult,{0},{4;0}
+103,2,Foraging,Foraging,Adult,{},{3;6;4}
+103,3,Foraging,Foraging,Adult,{4},{6;4;2}
+103,4,Foraging,Foraging,Adult,{3},{1;3;6;0;2}
+103,6,Foraging,Waiting Area,Adult,{},{3;4;2}
+104,0,Foraging,Foraging,Adult,{1},{3;1}
+104,1,Foraging,Foraging,Adult,{0},{0}
+104,2,Foraging,Foraging,Adult,{6},{3;6}
+104,3,Foraging,Foraging,Adult,{},{6;0;2}
+104,6,Foraging,Waiting Area,Adult,{2},{3;2}
+105,0,Foraging,Foraging,Adult,{1},{3;1}
+105,1,Foraging,Foraging,Adult,{0},{0}
+105,2,Foraging,Foraging,Adult,{6},{3;6}
+105,3,Foraging,Foraging,Adult,{},{6;0;2}
+105,6,Foraging,Waiting Area,Adult,{2},{3;2}
+106,0,Foraging,Foraging,Adult,{1},{3;1}
+106,1,Foraging,Foraging,Adult,{0},{0}
+106,2,Foraging,Foraging,Adult,{6},{3;6}
+106,3,Foraging,Foraging,Adult,{},{6;0;2}
+106,6,Foraging,Waiting Area,Adult,{2},{3;2}
+107,0,Foraging,Foraging,Adult,{1},{3;1}
+107,1,Foraging,Foraging,Adult,{0},{0}
+107,2,Foraging,Foraging,Adult,{6},{3;6}
+107,3,Foraging,Foraging,Adult,{},{6;0;2}
+107,6,Foraging,Waiting Area,Adult,{2},{3;2}
+108,0,Foraging,Foraging,Adult,{1},{3;1}
+108,1,Foraging,Foraging,Adult,{0},{0}
+108,2,Foraging,Foraging,Adult,{6},{3;6}
+108,3,Foraging,Foraging,Adult,{},{6;0;2}
+108,6,Foraging,Waiting Area,Adult,{2},{3;2}
+109,0,Foraging,Foraging,Adult,{1},{3;1}
+109,1,Foraging,Foraging,Adult,{0},{0}
+109,2,Foraging,Foraging,Adult,{6},{3;6}
+109,3,Foraging,Foraging,Adult,{},{6;0;2}
+109,6,Foraging,Waiting Area,Adult,{2},{3;2}
+110,0,Foraging,Foraging,Adult,{1},{3;1}
+110,1,Foraging,Foraging,Adult,{0},{0}
+110,2,Foraging,Foraging,Adult,{6},{3;6}
+110,3,Foraging,Foraging,Adult,{},{6;0;2}
+110,6,Foraging,Waiting Area,Adult,{2},{3;2}
+111,0,Foraging,Foraging,Adult,{1},{3;1}
+111,1,Foraging,Foraging,Adult,{0},{0}
+111,2,Foraging,Foraging,Adult,{6},{3;6}
+111,3,Foraging,Foraging,Adult,{},{6;0;2}
+111,6,Foraging,Waiting Area,Adult,{2},{3;2}
+112,0,Foraging,Foraging,Adult,{},{3;1}
+112,1,Foraging,Foraging,Adult,{},{0}
+112,2,Foraging,Foraging,Adult,{6},{3;6}
+112,3,Foraging,Foraging,Adult,{},{6;0;2}
+112,6,Foraging,Waiting Area,Adult,{2},{3;2}
+113,0,Foraging,Foraging,Adult,{},{3;1}
+113,1,Foraging,Foraging,Adult,{},{0}
+113,2,Foraging,Foraging,Adult,{6},{3;6}
+113,3,Foraging,Foraging,Adult,{},{6;0;2}
+113,6,Foraging,Foraging,Adult,{2},{3;2}
+114,0,Foraging,Foraging,Adult,{3},{3;1;2}
+114,1,Foraging,Foraging,Adult,{},{0}
+114,2,Foraging,Foraging,Adult,{6},{3;6;0}
+114,3,Foraging,Foraging,Adult,{0},{6;0;2}
+114,6,Foraging,Foraging,Adult,{2},{3;2}
+115,0,Foraging,Foraging,Adult,{3},{3;1}
+115,1,Foraging,Foraging,Adult,{},{0}
+115,2,Foraging,Foraging,Adult,{6},{3;6}
+115,3,Foraging,Foraging,Adult,{0},{6;0;2}
+115,6,Foraging,Foraging,Adult,{2},{3;2}
+116,0,Foraging,Foraging,Adult,{3},{3;6;1}
+116,1,Foraging,Foraging,Adult,{},{0}
+116,2,Foraging,Foraging,Adult,{6},{3;6}
+116,3,Foraging,Foraging,Adult,{0},{6;0;2}
+116,6,Foraging,Foraging,Adult,{2},{3;0;2}
+117,0,Foraging,Foraging,Adult,{},{6;1}
+117,1,Foraging,Foraging,Adult,{},{0}
+117,2,Foraging,Foraging,Adult,{6},{6}
+117,6,Foraging,Foraging,Adult,{2},{0;2}
+118,0,Foraging,Foraging,Adult,{},{6;1}
+118,1,Foraging,Foraging,Adult,{},{0}
+118,2,Foraging,Foraging,Adult,{6},{6}
+118,6,Foraging,Foraging,Adult,{2},{0;2}
+119,0,Foraging,Foraging,Adult,{},{6;1}
+119,1,Foraging,Foraging,Adult,{},{0}
+119,2,Foraging,Foraging,Adult,{6},{6}
+119,6,Foraging,Foraging,Adult,{2},{0;2}
+120,0,Foraging,Foraging,Adult,{},{6;1;2}
+120,1,Foraging,Foraging,Adult,{},{0}
+120,2,Foraging,Foraging,Adult,{6},{6;0}
+120,6,Foraging,Foraging,Adult,{2},{0;2}
+121,1,Foraging,Foraging,Adult,{},{}
+121,2,Foraging,Foraging,Adult,{6},{6}
+121,6,Foraging,Foraging,Adult,{2},{2}
+122,0,Foraging,Foraging,Adult,{6},{6;2}
+122,1,Foraging,Foraging,Adult,{},{}
+122,2,Foraging,Foraging,Adult,{6},{6;0}
+122,6,Foraging,Foraging,Adult,{0;2},{0;2}
+123,0,Moving,Foraging,Adult,{6;2},{6;2}
+123,1,Foraging,Foraging,Adult,{},{}
+123,2,Foraging,Foraging,Adult,{6;0},{6;0}
+123,6,Foraging,Foraging,Adult,{0;2},{0;2}
+124,1,Foraging,Foraging,Adult,{},{}
+124,2,Foraging,Foraging,Adult,{6},{6}
+124,6,Foraging,Foraging,Adult,{2},{2}
+125,0,Moving,Foraging,Adult,{6;2},{6;2}
+125,1,Foraging,Foraging,Adult,{},{}
+125,2,Foraging,Foraging,Adult,{6;0},{6;0}
+125,6,Foraging,Foraging,Adult,{0;2},{0;2}
+126,0,High sitting/standing (Vigilant),Foraging,Adult,{},{6;2}
+126,1,Foraging,Foraging,Adult,{},{}
+126,2,Foraging,Foraging,Adult,{6},{6;0}
+126,6,Foraging,Foraging,Adult,{2},{0;2}
+127,0,High sitting/standing (Vigilant),Foraging,Adult,{},{6;2}
+127,1,Foraging,Foraging,Adult,{},{}
+127,2,Foraging,Foraging,Adult,{6},{6;0}
+127,6,Foraging,Foraging,Adult,{2},{0;2}
+128,0,High sitting/standing (Vigilant),Foraging,Adult,{},{6;2}
+128,1,Foraging,Foraging,Adult,{},{}
+128,2,Foraging,Foraging,Adult,{6},{6;4;0}
+128,4,Foraging,Foraging,Adult,{},{6;2}
+128,6,Foraging,Foraging,Adult,{2},{4;0;2}
+129,0,Moving,Foraging,Adult,{6;2},{6;2}
+129,1,Foraging,Foraging,Adult,{},{}
+129,2,Foraging,Foraging,Adult,{6;0},{3;6;0}
+129,3,Foraging,Foraging,Adult,{},{6;2}
+129,6,Foraging,Foraging,Adult,{0;2},{3;0;2}
+130,0,Foraging,Foraging,Adult,{6},{3;6}
+130,1,Foraging,Foraging,Adult,{},{}
+130,3,Foraging,Foraging,Adult,{},{6;0}
+130,6,Foraging,Foraging,Adult,{0},{3;0}
+131,0,Foraging,Foraging,Adult,{6},{6}
+131,1,Foraging,Foraging,Adult,{},{}
+131,6,Foraging,Foraging,Adult,{0},{0}
+132,1,Foraging,Foraging,Adult,{},{}
+132,6,Foraging,Foraging,Adult,{},{}
+133,1,Foraging,Foraging,Adult,{},{}
+133,2,Foraging,Foraging,Adult,{6},{6;4}
+133,4,Foraging,Foraging,Adult,{},{6;2}
+133,6,Foraging,Foraging,Adult,{2},{4;2}
+134,1,Foraging,Foraging,Adult,{},{}
+134,2,Foraging,Foraging,Adult,{6},{6;4}
+134,4,Foraging,Foraging,Adult,{},{6;2}
+134,6,Foraging,Foraging,Adult,{2},{4;2}
+135,1,Foraging,Foraging,Adult,{},{4}
+135,2,Foraging,Foraging,Adult,{6},{6;4}
+135,4,Foraging,Foraging,Adult,{},{6;1;2}
+135,6,Foraging,Foraging,Adult,{2},{4;2}
+136,1,Foraging,Foraging,Adult,{},{4}
+136,2,Foraging,Foraging,Adult,{6},{6;4}
+136,4,Foraging,Foraging,Adult,{},{6;1;2}
+136,6,Foraging,Foraging,Adult,{2},{4;2}
+137,1,Foraging,Foraging,Adult,{},{4}
+137,4,Foraging,Foraging,Adult,{},{6;1}
+137,6,Foraging,Foraging,Adult,{},{4}
+138,1,Foraging,Foraging,Adult,{},{4}
+138,4,Foraging,Foraging,Adult,{},{6;1}
+138,6,Foraging,Foraging,Adult,{},{4}
+139,1,Foraging,Foraging,Adult,{},{4}
+139,2,Foraging,Foraging,Adult,{6},{6;4}
+139,4,Foraging,Foraging,Adult,{},{6;1;2}
+139,6,Foraging,Foraging,Adult,{2},{4;2}
+140,0,Foraging,Foraging,Adult,{6;4;2},{6;4;2}
+140,1,Foraging,Foraging,Adult,{},{4}
+140,2,Foraging,Foraging,Adult,{6;0},{6;4;0}
+140,4,Foraging,Foraging,Adult,{0},{6;1;0;2}
+140,6,Foraging,Foraging,Adult,{0;2},{4;0;2}
+141,0,Foraging,Foraging,Adult,{6;4;2},{6;4;2}
+141,1,Foraging,Foraging,Adult,{},{4}
+141,2,Foraging,Foraging,Adult,{6;0},{6;4;0}
+141,4,Foraging,Foraging,Adult,{0},{6;1;0;2}
+141,6,Foraging,Foraging,Adult,{0;2},{4;0;2}
+142,0,Foraging,Foraging,Adult,{6;4;2},{6;4;2}
+142,1,Foraging,Foraging,Adult,{},{4}
+142,2,Foraging,Foraging,Adult,{6;0},{6;4;0}
+142,4,Foraging,Foraging,Adult,{0},{6;1;0;2}
+142,6,Foraging,Foraging,Adult,{0;2},{4;0;2}
+143,0,Foraging,Foraging,Adult,{6;4},{6;4}
+143,1,Foraging,Foraging,Adult,{},{4}
+143,4,Foraging,Foraging,Adult,{0},{6;1;0}
+143,6,Foraging,Foraging,Adult,{0},{4;0}
+144,0,Foraging,Foraging,Adult,{6;4},{6;4}
+144,1,Foraging,Foraging,Adult,{},{4}
+144,4,Foraging,Foraging,Adult,{0},{6;1;0}
+144,6,Foraging,Foraging,Adult,{0},{4;0}
+145,0,Foraging,Foraging,Adult,{3;6;4},{3;6;4;5}
+145,1,Foraging,Foraging,Adult,{},{3;4;5}
+145,3,Foraging,Foraging,Adult,{5;4;0},{1;4;5;6;0}
+145,4,Foraging,Foraging,Adult,{3;0;5},{1;5;3;6;0}
+145,5,Foraging,Foraging,Adult,{3;4},{1;4;3;6;0}
+145,6,Foraging,Foraging,Adult,{0},{3;4;0;5}
+146,0,Foraging,Foraging,Adult,{3;6;4},{3;6;4;5}
+146,1,Foraging,Foraging,Adult,{},{3;4;5}
+146,3,Foraging,Foraging,Adult,{5;4;0},{1;4;5;6;0}
+146,4,Foraging,Foraging,Adult,{3;0;5},{1;5;3;6;0}
+146,5,Foraging,Foraging,Adult,{3;4},{1;4;3;6;0}
+146,6,Foraging,Foraging,Adult,{0},{3;4;0;5}
+147,0,Foraging,Foraging,Adult,{3;6;4},{3;6;4;5}
+147,1,Foraging,Foraging,Adult,{},{3;4;5}
+147,3,Foraging,Foraging,Adult,{5;4;0},{1;4;5;6;0}
+147,4,Foraging,Foraging,Adult,{3;0;5},{1;5;3;6;0}
+147,5,Foraging,Foraging,Adult,{3;4},{1;4;3;6;0}
+147,6,Foraging,Foraging,Adult,{0},{3;4;0;5}
+148,0,Foraging,Foraging,Adult,{3;6;4},{4;5;3;6;2}
+148,1,Foraging,Foraging,Adult,{},{3;4;5}
+148,2,Foraging,Foraging,Adult,{6},{3;6;4;0}
+148,3,Foraging,Foraging,Adult,{5;4;0},{4;1;5;6;0;2}
+148,4,Foraging,Foraging,Adult,{3;0;5},{1;5;3;6;0;2}
+148,5,Foraging,Foraging,Adult,{3;4},{1;4;3;6;0}
+148,6,Foraging,Foraging,Adult,{0;2},{4;5;3;0;2}
+149,0,Foraging,Foraging,Adult,{3},{3;6;5;2}
+149,1,Foraging,Foraging,Adult,{},{3;5}
+149,2,Foraging,Foraging,Adult,{6},{3;6;0}
+149,3,Foraging,Foraging,Adult,{5;0},{1;5;6;0;2}
+149,5,Foraging,Foraging,Adult,{3},{3;6;1;0}
+149,6,Foraging,Foraging,Adult,{2},{3;0;5;2}
+150,0,Foraging,Foraging,Adult,{3;5},{1;5;3;6;2}
+150,1,Foraging,Foraging,Adult,{5},{3;0;5}
+150,2,Foraging,Foraging,Adult,{6},{3;6;0}
+150,3,Foraging,Foraging,Adult,{5;0},{1;5;6;0;2}
+150,5,Foraging,Foraging,Adult,{3;1;0},{3;6;1;0}
+150,6,Foraging,Foraging,Adult,{2},{3;0;5;2}
+151,0,Foraging,Foraging,Adult,{3},{1;5;3;6;2}
+151,1,Foraging,Foraging,Adult,{5},{3;0;5}
+151,2,Foraging,Foraging,Adult,{6},{3;6;0}
+151,3,Foraging,Foraging,Adult,{5;0},{1;5;6;0;2}
+151,5,Foraging,Foraging,Adult,{3;1},{3;6;1;0}
+151,6,Foraging,Foraging,Adult,{2},{3;0;5;2}
+152,0,Foraging,Foraging,Adult,{3},{1;5;3;6;2}
+152,1,Foraging,Foraging,Adult,{5},{3;0;5}
+152,2,Foraging,Foraging,Adult,{6},{3;6;0}
+152,3,Foraging,Foraging,Adult,{5;0},{1;5;6;0;2}
+152,5,Foraging,Foraging,Adult,{3;1},{3;6;1;0}
+152,6,Foraging,Foraging,Adult,{2},{3;0;5;2}
+153,0,Foraging,Foraging,Adult,{3},{1;5;3;6;2}
+153,1,Foraging,Foraging,Adult,{5},{3;0;5}
+153,2,Foraging,Foraging,Adult,{6},{3;6;0}
+153,3,Foraging,Foraging,Adult,{5;0},{1;5;6;0;2}
+153,5,Foraging,Foraging,Adult,{3;1},{3;6;1;0}
+153,6,Foraging,Foraging,Adult,{2},{3;0;5;2}
+154,0,Foraging,Foraging,Adult,{3;6},{1;5;3;6;2}
+154,1,Foraging,Foraging,Adult,{5},{3;0;5}
+154,2,Foraging,Foraging,Adult,{6},{3;6;0}
+154,3,Foraging,Foraging,Adult,{5;0},{1;5;6;0;2}
+154,5,Foraging,Foraging,Adult,{3;1},{3;6;1;0}
+154,6,Foraging,Foraging,Adult,{0;2},{3;0;5;2}
+155,0,Foraging,Foraging,Adult,{3;6},{1;5;3;6;2}
+155,1,Foraging,Foraging,Adult,{5},{3;0;5}
+155,2,Foraging,Foraging,Adult,{6},{3;6;0}
+155,3,Foraging,Foraging,Adult,{5;0},{1;5;6;0;2}
+155,5,Foraging,Foraging,Adult,{3;1},{3;6;1;0}
+155,6,Foraging,Foraging,Adult,{0;2},{3;0;5;2}
+156,0,Foraging,Foraging,Adult,{3;6;5},{1;5;3;6;2}
+156,1,Foraging,Foraging,Adult,{5},{3;0;5}
+156,2,Foraging,Foraging,Adult,{6},{3;6;0}
+156,3,Foraging,Foraging,Adult,{5;0},{1;5;6;0;2}
+156,5,Foraging,Foraging,Adult,{3;1;0},{3;6;1;0}
+156,6,Foraging,Foraging,Adult,{0;2},{3;0;5;2}
+156,7,Foraging,Waiting Area,Adult,{},{}
+157,0,Foraging,Foraging,Adult,{3;5},{1;5;3;6;2}
+157,1,Foraging,Foraging,Adult,{5},{3;0;5}
+157,2,Foraging,Foraging,Adult,{6},{3;6;0}
+157,3,Foraging,Foraging,Adult,{5;0},{1;5;6;0;2}
+157,5,Foraging,Foraging,Adult,{3;1;0},{3;6;1;0}
+157,6,Foraging,Foraging,Adult,{2},{3;0;5;2}
+157,7,Foraging,Waiting Area,Adult,{},{}
+158,1,Foraging,Foraging,Adult,{5},{5}
+158,2,Foraging,Foraging,Adult,{6},{6}
+158,5,Foraging,Foraging,Adult,{1},{6;1}
+158,6,Foraging,Foraging,Adult,{2},{5;2}
+158,7,Foraging,Waiting Area,Adult,{},{}
+159,1,Foraging,Foraging,Adult,{5},{5}
+159,2,Foraging,Foraging,Adult,{6},{6}
+159,5,Foraging,Foraging,Adult,{1},{6;1}
+159,6,Foraging,Foraging,Adult,{2},{5;2}
+159,7,Foraging,Waiting Area,Adult,{},{}
+160,2,Foraging,Foraging,Adult,{6},{6}
+160,5,Foraging,Foraging,Adult,{},{6}
+160,6,Foraging,Foraging,Adult,{2},{5;2}
+160,7,Foraging,Waiting Area,Adult,{},{}
+161,2,Foraging,Foraging,Adult,{6},{6}
+161,5,Foraging,Foraging,Adult,{},{6}
+161,6,Foraging,Foraging,Adult,{2},{5;2}
+161,7,Foraging,Waiting Area,Adult,{},{}
+162,2,Foraging,Foraging,Adult,{6},{6}
+162,5,Foraging,Foraging,Adult,{},{6}
+162,6,Foraging,Foraging,Adult,{2},{5;2}
+162,7,Moving,Waiting Area,Adult,{},{}
+163,2,Foraging,Foraging,Adult,{6},{6;5}
+163,5,Foraging,Foraging,Adult,{},{6;2}
+163,6,Foraging,Foraging,Adult,{2},{5;2}
+164,2,Foraging,Foraging,Adult,{6},{6;5}
+164,5,Foraging,Foraging,Adult,{},{6;2}
+164,6,Foraging,Foraging,Adult,{2},{5;2}
+164,7,Moving,Waiting Area,Adult,{},{}
+165,2,Foraging,Foraging,Adult,{6},{6;5}
+165,5,Foraging,Foraging,Adult,{},{6;2}
+165,6,Foraging,Foraging,Adult,{2},{5;2}
+165,7,Moving,Waiting Area,Adult,{},{}
+166,2,Foraging,Foraging,Adult,{6},{6;5}
+166,5,Foraging,Foraging,Adult,{},{6;2}
+166,6,Foraging,Foraging,Adult,{2},{5;2}
+166,7,Moving,Waiting Area,Adult,{},{}
+167,2,Foraging,Foraging,Adult,{6},{6;5}
+167,5,Foraging,Foraging,Adult,{},{6;2}
+167,6,Foraging,Foraging,Adult,{2},{5;2}
+167,7,Moving,Door,Adult,{},{}
+168,2,Foraging,Foraging,Adult,{6},{6;5}
+168,5,Foraging,Foraging,Adult,{},{6;2}
+168,6,Foraging,Foraging,Adult,{2},{5;2}
+168,7,Moving,Door,Adult,{},{}
+169,2,Foraging,Foraging,Adult,{6},{6;5}
+169,5,Foraging,Foraging,Adult,{},{6;2}
+169,6,Foraging,Foraging,Adult,{2},{5;2}
+169,7,Moving,Door,Adult,{},{}
+170,2,Foraging,Foraging,Adult,{6},{6;5}
+170,5,Foraging,Foraging,Adult,{},{6;2}
+170,6,Dig burrow,Foraging,Adult,{2},{5;2}
+170,7,Moving,Door,Adult,{},{}
+171,2,Foraging,Foraging,Adult,{6},{6;5}
+171,5,Foraging,Foraging,Adult,{},{6;2}
+171,6,Dig burrow,Foraging,Adult,{2},{5;2}
+172,2,Foraging,Foraging,Adult,{6},{6;5}
+172,5,Foraging,Foraging,Adult,{},{6;2}
+172,6,Dig burrow,Foraging,Adult,{2},{5;2}
+173,2,Foraging,Foraging,Adult,{6},{6;5}
+173,5,Foraging,Foraging,Adult,{},{6;2}
+173,6,Dig burrow,Foraging,Adult,{2},{5;2}
+174,2,Foraging,Foraging,Adult,{6},{3;6;5}
+174,3,Foraging,Foraging,Adult,{5},{6;5;2}
+174,5,Foraging,Foraging,Adult,{3},{3;6;2}
+174,6,Dig burrow,Foraging,Adult,{2},{3;5;2}
+175,2,Foraging,Foraging,Adult,{6},{6;5}
+175,5,Foraging,Foraging,Adult,{},{6;2}
+175,6,Dig burrow,Foraging,Adult,{2},{5;2}
+176,0,Foraging,Foraging,Adult,{5},{5;2}
+176,2,Foraging,Foraging,Adult,{6},{5;6;0}
+176,5,Foraging,Foraging,Adult,{0},{0;2}
+176,6,Dig burrow,Foraging,Adult,{2},{2}
+177,0,Foraging,Foraging,Adult,{3;5},{3;5;2}
+177,2,Foraging,Foraging,Adult,{6},{3;6;0;5}
+177,3,Foraging,Foraging,Adult,{5;0},{5;6;0;2}
+177,5,Foraging,Foraging,Adult,{3;0},{3;0;2}
+177,6,Dig burrow,Foraging,Adult,{2},{3;2}
+178,0,Foraging,Foraging,Adult,{5},{5;2}
+178,2,Foraging,Foraging,Adult,{6},{5;6;0}
+178,5,Foraging,Foraging,Adult,{0},{0;2}
+178,6,Dig burrow,Foraging,Adult,{2},{2}
+179,0,Foraging,Foraging,Adult,{5},{5;2}
+179,2,Foraging,Foraging,Adult,{},{5;0}
+179,5,Foraging,Foraging,Adult,{0},{0;2}
+180,0,Foraging,Foraging,Adult,{5},{5;2}
+180,2,Foraging,Foraging,Adult,{6},{5;6;0}
+180,5,Foraging,Foraging,Adult,{0},{0;2}
+180,6,Dig burrow,Foraging,Adult,{2},{2}
+180,7,Moving,Waiting Area,Adult,{},{}
+181,0,Foraging,Foraging,Adult,{5},{5;2}
+181,2,Foraging,Foraging,Adult,{6},{5;6;0}
+181,5,Foraging,Foraging,Adult,{0},{0;2}
+181,6,Dig burrow,Foraging,Adult,{2},{2}
+181,7,Moving,Waiting Area,Adult,{},{}
+182,0,Foraging,Foraging,Adult,{4;5},{4;5;2}
+182,2,Foraging,Foraging,Adult,{6;4},{5;6;4;0}
+182,4,Foraging,Foraging,Adult,{5;0;2},{5;6;0;2}
+182,5,Foraging,Foraging,Adult,{4;0},{4;0;2}
+182,6,Dig burrow,Foraging,Adult,{2},{4;2}
+183,0,Foraging,Foraging,Adult,{3;5},{3;5;2}
+183,2,Foraging,Foraging,Adult,{6},{3;6;0;5}
+183,3,Foraging,Foraging,Adult,{5;0},{5;6;0;2}
+183,5,Foraging,Foraging,Adult,{3;0},{3;0;2}
+183,6,Dig burrow,Foraging,Adult,{2},{3;2}
+184,0,Foraging,Foraging,Adult,{3;4;5},{3;4;5;2}
+184,2,Foraging,Foraging,Adult,{3;6;4},{4;5;3;6;0}
+184,3,Foraging,Foraging,Adult,{5;4;0;2},{4;5;6;0;2}
+184,4,Foraging,Foraging,Adult,{3;0;5;2},{5;3;6;0;2}
+184,5,Foraging,Foraging,Adult,{3;4;0},{3;4;0;2}
+184,6,Dig burrow,Foraging,Adult,{2},{3;4;2}
+185,0,Foraging,Foraging,Adult,{3;5},{3;5;2}
+185,2,Foraging,Foraging,Adult,{3;6},{3;6;0;5}
+185,3,Foraging,Foraging,Adult,{5;0;2},{5;6;0;2}
+185,5,Foraging,Foraging,Adult,{3;0},{3;0;2}
+185,6,Dig burrow,Foraging,Adult,{2},{3;2}
+186,0,Foraging,Foraging,Adult,{3;7},{3;7;2}
+186,2,Foraging,Foraging,Adult,{3;6},{3;6;7;0}
+186,3,Foraging,Foraging,Adult,{0;2},{6;7;0;2}
+186,6,Dig burrow,Foraging,Adult,{2},{3;2}
+186,7,Foraging,Foraging,Adult,{0},{3;0;2}
+187,0,Foraging,Foraging,Adult,{3;7},{3;7;2}
+187,2,Foraging,Foraging,Adult,{3;6},{3;6;7;0}
+187,3,Foraging,Foraging,Adult,{7;0;2},{6;7;0;2}
+187,6,Dig burrow,Foraging,Adult,{2},{3;7;2}
+187,7,Moving,Foraging,Adult,{3;0},{3;6;0;2}
+188,0,Foraging,Foraging,Adult,{3;5},{3;5;2}
+188,2,Foraging,Foraging,Adult,{3;6},{3;6;0;5}
+188,3,Foraging,Foraging,Adult,{5;0;2},{5;6;0;2}
+188,5,Foraging,Foraging,Adult,{3;0},{3;0;2}
+188,6,Dig burrow,Foraging,Adult,{2},{3;2}
+189,2,Foraging,Foraging,Adult,{3;6},{3;6;4;5}
+189,3,Foraging,Foraging,Adult,{4;5;2},{6;4;5;2}
+189,4,Moving,Foraging,Adult,{3;5},{3;5;2}
+189,5,Foraging,Foraging,Adult,{3;4},{3;4;2}
+189,6,Dig burrow,Foraging,Adult,{2},{3;2}
+190,2,Foraging,Foraging,Adult,{3;6},{3;6;4;5}
+190,3,Foraging,Foraging,Adult,{5;2},{6;4;5;2}
+190,4,Foraging,Foraging,Adult,{5},{3;5;2}
+190,5,Foraging,Foraging,Adult,{3;4},{3;6;4;2}
+190,6,Dig burrow,Foraging,Adult,{2},{3;5;2}
+191,0,Foraging,Foraging,Adult,{3;4;5},{1;4;5;3;2}
+191,1,Foraging,Waiting Area,Adult,{5},{4;5;3;0;2}
+191,2,Foraging,Foraging,Adult,{3},{1;4;5;3;0}
+191,3,Foraging,Foraging,Adult,{0;2},{4;1;5;0;2}
+191,4,Foraging,Foraging,Adult,{5;0},{1;5;3;0;2}
+191,5,Foraging,Foraging,Adult,{1;0;4},{1;4;3;0;2}
+192,0,Foraging,Foraging,Adult,{3;4;5},{1;4;5;3;2}
+192,1,Foraging,Waiting Area,Adult,{5},{4;5;3;0;2}
+192,2,Foraging,Foraging,Adult,{3},{1;4;5;3;0}
+192,3,Foraging,Foraging,Adult,{0;2},{4;1;5;0;2}
+192,4,Foraging,Foraging,Adult,{5;0},{1;5;3;0;2}
+192,5,Foraging,Foraging,Adult,{1;0;4},{1;4;3;0;2}
+193,0,Foraging,Foraging,Adult,{3;4;5},{1;4;5;3;2}
+193,1,Foraging,Waiting Area,Adult,{5},{4;5;3;0;2}
+193,2,Foraging,Foraging,Adult,{3},{1;4;5;3;0}
+193,3,Foraging,Foraging,Adult,{0;2},{4;1;5;0;2}
+193,4,Foraging,Foraging,Adult,{5;0},{1;5;3;0;2}
+193,5,Foraging,Foraging,Adult,{1;0;4},{1;4;3;0;2}
+194,0,Foraging,Foraging,Adult,{3;4;5},{3;4;5;2}
+194,2,Foraging,Foraging,Adult,{3},{3;4;0;5}
+194,3,Foraging,Foraging,Adult,{0;2},{5;4;0;2}
+194,4,Foraging,Foraging,Adult,{5;0},{3;0;5;2}
+194,5,Foraging,Foraging,Adult,{4;0},{3;4;0;2}
+195,0,Foraging,Foraging,Adult,{3;4;5},{3;4;5;2}
+195,2,Foraging,Foraging,Adult,{3;6},{4;5;3;6;0}
+195,3,Foraging,Foraging,Adult,{5;0;2},{4;5;6;0;2}
+195,4,Foraging,Foraging,Adult,{5;0},{3;0;5;2}
+195,5,Foraging,Foraging,Adult,{3;4;0},{4;3;6;0;2}
+195,6,Dig burrow,Foraging,Adult,{2},{3;5;2}
+196,0,Foraging,Foraging,Adult,{3;4;5},{3;4;5;2}
+196,2,Foraging,Foraging,Adult,{3;6},{3;6;0;5}
+196,3,Foraging,Foraging,Adult,{5;0;2},{4;5;6;0;2}
+196,4,Foraging,Foraging,Adult,{5;0},{3;0;5}
+196,5,Foraging,Foraging,Adult,{3;4;0},{4;3;6;0;2}
+196,6,Dig burrow,Foraging,Adult,{2},{3;5;2}
+197,0,Foraging,Foraging,Adult,{3;4;5},{3;4;5;2}
+197,2,Foraging,Foraging,Adult,{3;6},{3;6;0;5}
+197,3,Foraging,Foraging,Adult,{5;0;2},{4;5;6;0;2}
+197,4,Foraging,Foraging,Adult,{5;0},{3;0;5}
+197,5,Foraging,Foraging,Adult,{3;4;0},{4;3;6;0;2}
+197,6,Dig burrow,Foraging,Adult,{2},{3;5;2}
+198,0,Foraging,Foraging,Adult,{3;4;5},{1;4;5;3;2}
+198,1,Foraging,Waiting Area,Adult,{5},{4;5;3;6;0;2}
+198,2,Foraging,Foraging,Adult,{3},{1;5;3;6;0}
+198,3,Foraging,Foraging,Adult,{5;0;2},{4;1;5;6;0;2}
+198,4,Foraging,Foraging,Adult,{5;0},{3;1;0;5}
+198,5,Foraging,Foraging,Adult,{3;1;0;4},{1;4;3;6;0;2}
+198,6,Dig burrow,Foraging,Adult,{},{3;1;5;2}
+199,0,Foraging,Foraging,Adult,{3;4;5},{1;4;5;3;2}
+199,1,Foraging,Waiting Area,Adult,{5},{4;5;3;6;0;2}
+199,2,Foraging,Foraging,Adult,{3},{1;5;3;6;0}
+199,3,Foraging,Foraging,Adult,{5;0;2},{4;1;5;6;0;2}
+199,4,Foraging,Foraging,Adult,{5;0},{3;1;0;5}
+199,5,Foraging,Foraging,Adult,{3;1;0;4},{1;4;3;6;0;2}
+199,6,Dig burrow,Foraging,Adult,{},{3;1;5;2}
+200,0,Foraging,Foraging,Adult,{3;4},{3;1;4;2}
+200,1,Foraging,Waiting Area,Adult,{},{4;3;6;0;2}
+200,2,Foraging,Foraging,Adult,{3},{3;6;1;0}
+200,3,Foraging,Foraging,Adult,{0;2},{4;1;6;0;2}
+200,4,Foraging,Foraging,Adult,{0},{3;1;0}
+200,6,Dig burrow,Foraging,Adult,{},{3;1;2}
+201,8,Moving,Foraging,Adult,{6},{6;2}
+201,0,Foraging,Foraging,Adult,{3;4;5},{1;4;5;3;2}
+201,1,Foraging,Waiting Area,Adult,{5},{4;5;3;6;0;2}
+201,2,Foraging,Foraging,Adult,{3},{1;5;8;3;6;0}
+201,3,Foraging,Foraging,Adult,{5;0;2},{4;1;5;6;0;2}
+201,4,Foraging,Foraging,Adult,{5;0},{3;1;0;5}
+201,5,Foraging,Foraging,Adult,{3;1;0;4},{1;4;3;6;0;2}
+201,6,Dig burrow,Foraging,Adult,{8},{1;5;8;3;2}
+202,8,Moving,Foraging,Adult,{},{3;1;2}
+202,0,Foraging,Foraging,Adult,{3;4;5},{1;4;5;3;2}
+202,1,Foraging,Waiting Area,Adult,{5},{4;5;8;3;0;2}
+202,2,Foraging,Foraging,Adult,{3},{1;5;8;3;0}
+202,3,Foraging,Foraging,Adult,{5;0;2},{4;1;5;8;0;2}
+202,4,Foraging,Foraging,Adult,{5;0},{3;1;0;5}
+202,5,Foraging,Foraging,Adult,{3;1;0;4},{1;4;3;0;2}
+203,0,Foraging,Foraging,Adult,{3;4},{3;1;4;2}
+203,1,Foraging,Waiting Area,Adult,{},{3;4;0;2}
+203,2,Foraging,Foraging,Adult,{3},{3;1;0}
+203,3,Foraging,Foraging,Adult,{0;2},{4;1;0;2}
+203,4,Foraging,Foraging,Adult,{0},{3;1;0}
+204,0,Foraging,Foraging,Adult,{3;4;5},{1;4;5;3;2}
+204,1,Foraging,Waiting Area,Adult,{5},{4;5;3;0;2}
+204,2,Foraging,Foraging,Adult,{3},{3;1;0;5}
+204,3,Foraging,Foraging,Adult,{5;0;2},{4;1;5;0;2}
+204,4,Foraging,Foraging,Adult,{5;0},{3;1;0;5}
+204,5,Foraging,Foraging,Adult,{3;1;0;4},{1;4;3;0;2}
+205,0,Foraging,Foraging,Adult,{3;4;5},{1;4;5;3;2}
+205,1,Foraging,Waiting Area,Adult,{5},{4;5;3;0;2}
+205,2,Foraging,Foraging,Adult,{3},{3;1;0;5}
+205,3,Foraging,Foraging,Adult,{5;0;2},{4;1;5;0;2}
+205,4,Foraging,Foraging,Adult,{5;0},{3;1;0;5}
+205,5,Foraging,Foraging,Adult,{3;1;0;4},{1;4;3;0;2}
+206,0,Foraging,Foraging,Adult,{3;4;5},{1;4;5;3;6;2}
+206,1,Foraging,Waiting Area,Adult,{5},{4;5;3;6;0;2}
+206,2,Foraging,Foraging,Adult,{3;6},{1;5;3;6;0}
+206,3,Foraging,Foraging,Adult,{5;0;2},{4;1;5;6;0;2}
+206,4,Foraging,Foraging,Adult,{5;0},{3;1;0;5}
+206,5,Foraging,Foraging,Adult,{3;1;0;4},{1;4;3;6;0;2}
+206,6,Dig burrow,Foraging,Adult,{2},{1;5;3;0;2}
+207,0,Foraging,Foraging,Adult,{3;4;5;7},{1;4;5;3;6;7;2}
+207,1,Foraging,Waiting Area,Adult,{7;5},{4;7;5;3;6;0;2}
+207,2,Foraging,Foraging,Adult,{3;6;7},{1;7;5;3;6;0}
+207,3,Foraging,Foraging,Adult,{5;7;0;2},{4;1;5;7;6;0;2}
+207,4,Foraging,Foraging,Adult,{5;0},{1;7;5;3;0}
+207,5,Foraging,Foraging,Adult,{1;7;4;3;0},{1;4;7;3;6;0;2}
+207,6,Dig burrow,Foraging,Adult,{2},{1;7;5;3;0;2}
+207,7,Foraging,Foraging,Adult,{1;5;3;0;2},{1;4;5;3;6;0;2}
+208,8,Moving,Foraging,Adult,{4},{1;0;4}
+208,0,Foraging,Foraging,Adult,{4;7},{4;1;8;6;7;2}
+208,1,Foraging,Waiting Area,Adult,{},{4;7;8;6;0;2}
+208,2,Foraging,Foraging,Adult,{6;7},{6;1;0;7}
+208,4,Foraging,Foraging,Adult,{0;8},{1;7;0;8}
+208,6,Dig burrow,Foraging,Adult,{2},{1;0;7;2}
+208,7,Foraging,Foraging,Adult,{0;2},{4;1;6;0;2}
+209,8,Moving,Foraging,Adult,{},{1;4}
+209,0,Foraging,Foraging,Adult,{3;4;7},{1;4;3;6;7;2}
+209,1,Foraging,Waiting Area,Adult,{},{4;7;8;3;6;0;2}
+209,2,Foraging,Foraging,Adult,{3;6;7},{1;7;3;6;0}
+209,3,Foraging,Foraging,Adult,{7;0;2},{4;1;7;6;0;2}
+209,4,Foraging,Foraging,Adult,{0},{1;8;3;0;7}
+209,6,Dig burrow,Foraging,Adult,{7;2},{1;7;3;0;2}
+209,7,Foraging,Foraging,Adult,{3;6;0;2},{1;4;3;6;0;2}
+210,8,Moving,Foraging,Adult,{},{4}
+210,0,Foraging,Foraging,Adult,{3;4;7},{1;4;3;6;7;2}
+210,1,Foraging,Waiting Area,Adult,{},{4;7;3;6;0;2}
+210,2,Foraging,Foraging,Adult,{3;6;7},{1;7;3;6;0}
+210,3,Foraging,Foraging,Adult,{7;0;2},{4;1;7;6;0;2}
+210,4,Foraging,Foraging,Adult,{0},{1;8;3;0;7}
+210,6,Dig burrow,Foraging,Adult,{2},{1;7;3;0;2}
+210,7,Foraging,Foraging,Adult,{3;0;2},{1;4;3;6;0;2}
+211,8,Moving,Foraging,Adult,{},{}
+211,0,Foraging,Foraging,Adult,{4;7},{4;1;7;2}
+211,1,Foraging,Waiting Area,Adult,{},{4;0;7;2}
+211,2,Foraging,Foraging,Adult,{7},{1;0;7}
+211,4,Foraging,Foraging,Adult,{0},{1;0;7}
+211,7,Foraging,Foraging,Adult,{0;2},{4;1;0;2}
+212,0,Foraging,Foraging,Adult,{4;7},{4;1;7;2}
+212,1,Foraging,Waiting Area,Adult,{4},{4;0;7;2}
+212,2,Foraging,Foraging,Adult,{7},{1;0;7;4}
+212,4,Foraging,Foraging,Adult,{1;0},{1;0;7;2}
+212,7,Foraging,Foraging,Adult,{0;2},{4;1;0;2}
+213,0,Foraging,Foraging,Adult,{3;4;7},{1;4;3;6;7;2}
+213,1,Foraging,Waiting Area,Adult,{4},{4;7;3;6;0;2}
+213,2,Foraging,Foraging,Adult,{3;6;7},{1;7;3;6;0}
+213,3,Foraging,Foraging,Adult,{7;0;2},{4;1;7;6;0;2}
+213,4,Foraging,Foraging,Adult,{1;0},{3;1;0;7}
+213,6,Dig burrow,Foraging,Adult,{2},{1;7;3;0;2}
+213,7,Foraging,Foraging,Adult,{3;0;2},{1;4;3;6;0;2}
+214,0,Foraging,Foraging,Adult,{3;7;5},{1;4;5;3;6;7;2}
+214,1,Foraging,Waiting Area,Adult,{5},{4;7;5;3;6;0;2}
+214,2,Foraging,Foraging,Adult,{3;7},{1;7;5;3;6;0}
+214,3,Foraging,Foraging,Adult,{5;7;0;2},{4;1;5;7;6;0;2}
+214,4,Foraging,Foraging,Adult,{5},{1;7;5;3;0}
+214,5,Foraging,Foraging,Adult,{3;1;0;4},{1;4;7;3;6;0;2}
+214,6,Dig burrow,Foraging,Adult,{},{1;7;5;3;0;2}
+214,7,Foraging,Foraging,Adult,{3;0;2},{1;4;5;3;6;0;2}
+215,0,Foraging,Foraging,Adult,{3;7;5},{1;4;5;3;6;7;2}
+215,1,Foraging,Waiting Area,Adult,{5},{4;7;5;3;6;0;2}
+215,2,Foraging,Foraging,Adult,{3;7},{1;7;5;3;6;0}
+215,3,Foraging,Foraging,Adult,{5;7;0;2},{4;1;5;7;6;0;2}
+215,4,Foraging,Foraging,Adult,{5},{3;1;0;5}
+215,5,Foraging,Foraging,Adult,{3;1;0;4},{1;4;7;3;6;0;2}
+215,6,Dig burrow,Foraging,Adult,{},{1;7;5;3;0;2}
+215,7,Foraging,Foraging,Adult,{3;0;2},{1;5;3;6;0;2}
+216,0,Foraging,Foraging,Adult,{3;7;5},{1;4;5;3;6;7;2}
+216,1,Foraging,Waiting Area,Adult,{5},{4;7;5;3;6;0;2}
+216,2,Foraging,Foraging,Adult,{3;7},{1;7;5;3;6;0}
+216,3,Foraging,Foraging,Adult,{5;7;0;2},{4;1;5;7;6;0;2}
+216,4,Foraging,Foraging,Adult,{},{3;1;0;5}
+216,5,Foraging,Foraging,Adult,{3;1;0},{1;4;7;3;6;0;2}
+216,6,Dig burrow,Foraging,Adult,{},{1;7;5;3;0;2}
+216,7,Foraging,Foraging,Adult,{3;0;2},{1;5;3;6;0;2}
+217,0,Foraging,Foraging,Adult,{3;7;5},{1;4;5;3;6;7;2}
+217,1,Foraging,Waiting Area,Adult,{5},{4;7;5;3;6;0;2}
+217,2,Foraging,Foraging,Adult,{3;7},{1;7;5;3;6;0}
+217,3,Foraging,Foraging,Adult,{5;7;0;2},{1;7;5;6;0;2}
+217,4,Moving,Foraging,Adult,{},{5;1;0}
+217,5,Foraging,Foraging,Adult,{3;1;0},{1;4;7;3;6;0;2}
+217,6,Dig burrow,Foraging,Adult,{},{1;7;5;3;0;2}
+217,7,Foraging,Foraging,Adult,{3;0;2},{1;5;3;6;0;2}
+218,0,Foraging,Foraging,Adult,{3;7;5},{1;5;3;6;7;2}
+218,1,Foraging,Waiting Area,Adult,{5},{7;5;3;6;0;2}
+218,2,Foraging,Foraging,Adult,{3;7},{1;7;5;3;6;0}
+218,3,Foraging,Foraging,Adult,{5;7;0;2},{1;7;5;6;0;2}
+218,4,Moving,Foraging,Adult,{},{5}
+218,5,Foraging,Foraging,Adult,{3;1;0;7},{1;4;7;3;6;0;2}
+218,6,Dig burrow,Foraging,Adult,{7},{1;7;5;3;0;2}
+218,7,Foraging,Foraging,Adult,{5;3;6;0;2},{1;5;3;6;0;2}
+219,0,Foraging,Foraging,Adult,{3;5},{1;5;3;6;7;2}
+219,1,Foraging,Waiting Area,Adult,{5},{7;5;3;6;0;2}
+219,2,Foraging,Foraging,Adult,{3;7},{1;7;5;3;6;0}
+219,3,Foraging,Foraging,Adult,{5;7;0;2},{1;7;5;6;0;2}
+219,4,Moving,Foraging,Adult,{},{}
+219,5,Foraging,Foraging,Adult,{3;1;0;7},{1;7;3;6;0;2}
+219,6,Dig burrow,Foraging,Adult,{7},{1;7;5;3;0;2}
+219,7,Foraging,Foraging,Adult,{3;6;5;2},{1;5;3;6;0;2}
+220,0,Foraging,Foraging,Adult,{3;5},{1;5;3;6;7;2}
+220,1,Foraging,Waiting Area,Adult,{5},{7;5;3;6;0;2}
+220,2,Foraging,Foraging,Adult,{3;7},{1;7;5;3;6;0}
+220,3,Foraging,Foraging,Adult,{5;7;0;2},{1;7;5;6;0;2}
+220,4,Moving,Foraging,Adult,{},{}
+220,5,Foraging,Foraging,Adult,{3;1;0},{1;7;3;6;0;2}
+220,6,Dig burrow,Foraging,Adult,{7},{1;7;5;3;0;2}
+220,7,Foraging,Foraging,Adult,{3;6;2},{1;5;3;6;0;2}
+221,0,Foraging,Foraging,Adult,{3;5},{1;5;3;7;2}
+221,1,Foraging,Waiting Area,Adult,{5},{7;5;3;6;0;2}
+221,2,Foraging,Foraging,Adult,{3;7},{1;7;5;3;6;0}
+221,3,Foraging,Foraging,Adult,{5;7;0;2},{1;7;5;6;0;2}
+221,4,Moving,Foraging,Adult,{},{}
+221,5,Foraging,Foraging,Adult,{3;1;0},{1;7;3;6;0;2}
+221,6,Dig burrow,Foraging,Adult,{7},{1;5;3;7;2}
+221,7,Foraging,Foraging,Adult,{3;6;2},{1;5;3;6;0;2}
+222,8,Moving,Foraging,Adult,{},{}
+222,0,Foraging,Foraging,Adult,{},{1;7;2}
+222,1,Foraging,Waiting Area,Adult,{},{6;7;0;2}
+222,2,Foraging,Foraging,Adult,{7},{6;1;0;7}
+222,6,Dig burrow,Foraging,Adult,{7},{1;7;2}
+222,7,Foraging,Foraging,Adult,{6;2},{6;1;0;2}
+223,8,Foraging,Foraging,Adult,{},{}
+223,0,Foraging,Foraging,Adult,{},{1;7;2}
+223,1,Foraging,Waiting Area,Adult,{},{6;7;0;2}
+223,2,Foraging,Foraging,Adult,{7},{6;1;0;7}
+223,6,Dig burrow,Foraging,Adult,{7},{1;7;2}
+223,7,Foraging,Foraging,Adult,{6;2},{6;1;0;2}
+224,8,Foraging,Foraging,Adult,{},{}
+224,0,Foraging,Foraging,Adult,{},{1;7;2}
+224,1,Foraging,Waiting Area,Adult,{},{6;7;0;2}
+224,2,Foraging,Foraging,Adult,{7},{6;1;0;7}
+224,6,Dig burrow,Foraging,Adult,{7},{1;7;2}
+224,7,Foraging,Foraging,Adult,{6;2},{6;1;0;2}
+225,8,Foraging,Foraging,Adult,{},{}
+225,0,Foraging,Foraging,Adult,{},{1;7;2}
+225,1,Foraging,Waiting Area,Adult,{},{6;7;0;2}
+225,2,Foraging,Foraging,Adult,{7},{6;1;0;7}
+225,6,Dig burrow,Foraging,Adult,{7},{1;7;2}
+225,7,Foraging,Foraging,Adult,{6;2},{6;1;0;2}
+226,8,Foraging,Foraging,Adult,{},{}
+226,0,Foraging,Foraging,Adult,{3},{3;1;7;2}
+226,1,Foraging,Waiting Area,Adult,{},{3;0;6;7;2}
+226,2,Foraging,Foraging,Adult,{3;7},{1;7;3;6;0}
+226,3,Foraging,Foraging,Adult,{7;0;2},{1;7;6;0;2}
+226,6,Dig burrow,Foraging,Adult,{7},{3;1;7;2}
+226,7,Foraging,Foraging,Adult,{3;6;2},{1;3;6;0;2}
+227,8,Foraging,Foraging,Adult,{},{}
+227,0,Foraging,Foraging,Adult,{3},{3;1;7;2}
+227,1,Foraging,Waiting Area,Adult,{},{3;0;6;7;2}
+227,2,Foraging,Foraging,Adult,{3;7},{1;7;3;6;0}
+227,3,Foraging,Foraging,Adult,{7;0;2},{1;7;6;0;2}
+227,6,Dig burrow,Foraging,Adult,{7},{3;1;7;2}
+227,7,Foraging,Foraging,Adult,{3;6;2},{1;3;6;0;2}
+228,8,Foraging,Foraging,Adult,{},{}
+228,0,Foraging,Foraging,Adult,{3},{3;1;7;2}
+228,1,Foraging,Waiting Area,Adult,{},{3;0;6;7;2}
+228,2,Foraging,Foraging,Adult,{3;7},{1;7;3;6;0}
+228,3,Foraging,Foraging,Adult,{7;0;2},{1;7;6;0;2}
+228,6,Dig burrow,Foraging,Adult,{7},{3;1;7;2}
+228,7,Foraging,Foraging,Adult,{3;6;2},{1;3;6;0;2}
+229,8,Foraging,Foraging,Adult,{},{}
+229,0,Foraging,Foraging,Adult,{3},{3;1;7;2}
+229,1,Foraging,Waiting Area,Adult,{},{3;0;6;7;2}
+229,2,Foraging,Foraging,Adult,{3;7},{1;7;3;6;0}
+229,3,Foraging,Foraging,Adult,{7;0;2},{1;7;6;0;2}
+229,6,Dig burrow,Foraging,Adult,{7},{3;1;7;2}
+229,7,Foraging,Foraging,Adult,{3;6;2},{1;3;6;0;2}
+230,8,Foraging,Foraging,Adult,{},{}
+230,0,Foraging,Foraging,Adult,{3},{3;1;7;2}
+230,1,Foraging,Waiting Area,Adult,{},{3;0;6;7;2}
+230,2,Foraging,Foraging,Adult,{3;7},{1;7;3;6;0}
+230,3,Foraging,Foraging,Adult,{7;0;2},{1;7;6;0;2}
+230,6,Dig burrow,Foraging,Adult,{7},{3;1;7;2}
+230,7,Foraging,Foraging,Adult,{3;6;2},{1;3;6;0;2}
+231,8,Foraging,Foraging,Adult,{},{}
+231,0,Foraging,Foraging,Adult,{},{1;7;2}
+231,1,Foraging,Waiting Area,Adult,{},{6;7;0;2}
+231,2,Foraging,Foraging,Adult,{7},{6;1;0;7}
+231,6,Dig burrow,Foraging,Adult,{7},{1;7;2}
+231,7,Foraging,Foraging,Adult,{6;2},{6;1;0;2}
+232,8,Moving,Foraging,Adult,{},{}
+232,0,Foraging,Foraging,Adult,{},{1;7;2}
+232,1,Foraging,Waiting Area,Adult,{},{6;7;0;2}
+232,2,Foraging,Foraging,Adult,{7},{6;1;0;7}
+232,6,Dig burrow,Foraging,Adult,{7},{1;7;2}
+232,7,Foraging,Foraging,Adult,{6;2},{6;1;0;2}
+233,0,Foraging,Foraging,Adult,{},{1;5;7;2}
+233,1,Foraging,Waiting Area,Adult,{5},{5;0;6;7;2}
+233,2,Foraging,Foraging,Adult,{7},{1;7;5;6;0}
+233,5,High sitting/standing (Vigilant),Foraging,Adult,{1;7},{1;7;6;0;2}
+233,6,Dig burrow,Foraging,Adult,{7},{1;5;7;2}
+233,7,Foraging,Foraging,Adult,{6;5;2},{1;5;6;0;2}
+234,8,Moving,Foraging,Adult,{},{4}
+234,0,Foraging,Foraging,Adult,{},{1;7;2}
+234,1,Foraging,Waiting Area,Adult,{},{7;0;2}
+234,2,Foraging,Foraging,Adult,{7},{6;1;0;7}
+234,4,Moving,Foraging,Adult,{},{8}
+234,6,Dig burrow,Foraging,Adult,{7},{7;2}
+234,7,Foraging,Foraging,Adult,{6;2},{6;1;0;2}
+235,8,Moving,Foraging,Adult,{},{}
+235,0,Foraging,Foraging,Adult,{1},{1;7;2}
+235,1,Foraging,Waiting Area,Adult,{0},{7;0;2}
+235,2,Foraging,Foraging,Adult,{6;7},{6;1;0;7}
+235,6,Dig burrow,Foraging,Adult,{7;2},{7;2}
+235,7,Foraging,Foraging,Adult,{6;2},{6;1;0;2}
+236,8,Foraging,Foraging,Adult,{},{}
+236,0,Foraging,Foraging,Adult,{1},{1;7;2}
+236,1,Foraging,Foraging,Adult,{0},{7;0;2}
+236,2,Foraging,Foraging,Adult,{7},{6;1;0;7}
+236,6,Dig burrow,Foraging,Adult,{7},{7;2}
+236,7,Foraging,Foraging,Adult,{6;2},{6;1;0;2}
+237,8,Foraging,Waiting Area,Adult,{},{1;0}
+237,0,Foraging,Foraging,Adult,{1},{1;7;8}
+237,1,Foraging,Foraging,Adult,{0},{6;7;0;8}
+237,6,Dig burrow,Foraging,Adult,{7},{1;7}
+237,7,Foraging,Foraging,Adult,{6},{6;1;0}
+238,8,Moving,Waiting Area,Adult,{},{1;0}
+238,0,Foraging,Foraging,Adult,{1},{1;7;8}
+238,1,Foraging,Foraging,Adult,{0},{6;7;0;8}
+238,6,Dig burrow,Foraging,Adult,{7},{1;7}
+238,7,Foraging,Foraging,Adult,{6},{6;1;0}
+239,8,Moving,Waiting Area,Adult,{},{1;0}
+239,0,Foraging,Foraging,Adult,{1},{1;7;8}
+239,1,Foraging,Foraging,Adult,{0},{6;7;0;8}
+239,4,Moving,Door,Adult,{},{}
+239,6,Dig burrow,Foraging,Adult,{7},{1;7}
+239,7,Foraging,Foraging,Adult,{6},{6;1;0}
+240,0,Foraging,Foraging,Adult,{1;2},{1;7;2}
+240,1,Foraging,Foraging,Adult,{0},{6;7;0;2}
+240,2,Foraging,Foraging,Adult,{7;0},{6;1;0;7}
+240,4,Moving,Door,Adult,{},{}
+240,6,Dig burrow,Foraging,Adult,{7},{1;7;2}
+240,7,Foraging,Foraging,Adult,{6;2},{6;1;0;2}
+241,8,Moving,Waiting Area,Adult,{},{7;0;2}
+241,0,Foraging,Foraging,Adult,{2},{7;8;2}
+241,2,Foraging,Foraging,Adult,{7;0},{6;7;0;8}
+241,4,Moving,Door,Adult,{},{}
+241,6,Dig burrow,Foraging,Adult,{7},{7;2}
+241,7,Foraging,Foraging,Adult,{6;2},{6;0;8;2}
+242,8,Moving,Waiting Area,Adult,{},{6;7;0}
+242,0,Foraging,Foraging,Adult,{},{7;8}
+242,4,Moving,Door,Adult,{},{}
+242,6,Dig burrow,Foraging,Adult,{7},{7;8}
+242,7,Foraging,Foraging,Adult,{6},{6;0;8}
+243,8,Moving,Waiting Area,Adult,{},{6;1;0;7}
+243,0,Foraging,Foraging,Adult,{1},{1;7;8}
+243,1,Foraging,Foraging,Adult,{0},{6;7;0;8}
+243,4,Moving,Door,Adult,{},{}
+243,6,Dig burrow,Foraging,Adult,{7},{1;7;8}
+243,7,Foraging,Foraging,Adult,{6},{6;1;0;8}
+244,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;1;0;7}
+244,0,Foraging,Foraging,Adult,{1},{1;7;8}
+244,1,Foraging,Foraging,Adult,{0},{6;7;0;8}
+244,4,Moving,Door,Adult,{},{}
+244,6,Dig burrow,Foraging,Adult,{7},{1;7;8}
+244,7,Foraging,Foraging,Adult,{6},{6;1;0;8}
+245,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;1;0;7}
+245,0,Foraging,Foraging,Adult,{1},{1;7;8}
+245,1,Foraging,Foraging,Adult,{0},{7;0;8}
+245,4,Moving,Door,Adult,{},{}
+245,6,Dig burrow,Foraging,Adult,{7},{7;8}
+245,7,Foraging,Foraging,Adult,{6},{6;1;0;8}
+246,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7;5;6;0}
+246,0,Foraging,Foraging,Adult,{1;5},{1;7;5;8}
+246,1,Foraging,Foraging,Adult,{5;0},{5;7;0;8}
+246,4,Low sitting/standing (stationary),Door,Adult,{},{}
+246,5,Interacting with foreign object,Foraging,Adult,{1;0},{1;7;0;8}
+246,6,Dig burrow,Foraging,Adult,{7},{7;8}
+246,7,Foraging,Foraging,Adult,{6},{1;5;8;6;0}
+247,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7;5;6;0;2}
+247,0,Foraging,Foraging,Adult,{1;5;2},{1;5;8;7;2}
+247,1,Foraging,Foraging,Adult,{5;0},{7;5;8;6;0;2}
+247,2,Foraging,Foraging,Adult,{7;0},{1;7;5;8;6;0}
+247,4,Low sitting/standing (stationary),Door,Adult,{},{}
+247,5,Interacting with foreign object,Foraging,Adult,{1;0},{1;8;0;7;2}
+247,6,Dig burrow,Foraging,Adult,{7},{1;7;8;2}
+247,7,Foraging,Foraging,Adult,{6;2},{1;5;8;6;0;2}
+248,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7;5;6;0;2}
+248,0,Foraging,Foraging,Adult,{1;5;2},{1;5;8;7;2}
+248,1,Foraging,Foraging,Adult,{5;0},{7;5;8;6;0;2}
+248,2,Foraging,Foraging,Adult,{7;0},{1;7;5;8;6;0}
+248,4,Low sitting/standing (stationary),Door,Adult,{},{}
+248,5,Foraging,Foraging,Adult,{1;0},{1;8;0;7;2}
+248,6,Dig burrow,Foraging,Adult,{7},{1;7;8;2}
+248,7,Foraging,Foraging,Adult,{6;2},{1;5;8;6;0;2}
+249,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7;6;0;2}
+249,0,Foraging,Foraging,Adult,{1;2},{1;7;8;2}
+249,1,Foraging,Foraging,Adult,{0},{7;0;8;2}
+249,2,Foraging,Foraging,Adult,{7;0},{1;8;0;6;7}
+249,4,Moving,Door,Adult,{},{}
+249,6,Dig burrow,Foraging,Adult,{7},{7;8;2}
+249,7,Foraging,Foraging,Adult,{6;2},{1;8;6;0;2}
+250,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7;6;0;2}
+250,0,Foraging,Foraging,Adult,{1;2},{1;7;8;2}
+250,1,Foraging,Foraging,Adult,{0;2},{7;0;8;2}
+250,2,Foraging,Foraging,Adult,{1;0;7},{1;8;0;6;7}
+250,4,Moving,Door,Adult,{},{}
+250,6,Dig burrow,Foraging,Adult,{7},{7;8;2}
+250,7,Foraging,Foraging,Adult,{6;2},{1;8;6;0;2}
+251,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7;5;6;0;2}
+251,0,Foraging,Foraging,Adult,{1;5;2},{1;5;8;7;2}
+251,1,Foraging,Foraging,Adult,{5;0},{5;8;0;7;2}
+251,2,Foraging,Foraging,Adult,{5;0},{1;7;5;8;6;0}
+251,4,Moving,Waiting Area,Adult,{},{}
+251,5,Foraging,Foraging,Adult,{1;0;2},{1;7;8;6;0;2}
+251,6,Dig burrow,Foraging,Adult,{7},{7;5;8;2}
+251,7,Foraging,Foraging,Adult,{6},{1;5;8;6;0;2}
+252,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7;5;6;0;2}
+252,0,Foraging,Foraging,Adult,{1;5;2},{1;5;8;7;2}
+252,1,Foraging,Foraging,Adult,{5;0;2},{5;8;0;7;2}
+252,2,Foraging,Foraging,Adult,{5;1;0},{1;7;5;8;6;0}
+252,4,Moving,Waiting Area,Adult,{},{}
+252,5,Interacting with foreign object,Foraging,Adult,{1;0;2},{1;7;8;6;0;2}
+252,6,Dig burrow,Foraging,Adult,{7},{7;5;8;2}
+252,7,Foraging,Foraging,Adult,{6},{1;5;8;6;0;2}
+253,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7;5;6;0;2}
+253,0,Foraging,Foraging,Adult,{1;5;2},{1;5;8;7;2}
+253,1,Foraging,Foraging,Adult,{5;0;2},{5;8;0;7;2}
+253,2,Foraging,Foraging,Adult,{5;1;0},{1;7;5;8;6;0}
+253,4,Moving,Waiting Area,Adult,{},{}
+253,5,Interacting with foreign object,Foraging,Adult,{1;0;2},{1;7;8;6;0;2}
+253,6,Dig burrow,Foraging,Adult,{7},{7;5;8;2}
+253,7,Foraging,Foraging,Adult,{6},{1;5;8;6;0;2}
+254,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7;5;6;0;2}
+254,0,Foraging,Foraging,Adult,{1;5;2},{1;5;8;7;2}
+254,1,Foraging,Foraging,Adult,{5;0;2},{5;8;0;7;2}
+254,2,Foraging,Foraging,Adult,{5;1;0;7},{1;7;5;8;6;0}
+254,4,Moving,Waiting Area,Adult,{},{}
+254,5,Interacting with foreign object,Foraging,Adult,{1;0;2},{1;7;8;6;0;2}
+254,6,Dig burrow,Foraging,Adult,{7},{7;5;8;2}
+254,7,Foraging,Foraging,Adult,{6;2},{1;5;8;6;0;2}
+255,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7;5;6;0;2}
+255,0,Foraging,Foraging,Adult,{1;5;2},{1;5;8;7;2}
+255,1,Foraging,Foraging,Adult,{5;0;2},{5;8;0;7;2}
+255,2,Foraging,Foraging,Adult,{5;1;0},{1;7;5;8;6;0}
+255,4,Moving,Waiting Area,Adult,{},{}
+255,5,Interacting with foreign object,Foraging,Adult,{1;0;2},{1;7;8;6;0;2}
+255,6,Dig burrow,Foraging,Adult,{7},{7;5;8;2}
+255,7,Foraging,Foraging,Adult,{6},{1;5;8;6;0;2}
+256,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7;5;3;6;0;2}
+256,0,Foraging,Foraging,Adult,{3;1;5;2},{1;5;8;3;7;2}
+256,1,Foraging,Foraging,Adult,{5;0;2},{7;5;8;3;0;2}
+256,2,Foraging,Foraging,Adult,{3;1;0;5},{1;7;5;8;3;6;0}
+256,3,Foraging,Foraging,Adult,{5;7;0;2},{1;7;5;8;6;0;2}
+256,4,Moving,Waiting Area,Adult,{},{}
+256,5,Interacting with foreign object,Foraging,Adult,{1;7;3;0;2},{1;7;8;3;6;0;2}
+256,6,Dig burrow,Foraging,Adult,{7},{5;8;3;7;2}
+256,7,Foraging,Foraging,Adult,{3;6;5},{1;5;8;3;6;0;2}
+257,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7;5;3;6;0}
+257,0,Foraging,Foraging,Adult,{3;1;5},{1;5;8;3;7}
+257,1,Foraging,Foraging,Adult,{5;0},{5;8;3;0;7}
+257,3,Foraging,Foraging,Adult,{5;7;0},{1;7;5;8;6;0}
+257,4,Moving,Waiting Area,Adult,{},{}
+257,5,Interacting with foreign object,Foraging,Adult,{3;1;0;7},{1;7;8;3;6;0}
+257,6,Dig burrow,Foraging,Adult,{7},{3;7;5;8}
+257,7,Foraging,Foraging,Adult,{3;6;5},{1;5;8;3;6;0}
+258,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7;5;3;6;0}
+258,0,Foraging,Foraging,Adult,{3;1;5},{1;5;8;3;7}
+258,1,Foraging,Foraging,Adult,{5;0},{5;8;3;0;7}
+258,3,Foraging,Foraging,Adult,{5;7;0},{1;7;5;8;6;0}
+258,4,Moving,Waiting Area,Adult,{},{}
+258,5,Interacting with foreign object,Foraging,Adult,{3;1;0;7},{1;7;8;3;6;0}
+258,6,Dig burrow,Foraging,Adult,{7},{3;7;5;8}
+258,7,Foraging,Foraging,Adult,{3;6;5},{1;5;8;3;6;0}
+259,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7;5;3;6;0}
+259,0,Foraging,Foraging,Adult,{3;1;5},{1;5;8;3;7}
+259,1,Foraging,Foraging,Adult,{5;0},{5;8;3;0;7}
+259,3,Foraging,Foraging,Adult,{5;7;0},{1;7;5;8;6;0}
+259,4,Moving,Waiting Area,Adult,{},{}
+259,5,Interacting with foreign object,Foraging,Adult,{3;1;0;7},{1;7;8;3;6;0}
+259,6,Dig burrow,Foraging,Adult,{7},{3;7;5;8}
+259,7,Foraging,Foraging,Adult,{3;6;5},{1;5;8;3;6;0}
+260,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7;5;6;0}
+260,0,Foraging,Foraging,Adult,{1;5},{1;7;5;8}
+260,1,Foraging,Foraging,Adult,{5;0},{5;7;0;8}
+260,4,Moving,Waiting Area,Adult,{},{}
+260,5,Interacting with foreign object,Foraging,Adult,{1;0;7},{1;8;0;6;7}
+260,6,Dig burrow,Foraging,Adult,{7},{7;5;8}
+260,7,Foraging,Foraging,Adult,{6;5},{1;5;8;6;0}
+261,8,Low sitting/standing (stationary),Waiting Area,Adult,{7},{6;1;5;7}
+261,0,Foraging,Foraging,Adult,{1},{1;5;7}
+261,1,Foraging,Foraging,Adult,{5;0},{5;7;0;8}
+261,5,Interacting with foreign object,Foraging,Adult,{1;7},{1;8;0;6;7}
+261,6,Dig burrow,Foraging,Adult,{7},{7;5;8}
+261,7,Foraging,Foraging,Adult,{6;5;8},{1;5;8;6;0}
+262,8,Low sitting/standing (stationary),Waiting Area,Adult,{7},{6;1;5;7}
+262,0,Foraging,Foraging,Adult,{1;5;2},{1;5;7;2}
+262,1,Foraging,Foraging,Adult,{5;0;2},{5;8;0;7;2}
+262,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0;7}
+262,5,Interacting with foreign object,Foraging,Adult,{1;0;7;2},{1;7;8;6;0;2}
+262,6,Dig burrow,Foraging,Adult,{7},{7;5;8}
+262,7,Foraging,Foraging,Adult,{6;5;8},{1;5;8;6;0;2}
+263,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;1;5}
+263,0,Foraging,Foraging,Adult,{1;5;2},{1;5;2}
+263,1,Foraging,Foraging,Adult,{5;0;2},{5;0;8;2}
+263,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0}
+263,5,Interacting with foreign object,Foraging,Adult,{1;0;2},{1;8;6;0;2}
+263,6,Dig burrow,Foraging,Adult,{},{5;8}
+264,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;1;5}
+264,0,Foraging,Foraging,Adult,{1;2},{1;5;2}
+264,1,Foraging,Foraging,Adult,{5;0;2},{5;0;8;2}
+264,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0}
+264,5,Interacting with foreign object,Foraging,Adult,{1;2},{1;8;6;0;2}
+264,6,Dig burrow,Foraging,Adult,{},{5;8}
+265,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;1;5}
+265,0,Foraging,Foraging,Adult,{3;1},{3;1;5}
+265,1,Foraging,Foraging,Adult,{3;0;5},{3;0;8;5}
+265,3,Moving,Foraging,Adult,{5;1;0},{5;1;0}
+265,5,Interacting with foreign object,Foraging,Adult,{3;1},{1;8;3;6;0}
+265,6,Dig burrow,Foraging,Adult,{},{5;8}
+266,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;1;5}
+266,0,Foraging,Foraging,Adult,{3;1},{3;1;5}
+266,1,Foraging,Foraging,Adult,{3;0;5},{3;0;8;5}
+266,3,Moving,Foraging,Adult,{5;1;0},{5;1;0}
+266,4,Moving,Waiting Area,Adult,{},{}
+266,5,Interacting with foreign object,Foraging,Adult,{3;1},{1;8;3;6;0}
+266,6,Dig burrow,Foraging,Adult,{},{5;8}
+267,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;5}
+267,0,Foraging,Foraging,Adult,{1},{1;5}
+267,1,Foraging,Foraging,Adult,{5;0},{5;0;8}
+267,4,Moving,Waiting Area,Adult,{},{}
+267,5,Interacting with foreign object,Foraging,Adult,{1},{1;0;8}
+268,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{3;1;5}
+268,0,Foraging,Foraging,Adult,{3;1},{3;1;5}
+268,1,Foraging,Foraging,Adult,{3;0;5},{3;0;8;5}
+268,3,Moving,Foraging,Adult,{5;1;0},{5;1;0;8}
+268,4,Moving,Waiting Area,Adult,{},{}
+268,5,Interacting with foreign object,Foraging,Adult,{3;1},{3;1;0;8}
+269,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{3;1;7}
+269,0,Foraging,Foraging,Adult,{3;1;2},{3;1;7;2}
+269,1,Foraging,Foraging,Adult,{3;0;2},{8;3;0;7;2}
+269,2,Foraging,Foraging,Adult,{3;1;0},{3;1;0;7}
+269,3,Moving,Foraging,Adult,{1;0;7;2},{1;8;0;7;2}
+269,4,Moving,Waiting Area,Adult,{},{}
+269,7,Foraging,Foraging,Adult,{3},{1;8;3;0;2}
+270,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7}
+270,0,Foraging,Foraging,Adult,{1;2},{1;7;2}
+270,1,Foraging,Foraging,Adult,{0;2},{7;0;8;2}
+270,2,Foraging,Foraging,Adult,{1;0},{1;0;7}
+270,4,Moving,Waiting Area,Adult,{},{}
+270,7,Foraging,Foraging,Adult,{},{1;0;8;2}
+271,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7}
+271,0,Foraging,Foraging,Adult,{1;2},{1;7;2}
+271,1,Foraging,Foraging,Adult,{0;2},{7;0;8;2}
+271,2,Foraging,Foraging,Adult,{1;0},{1;0;7}
+271,7,Foraging,Foraging,Adult,{},{1;0;8;2}
+272,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7}
+272,0,Foraging,Foraging,Adult,{1;2},{1;7;2}
+272,1,Foraging,Foraging,Adult,{0;2},{7;0;8;2}
+272,2,Foraging,Foraging,Adult,{1;0},{1;0;7}
+272,7,Foraging,Foraging,Adult,{},{1;0;8;2}
+273,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7}
+273,0,Foraging,Foraging,Adult,{1;2},{1;7;2}
+273,1,Foraging,Foraging,Adult,{0;2},{7;0;8;2}
+273,2,Foraging,Foraging,Adult,{1;0},{1;0;7}
+273,7,Foraging,Foraging,Adult,{},{1;0;8;2}
+274,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;7}
+274,0,Foraging,Foraging,Adult,{1;2},{1;7;2}
+274,1,Foraging,Foraging,Adult,{0;2},{7;0;8;2}
+274,2,Foraging,Foraging,Adult,{1;0},{1;0;7}
+274,7,Foraging,Foraging,Adult,{},{1;0;8;2}
+275,8,Low sitting/standing (stationary),Waiting Area,Adult,{4},{1;4}
+275,0,Foraging,Foraging,Adult,{1;2},{1;2}
+275,1,Foraging,Foraging,Adult,{0;2},{0;8;2}
+275,2,Foraging,Foraging,Adult,{1;0},{1;0}
+275,4,Moving,Waiting Area,Adult,{8},{8}
+276,8,Low sitting/standing (stationary),Waiting Area,Adult,{4},{1;4}
+276,0,Foraging,Foraging,Adult,{1;2},{1;2}
+276,1,Foraging,Foraging,Adult,{0;2},{0;8;2}
+276,2,Foraging,Foraging,Adult,{1;0},{1;0}
+276,4,Moving,Waiting Area,Adult,{8},{8}
+277,0,Foraging,Foraging,Adult,{1;2},{1;7;2}
+277,1,Foraging,Foraging,Adult,{0;2},{4;0;7;2}
+277,2,Foraging,Foraging,Adult,{1;0},{1;0;7}
+277,4,Moving,Waiting Area,Adult,{},{1;7}
+277,7,Foraging,Foraging,Adult,{},{4;1;0;2}
+278,0,Foraging,Foraging,Adult,{1;2},{1;2}
+278,1,Foraging,Foraging,Adult,{0;2},{4;0;7;2}
+278,2,Foraging,Foraging,Adult,{1;0},{1;0;7}
+278,4,Moving,Waiting Area,Adult,{},{1;7}
+278,7,Foraging,Foraging,Adult,{},{4;1;2}
+279,0,Foraging,Foraging,Adult,{1;2},{1;2}
+279,1,Foraging,Foraging,Adult,{0;2},{4;0;7;2}
+279,2,Foraging,Foraging,Adult,{1;0},{1;0;7}
+279,4,Moving,Waiting Area,Adult,{},{1;7}
+279,7,Foraging,Foraging,Adult,{},{4;1;2}
+280,8,Low sitting/standing (stationary),Waiting Area,Adult,{4},{1;5;7;4}
+280,0,Foraging,Foraging,Adult,{1;2},{1;5;2}
+280,1,Foraging,Foraging,Adult,{5;0;2},{4;7;5;8;0;2}
+280,2,Foraging,Foraging,Adult,{5;1;0},{1;7;5;4;0}
+280,4,Low sitting/standing (stationary),Waiting Area,Adult,{8},{1;5;8;7;2}
+280,5,Low sitting/standing (stationary),Foraging,Adult,{1;7;2},{4;1;7;8;0;2}
+280,7,Foraging,Foraging,Adult,{5},{4;1;5;8;2}
+281,8,Low sitting/standing (stationary),Waiting Area,Adult,{4},{1;5;7;4}
+281,0,Foraging,Foraging,Adult,{1;2},{1;5;2}
+281,1,Foraging,Foraging,Adult,{5;0;2},{4;7;5;8;0;2}
+281,2,Foraging,Foraging,Adult,{5;1;0},{1;7;5;4;0}
+281,4,Low sitting/standing (stationary),Waiting Area,Adult,{8},{1;5;8;7;2}
+281,5,Low sitting/standing (stationary),Foraging,Adult,{1;7;2},{4;1;7;8;0;2}
+281,7,Foraging,Foraging,Adult,{5},{4;1;5;8;2}
+282,8,Low sitting/standing (stationary),Waiting Area,Adult,{4},{1;5;7;4}
+282,0,Foraging,Foraging,Adult,{1;2},{1;5;2}
+282,1,Foraging,Foraging,Adult,{5;0;2},{4;7;5;8;0;2}
+282,2,Foraging,Foraging,Adult,{5;1;0},{1;7;5;4;0}
+282,4,Low sitting/standing (stationary),Waiting Area,Adult,{8},{1;5;8;7;2}
+282,5,Foraging,Foraging,Adult,{1;2},{4;1;7;8;0;2}
+282,7,Foraging,Foraging,Adult,{},{4;1;5;8;2}
+283,8,Low sitting/standing (stationary),Waiting Area,Adult,{4},{1;5;7;4}
+283,0,Foraging,Foraging,Adult,{1;2},{1;5;2}
+283,1,Foraging,Foraging,Adult,{5;0;2},{4;7;5;8;0;2}
+283,2,Foraging,Foraging,Adult,{5;1;0},{1;7;5;4;0}
+283,4,Low sitting/standing (stationary),Waiting Area,Adult,{8},{1;5;8;7;2}
+283,5,Foraging,Foraging,Adult,{1;2},{4;1;7;8;0;2}
+283,7,Foraging,Foraging,Adult,{},{4;1;5;8;2}
+284,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;5;7}
+284,0,Foraging,Foraging,Adult,{1;2},{1;5;2}
+284,1,Foraging,Foraging,Adult,{5;0;2},{5;8;0;7;2}
+284,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0;7}
+284,5,Foraging,Foraging,Adult,{1;2},{1;8;0;7;2}
+284,7,Foraging,Foraging,Adult,{},{1;5;8;2}
+285,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;5;7}
+285,0,Foraging,Foraging,Adult,{1;2},{1;5;2}
+285,1,Foraging,Foraging,Adult,{5;0;2},{5;8;0;7;2}
+285,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0;7}
+285,5,Foraging,Foraging,Adult,{1;2},{1;8;0;7;2}
+285,7,Foraging,Foraging,Adult,{},{1;5;8;2}
+286,8,Low sitting/standing (stationary),Waiting Area,Adult,{7},{1;5;7}
+286,0,Foraging,Foraging,Adult,{1;2},{1;5;2}
+286,1,Foraging,Foraging,Adult,{5;0;2},{5;8;0;7;2}
+286,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0;7}
+286,5,Foraging,Foraging,Adult,{1;2},{1;8;0;7;2}
+286,7,Foraging,Foraging,Adult,{8},{1;5;8;2}
+287,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{1;5;7}
+287,0,Foraging,Foraging,Adult,{1;2},{1;5;2}
+287,1,Foraging,Foraging,Adult,{5;0;2},{5;8;0;7;2}
+287,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0;7}
+287,5,Foraging,Foraging,Adult,{1;2},{1;8;0;7;2}
+287,7,Interacting with foreign object,Foraging,Adult,{},{1;5;8;2}
+288,8,Low sitting/standing (stationary),Waiting Area,Adult,{4;7},{4;5;7}
+288,0,Foraging,Foraging,Adult,{1;2},{1;5;2}
+288,1,Foraging,Foraging,Adult,{5;0;2},{4;7;5;0;2}
+288,2,Foraging,Foraging,Adult,{5;1;0},{1;7;5;4;0}
+288,4,Low sitting/standing (stationary),Waiting Area,Adult,{8},{1;5;8;7;2}
+288,5,Foraging,Foraging,Adult,{1;2},{4;1;7;8;0;2}
+288,7,Interacting with foreign object,Foraging,Adult,{8},{4;1;5;8;2}
+289,8,Moving,Waiting Area,Adult,{4;7},{4;5;7}
+289,0,Foraging,Foraging,Adult,{1;2},{1;5;2}
+289,1,Foraging,Foraging,Adult,{5;0;2},{4;7;5;0;2}
+289,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0;7}
+289,4,Moving,Waiting Area,Adult,{8},{1;7;5;8}
+289,5,Foraging,Foraging,Adult,{1;2},{4;1;7;8;0;2}
+289,7,Interacting with foreign object,Foraging,Adult,{8},{4;1;5;8;2}
+290,8,Moving,Waiting Area,Adult,{4},{4;7}
+290,0,Foraging,Foraging,Adult,{1;2},{1;2}
+290,1,Foraging,Foraging,Adult,{0;2},{7;0;2}
+290,2,Foraging,Foraging,Adult,{1;0},{1;0;7}
+290,4,Moving,Waiting Area,Adult,{8},{7;8}
+290,7,Interacting with foreign object,Foraging,Adult,{},{4;1;8;2}
+291,8,Low sitting/standing (stationary),Waiting Area,Adult,{4},{4;7}
+291,0,Foraging,Foraging,Adult,{1;2},{1;2}
+291,1,Foraging,Foraging,Adult,{0;2},{7;0;2}
+291,2,Foraging,Foraging,Adult,{1;0},{1;0;7}
+291,4,Moving,Waiting Area,Adult,{8},{7;8}
+291,7,Interacting with foreign object,Foraging,Adult,{},{4;1;8;2}
+292,8,Low sitting/standing (stationary),Waiting Area,Adult,{4},{4;7}
+292,0,Foraging,Foraging,Adult,{1;2},{1;5;2}
+292,1,Foraging,Foraging,Adult,{5;0;2},{5;7;0;2}
+292,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0;7}
+292,4,Moving,Waiting Area,Adult,{8},{7;8}
+292,5,Foraging,Foraging,Adult,{1;2},{1;0;7;2}
+292,7,Interacting with foreign object,Foraging,Adult,{},{4;1;5;8;2}
+293,8,Low sitting/standing (stationary),Waiting Area,Adult,{4},{4;7}
+293,0,Foraging,Foraging,Adult,{1;5;2},{1;5;2}
+293,1,Foraging,Foraging,Adult,{5;0;2},{5;7;0;2}
+293,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0;7}
+293,4,Moving,Waiting Area,Adult,{8},{7;8}
+293,5,Foraging,Foraging,Adult,{1;0;2},{1;0;7;2}
+293,7,Interacting with foreign object,Foraging,Adult,{},{4;1;5;8;2}
+294,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{7}
+294,0,Foraging,Foraging,Adult,{1;5;2},{1;5;2}
+294,1,Foraging,Foraging,Adult,{5;0;2},{5;7;0;2}
+294,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0;7}
+294,5,Foraging,Foraging,Adult,{1;0;2},{1;0;7;2}
+294,7,Interacting with foreign object,Foraging,Adult,{},{1;5;8;2}
+295,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{7}
+295,0,Foraging,Foraging,Adult,{1;5},{1;5}
+295,1,Foraging,Foraging,Adult,{5;0},{5;0}
+295,5,Foraging,Foraging,Adult,{1;0},{1;0;7}
+295,7,Dig burrow,Foraging,Adult,{},{5;8}
+296,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{4;7}
+296,0,Foraging,Foraging,Adult,{1;2},{4;1;5;2}
+296,1,Foraging,Foraging,Adult,{5;0;2},{5;4;0;2}
+296,2,Foraging,Foraging,Adult,{5;1;0},{1;7;5;4;0}
+296,4,Foraging,Foraging,Adult,{7;5},{1;7;5;8;0;2}
+296,5,Foraging,Foraging,Adult,{4;1;2},{4;1;7;0;2}
+296,7,Interacting with foreign object,Foraging,Adult,{4},{4;5;8;2}
+297,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{4;7}
+297,0,Foraging,Foraging,Adult,{1},{1;4}
+297,1,Foraging,Foraging,Adult,{0},{4;0;7}
+297,4,Foraging,Foraging,Adult,{7},{1;7;0;8}
+297,7,Interacting with foreign object,Foraging,Adult,{4},{1;8;4}
+298,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{4;7}
+298,0,Foraging,Foraging,Adult,{1},{1;4}
+298,1,Foraging,Foraging,Adult,{0},{4;0;7}
+298,4,Foraging,Foraging,Adult,{7},{1;7;0;8}
+298,7,Interacting with foreign object,Foraging,Adult,{4},{1;8;4}
+299,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{4;7}
+299,0,Foraging,Foraging,Adult,{1},{1;4}
+299,1,Foraging,Foraging,Adult,{0},{4;0;7}
+299,4,Foraging,Foraging,Adult,{7},{1;7;0;8}
+299,7,Interacting with foreign object,Foraging,Adult,{4},{1;8;4}
+300,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{7}
+300,0,Foraging,Foraging,Adult,{1;2},{4;1;2}
+300,1,Foraging,Foraging,Adult,{0;2},{4;0;7;2}
+300,2,Foraging,Foraging,Adult,{1;0},{1;0;7;4}
+300,4,Foraging,Foraging,Adult,{7},{1;0;7;2}
+300,7,Interacting with foreign object,Foraging,Adult,{4},{4;1;8;2}
+301,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{7}
+301,0,Foraging,Foraging,Adult,{1;2},{4;1;5;2}
+301,1,Foraging,Foraging,Adult,{5;0;2},{4;7;5;0;2}
+301,2,Foraging,Foraging,Adult,{5;1;0},{1;7;5;4;0}
+301,4,Foraging,Foraging,Adult,{7;5},{1;7;5;0;2}
+301,5,Foraging,Foraging,Adult,{4;1;2},{4;1;7;0;2}
+301,7,Interacting with foreign object,Foraging,Adult,{4},{4;1;5;8;2}
+302,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{7}
+302,0,Foraging,Foraging,Adult,{1;5;2},{4;1;5;2}
+302,1,Foraging,Foraging,Adult,{5;0;2},{5;4;0;2}
+302,2,Foraging,Foraging,Adult,{5;1;0},{1;7;5;4;0}
+302,4,Foraging,Foraging,Adult,{7;5},{1;7;5;0;2}
+302,5,Foraging,Foraging,Adult,{4;1;0;2},{4;1;7;0;2}
+302,7,Interacting with foreign object,Foraging,Adult,{4},{4;5;8;2}
+303,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{7}
+303,0,Foraging,Foraging,Adult,{1;5;2},{4;1;5;2}
+303,1,Foraging,Foraging,Adult,{5;0;2},{5;4;0;2}
+303,2,Foraging,Foraging,Adult,{5;1;0},{1;7;5;4;0}
+303,4,Foraging,Foraging,Adult,{7;5},{1;7;5;0;2}
+303,5,Dig burrow,Foraging,Adult,{4;1;0;2},{4;1;7;0;2}
+303,7,Interacting with foreign object,Foraging,Adult,{4},{4;5;8;2}
+304,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{7}
+304,0,Foraging,Foraging,Adult,{1;5;2},{4;1;5;2}
+304,1,Foraging,Foraging,Adult,{5;0;2},{5;4;0;2}
+304,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0;4}
+304,4,Foraging,Foraging,Adult,{7;5},{1;7;5;0;2}
+304,5,Dig burrow,Foraging,Adult,{4;1;0;2},{4;1;7;0;2}
+304,7,Interacting with foreign object,Foraging,Adult,{4},{4;5;8}
+305,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{7}
+305,0,Foraging,Foraging,Adult,{1;5},{1;5;4}
+305,1,Foraging,Foraging,Adult,{5;0},{5;4;0}
+305,4,Foraging,Foraging,Adult,{7;5},{5;1;0;7}
+305,5,Dig burrow,Foraging,Adult,{1;0;4},{1;0;7;4}
+305,7,Interacting with foreign object,Foraging,Adult,{4},{4;5;8}
+306,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{7}
+306,0,Foraging,Foraging,Adult,{5},{4;5}
+306,4,Foraging,Foraging,Adult,{7},{5;7;0}
+306,5,Dig burrow,Foraging,Adult,{0},{4;0;7}
+306,7,Interacting with foreign object,Foraging,Adult,{4},{4;5;8}
+307,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{7}
+307,0,Foraging,Foraging,Adult,{5},{4;5}
+307,4,Foraging,Foraging,Adult,{7;5},{5;7;0}
+307,5,Dig burrow,Foraging,Adult,{4;0},{4;0;7}
+307,7,Interacting with foreign object,Foraging,Adult,{4},{4;5;8}
+308,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{7}
+308,0,Foraging,Foraging,Adult,{5},{4;5}
+308,4,Foraging,Foraging,Adult,{7;5},{5;7;0}
+308,5,Dig burrow,Foraging,Adult,{4;0},{4;0;7}
+308,7,Interacting with foreign object,Foraging,Adult,{4},{4;5;8}
+309,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+309,0,Foraging,Foraging,Adult,{5},{4;5}
+309,4,Foraging,Foraging,Adult,{7;5},{5;6;7;0}
+309,5,Dig burrow,Foraging,Adult,{4;0},{4;0;7}
+309,6,Dig burrow,Foraging,Adult,{7},{4;7;8}
+309,7,Moving,Foraging,Adult,{6;4},{6;4;5;8}
+310,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+310,0,Foraging,Foraging,Adult,{5},{7;5}
+310,5,Dig burrow,Foraging,Adult,{0},{7;0}
+310,6,Dig burrow,Foraging,Adult,{7},{7;8}
+310,7,Moving,Foraging,Adult,{6},{5;6;0;8}
+311,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+311,0,Foraging,Foraging,Adult,{5},{7;5}
+311,5,Foraging,Foraging,Adult,{0},{7;0}
+311,6,Dig burrow,Foraging,Adult,{},{7;8}
+311,7,Dig burrow,Foraging,Adult,{},{5;6;0;8}
+312,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+312,0,Foraging,Foraging,Adult,{5},{7;5}
+312,5,Foraging,Foraging,Adult,{0},{7;0}
+312,6,Dig burrow,Foraging,Adult,{},{7;8}
+312,7,Dig burrow,Foraging,Adult,{},{5;6;0;8}
+313,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+313,0,Foraging,Foraging,Adult,{5},{7;5}
+313,5,Foraging,Foraging,Adult,{0},{7;0}
+313,6,Dig burrow,Foraging,Adult,{},{7;8}
+313,7,Dig burrow,Foraging,Adult,{},{5;6;0;8}
+314,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+314,0,Foraging,Foraging,Adult,{5},{7;5}
+314,5,Foraging,Foraging,Adult,{7;0},{7;0}
+314,6,Dig burrow,Foraging,Adult,{},{7;8}
+314,7,Dig burrow,Foraging,Adult,{5},{5;6;0;8}
+315,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+315,0,Foraging,Foraging,Adult,{5},{7;5}
+315,5,Foraging,Foraging,Adult,{7;0},{6;7;0}
+315,6,Dig burrow,Foraging,Adult,{},{7;5;8}
+315,7,Dig burrow,Foraging,Adult,{5},{5;6;0;8}
+316,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+316,0,Foraging,Foraging,Adult,{5},{7;5}
+316,5,Foraging,Foraging,Adult,{7;0},{6;7;0}
+316,6,Dig burrow,Foraging,Adult,{},{7;5;8}
+316,7,Dig burrow,Foraging,Adult,{5},{5;6;0;8}
+317,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+317,0,Foraging,Foraging,Adult,{5},{7;5}
+317,5,Foraging,Foraging,Adult,{7;0},{6;7;0}
+317,6,Dig burrow,Foraging,Adult,{},{7;5;8}
+317,7,Dig burrow,Foraging,Adult,{5},{5;6;0;8}
+318,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+318,0,Foraging,Foraging,Adult,{5},{7;5}
+318,5,Foraging,Foraging,Adult,{7;0},{6;7;0}
+318,6,Dig burrow,Foraging,Adult,{},{7;5;8}
+318,7,Dig burrow,Foraging,Adult,{5},{5;6;0;8}
+319,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+319,0,Foraging,Foraging,Adult,{5},{7;5}
+319,5,Foraging,Foraging,Adult,{7;0},{6;7;0}
+319,6,Dig burrow,Foraging,Adult,{},{7;5;8}
+319,7,Dig burrow,Foraging,Adult,{5},{5;6;0;8}
+320,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+320,0,Foraging,Foraging,Adult,{5},{7;5}
+320,5,Foraging,Foraging,Adult,{7;0},{6;7;0}
+320,6,Dig burrow,Foraging,Adult,{},{7;5;8}
+320,7,Dig burrow,Foraging,Adult,{5},{5;6;0;8}
+321,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+321,0,Foraging,Foraging,Adult,{5;2},{7;5;2}
+321,2,Foraging,Foraging,Adult,{0},{5;7;0}
+321,5,Foraging,Foraging,Adult,{7;0},{6;7;0;2}
+321,6,Dig burrow,Foraging,Adult,{},{7;5;8}
+321,7,Dig burrow,Foraging,Adult,{5},{5;8;6;0;2}
+322,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+322,0,Foraging,Foraging,Adult,{1;5;2},{1;5;7;2}
+322,1,Foraging,Foraging,Adult,{5;0;2},{5;7;0;2}
+322,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0;7}
+322,5,Foraging,Foraging,Adult,{1;0;7;2},{1;7;6;0;2}
+322,6,Dig burrow,Foraging,Adult,{},{7;5;8}
+322,7,Dig burrow,Foraging,Adult,{5},{1;5;8;6;0;2}
+323,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+323,0,Foraging,Foraging,Adult,{4;1;5;2},{4;1;5;7;2}
+323,1,Foraging,Foraging,Adult,{5;0;2},{4;7;5;0;2}
+323,2,Foraging,Foraging,Adult,{5;1;0;4},{1;7;5;4;0}
+323,4,Foraging,Foraging,Adult,{5;7;0;2},{1;7;5;6;0;2}
+323,5,Foraging,Foraging,Adult,{4;1;7;0;2},{4;1;7;6;0;2}
+323,6,Dig burrow,Foraging,Adult,{},{4;7;5;8}
+323,7,Dig burrow,Foraging,Adult,{4;5},{4;1;5;8;6;0;2}
+324,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+324,0,Foraging,Foraging,Adult,{1;4;5;3;2},{1;4;5;3;7;2}
+324,1,Foraging,Foraging,Adult,{3;0;5;2},{4;7;5;3;0;2}
+324,2,Foraging,Foraging,Adult,{1;4;5;3;0},{1;4;5;7;3;0}
+324,3,Moving,Foraging,Adult,{4;1;5;7;0;2},{4;1;5;7;6;0;2}
+324,4,Foraging,Foraging,Adult,{5;3;0;7;2},{1;7;5;3;6;0;2}
+324,5,Foraging,Foraging,Adult,{1;4;7;3;0;2},{1;4;7;3;6;0;2}
+324,6,Dig burrow,Foraging,Adult,{},{4;5;8;3;7}
+324,7,Dig burrow,Foraging,Adult,{3;4;5},{1;4;5;8;3;6;0;2}
+325,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+325,0,Foraging,Foraging,Adult,{3;1;5;2},{1;5;3;7;2}
+325,1,Foraging,Foraging,Adult,{5;0;2},{5;3;0;7;2}
+325,2,Foraging,Foraging,Adult,{3;1;0;5},{1;7;5;3;0}
+325,3,Moving,Foraging,Adult,{5;7;0;2},{1;7;5;6;0;2}
+325,5,Foraging,Foraging,Adult,{1;7;3;0;2},{1;7;3;6;0;2}
+325,6,Dig burrow,Foraging,Adult,{},{3;7;5;8}
+325,7,Dig burrow,Foraging,Adult,{3;5},{1;5;8;3;6;0;2}
+326,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+326,0,Foraging,Foraging,Adult,{3;1;5;2},{1;5;3;7;2}
+326,1,Foraging,Foraging,Adult,{5;0;2},{5;3;0;7;2}
+326,2,Foraging,Foraging,Adult,{3;1;0;5},{1;7;5;3;0}
+326,3,Moving,Foraging,Adult,{5;7;0;2},{1;7;5;6;0;2}
+326,5,Foraging,Foraging,Adult,{1;7;3;0;2},{1;7;3;6;0;2}
+326,6,Dig burrow,Foraging,Adult,{},{3;7;5;8}
+326,7,Dig burrow,Foraging,Adult,{3;5},{1;5;8;3;6;0;2}
+327,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+327,0,Foraging,Foraging,Adult,{3;1;5},{3;1;5;7}
+327,1,Foraging,Foraging,Adult,{5;0},{3;7;0;5}
+327,3,Moving,Foraging,Adult,{5;7;0},{1;7;5;6;0}
+327,5,Foraging,Foraging,Adult,{3;1;0;7},{1;7;3;6;0}
+327,6,Dig burrow,Foraging,Adult,{},{3;7;5;8}
+327,7,Dig burrow,Foraging,Adult,{3;5},{1;5;8;3;6;0}
+328,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+328,0,Foraging,Foraging,Adult,{3;1;5;2},{1;5;3;7;2}
+328,1,Foraging,Foraging,Adult,{5;0;2},{5;3;0;7;2}
+328,2,Foraging,Foraging,Adult,{3;1;0;5},{1;7;5;3;0}
+328,3,Moving,Foraging,Adult,{5;7;0;2},{1;7;5;6;0;2}
+328,5,Foraging,Foraging,Adult,{1;7;3;0;2},{1;7;3;6;0;2}
+328,6,Dig burrow,Foraging,Adult,{},{3;7;5;8}
+328,7,Dig burrow,Foraging,Adult,{3;5},{1;5;8;3;6;0;2}
+329,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;7}
+329,0,Foraging,Foraging,Adult,{3;1;5;2},{1;5;3;7;2}
+329,1,Foraging,Foraging,Adult,{5;0;2},{5;3;0;7;2}
+329,2,Foraging,Foraging,Adult,{3;1;0;5},{1;7;5;3;0}
+329,3,Moving,Foraging,Adult,{5;7;0;2},{1;7;5;6;0;2}
+329,5,Foraging,Foraging,Adult,{1;7;3;0;2},{1;7;3;6;0;2}
+329,6,Dig burrow,Foraging,Adult,{},{3;7;5;8}
+329,7,Dig burrow,Foraging,Adult,{3;5},{1;5;8;3;6;0;2}
+330,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6}
+330,0,Foraging,Foraging,Adult,{3;1;5;2},{3;1;5;2}
+330,1,Foraging,Foraging,Adult,{5;0;2},{3;0;5;2}
+330,2,Foraging,Foraging,Adult,{3;1;0;5},{3;1;0;5}
+330,3,Moving,Foraging,Adult,{5;0;2},{1;5;6;0;2}
+330,5,Foraging,Foraging,Adult,{3;1;0;2},{1;3;6;0;2}
+330,6,Dig burrow,Foraging,Adult,{},{3;5;8}
+331,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6}
+331,0,Foraging,Foraging,Adult,{3;1;5;2},{3;1;5;2}
+331,1,Foraging,Foraging,Adult,{5;0;2},{3;0;5;2}
+331,2,Foraging,Foraging,Adult,{3;1;0;5},{3;1;0;5}
+331,3,Moving,Foraging,Adult,{5;0;2},{1;5;6;0;2}
+331,5,Foraging,Foraging,Adult,{3;1;0;2},{1;3;6;0;2}
+331,6,Dig burrow,Foraging,Adult,{},{3;5;8}
+332,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6}
+332,1,Foraging,Foraging,Adult,{5;2},{4;5;2}
+332,2,Foraging,Foraging,Adult,{1;5},{1;5;4}
+332,4,Foraging,Foraging,Adult,{5},{6;1;5;2}
+332,5,Foraging,Foraging,Adult,{4;1;2},{4;6;1;2}
+332,6,Dig burrow,Foraging,Adult,{},{4;5;8}
+333,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{3;6}
+333,1,Foraging,Foraging,Adult,{5;2},{4;5;2}
+333,2,Foraging,Foraging,Adult,{1;5},{3;1;5;4}
+333,3,Moving,Foraging,Adult,{6;4},{4;5;8;6;2}
+333,4,Foraging,Foraging,Adult,{3;5},{1;5;3;6;2}
+333,5,Foraging,Foraging,Adult,{4;1;2},{1;4;3;6;2}
+333,6,Dig burrow,Foraging,Adult,{3},{3;4;5;8}
+334,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{3;6}
+334,1,Foraging,Foraging,Adult,{5;2},{4;5;2}
+334,2,Foraging,Foraging,Adult,{1;5},{1;5;4}
+334,3,Moving,Foraging,Adult,{6},{6;4;8}
+334,4,Foraging,Foraging,Adult,{},{1;5;3;6;2}
+334,5,Foraging,Foraging,Adult,{1;2},{4;6;1;2}
+334,6,Dig burrow,Foraging,Adult,{3},{3;4;5;8}
+335,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;4}
+335,1,Foraging,Foraging,Adult,{5;2},{4;5;2}
+335,2,Foraging,Foraging,Adult,{1;5},{1;5;4}
+335,4,Foraging,Foraging,Adult,{6},{1;5;8;6;2}
+335,5,Foraging,Foraging,Adult,{1;2},{4;6;1;2}
+335,6,Dig burrow,Foraging,Adult,{4},{4;5;8}
+336,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;4}
+336,0,Foraging,Foraging,Adult,{1;5;2},{4;1;5;2}
+336,1,Foraging,Foraging,Adult,{5;0;2},{5;0;2}
+336,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0}
+336,4,Foraging,Foraging,Adult,{6},{5;6;0;8}
+336,5,Foraging,Foraging,Adult,{1;0;2},{4;1;6;0;2}
+336,6,Dig burrow,Foraging,Adult,{4},{4;5;8}
+337,8,Low sitting/standing (stationary),Waiting Area,Adult,{},{6;4}
+337,0,Foraging,Foraging,Adult,{1;5;2},{4;1;5;2}
+337,1,Foraging,Foraging,Adult,{5;0;2},{5;0;2}
+337,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0}
+337,4,Foraging,Foraging,Adult,{6},{5;6;0;8}
+337,5,Foraging,Foraging,Adult,{1;0;2},{4;1;6;0;2}
+337,6,Dig burrow,Foraging,Adult,{4},{4;5;8}
+338,8,Moving,Waiting Area,Adult,{},{6;4}
+338,0,Foraging,Foraging,Adult,{1;5;2},{1;5;2}
+338,1,Foraging,Foraging,Adult,{5;0;2},{5;0;2}
+338,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0}
+338,4,Foraging,Foraging,Adult,{6},{6;5;8}
+338,5,Foraging,Foraging,Adult,{1;0;2},{4;1;6;0;2}
+338,6,Dig burrow,Foraging,Adult,{4},{4;5;8}
+339,8,Foraging,Waiting Area,Adult,{},{6;4}
+339,0,Foraging,Foraging,Adult,{1;5;2},{4;1;5;2}
+339,1,Foraging,Foraging,Adult,{5;0;2},{5;0;2}
+339,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0}
+339,4,Foraging,Foraging,Adult,{6},{5;6;0;8}
+339,5,Foraging,Foraging,Adult,{1;0;2},{4;1;6;0;2}
+339,6,Dig burrow,Foraging,Adult,{4},{4;5;8}
+340,8,Foraging,Waiting Area,Adult,{},{6}
+340,0,Foraging,Foraging,Adult,{1;5;2},{4;1;5;2}
+340,1,Foraging,Foraging,Adult,{5;0;2},{5;4;0;2}
+340,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0}
+340,4,Foraging,Foraging,Adult,{6},{5;6;1;0}
+340,5,Foraging,Foraging,Adult,{1;0;2},{4;1;6;0;2}
+340,6,Dig burrow,Foraging,Adult,{4},{4;5;8}
+341,8,Foraging,Waiting Area,Adult,{},{6}
+341,0,Foraging,Foraging,Adult,{1;5;2},{4;1;5;2}
+341,1,Foraging,Foraging,Adult,{5;0;2},{5;4;0;2}
+341,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0;4}
+341,4,Foraging,Foraging,Adult,{6},{1;5;6;0;2}
+341,5,Foraging,Foraging,Adult,{1;0;2},{4;1;6;0;2}
+341,6,Dig burrow,Foraging,Adult,{4},{4;5;8}
+342,8,Foraging,Waiting Area,Adult,{},{}
+342,0,Foraging,Foraging,Adult,{1;5;2},{4;1;5;2}
+342,1,Foraging,Foraging,Adult,{5;0;2},{5;4;0;2}
+342,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0;4}
+342,4,Foraging,Foraging,Adult,{6},{1;5;6;0;2}
+342,5,Foraging,Foraging,Adult,{1;0;2},{4;1;6;0;2}
+342,6,Dig burrow,Foraging,Adult,{4},{4;5}
+343,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+343,0,Foraging,Foraging,Adult,{1;5;2},{4;1;5;2}
+343,1,Foraging,Foraging,Adult,{5;0;2},{5;4;0;2}
+343,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0;4}
+343,4,Foraging,Foraging,Adult,{6},{1;5;6;0;2}
+343,5,Foraging,Foraging,Adult,{1;0;2},{4;1;6;0;2}
+343,6,Dig burrow,Foraging,Adult,{4},{4;5}
+344,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+344,0,Foraging,Foraging,Adult,{1;5;2},{4;1;5;2}
+344,1,Foraging,Foraging,Adult,{5;0;2},{5;4;0;2}
+344,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0;4}
+344,4,Foraging,Foraging,Adult,{6},{1;5;6;0;2}
+344,5,Foraging,Foraging,Adult,{1;0;2},{4;1;6;0;2}
+344,6,Dig burrow,Foraging,Adult,{4},{4;5}
+345,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+345,0,Foraging,Foraging,Adult,{1;5;2},{4;1;5;2}
+345,1,Foraging,Foraging,Adult,{5;0;2},{5;4;0;2}
+345,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0}
+345,4,Foraging,Foraging,Adult,{6},{5;6;1;0}
+345,5,Foraging,Foraging,Adult,{1;0;2},{4;1;0;2}
+345,6,Dig burrow,Foraging,Adult,{4},{4}
+346,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+346,0,Foraging,Foraging,Adult,{1;5;2},{4;1;5;2}
+346,1,Foraging,Foraging,Adult,{5;0;2},{5;4;0;2}
+346,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0}
+346,4,Foraging,Foraging,Adult,{6},{5;6;1;0}
+346,5,Foraging,Foraging,Adult,{1;0;2},{4;1;0;2}
+346,6,Dig burrow,Foraging,Adult,{4},{4}
+347,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+347,0,Foraging,Foraging,Adult,{1;5;2},{4;1;5;2}
+347,1,Foraging,Foraging,Adult,{5;0;2},{5;4;0;2}
+347,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0}
+347,4,Foraging,Foraging,Adult,{6},{5;6;1;0}
+347,5,Foraging,Foraging,Adult,{1;0;2},{4;1;0;2}
+347,6,Dig burrow,Foraging,Adult,{4},{4}
+348,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+348,1,Foraging,Foraging,Adult,{5;2},{4;5;2}
+348,2,Foraging,Foraging,Adult,{1;5},{1;5;4}
+348,4,Foraging,Foraging,Adult,{6},{6;1;5;2}
+348,5,Foraging,Foraging,Adult,{1;2},{4;1;2}
+348,6,Dig burrow,Foraging,Adult,{4},{4}
+349,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+349,1,Foraging,Foraging,Adult,{5;2},{7;5;2}
+349,2,Foraging,Foraging,Adult,{1;5;7},{1;5;7;4}
+349,4,Foraging,Foraging,Adult,{6},{6;7;5;2}
+349,5,Foraging,Foraging,Adult,{1;7;2},{4;1;7;2}
+349,6,Dig burrow,Foraging,Adult,{4},{4;7}
+349,7,Foraging,Foraging,Adult,{5;2},{4;1;5;6;2}
+350,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+350,1,Foraging,Foraging,Adult,{5;2},{4;5;7;2}
+350,2,Foraging,Foraging,Adult,{1;5;7},{1;5;7;4}
+350,4,Foraging,Foraging,Adult,{6},{1;5;6;7;2}
+350,5,Foraging,Foraging,Adult,{1;7;2},{4;1;7;2}
+350,6,Dig burrow,Foraging,Adult,{4},{4;7}
+350,7,Foraging,Foraging,Adult,{5;2},{4;1;5;6;2}
+351,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+351,0,Foraging,Foraging,Adult,{1;5;7},{1;5;7;4}
+351,1,Foraging,Foraging,Adult,{5;0},{5;7;0}
+351,4,Foraging,Foraging,Adult,{6},{5;6;7;0}
+351,5,Foraging,Foraging,Adult,{1;0;7},{1;0;7;4}
+351,6,Dig burrow,Foraging,Adult,{4},{4;7}
+351,7,Foraging,Foraging,Adult,{5;0},{1;4;5;6;0}
+352,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+352,0,Foraging,Foraging,Adult,{1;5},{1;5;4}
+352,1,Foraging,Foraging,Adult,{5;0},{5;0}
+352,4,Foraging,Foraging,Adult,{6},{5;6;0}
+352,5,Foraging,Foraging,Adult,{1;0},{1;0;4}
+352,6,Dig burrow,Foraging,Adult,{4},{4}
+353,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+353,0,Foraging,Foraging,Adult,{1;5},{1;5;4}
+353,1,Foraging,Foraging,Adult,{5;0},{5;0}
+353,4,Foraging,Foraging,Adult,{},{5;0}
+353,5,Foraging,Foraging,Adult,{1;0},{1;0;4}
+354,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+354,1,Foraging,Foraging,Adult,{5;2},{5;2}
+354,2,Foraging,Foraging,Adult,{1;5},{1;5;4}
+354,4,Foraging,Foraging,Adult,{},{5;2}
+354,5,Foraging,Foraging,Adult,{1;2},{4;1;2}
+355,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+355,1,Foraging,Foraging,Adult,{5},{5}
+355,4,Foraging,Foraging,Adult,{6},{6;5}
+355,5,Foraging,Foraging,Adult,{1},{1;4}
+355,6,Dig burrow,Foraging,Adult,{4},{4}
+356,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+356,0,Foraging,Foraging,Adult,{1;5},{1;5;4}
+356,1,Foraging,Foraging,Adult,{5;0},{5;0}
+356,4,Foraging,Foraging,Adult,{6},{6;0}
+356,5,Foraging,Foraging,Adult,{1;0},{1;0}
+356,6,Dig burrow,Foraging,Adult,{4},{4}
+357,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+357,0,Foraging,Foraging,Adult,{1;5},{1;5;4}
+357,1,Foraging,Foraging,Adult,{5;0},{5;0}
+357,4,Foraging,Foraging,Adult,{6},{6;0}
+357,5,Foraging,Foraging,Adult,{1;0},{1;0}
+357,6,Dig burrow,Foraging,Adult,{4},{4}
+358,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+358,0,Foraging,Foraging,Adult,{1;5;2},{4;1;5;2}
+358,1,Foraging,Foraging,Adult,{5;0;2},{5;0;2}
+358,2,Foraging,Foraging,Adult,{5;1;0},{5;1;0}
+358,4,Foraging,Foraging,Adult,{6},{6;0}
+358,5,Moving,Foraging,Adult,{1;0;2},{1;0;2}
+358,6,Dig burrow,Foraging,Adult,{4},{4}
+359,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+359,0,Foraging,Foraging,Adult,{1;2},{4;1;5;2}
+359,1,Foraging,Foraging,Adult,{0;2},{5;0;2}
+359,2,Foraging,Foraging,Adult,{1;0},{5;1;0}
+359,4,Foraging,Foraging,Adult,{6},{6;0}
+359,5,Moving,Foraging,Adult,{},{1;0;2}
+359,6,Dig burrow,Foraging,Adult,{4},{4}
+360,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+360,0,Foraging,Foraging,Adult,{1;2},{4;1;2}
+360,1,Foraging,Foraging,Adult,{0;2},{0;2}
+360,2,Foraging,Foraging,Adult,{1;0},{1;0}
+360,4,Foraging,Foraging,Adult,{6},{6;0}
+360,5,Moving,Foraging,Adult,{},{}
+360,6,Dig burrow,Foraging,Adult,{4},{4}
+361,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+361,0,Foraging,Foraging,Adult,{1;2},{4;1;2}
+361,1,Foraging,Foraging,Adult,{0;2},{0;2}
+361,2,Foraging,Foraging,Adult,{1;0},{1;0}
+361,4,Foraging,Foraging,Adult,{6},{6;0}
+361,6,Dig burrow,Foraging,Adult,{4},{4}
+362,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+362,0,Foraging,Foraging,Adult,{1;2},{4;1;2}
+362,1,Foraging,Foraging,Adult,{0;2},{0;2}
+362,2,Foraging,Foraging,Adult,{1;0},{1;0}
+362,4,Foraging,Foraging,Adult,{6},{6;0}
+362,6,Dig burrow,Foraging,Adult,{4},{4}
+363,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+363,0,Foraging,Foraging,Adult,{1;2},{4;1;2}
+363,1,Foraging,Foraging,Adult,{0;2},{0;2}
+363,2,Foraging,Foraging,Adult,{1;0},{1;0}
+363,4,Foraging,Foraging,Adult,{6},{6;0}
+363,6,Dig burrow,Foraging,Adult,{4},{4}
+364,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+364,9,Moving,Background,Adult,{},{}
+364,0,Foraging,Foraging,Adult,{1;2},{4;1;2}
+364,1,Foraging,Foraging,Adult,{0;2},{0;2}
+364,2,Foraging,Foraging,Adult,{1;0},{1;0}
+364,4,Foraging,Foraging,Adult,{6},{6;0}
+364,6,Dig burrow,Foraging,Adult,{4},{4}
+365,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+365,0,Foraging,Foraging,Adult,{1;2},{4;1;2}
+365,1,Foraging,Foraging,Adult,{0;2},{0;2}
+365,2,Foraging,Foraging,Adult,{1;0},{1;0}
+365,4,Foraging,Foraging,Adult,{},{0}
+366,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+366,0,Foraging,Foraging,Adult,{1;2},{4;1;2}
+366,1,Foraging,Foraging,Adult,{0;2},{0;2}
+366,2,Foraging,Foraging,Adult,{1;0},{1;0}
+366,4,Foraging,Foraging,Adult,{},{0}
+367,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+367,0,Foraging,Foraging,Adult,{1;2},{4;1;2}
+367,1,Foraging,Foraging,Adult,{0;2},{0;2}
+367,2,Foraging,Foraging,Adult,{1;0},{1;0}
+367,4,Foraging,Foraging,Adult,{},{0}
+368,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+368,0,Foraging,Foraging,Adult,{1;2},{4;1;2}
+368,1,Foraging,Foraging,Adult,{0;2},{0;2}
+368,2,Foraging,Foraging,Adult,{1;0},{1;0}
+368,4,Foraging,Foraging,Adult,{},{0}
+369,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+369,0,Foraging,Foraging,Adult,{1;2},{4;1;2}
+369,1,Foraging,Foraging,Adult,{0;2},{0;2}
+369,2,Foraging,Foraging,Adult,{1;0},{1;0}
+369,4,Foraging,Foraging,Adult,{},{0}
+370,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+370,0,Foraging,Foraging,Adult,{1},{1;4}
+370,1,Foraging,Foraging,Adult,{0},{0}
+370,4,Foraging,Foraging,Adult,{},{0}
+371,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+371,9,Low sitting/standing (stationary),Background,Adult,{},{}
+371,0,Foraging,Foraging,Adult,{1},{1;4}
+371,1,Foraging,Foraging,Adult,{0},{0}
+371,4,Foraging,Foraging,Adult,{},{0}
+372,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+372,0,Foraging,Foraging,Adult,{1},{1;4}
+372,1,Foraging,Foraging,Adult,{0},{0}
+372,4,Foraging,Foraging,Adult,{6},{6;0}
+372,6,Dig burrow,Foraging,Adult,{4},{4}
+373,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+373,0,Foraging,Foraging,Adult,{1;2},{4;1;2}
+373,1,Foraging,Foraging,Adult,{0;2},{0;2}
+373,2,Foraging,Foraging,Adult,{1;0},{1;0}
+373,4,Dig burrow,Foraging,Adult,{},{0}
+374,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+374,0,Foraging,Foraging,Adult,{1;2},{4;1;2}
+374,1,Foraging,Foraging,Adult,{0;2},{0;2}
+374,2,Foraging,Foraging,Adult,{1;0},{1;0}
+374,4,Dig burrow,Foraging,Adult,{},{0}
+375,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+375,1,Foraging,Foraging,Adult,{2},{2}
+375,2,Foraging,Foraging,Adult,{1},{1}
+375,4,Dig burrow,Foraging,Adult,{},{}
+376,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+376,1,Foraging,Foraging,Adult,{2},{2}
+376,2,Foraging,Foraging,Adult,{1},{1}
+376,4,Foraging,Foraging,Adult,{6},{6}
+376,6,Dig burrow,Foraging,Adult,{4},{4}
+377,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+377,0,Moving,Foraging,Adult,{4;7},{4;1;6;7;2}
+377,1,Foraging,Foraging,Adult,{7;2},{7;0;2}
+377,2,Foraging,Foraging,Adult,{1;7},{1;0;7}
+377,4,Foraging,Foraging,Adult,{6;0},{6;7;0}
+377,6,Dig burrow,Foraging,Adult,{4},{4;0;7}
+377,7,Foraging,Foraging,Adult,{1;0;2},{4;1;6;0;2}
+378,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+378,0,Moving,Foraging,Adult,{4},{4;1;6;7;2}
+378,1,Foraging,Foraging,Adult,{7;2},{7;0;2}
+378,2,Foraging,Foraging,Adult,{1;7},{1;0;7}
+378,4,Foraging,Foraging,Adult,{6;0},{6;7;0}
+378,6,Dig burrow,Foraging,Adult,{4},{4;0;7}
+378,7,Foraging,Foraging,Adult,{1;2},{4;1;6;0;2}
+379,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+379,1,Foraging,Foraging,Adult,{7;2},{7;2}
+379,2,Foraging,Foraging,Adult,{1;7},{1;7}
+379,4,Foraging,Foraging,Adult,{6},{6;7}
+379,6,Dig burrow,Foraging,Adult,{4},{4;7}
+379,7,Foraging,Foraging,Adult,{1;2},{4;6;1;2}
+380,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+380,1,Foraging,Foraging,Adult,{7;2},{7;2}
+380,2,Foraging,Foraging,Adult,{1;7},{1;7}
+380,4,Foraging,Foraging,Adult,{6},{6;7}
+380,6,Dig burrow,Foraging,Adult,{4},{4;7}
+380,7,Foraging,Foraging,Adult,{1;2},{4;6;1;2}
+381,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+381,1,Foraging,Foraging,Adult,{7;2},{7;2}
+381,2,Foraging,Foraging,Adult,{1;7},{1;7}
+381,4,Foraging,Foraging,Adult,{6},{6;7}
+381,6,Dig burrow,Foraging,Adult,{4},{4;7}
+381,7,Foraging,Foraging,Adult,{1;2},{4;6;1;2}
+382,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+382,1,Foraging,Foraging,Adult,{7;2},{7;2}
+382,2,Foraging,Foraging,Adult,{1;7},{1;7;4}
+382,4,Foraging,Foraging,Adult,{},{7;2}
+382,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+383,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+383,1,Foraging,Foraging,Adult,{7;2},{4;7;2}
+383,2,Foraging,Foraging,Adult,{1;7},{1;7;4}
+383,4,Interacting with foreign object,Foraging,Adult,{},{1;7;2}
+383,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+384,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+384,0,Interacting with foreign object,Foraging,Adult,{4},{4;7;2}
+384,1,Foraging,Foraging,Adult,{7;2},{4;7;2}
+384,2,Foraging,Foraging,Adult,{1;7},{1;0;7;4}
+384,4,Interacting with foreign object,Foraging,Adult,{7;0},{1;0;7;2}
+384,7,Foraging,Foraging,Adult,{4;1;2},{4;1;0;2}
+385,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+385,0,Interacting with foreign object,Foraging,Adult,{4},{4;7;2}
+385,1,Foraging,Foraging,Adult,{7;2},{4;7;2}
+385,2,Foraging,Foraging,Adult,{1;7},{1;0;7;4}
+385,4,Interacting with foreign object,Foraging,Adult,{7;0},{1;0;7;2}
+385,7,Foraging,Foraging,Adult,{4;1;2},{4;1;0;2}
+386,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+386,0,Interacting with foreign object,Foraging,Adult,{4},{4;7;2}
+386,1,Foraging,Foraging,Adult,{7;2},{4;7;2}
+386,2,Foraging,Foraging,Adult,{1;7},{1;0;7;4}
+386,4,Interacting with foreign object,Foraging,Adult,{7;0},{1;0;7;2}
+386,7,Foraging,Foraging,Adult,{4;1;2},{4;1;0;2}
+387,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+387,0,Interacting with foreign object,Foraging,Adult,{4},{4;7;2}
+387,1,Foraging,Foraging,Adult,{7;2},{4;5;7;2}
+387,2,Foraging,Foraging,Adult,{1;7},{1;0;7;4}
+387,4,Interacting with foreign object,Foraging,Adult,{7;0},{1;0;7;2}
+387,5,Moving,Foraging,Adult,{},{1}
+387,7,Foraging,Foraging,Adult,{4;1;2},{4;1;0;2}
+388,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+388,0,Interacting with foreign object,Foraging,Adult,{4},{4;7;2}
+388,1,Foraging,Foraging,Adult,{7;5;2},{4;5;7;2}
+388,2,Foraging,Foraging,Adult,{1;7},{1;7;5;4;0}
+388,4,Interacting with foreign object,Foraging,Adult,{7;0},{1;0;7;2}
+388,5,Moving,Foraging,Adult,{1},{1;7;2}
+388,7,Foraging,Foraging,Adult,{4;1;2},{4;1;5;0;2}
+389,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+389,0,Interacting with foreign object,Foraging,Adult,{4},{4;7;2}
+389,1,Foraging,Foraging,Adult,{7;5;2},{4;5;7;2}
+389,2,Foraging,Foraging,Adult,{1;5;7},{1;7;5;4;0}
+389,4,Interacting with foreign object,Foraging,Adult,{7;0},{1;0;7;2}
+389,5,Moving,Foraging,Adult,{1;2},{1;7;2}
+389,7,Foraging,Foraging,Adult,{4;1;2},{4;1;5;0;2}
+390,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+390,0,Foraging,Foraging,Adult,{4},{4;7;2}
+390,2,Foraging,Foraging,Adult,{7;5},{5;4;0;7}
+390,4,Interacting with foreign object,Foraging,Adult,{7;0},{7;0;2}
+390,5,Foraging,Foraging,Adult,{2},{7;2}
+390,7,Foraging,Foraging,Adult,{4;2},{5;4;0;2}
+391,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+391,0,Foraging,Foraging,Adult,{6;4},{6;4;7;2}
+391,2,Foraging,Foraging,Adult,{7;5},{5;4;0;7}
+391,4,Interacting with foreign object,Foraging,Adult,{7;0},{5;0;6;7;2}
+391,5,Foraging,Foraging,Adult,{2},{4;7;2}
+391,6,Dig burrow,Foraging,Adult,{0},{4;0;7}
+391,7,Foraging,Foraging,Adult,{4;2},{4;5;6;0;2}
+392,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+392,2,Foraging,Foraging,Adult,{7;5},{4;5;7}
+392,4,Interacting with foreign object,Foraging,Adult,{7},{6;7;2}
+392,5,Interacting with foreign object,Foraging,Adult,{2},{7;2}
+392,6,Dig burrow,Foraging,Adult,{},{4;7}
+392,7,Foraging,Foraging,Adult,{4;2},{6;4;5;2}
+393,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+393,0,Foraging,Foraging,Adult,{4;7},{4;5;6;7;2}
+393,2,Foraging,Foraging,Adult,{7;5},{5;4;0;7}
+393,4,Interacting with foreign object,Foraging,Adult,{7;0},{5;0;6;7;2}
+393,5,Moving,Foraging,Adult,{7;2},{4;0;7;2}
+393,6,Dig burrow,Foraging,Adult,{},{4;0;7}
+393,7,Foraging,Foraging,Adult,{5;4;0;2},{4;5;6;0;2}
+394,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+394,0,Foraging,Foraging,Adult,{4;7},{4;1;5;6;7;2}
+394,1,Foraging,Foraging,Adult,{5;2},{4;7;5;0;2}
+394,2,Foraging,Foraging,Adult,{1;5},{1;7;5;4;0}
+394,4,Interacting with foreign object,Foraging,Adult,{6;7;0},{1;7;5;6;0;2}
+394,5,Moving,Foraging,Adult,{1;7;2},{4;1;7;0;2}
+394,6,Dig burrow,Foraging,Adult,{4},{4;0;7}
+394,7,Foraging,Waiting Area,Adult,{5;4;0},{4;1;5;6;0;2}
+395,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+395,0,Foraging,Foraging,Adult,{4;5;7},{4;1;5;6;7;2}
+395,1,Foraging,Foraging,Adult,{5;2},{5;7;0;2}
+395,2,Foraging,Foraging,Adult,{1;5},{1;7;5;4;0}
+395,4,Interacting with foreign object,Foraging,Adult,{6;0},{5;0;6;7;2}
+395,5,Moving,Foraging,Adult,{1;0;7;2},{4;1;7;0;2}
+395,6,Dig burrow,Foraging,Adult,{4},{4;0;7}
+395,7,Foraging,Foraging,Adult,{5;0},{4;1;5;6;0;2}
+396,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+396,0,Foraging,Foraging,Adult,{4;7},{4;1;5;6;7;2}
+396,1,Foraging,Foraging,Adult,{7;5;2},{5;7;0;2}
+396,2,Foraging,Foraging,Adult,{1;5;7},{5;1;0;7}
+396,4,Interacting with foreign object,Foraging,Adult,{6;0},{5;6;7;0}
+396,5,Moving,Foraging,Adult,{1;7;2},{4;1;7;0;2}
+396,6,Dig burrow,Foraging,Adult,{4},{4;0;7}
+396,7,Foraging,Foraging,Adult,{5;1;0;2},{4;1;5;6;0;2}
+397,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+397,0,Foraging,Foraging,Adult,{7},{1;5;7;2}
+397,1,Foraging,Foraging,Adult,{7;5;2},{5;7;0;2}
+397,2,Foraging,Foraging,Adult,{1;5;7},{5;1;0;7}
+397,5,Moving,Foraging,Adult,{1;7;2},{1;0;7;2}
+397,7,Foraging,Foraging,Adult,{5;1;0;2},{5;1;0;2}
+398,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+398,0,Foraging,Foraging,Adult,{5},{1;5;7;2}
+398,1,Foraging,Foraging,Adult,{7;5;2},{5;7;0;2}
+398,2,Foraging,Foraging,Adult,{1;5;7},{5;1;0;7}
+398,5,Foraging,Foraging,Adult,{1;0;7;2},{1;0;7;2}
+398,7,Foraging,Foraging,Adult,{1;5;2},{5;1;0;2}
+399,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+399,0,Foraging,Foraging,Adult,{},{1;7;2}
+399,1,Foraging,Foraging,Adult,{7;2},{7;0;2}
+399,2,Foraging,Foraging,Adult,{1;7},{1;0;7}
+399,7,Foraging,Foraging,Adult,{1;2},{1;0;2}
+400,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+400,0,Foraging,Foraging,Adult,{},{1;7;2}
+400,1,Foraging,Foraging,Adult,{7;2},{7;0;2}
+400,2,Foraging,Foraging,Adult,{1;7},{1;0;7}
+400,7,Foraging,Foraging,Adult,{1;2},{1;0;2}
+401,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+401,0,Foraging,Foraging,Adult,{},{1;2}
+401,1,Foraging,Foraging,Adult,{2},{0;2}
+401,2,Foraging,Foraging,Adult,{1},{1;0}
+402,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+402,0,Moving,Foraging,Adult,{},{1;5}
+402,1,Foraging,Foraging,Adult,{5},{5;0}
+402,5,Foraging,Foraging,Adult,{1},{1;0}
+403,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+403,0,Moving,Foraging,Adult,{},{1;5}
+403,1,Foraging,Foraging,Adult,{5},{5;0}
+403,5,Foraging,Foraging,Adult,{1},{1;0}
+404,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+404,0,Moving,Foraging,Adult,{},{1;7}
+404,1,Foraging,Foraging,Adult,{7},{7;0}
+404,7,Foraging,Foraging,Adult,{1},{1;0}
+405,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+405,0,Moving,Foraging,Adult,{},{1;7}
+405,1,Foraging,Foraging,Adult,{7},{7;0}
+405,7,Foraging,Foraging,Adult,{1},{1;0}
+406,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+406,0,Moving,Foraging,Adult,{},{1;7}
+406,1,Foraging,Foraging,Adult,{7},{7;0}
+406,7,Foraging,Foraging,Adult,{1},{1;0}
+407,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+407,0,Moving,Foraging,Adult,{},{1;7;2}
+407,1,Foraging,Foraging,Adult,{7;2},{7;0;2}
+407,2,Foraging,Foraging,Adult,{1;7},{1;0;7}
+407,7,Foraging,Foraging,Adult,{1;2},{1;0;2}
+408,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+408,0,Moving,Foraging,Adult,{},{1;7;2}
+408,1,Foraging,Foraging,Adult,{7;2},{7;0;2}
+408,2,Foraging,Foraging,Adult,{1;7},{1;0;7}
+408,7,Foraging,Foraging,Adult,{1;2},{1;0;2}
+409,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+409,0,Moving,Foraging,Adult,{},{4;1;7;2}
+409,1,Foraging,Foraging,Adult,{7;2},{7;0;2}
+409,2,Foraging,Foraging,Adult,{1;7},{1;0;7}
+409,4,Interacting with foreign object,Foraging,Adult,{},{0}
+409,7,Foraging,Foraging,Adult,{1;2},{1;0;2}
+410,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+410,0,Foraging,Foraging,Adult,{7},{4;1;7;2}
+410,1,Foraging,Foraging,Adult,{7;2},{7;0;2}
+410,2,Foraging,Foraging,Adult,{1;7},{1;0;7}
+410,4,Interacting with foreign object,Foraging,Adult,{},{7;0}
+410,7,Foraging,Foraging,Adult,{1;0;2},{4;1;0;2}
+411,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+411,0,Foraging,Foraging,Adult,{7},{4;1;7;2}
+411,1,Foraging,Foraging,Adult,{7;2},{7;0;2}
+411,2,Foraging,Foraging,Adult,{1;7},{1;0;7}
+411,4,Interacting with foreign object,Foraging,Adult,{},{7;0}
+411,7,Foraging,Foraging,Adult,{1;0;2},{4;1;0;2}
+412,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+412,1,Foraging,Foraging,Adult,{7;2},{7;2}
+412,2,Foraging,Foraging,Adult,{1;7},{1;7}
+412,4,Interacting with foreign object,Foraging,Adult,{},{7}
+412,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+413,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+413,1,Foraging,Foraging,Adult,{7;2},{7;2}
+413,2,Foraging,Foraging,Adult,{1;7},{1;7;4}
+413,4,Interacting with foreign object,Foraging,Adult,{},{7;2}
+413,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+414,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+414,1,Foraging,Foraging,Adult,{7;2},{7;2}
+414,2,Foraging,Foraging,Adult,{1;7},{1;7;4}
+414,4,Interacting with foreign object,Foraging,Adult,{},{7;2}
+414,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+415,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+415,1,Foraging,Foraging,Adult,{7},{7}
+415,4,Interacting with foreign object,Foraging,Adult,{},{7}
+415,7,Foraging,Foraging,Adult,{1},{1;4}
+416,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+416,1,Foraging,Foraging,Adult,{2},{2}
+416,2,Moving,Foraging,Adult,{1},{1;4}
+416,4,Interacting with foreign object,Foraging,Adult,{},{2}
+417,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+417,1,Foraging,Foraging,Adult,{2},{2}
+417,2,Moving,Foraging,Adult,{1},{1;4}
+417,4,Interacting with foreign object,Foraging,Adult,{6},{6;2}
+417,6,Dig burrow,Foraging,Adult,{4},{4}
+418,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+418,1,Foraging,Foraging,Adult,{7;2},{7;2}
+418,2,Moving,Foraging,Adult,{1;7},{1;7;4}
+418,4,Interacting with foreign object,Foraging,Adult,{6},{6;7;2}
+418,6,Dig burrow,Foraging,Adult,{4},{4}
+418,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+419,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+419,1,Foraging,Foraging,Adult,{7;2},{7;2}
+419,2,Foraging,Foraging,Adult,{1;7},{1;7;4}
+419,4,Interacting with foreign object,Foraging,Adult,{6},{6;7;2}
+419,6,Dig burrow,Foraging,Adult,{4},{4}
+419,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+420,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+420,1,Foraging,Foraging,Adult,{7;2},{7;2}
+420,2,Foraging,Foraging,Adult,{1;7},{1;7;4}
+420,4,Interacting with foreign object,Foraging,Adult,{6},{6;7;2}
+420,6,Dig burrow,Foraging,Adult,{4},{4}
+420,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+421,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+421,1,Foraging,Foraging,Adult,{7;2},{7;2}
+421,2,Foraging,Foraging,Adult,{1;7},{1;7;4}
+421,4,Interacting with foreign object,Foraging,Adult,{6},{6;7;2}
+421,6,Dig burrow,Foraging,Adult,{4},{4}
+421,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+422,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+422,1,Foraging,Foraging,Adult,{7;2},{7;2}
+422,2,Foraging,Foraging,Adult,{1;7},{1;7;4}
+422,4,Interacting with foreign object,Foraging,Adult,{6},{6;7;2}
+422,6,Dig burrow,Foraging,Adult,{4},{4}
+422,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+423,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+423,10,Moving,Foraging,Adult,{6;4},{6;4}
+423,1,Foraging,Foraging,Adult,{7;2},{7;2}
+423,2,Foraging,Foraging,Adult,{1;7},{1;7;4}
+423,4,Interacting with foreign object,Foraging,Adult,{6;10},{6;10;7;2}
+423,6,Dig burrow,Foraging,Adult,{4;10},{4;10}
+423,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+424,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+424,1,Foraging,Foraging,Adult,{7;2},{7;2}
+424,2,Foraging,Foraging,Adult,{1;7},{1;7;4}
+424,4,Interacting with foreign object,Foraging,Adult,{6},{6;7;2}
+424,6,Dig burrow,Foraging,Adult,{4},{4}
+424,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+425,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+425,1,Foraging,Foraging,Adult,{7;2},{7;2}
+425,2,Foraging,Foraging,Adult,{1;7},{1;7;4}
+425,4,Interacting with foreign object,Foraging,Adult,{6},{6;7;2}
+425,6,Dig burrow,Foraging,Adult,{4},{4}
+425,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+426,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+426,10,Moving,Foraging,Adult,{4},{4;1;6;7;2}
+426,1,Foraging,Foraging,Adult,{7;2},{10;7;2}
+426,2,Foraging,Foraging,Adult,{1;7},{1;10;7;4}
+426,4,Interacting with foreign object,Foraging,Adult,{6;10},{6;10;7;2}
+426,6,Dig burrow,Foraging,Adult,{4},{4;10}
+426,7,Foraging,Foraging,Adult,{1;2},{4;1;10;2}
+427,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+427,10,Moving,Foraging,Adult,{4;7},{4;1;6;7;2}
+427,1,Foraging,Foraging,Adult,{7;2},{10;7;2}
+427,2,Foraging,Foraging,Adult,{1;7},{1;10;7;4}
+427,4,Interacting with foreign object,Foraging,Adult,{6;10},{6;10;7;2}
+427,6,Dig burrow,Foraging,Adult,{4},{4;10}
+427,7,Foraging,Foraging,Adult,{1;10;2},{4;1;10;2}
+428,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+428,10,High sitting/standing (Vigilant),Foraging,Adult,{4;7},{4;1;7;2}
+428,1,Foraging,Foraging,Adult,{2},{10;7;2}
+428,2,Foraging,Foraging,Adult,{1;7},{1;10;7;4}
+428,4,Interacting with foreign object,Foraging,Adult,{10},{10;7;2}
+428,7,Foraging,Foraging,Adult,{10;2},{4;1;10;2}
+429,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+429,10,High sitting/standing (Vigilant),Foraging,Adult,{4;0;7},{4;1;7;0;2}
+429,0,High sitting/standing (Vigilant),Foraging,Adult,{10;7;2},{4;1;10;7;2}
+429,1,Foraging,Foraging,Adult,{2},{7;10;0;2}
+429,2,Foraging,Foraging,Adult,{1;0;7},{1;7;4;10;0}
+429,4,Interacting with foreign object,Foraging,Adult,{10},{7;10;0;2}
+429,7,Foraging,Foraging,Adult,{10;0;2},{4;1;10;0;2}
+430,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+430,10,High sitting/standing (Vigilant),Foraging,Adult,{4;7},{4;1;7;2}
+430,1,Foraging,Foraging,Adult,{2},{10;7;2}
+430,2,Foraging,Foraging,Adult,{1;7},{1;10;7;4}
+430,4,Interacting with foreign object,Foraging,Adult,{10},{10;7;2}
+430,7,Foraging,Foraging,Adult,{10;2},{4;1;10;2}
+431,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+431,10,High sitting/standing (Vigilant),Foraging,Adult,{4;7},{4;1;7;2}
+431,1,Foraging,Foraging,Adult,{2},{10;7;2}
+431,2,Foraging,Foraging,Adult,{1;7},{1;10;7;4}
+431,4,Interacting with foreign object,Foraging,Adult,{10},{10;7;2}
+431,7,Foraging,Foraging,Adult,{10;2},{4;1;10;2}
+432,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+432,10,High sitting/standing (Vigilant),Foraging,Adult,{4},{4;1;2}
+432,1,Foraging,Foraging,Adult,{2},{10;2}
+432,2,Low sitting/standing (stationary),Foraging,Adult,{1},{1;10;4}
+432,4,Interacting with foreign object,Foraging,Adult,{10},{10;2}
+433,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+433,10,High sitting/standing (Vigilant),Foraging,Adult,{4;7},{4;1;7;2}
+433,1,Foraging,Foraging,Adult,{2},{10;7;2}
+433,2,Low sitting/standing (stationary),Foraging,Adult,{1;7},{1;10;7;4}
+433,4,Interacting with foreign object,Foraging,Adult,{10},{10;7;2}
+433,7,Moving,Foraging,Adult,{10;2},{4;1;10;2}
+434,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+434,10,Foraging,Foraging,Adult,{4;7},{4;1;7;2}
+434,1,Foraging,Foraging,Adult,{2},{10;7;2}
+434,2,Foraging,Foraging,Adult,{1;7},{1;10;7;4}
+434,4,Interacting with foreign object,Foraging,Adult,{10},{10;7;2}
+434,7,Foraging,Foraging,Adult,{10;2},{4;1;10;2}
+435,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+435,10,Foraging,Foraging,Adult,{4;0;7},{4;1;7;0;2}
+435,0,Foraging,Foraging,Adult,{10;7;2},{4;1;10;7;2}
+435,1,Foraging,Foraging,Adult,{2},{7;10;0;2}
+435,2,Foraging,Foraging,Adult,{1;0;7},{1;7;4;10;0}
+435,4,Interacting with foreign object,Foraging,Adult,{10},{7;10;0;2}
+435,7,Foraging,Foraging,Adult,{10;0;2},{4;1;10;0;2}
+436,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+436,10,Foraging,Foraging,Adult,{4;0;7},{4;1;7;0;2}
+436,0,Foraging,Foraging,Adult,{10;7;2},{4;1;10;7;2}
+436,1,Foraging,Foraging,Adult,{2},{7;10;0;2}
+436,2,Foraging,Foraging,Adult,{1;0;7},{1;7;4;10;0}
+436,4,Interacting with foreign object,Foraging,Adult,{10},{7;10;0;2}
+436,7,Foraging,Foraging,Adult,{10;0;2},{4;1;10;0;2}
+437,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+437,10,Foraging,Foraging,Adult,{4;0},{4;1;0;2}
+437,0,Foraging,Foraging,Adult,{10;2},{4;1;10;2}
+437,1,Foraging,Foraging,Adult,{2},{10;0;2}
+437,2,Foraging,Foraging,Adult,{1;0},{1;10;0;4}
+437,4,Interacting with foreign object,Foraging,Adult,{10},{10;0;2}
+438,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+438,10,Foraging,Foraging,Adult,{4;0},{4;1;0;2}
+438,0,Foraging,Foraging,Adult,{10;2},{4;1;10;2}
+438,1,Foraging,Foraging,Adult,{2},{10;0;2}
+438,2,Foraging,Foraging,Adult,{1;0},{1;10;0;4}
+438,4,Interacting with foreign object,Foraging,Adult,{10},{10;0;2}
+439,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+439,10,Foraging,Foraging,Adult,{4;2},{4;1;2}
+439,1,Foraging,Foraging,Adult,{},{10;2}
+439,2,Foraging,Foraging,Adult,{10},{1;10;4}
+439,4,Interacting with foreign object,Foraging,Adult,{10},{10;2}
+440,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+440,10,Foraging,Foraging,Adult,{4;2},{4;1;2}
+440,1,Foraging,Foraging,Adult,{},{10;2}
+440,2,Foraging,Foraging,Adult,{10},{1;10;4}
+440,4,Interacting with foreign object,Foraging,Adult,{10},{10;2}
+441,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+441,10,Foraging,Foraging,Adult,{4;2},{4;1;2}
+441,1,Foraging,Foraging,Adult,{},{10;2}
+441,2,Foraging,Foraging,Adult,{10},{1;10;4}
+441,4,Interacting with foreign object,Foraging,Adult,{10},{10;2}
+442,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+442,10,Foraging,Foraging,Adult,{4;2},{4;1;2}
+442,1,Foraging,Foraging,Adult,{},{10;2}
+442,2,Foraging,Foraging,Adult,{10},{1;10;4}
+442,4,Interacting with foreign object,Foraging,Adult,{10},{10;2}
+443,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+443,10,Foraging,Foraging,Adult,{4},{4;1;2}
+443,1,Foraging,Foraging,Adult,{},{10;2}
+443,2,Foraging,Foraging,Adult,{},{1;10;4}
+443,4,Interacting with foreign object,Foraging,Adult,{10},{10;2}
+444,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+444,10,Foraging,Foraging,Adult,{4},{4;1;2}
+444,1,Foraging,Foraging,Adult,{},{10;2}
+444,2,Foraging,Foraging,Adult,{},{1;10;4}
+444,4,Interacting with foreign object,Foraging,Adult,{10},{10;2}
+445,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+445,10,Foraging,Foraging,Adult,{4},{4;2}
+445,1,Foraging,Foraging,Adult,{},{2}
+445,2,Foraging,Foraging,Adult,{},{1;10;4}
+445,4,Interacting with foreign object,Foraging,Adult,{10},{10;2}
+446,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+446,10,Foraging,Foraging,Adult,{4},{4;2}
+446,1,Foraging,Foraging,Adult,{},{2}
+446,2,Foraging,Foraging,Adult,{},{1;10;4}
+446,4,Interacting with foreign object,Foraging,Adult,{10},{10;2}
+447,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+447,1,Foraging,Foraging,Adult,{},{2}
+447,2,Foraging,Foraging,Adult,{},{1;4}
+447,4,Foraging,Foraging,Adult,{},{2}
+448,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+448,1,Foraging,Foraging,Adult,{7;2},{4;7;2}
+448,2,Foraging,Foraging,Adult,{1;7},{1;7;4}
+448,4,Foraging,Foraging,Adult,{},{1;7;2}
+448,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+449,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+449,1,Low sitting/standing (stationary),Foraging,Adult,{7;2},{4;7;2}
+449,2,Foraging,Foraging,Adult,{1;7},{1;7;4}
+449,4,Foraging,Foraging,Adult,{},{1;7;2}
+449,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+450,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+450,1,Foraging,Foraging,Adult,{7;2},{4;7;2}
+450,2,Foraging,Foraging,Adult,{1;7},{1;7;4}
+450,4,Foraging,Foraging,Adult,{},{1;7;2}
+450,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+451,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+451,10,Foraging,Foraging,Adult,{4},{4;1;7;2}
+451,1,Foraging,Foraging,Adult,{7;2},{10;7;2}
+451,2,Foraging,Foraging,Adult,{1;7},{1;10;7;4}
+451,4,Foraging,Foraging,Adult,{10},{10;7;2}
+451,7,Foraging,Foraging,Adult,{1;2},{4;1;10;2}
+452,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+452,10,Foraging,Foraging,Adult,{4},{4;1;7;2}
+452,1,Foraging,Foraging,Adult,{7;2},{10;7;2}
+452,2,Foraging,Foraging,Adult,{1;7},{1;10;7;4}
+452,4,Foraging,Foraging,Adult,{10},{10;7;2}
+452,7,Foraging,Foraging,Adult,{1;2},{4;1;10;2}
+453,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+453,10,Foraging,Foraging,Adult,{4},{4;1;7;2}
+453,1,Foraging,Foraging,Adult,{7;2},{10;7;2}
+453,2,Foraging,Foraging,Adult,{1;7},{1;10;7;4}
+453,4,Dig burrow,Foraging,Adult,{10},{10;7;2}
+453,7,Foraging,Foraging,Adult,{1;2},{4;1;10;2}
+454,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+454,10,Foraging,Foraging,Adult,{4},{4;1;7;2}
+454,1,Foraging,Foraging,Adult,{7;2},{10;7;2}
+454,2,Foraging,Foraging,Adult,{1;7},{1;10;7;4}
+454,4,Dig burrow,Foraging,Adult,{10},{10;7;2}
+454,7,Foraging,Foraging,Adult,{1;2},{4;1;10;2}
+455,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+455,10,Foraging,Foraging,Adult,{4},{4;1;7;0;2}
+455,0,Moving,Waiting Area,Adult,{},{4;10;2}
+455,1,Foraging,Foraging,Adult,{7;2},{10;7;2}
+455,2,Foraging,Foraging,Adult,{1;7},{1;7;4;10;0}
+455,4,Dig burrow,Foraging,Adult,{10},{7;10;0;2}
+455,7,Foraging,Foraging,Adult,{1;2},{4;1;10;2}
+456,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+456,10,Foraging,Foraging,Adult,{4},{4;1;0;2}
+456,0,Moving,Waiting Area,Adult,{},{4;10;2}
+456,1,Foraging,Foraging,Adult,{2},{10;2}
+456,2,Foraging,Foraging,Adult,{1},{1;10;0;4}
+456,4,Dig burrow,Foraging,Adult,{10},{10;0;2}
+457,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+457,10,Foraging,Foraging,Adult,{4},{4;1;0;2}
+457,0,Moving,Waiting Area,Adult,{2},{4;1;10;2}
+457,1,Foraging,Foraging,Adult,{},{10;0;2}
+457,2,Foraging,Foraging,Adult,{0},{1;10;0;4}
+457,4,Dig burrow,Foraging,Adult,{10},{10;0;2}
+458,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+458,10,Foraging,Foraging,Adult,{4},{4;1;0;2}
+458,0,Moving,Waiting Area,Adult,{2},{4;1;10;2}
+458,1,Foraging,Foraging,Adult,{2},{10;0;2}
+458,2,Foraging,Foraging,Adult,{1;0},{1;10;0;4}
+458,4,Dig burrow,Foraging,Adult,{10},{10;0;2}
+459,10,Foraging,Foraging,Adult,{4},{4;1;0;2}
+459,0,Moving,Waiting Area,Adult,{2},{4;1;10;2}
+459,1,Foraging,Foraging,Adult,{2},{10;0;2}
+459,2,Foraging,Foraging,Adult,{1;0},{1;10;0;4}
+459,4,Dig burrow,Foraging,Adult,{10},{10;0;2}
+460,8,Moving,Waiting Area,Adult,{},{}
+460,10,Foraging,Foraging,Adult,{4},{4;1;0;2}
+460,0,Moving,Waiting Area,Adult,{2},{4;1;10;2}
+460,1,Foraging,Foraging,Adult,{2},{10;0;2}
+460,2,Foraging,Foraging,Adult,{1;0},{1;10;0;4}
+460,4,Dig burrow,Foraging,Adult,{10},{10;0;2}
+461,8,Moving,Waiting Area,Adult,{},{}
+461,10,Foraging,Foraging,Adult,{4},{4;1;0;2}
+461,0,Moving,Waiting Area,Adult,{},{1;10;2}
+461,1,Foraging,Foraging,Adult,{2},{10;0;2}
+461,2,Foraging,Foraging,Adult,{1},{1;10;0;4}
+461,4,Dig burrow,Foraging,Adult,{10},{10;2}
+462,8,Moving,Waiting Area,Adult,{},{}
+462,10,Foraging,Foraging,Adult,{4},{4;1;2}
+462,0,Moving,Waiting Area,Adult,{},{}
+462,1,Foraging,Foraging,Adult,{2},{4;10;2}
+462,2,Foraging,Foraging,Adult,{1},{1;10;4}
+462,4,Dig burrow,Foraging,Adult,{10},{1;10;2}
+463,10,Foraging,Foraging,Adult,{4},{4;1;2}
+463,0,Moving,Waiting Area,Adult,{},{}
+463,1,Foraging,Foraging,Adult,{2},{4;10;2}
+463,2,Foraging,Foraging,Adult,{1},{1;10;4}
+463,4,Dig burrow,Foraging,Adult,{10},{1;10;2}
+464,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+464,0,Moving,Door,Adult,{},{}
+464,1,Foraging,Foraging,Adult,{2},{4;2}
+464,2,Foraging,Foraging,Adult,{1},{1;4}
+464,4,Dig burrow,Foraging,Adult,{},{1;2}
+465,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+465,0,Moving,Door,Adult,{},{}
+465,1,Foraging,Foraging,Adult,{2},{4;2}
+465,2,Foraging,Foraging,Adult,{1},{1;4}
+465,4,Dig burrow,Foraging,Adult,{},{1;2}
+466,8,Raised Guarding (Vigilant),Waiting Area,Adult,{},{}
+466,0,Moving,Door,Adult,{},{}
+466,1,Foraging,Foraging,Adult,{2},{4;2}
+466,2,Foraging,Foraging,Adult,{1},{1;4}
+466,4,Dig burrow,Foraging,Adult,{},{1;2}
+467,8,Moving,Waiting Area,Adult,{},{}
+467,0,Foraging,Door,Adult,{},{}
+467,1,Foraging,Foraging,Adult,{2},{4;2}
+467,2,Foraging,Foraging,Adult,{1},{1;4}
+467,4,Dig burrow,Foraging,Adult,{},{1;2}
+468,8,Moving,Waiting Area,Adult,{},{}
+468,0,Foraging,Door,Adult,{},{}
+468,1,Foraging,Foraging,Adult,{2},{4;2}
+468,2,Foraging,Foraging,Adult,{1},{1;4}
+468,4,Dig burrow,Foraging,Adult,{},{1;2}
+469,8,Moving,Waiting Area,Adult,{},{}
+469,0,Foraging,Door,Adult,{},{}
+469,1,Foraging,Foraging,Adult,{2},{4;2}
+469,2,Foraging,Foraging,Adult,{1},{1;4}
+469,4,Dig burrow,Foraging,Adult,{},{1;2}
+470,8,Moving,Foraging,Adult,{},{}
+470,10,Foraging,Foraging,Adult,{4},{4;1;2}
+470,0,Foraging,Door,Adult,{},{}
+470,1,Foraging,Foraging,Adult,{2},{4;10;2}
+470,2,Foraging,Foraging,Adult,{1},{1;10;4}
+470,4,Dig burrow,Foraging,Adult,{10},{1;10;2}
+471,8,Moving,Foraging,Adult,{},{}
+471,10,Foraging,Foraging,Adult,{4;5},{4;1;5;2}
+471,0,Foraging,Door,Adult,{},{}
+471,1,Foraging,Foraging,Adult,{2},{4;10;5;2}
+471,2,Foraging,Foraging,Adult,{1;5},{1;10;5;4}
+471,4,Dig burrow,Foraging,Adult,{10;5},{1;10;5;2}
+471,5,Foraging,Foraging,Adult,{4;10;2},{4;1;10;2}
+472,8,Low sitting/standing (stationary),Foraging,Adult,{},{}
+472,10,Foraging,Foraging,Adult,{4;5},{4;1;5;2}
+472,0,Foraging,Door,Adult,{},{}
+472,1,Foraging,Foraging,Adult,{2},{10;5;2}
+472,2,Foraging,Foraging,Adult,{1;5},{1;10;5;4}
+472,4,Dig burrow,Foraging,Adult,{10;5},{10;5;2}
+472,5,Foraging,Foraging,Adult,{4;10;2},{4;1;10;2}
+473,8,Raised Guarding (Vigilant),Foraging,Adult,{},{}
+473,10,Foraging,Foraging,Adult,{4;5},{4;1;5;2}
+473,0,Foraging,Door,Adult,{},{}
+473,1,Foraging,Foraging,Adult,{2},{10;5;2}
+473,2,Foraging,Foraging,Adult,{1;5},{1;10;5;4}
+473,4,Dig burrow,Foraging,Adult,{10;5},{10;5;2}
+473,5,Foraging,Foraging,Adult,{4;10;2},{4;1;10;2}
+474,8,Raised Guarding (Vigilant),Foraging,Adult,{},{}
+474,10,Foraging,Foraging,Adult,{4;5},{4;1;5;2}
+474,0,Foraging,Door,Adult,{},{}
+474,1,Foraging,Foraging,Adult,{2},{10;5;2}
+474,2,Foraging,Foraging,Adult,{1;5},{1;10;5;4}
+474,4,Dig burrow,Foraging,Adult,{10;5},{10;5;2}
+474,5,Foraging,Foraging,Adult,{4;10;2},{4;1;10;2}
+475,8,Raised Guarding (Vigilant),Foraging,Adult,{},{}
+475,10,Foraging,Foraging,Adult,{4;5},{4;1;5;2}
+475,0,Foraging,Door,Adult,{},{}
+475,1,Foraging,Foraging,Adult,{2},{10;5;2}
+475,2,Foraging,Foraging,Adult,{1;5},{1;10;5;4}
+475,4,Dig burrow,Foraging,Adult,{10;5},{10;5;2}
+475,5,Foraging,Foraging,Adult,{4;10;2},{4;1;10;2}
+476,8,Raised Guarding (Vigilant),Foraging,Adult,{},{}
+476,10,Foraging,Foraging,Adult,{4;5},{4;1;5;2}
+476,0,Foraging,Door,Adult,{},{}
+476,1,Foraging,Foraging,Adult,{2},{10;5;2}
+476,2,Foraging,Foraging,Adult,{1;5},{1;10;5;4}
+476,4,Dig burrow,Foraging,Adult,{10;5},{10;5;2}
+476,5,Foraging,Foraging,Adult,{4;10;2},{4;1;10;2}
+477,8,Low sitting/standing (stationary),Foraging,Adult,{},{}
+477,0,Foraging,Door,Adult,{},{}
+477,1,Foraging,Foraging,Adult,{2},{5;2}
+477,2,Foraging,Foraging,Adult,{1;5},{1;5;4}
+477,4,Dig burrow,Foraging,Adult,{5},{5;2}
+477,5,Foraging,Foraging,Adult,{4;2},{4;1;2}
+478,8,Low sitting/standing (stationary),Foraging,Adult,{},{}
+478,0,Foraging,Door,Adult,{},{}
+478,1,Foraging,Foraging,Adult,{2},{5;2}
+478,2,Foraging,Foraging,Adult,{1;5},{1;5;4}
+478,4,Dig burrow,Foraging,Adult,{5},{5;2}
+478,5,Foraging,Foraging,Adult,{4;2},{4;1;2}
+479,8,Low sitting/standing (stationary),Foraging,Adult,{},{}
+479,0,Moving,Door,Adult,{},{}
+479,1,Foraging,Foraging,Adult,{2},{5;2}
+479,2,Foraging,Foraging,Adult,{1;5},{1;5;4}
+479,4,Dig burrow,Foraging,Adult,{5},{5;2}
+479,5,Foraging,Foraging,Adult,{4;2},{4;1;2}
+480,8,Low sitting/standing (stationary),Foraging,Adult,{},{}
+480,0,Moving,Door,Adult,{},{}
+480,1,Foraging,Foraging,Adult,{2},{5;2}
+480,2,Foraging,Foraging,Adult,{1;5},{1;5;4}
+480,4,Dig burrow,Foraging,Adult,{5},{5;2}
+480,5,Foraging,Foraging,Adult,{4;2},{4;1;2}
+481,8,Low sitting/standing (stationary),Foraging,Adult,{},{}
+481,1,Foraging,Foraging,Adult,{2},{5;2}
+481,2,Foraging,Foraging,Adult,{1;5},{1;5;4}
+481,4,Dig burrow,Foraging,Adult,{5},{5;2}
+481,5,Foraging,Foraging,Adult,{4;2},{4;1;2}
+482,8,Low sitting/standing (stationary),Foraging,Adult,{},{}
+482,10,Foraging,Foraging,Adult,{4;5},{4;5;2}
+482,1,Foraging,Foraging,Adult,{2},{5;2}
+482,2,Foraging,Foraging,Adult,{1;5},{1;10;5;4}
+482,4,Dig burrow,Foraging,Adult,{10;5},{10;5;2}
+482,5,Foraging,Foraging,Adult,{4;10;2},{4;1;10;2}
+483,8,Low sitting/standing (stationary),Foraging,Adult,{},{}
+483,10,Foraging,Foraging,Adult,{4;5},{4;5;2}
+483,1,Foraging,Foraging,Adult,{2},{5;2}
+483,2,Foraging,Foraging,Adult,{1;5},{1;10;5;4}
+483,4,Dig burrow,Foraging,Adult,{10;5},{10;5;2}
+483,5,Foraging,Foraging,Adult,{4;10;2},{4;1;10;2}
+484,8,Low sitting/standing (stationary),Foraging,Adult,{},{10}
+484,10,Foraging,Foraging,Adult,{4},{4;8;2}
+484,1,Foraging,Foraging,Adult,{2},{2}
+484,2,Foraging,Foraging,Adult,{1},{1;10;4}
+484,4,Dig burrow,Foraging,Adult,{10},{10;2}
+485,8,Moving,Foraging,Adult,{},{10}
+485,10,Foraging,Foraging,Adult,{4},{4;8;2}
+485,1,Foraging,Foraging,Adult,{2},{2}
+485,2,Foraging,Foraging,Adult,{1},{1;10;4}
+485,4,Dig burrow,Foraging,Adult,{10},{10;2}
+486,8,Moving,Foraging,Adult,{},{10}
+486,10,Moving,Foraging,Adult,{},{4;8}
+486,1,Foraging,Foraging,Adult,{2},{2}
+486,2,Foraging,Foraging,Adult,{1},{1;4}
+486,4,Dig burrow,Foraging,Adult,{},{10;2}
+487,8,Moving,Foraging,Adult,{},{10}
+487,10,Moving,Foraging,Adult,{},{8}
+487,1,Foraging,Foraging,Adult,{2},{4;2}
+487,2,Foraging,Foraging,Adult,{1},{1;4}
+487,4,Dig burrow,Foraging,Adult,{},{1;2}
+488,10,Moving,Foraging,Adult,{},{4}
+488,1,Foraging,Foraging,Adult,{2},{4;2}
+488,2,Foraging,Foraging,Adult,{1},{1;4}
+488,4,Dig burrow,Foraging,Adult,{},{1;10;2}
+489,1,Foraging,Foraging,Adult,{2},{4;2}
+489,2,Foraging,Foraging,Adult,{1},{1;4}
+489,4,Dig burrow,Foraging,Adult,{},{1;2}
+490,10,Moving,Foraging,Adult,{},{}
+490,1,Foraging,Foraging,Adult,{2},{4;2}
+490,2,Foraging,Foraging,Adult,{1},{1;4}
+490,4,Dig burrow,Foraging,Adult,{},{1;2}
+491,10,Moving,Foraging,Adult,{},{}
+491,1,Foraging,Foraging,Adult,{2},{4;2}
+491,2,Foraging,Foraging,Adult,{1},{6;1;4}
+491,4,Dig burrow,Foraging,Adult,{6},{6;1;2}
+491,6,Dig burrow,Foraging,Adult,{4},{4;2}
+492,8,Moving,Waiting Area,Adult,{},{4}
+492,1,Foraging,Foraging,Adult,{2},{4;2}
+492,2,Foraging,Foraging,Adult,{1},{1;4}
+492,4,Dig burrow,Foraging,Adult,{},{1;8;2}
+493,8,Moving,Waiting Area,Adult,{6},{6;4}
+493,1,Foraging,Foraging,Adult,{},{4;2}
+493,2,Foraging,Foraging,Adult,{},{6;1;4}
+493,4,Dig burrow,Foraging,Adult,{6},{6;1;8;2}
+493,6,Foraging,Foraging,Adult,{4;8},{4;8;2}
+494,8,Moving,Foraging,Adult,{4},{4;7;2}
+494,10,Moving,Foraging,Adult,{},{}
+494,1,Foraging,Foraging,Adult,{7},{4;7;2}
+494,2,Foraging,Foraging,Adult,{7},{1;7;8;4}
+494,4,Dig burrow,Foraging,Adult,{8},{1;7;8;2}
+494,7,Foraging,Foraging,Adult,{1;2},{4;1;8;2}
+495,8,Moving,Foraging,Adult,{},{7;2}
+495,10,Moving,Foraging,Adult,{},{}
+495,1,Foraging,Foraging,Adult,{7},{7;2}
+495,2,Foraging,Foraging,Adult,{7},{1;7;8}
+495,7,Foraging,Foraging,Adult,{1;2},{1;8;2}
+496,8,Foraging,Foraging,Adult,{6},{6;7;2}
+496,10,Moving,Foraging,Adult,{},{}
+496,1,Foraging,Foraging,Adult,{7},{7;2}
+496,2,Foraging,Foraging,Adult,{7},{6;1;7;8}
+496,6,Dig burrow,Foraging,Adult,{8},{8;2}
+496,7,Foraging,Foraging,Adult,{1;2},{1;8;2}
+497,8,Foraging,Foraging,Adult,{6;4},{6;4;7;2}
+497,10,Moving,Foraging,Adult,{},{}
+497,1,Foraging,Foraging,Adult,{7},{4;7;2}
+497,2,Foraging,Foraging,Adult,{7},{1;4;8;6;7}
+497,4,Dig burrow,Foraging,Adult,{6;8},{1;8;6;7;2}
+497,6,Dig burrow,Foraging,Adult,{4;8},{4;8;2}
+497,7,Foraging,Foraging,Adult,{1;2},{4;1;8;2}
+498,8,Foraging,Foraging,Adult,{6;4},{6;4;7;2}
+498,1,Foraging,Foraging,Adult,{7},{4;7;2}
+498,2,Foraging,Foraging,Adult,{7},{1;4;8;6;7}
+498,4,Dig burrow,Foraging,Adult,{6;8},{1;8;6;7;2}
+498,6,Dig burrow,Foraging,Adult,{4;8},{4;7;8;2}
+498,7,Foraging,Foraging,Adult,{1;2},{4;1;8;6;2}
+499,1,Foraging,Foraging,Adult,{7},{4;7;2}
+499,2,Foraging,Foraging,Adult,{7},{6;1;7;4}
+499,4,Dig burrow,Foraging,Adult,{6},{6;1;7;2}
+499,6,Dig burrow,Foraging,Adult,{4},{4;7;2}
+499,7,Foraging,Foraging,Adult,{1;2},{4;6;1;2}
+500,1,Foraging,Foraging,Adult,{7},{4;7;2}
+500,2,Foraging,Foraging,Adult,{7},{6;1;7;4}
+500,4,Dig burrow,Foraging,Adult,{6},{6;1;7;2}
+500,6,Dig burrow,Foraging,Adult,{4},{4;7;2}
+500,7,Foraging,Foraging,Adult,{1;2},{4;6;1;2}
+501,8,Foraging,Foraging,Adult,{4},{4;7;2}
+501,1,Foraging,Foraging,Adult,{7},{4;7;2}
+501,2,Foraging,Waiting Area,Adult,{7},{1;7;8;4}
+501,4,Dig burrow,Foraging,Adult,{8},{1;7;8;2}
+501,7,Foraging,Foraging,Adult,{1;2},{4;1;8;2}
+502,8,Foraging,Foraging,Adult,{},{2}
+502,1,Foraging,Foraging,Adult,{7},{7;2}
+502,2,Foraging,Waiting Area,Adult,{7},{1;7;8}
+502,7,Foraging,Foraging,Adult,{1;2},{1;2}
+503,8,Foraging,Foraging,Adult,{},{4;2}
+503,1,Foraging,Foraging,Adult,{7},{4;7;2}
+503,2,Foraging,Waiting Area,Adult,{7},{1;7;8;4}
+503,4,Dig burrow,Foraging,Adult,{},{1;7;8;2}
+503,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+504,8,Foraging,Foraging,Adult,{6},{6;4}
+504,1,Foraging,Foraging,Adult,{7},{4;7;2}
+504,2,Foraging,Waiting Area,Adult,{7},{6;1;7;4}
+504,4,Dig burrow,Foraging,Adult,{6},{1;8;6;7;2}
+504,6,Dig burrow,Foraging,Adult,{4;8},{4;7;8;2}
+504,7,Foraging,Foraging,Adult,{1;2},{4;6;1;2}
+505,8,Foraging,Foraging,Adult,{6},{6;4}
+505,1,Foraging,Foraging,Adult,{7},{4;7;2}
+505,2,Foraging,Waiting Area,Adult,{7},{6;1;7;4}
+505,4,Dig burrow,Foraging,Adult,{6},{1;8;6;7;2}
+505,6,Dig burrow,Foraging,Adult,{4;8},{4;8;2}
+505,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+506,8,Foraging,Foraging,Adult,{6},{6;4}
+506,1,Foraging,Foraging,Adult,{7},{4;7;2}
+506,2,Foraging,Waiting Area,Adult,{7},{6;1;7;4}
+506,4,Dig burrow,Foraging,Adult,{6},{1;8;6;7;2}
+506,6,Dig burrow,Foraging,Adult,{4;8},{4;8;2}
+506,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+507,8,Moving,Foraging,Adult,{6},{6;4}
+507,1,Foraging,Foraging,Adult,{7},{4;7;2}
+507,2,Foraging,Waiting Area,Adult,{7},{6;1;7;4}
+507,4,Dig burrow,Foraging,Adult,{6},{1;8;6;7;2}
+507,6,Dig burrow,Foraging,Adult,{4;8},{4;8;2}
+507,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+508,8,Foraging,Foraging,Adult,{6;4},{6;4}
+508,11,Moving,Waiting Area,Adult,{},{}
+508,1,Foraging,Foraging,Adult,{7},{4;7;2}
+508,2,Foraging,Waiting Area,Adult,{7},{6;1;7;4}
+508,4,Dig burrow,Foraging,Adult,{6;8},{1;8;6;7;2}
+508,6,Dig burrow,Foraging,Adult,{4;8},{4;8;2}
+508,7,Foraging,Foraging,Adult,{1;2},{4;1;2}
+509,8,Foraging,Foraging,Adult,{6;4},{6;4;7;2}
+509,11,Moving,Waiting Area,Adult,{},{}
+509,1,Foraging,Foraging,Adult,{7},{4;7;2}
+509,2,Foraging,Waiting Area,Adult,{7},{1;4;8;6;7}
+509,4,Dig burrow,Foraging,Adult,{6;8},{1;8;6;7;2}
+509,6,Dig burrow,Foraging,Adult,{4;8},{4;7;8;2}
+509,7,Foraging,Foraging,Adult,{1;2},{4;1;8;6;2}
+510,8,Sunbathe,Foraging,Adult,{6;4},{6;4;7;2}
+510,11,Foraging,Waiting Area,Adult,{},{}
+510,1,Foraging,Foraging,Adult,{7},{4;7;2}
+510,2,Foraging,Waiting Area,Adult,{7},{1;4;8;6;7}
+510,4,Foraging,Foraging,Adult,{6;8},{1;8;6;7;2}
+510,6,Dig burrow,Foraging,Adult,{4;8},{4;7;8;2}
+510,7,Foraging,Foraging,Adult,{1;2},{4;1;8;6;2}
+511,8,Sunbathe,Foraging,Adult,{6},{6;7;2}
+511,11,Moving,Waiting Area,Adult,{},{}
+511,1,Foraging,Foraging,Adult,{7},{7;2}
+511,2,Foraging,Waiting Area,Adult,{7},{6;1;7;8}
+511,6,Dig burrow,Foraging,Adult,{8},{8;2}
+511,7,Foraging,Foraging,Adult,{1;2},{1;8;2}
+512,8,Sunbathe,Foraging,Adult,{},{7;2}
+512,11,Moving,Waiting Area,Adult,{},{}
+512,1,Foraging,Foraging,Adult,{7},{7;2}
+512,2,Foraging,Waiting Area,Adult,{7},{1;7;8}
+512,7,Foraging,Foraging,Adult,{1;2},{1;8;2}
+513,8,Sunbathe,Foraging,Adult,{6},{6;7;2}
+513,11,Foraging,Waiting Area,Adult,{},{}
+513,1,Foraging,Foraging,Adult,{7},{7;2}
+513,2,Foraging,Waiting Area,Adult,{7},{6;1;7;8}
+513,6,Dig burrow,Foraging,Adult,{8},{8;2}
+513,7,Foraging,Foraging,Adult,{1;2},{1;8;2}
+514,8,Sunbathe,Foraging,Adult,{6},{6;7}
+514,11,Moving,Waiting Area,Adult,{},{}
+514,1,Foraging,Foraging,Adult,{7},{7}
+514,6,Foraging,Foraging,Adult,{8},{8}
+514,7,Foraging,Foraging,Adult,{1},{1;8}
+515,8,Sunbathe,Foraging,Adult,{6;4},{6;4;7;2}
+515,11,Low sitting/standing (stationary),Waiting Area,Adult,{},{}
+515,1,Foraging,Foraging,Adult,{7},{7;2}
+515,2,Moving,Foraging,Adult,{4;7},{1;4;8;6;7}
+515,4,Foraging,Foraging,Adult,{6;8;2},{6;7;8;2}
+515,6,Foraging,Foraging,Adult,{4;8},{4;8;2}
+515,7,Foraging,Foraging,Adult,{1;2},{4;1;8;2}
+516,8,Sunbathe,Foraging,Adult,{6;4;2},{6;4;7;2}
+516,11,Low sitting/standing (stationary),Waiting Area,Adult,{},{}
+516,1,Foraging,Foraging,Adult,{7},{7}
+516,2,Moving,Foraging,Adult,{4;8},{6;4;7;8}
+516,4,Foraging,Foraging,Adult,{6;8;2},{6;7;8;2}
+516,6,Foraging,Foraging,Adult,{4;8},{4;8;2}
+516,7,Foraging,Foraging,Adult,{1},{4;1;8;2}
+517,8,Sunbathe,Foraging,Adult,{6;4;2},{6;4;2}
+517,11,Foraging,Waiting Area,Adult,{},{}
+517,1,Foraging,Foraging,Adult,{},{}
+517,2,Moving,Foraging,Adult,{4;8},{6;4;8}
+517,4,Foraging,Foraging,Adult,{6;8;2},{6;8;2}
+517,6,Foraging,Foraging,Adult,{4;8},{4;8;2}
+518,11,Foraging,Waiting Area,Adult,{},{}
+518,1,Foraging,Foraging,Adult,{},{}
+518,2,Moving,Foraging,Adult,{6;4},{6;4}
+518,4,Foraging,Foraging,Adult,{6;2},{6;2}
+518,6,Foraging,Foraging,Adult,{4;2},{4;2}
+519,11,Foraging,Waiting Area,Adult,{},{}
+519,1,Foraging,Foraging,Adult,{},{}
+519,4,Foraging,Foraging,Adult,{6},{6}
+519,6,Foraging,Foraging,Adult,{4},{4}
+520,8,Sunbathe,Foraging,Adult,{6;4;2},{6;4;2}
+520,11,Foraging,Waiting Area,Adult,{},{}
+520,1,Foraging,Foraging,Adult,{},{}
+520,2,Moving,Foraging,Adult,{4;8},{6;4;8}
+520,4,Foraging,Foraging,Adult,{6;8;2},{6;8;2}
+520,6,Foraging,Foraging,Adult,{4;8},{4;8;2}
+521,8,Sunbathe,Foraging,Adult,{6;4;2},{6;4;2}
+521,11,Foraging,Waiting Area,Adult,{},{}
+521,1,Foraging,Foraging,Adult,{},{}
+521,2,Moving,Foraging,Adult,{4;8},{6;4;8}
+521,4,Foraging,Foraging,Adult,{6;8;2},{6;8;2}
+521,6,Foraging,Foraging,Adult,{4;8},{4;8;2}
+522,8,Sunbathe,Foraging,Adult,{6;4},{6;4;5;2}
+522,11,Moving,Waiting Area,Adult,{},{}
+522,1,Foraging,Foraging,Adult,{},{5;2}
+522,2,Moving,Foraging,Adult,{5},{1;4;5;8;6}
+522,4,Foraging,Foraging,Adult,{6;8},{6;5;8;2}
+522,5,Foraging,Foraging,Adult,{2},{4;1;8;6;2}
+522,6,Foraging,Foraging,Adult,{4;8},{4;5;8;2}
+523,8,Sunbathe,Foraging,Adult,{6;4},{6;4;2}
+523,11,Moving,Door,Adult,{},{}
+523,1,Foraging,Foraging,Adult,{},{2}
+523,2,Foraging,Foraging,Adult,{},{1;8;4}
+523,4,Foraging,Foraging,Adult,{6;8},{6;8;2}
+523,6,Foraging,Foraging,Adult,{4;8},{4;8}
+524,8,Sunbathe,Foraging,Adult,{4},{6;4;2}
+524,11,Moving,Door,Adult,{},{}
+524,1,Foraging,Foraging,Adult,{},{2}
+524,2,Foraging,Foraging,Adult,{},{1;8;4}
+524,4,Foraging,Foraging,Adult,{8},{6;8;2}
+524,6,Foraging,Waiting Area,Adult,{},{4;8}
+525,8,Sunbathe,Foraging,Adult,{4},{6;4;2}
+525,11,Moving,Door,Adult,{},{}
+525,1,Foraging,Foraging,Adult,{},{2}
+525,2,Foraging,Foraging,Adult,{},{1;8;4}
+525,4,Foraging,Foraging,Adult,{8},{6;8;2}
+525,6,Foraging,Waiting Area,Adult,{},{4;8}
+526,8,Sunbathe,Foraging,Adult,{4},{4;2}
+526,11,Moving,Door,Adult,{},{}
+526,1,Foraging,Foraging,Adult,{},{2}
+526,2,Foraging,Foraging,Adult,{},{1;8;4}
+526,4,Foraging,Foraging,Adult,{8},{8;2}
+527,8,Sunbathe,Foraging,Adult,{4},{4;2}
+527,11,Moving,Door,Adult,{},{}
+527,1,Foraging,Foraging,Adult,{},{2}
+527,2,Foraging,Foraging,Adult,{},{1;8;4}
+527,4,Foraging,Foraging,Adult,{8},{8;2}
+528,8,Sunbathe,Foraging,Adult,{4},{4;5;2}
+528,11,Moving,Door,Adult,{},{}
+528,1,Foraging,Foraging,Adult,{},{5;2}
+528,2,Foraging,Foraging,Adult,{5},{1;5;8;4}
+528,4,Foraging,Foraging,Adult,{8},{5;8;2}
+528,5,Foraging,Foraging,Adult,{2},{4;1;8;2}
+529,8,Sunbathe,Foraging,Adult,{4},{4;5;2}
+529,1,Foraging,Foraging,Adult,{},{5;2}
+529,2,Foraging,Foraging,Adult,{5},{1;5;8;4}
+529,4,Foraging,Foraging,Adult,{8},{5;8;2}
+529,5,Foraging,Foraging,Adult,{2},{4;1;8;2}
+530,8,Sunbathe,Foraging,Adult,{4},{4;5;2}
+530,1,Foraging,Foraging,Adult,{5},{5;2}
+530,2,Foraging,Foraging,Adult,{5},{1;5;8;4}
+530,4,Foraging,Foraging,Adult,{8},{5;8;2}
+530,5,Foraging,Foraging,Adult,{1;2},{4;1;8;2}
+531,8,Sunbathe,Foraging,Adult,{4},{4;2}
+531,1,Foraging,Foraging,Adult,{5},{5;2}
+531,2,Foraging,Foraging,Adult,{5},{1;5;8;4}
+531,4,Foraging,Foraging,Adult,{8},{5;8;2}
+531,5,Foraging,Foraging,Adult,{1;2},{4;1;2}
+532,8,Sunbathe,Foraging,Adult,{4},{4;2}
+532,1,Foraging,Foraging,Adult,{5},{6;5;2}
+532,2,Foraging,Foraging,Adult,{5},{1;5;8;4}
+532,4,Foraging,Foraging,Adult,{8},{5;8;2}
+532,5,Foraging,Foraging,Adult,{1;2},{4;6;1;2}
+532,6,Foraging,Foraging,Adult,{},{1;5}
+533,8,Sunbathe,Foraging,Adult,{4},{4;2}
+533,1,Foraging,Foraging,Adult,{5},{6;5;2}
+533,2,Foraging,Foraging,Adult,{5},{1;5;8;4}
+533,4,Foraging,Foraging,Adult,{8},{5;8;2}
+533,5,Foraging,Foraging,Adult,{1;2},{4;6;1;2}
+533,6,Foraging,Waiting Area,Adult,{},{1;5}
+534,8,Sunbathe,Foraging,Adult,{4},{4;7;2}
+534,1,Foraging,Foraging,Adult,{7;5},{6;7;5;2}
+534,2,Foraging,Foraging,Adult,{7;5},{1;4;5;8;7}
+534,4,Foraging,Foraging,Adult,{8},{7;5;8;2}
+534,5,Foraging,Foraging,Adult,{1;7;2},{4;1;6;7;2}
+534,6,Foraging,Foraging,Adult,{},{1;5}
+534,7,Foraging,Foraging,Adult,{1;5;2},{4;1;5;8;2}
+535,8,Sunbathe,Foraging,Adult,{4},{4;7;2}
+535,1,Foraging,Foraging,Adult,{7;5},{6;7;5;2}
+535,2,Foraging,Foraging,Adult,{7;5},{1;4;5;8;7}
+535,4,Foraging,Foraging,Adult,{8},{7;5;8;2}
+535,5,Foraging,Foraging,Adult,{1;7;2},{4;1;6;7;2}
+535,6,Foraging,Waiting Area,Adult,{},{1;5}
+535,7,Foraging,Foraging,Adult,{1;5;2},{4;1;5;8;2}
+536,8,Sunbathe,Foraging,Adult,{4},{4;7;2}
+536,1,Foraging,Foraging,Adult,{7;5},{6;7;5;2}
+536,2,Foraging,Foraging,Adult,{7;5},{1;4;5;8;7}
+536,4,Foraging,Foraging,Adult,{8},{7;5;8;2}
+536,5,Foraging,Foraging,Adult,{1;7;2},{4;1;6;7;2}
+536,6,Foraging,Waiting Area,Adult,{},{1;5}
+536,7,Foraging,Foraging,Adult,{1;5;2},{4;1;5;8;2}
+537,8,Sunbathe,Foraging,Adult,{4},{4;7;2}
+537,1,Foraging,Foraging,Adult,{7;5},{6;7;5;2}
+537,2,Foraging,Foraging,Adult,{7;5},{1;4;5;8;7}
+537,4,Foraging,Foraging,Adult,{8},{7;5;8;2}
+537,5,Foraging,Foraging,Adult,{1;7;2},{4;1;6;7;2}
+537,6,Foraging,Foraging,Adult,{},{1;5}
+537,7,Foraging,Foraging,Adult,{1;5;2},{4;1;5;8;2}
+538,8,Sunbathe,Foraging,Adult,{4},{4;7;2}
+538,1,Foraging,Foraging,Adult,{7;5},{6;7;5;2}
+538,2,Foraging,Foraging,Adult,{7;5},{1;4;5;8;7}
+538,4,Foraging,Foraging,Adult,{8},{7;5;8;2}
+538,5,Foraging,Foraging,Adult,{1;7;2},{4;1;6;7;2}
+538,6,Foraging,Waiting Area,Adult,{},{1;5}
+538,7,Foraging,Foraging,Adult,{1;5;2},{4;1;5;8;2}
+539,8,Sunbathe,Foraging,Adult,{4},{4;5;7;2}
+539,1,Foraging,Foraging,Adult,{7},{6;7;5;2}
+539,2,Foraging,Foraging,Adult,{7;5},{1;4;5;8;7}
+539,4,Foraging,Foraging,Adult,{8},{7;5;8;2}
+539,5,Foraging,Foraging,Adult,{7;2},{4;1;8;6;7;2}
+539,6,Foraging,Waiting Area,Adult,{},{1;5}
+539,7,Foraging,Foraging,Adult,{1;5;2},{4;1;5;8;2}
+540,8,Sunbathe,Foraging,Adult,{4},{4;5;2}
+540,1,Foraging,Foraging,Adult,{},{6;5;2}
+540,2,Foraging,Foraging,Adult,{5},{1;5;8;4}
+540,4,Foraging,Foraging,Adult,{8},{5;8;2}
+540,5,Foraging,Foraging,Adult,{2},{4;1;8;6;2}
+540,6,Foraging,Waiting Area,Adult,{},{1;5}
+541,8,Sunbathe,Foraging,Adult,{4},{4;5;2}
+541,1,Foraging,Foraging,Adult,{},{6;5;2}
+541,2,Foraging,Foraging,Adult,{5},{1;5;8;4}
+541,4,Foraging,Foraging,Adult,{8},{5;8;2}
+541,5,Foraging,Foraging,Adult,{2},{4;1;8;6;2}
+541,6,Foraging,Waiting Area,Adult,{},{1;5}
+542,8,Sunbathe,Foraging,Adult,{4},{4;5;2}
+542,1,Foraging,Foraging,Adult,{},{6;5;2}
+542,2,Dig burrow,Foraging,Adult,{5},{1;5;8;4}
+542,4,Foraging,Foraging,Adult,{8},{5;8;2}
+542,5,Foraging,Foraging,Adult,{2},{4;1;8;6;2}
+542,6,Foraging,Waiting Area,Adult,{},{1;5}
+543,8,Sunbathe,Foraging,Adult,{4},{4;5;2}
+543,1,Foraging,Foraging,Adult,{},{6;5;2}
+543,2,Dig burrow,Foraging,Adult,{5},{1;5;8;4}
+543,4,Foraging,Foraging,Adult,{8},{5;8;2}
+543,5,Foraging,Foraging,Adult,{2},{4;1;8;6;2}
+543,6,Foraging,Waiting Area,Adult,{},{1;5}
+544,8,Sunbathe,Foraging,Adult,{4},{4;5;2}
+544,1,Foraging,Foraging,Adult,{},{6;5;2}
+544,2,Dig burrow,Foraging,Adult,{5},{1;5;8;4}
+544,4,Foraging,Foraging,Adult,{8},{5;8;2}
+544,5,Foraging,Foraging,Adult,{2},{4;1;8;6;2}
+544,6,Foraging,Waiting Area,Adult,{},{1;5}
+545,8,Sunbathe,Foraging,Adult,{4},{4;5;7;2}
+545,1,Foraging,Foraging,Adult,{7},{6;7;5;2}
+545,2,Dig burrow,Foraging,Adult,{7;5},{1;4;5;8;7}
+545,4,Foraging,Foraging,Adult,{8},{7;5;8;2}
+545,5,Foraging,Foraging,Adult,{7;2},{4;1;8;6;7;2}
+545,6,Foraging,Waiting Area,Adult,{},{1;5}
+545,7,Foraging,Foraging,Adult,{1;5;2},{4;1;5;8;2}
+546,8,Sunbathe,Foraging,Adult,{4},{4;5;7;2}
+546,1,Foraging,Foraging,Adult,{7},{6;7;5;2}
+546,2,Foraging,Foraging,Adult,{7;5},{1;4;5;8;7}
+546,4,Foraging,Foraging,Adult,{8},{7;5;8;2}
+546,5,Foraging,Foraging,Adult,{7;2},{4;1;8;6;7;2}
+546,6,Foraging,Waiting Area,Adult,{},{1;5}
+546,7,Foraging,Foraging,Adult,{1;5;2},{4;1;5;8;2}
+547,8,Sunbathe,Foraging,Adult,{4},{4;5;7;2}
+547,1,Foraging,Foraging,Adult,{7},{6;7;5;2}
+547,2,Foraging,Foraging,Adult,{7;5},{1;4;5;8;7}
+547,4,Dig burrow,Foraging,Adult,{8},{7;5;8;2}
+547,5,Dig burrow,Foraging,Adult,{7;2},{4;1;8;6;7;2}
+547,6,Foraging,Waiting Area,Adult,{},{1;5}
+547,7,Foraging,Foraging,Adult,{1;5;2},{4;1;5;8;2}
+548,8,Sunbathe,Foraging,Adult,{4},{4;7;2}
+548,1,Foraging,Foraging,Adult,{7;5},{6;7;5;2}
+548,2,Foraging,Foraging,Adult,{7;5},{1;4;5;8;7}
+548,4,Dig burrow,Foraging,Adult,{8},{7;5;8;2}
+548,5,Dig burrow,Foraging,Adult,{1;7;2},{4;1;6;7;2}
+548,6,Foraging,Waiting Area,Adult,{},{1;5}
+548,7,Foraging,Foraging,Adult,{1;5;2},{4;1;5;8;2}
+549,8,Sunbathe,Foraging,Adult,{4},{4;2}
+549,1,Foraging,Foraging,Adult,{5},{6;5;2}
+549,2,Foraging,Foraging,Adult,{5},{1;5;8;4}
+549,4,Dig burrow,Foraging,Adult,{8},{5;8;2}
+549,5,Dig burrow,Foraging,Adult,{1;2},{4;6;1;2}
+549,6,Foraging,Waiting Area,Adult,{},{1;5}
+550,8,Sunbathe,Foraging,Adult,{4},{4;2}
+550,1,Foraging,Foraging,Adult,{5},{6;5;2}
+550,2,Moving,Foraging,Adult,{4},{1;5;8;4}
+550,4,Dig burrow,Foraging,Adult,{8;2},{5;8;2}
+550,5,Dig burrow,Foraging,Adult,{1},{4;6;1;2}
+550,6,Foraging,Waiting Area,Adult,{},{1;5}
+551,8,Sunbathe,Foraging,Adult,{4},{4;2}
+551,1,Foraging,Foraging,Adult,{5},{6;5;2}
+551,2,Moving,Foraging,Adult,{4;5},{1;5;8;4}
+551,4,Dig burrow,Foraging,Adult,{8;2},{5;8;2}
+551,5,Dig burrow,Foraging,Adult,{1;2},{4;6;1;2}
+551,6,Foraging,Waiting Area,Adult,{},{1;5}
+552,8,Sunbathe,Foraging,Adult,{4},{4}
+552,1,Foraging,Foraging,Adult,{5},{6;5}
+552,4,Dig burrow,Foraging,Adult,{8},{5;8}
+552,5,Dig burrow,Foraging,Adult,{1},{6;1;4}
+552,6,Foraging,Waiting Area,Adult,{},{1;5}
+553,8,Sunbathe,Foraging,Adult,{4},{4}
+553,1,Foraging,Foraging,Adult,{5},{6;5}
+553,4,Dig burrow,Foraging,Adult,{8},{5;8}
+553,5,Dig burrow,Foraging,Adult,{1},{6;1;4}
+553,6,Foraging,Waiting Area,Adult,{},{1;5}
+554,8,Sunbathe,Foraging,Adult,{4},{4}
+554,1,Foraging,Foraging,Adult,{5},{6;4;5}
+554,4,Dig burrow,Foraging,Adult,{8},{1;5;8}
+554,5,Dig burrow,Foraging,Adult,{1},{6;1;4}
+554,6,Foraging,Waiting Area,Adult,{},{1;5}
+555,8,Sunbathe,Foraging,Adult,{4},{4}
+555,4,Dig burrow,Foraging,Adult,{8},{5;8}
+555,5,Foraging,Foraging,Adult,{},{6;4}
+555,6,Foraging,Waiting Area,Adult,{},{5}
+556,8,Sunbathe,Foraging,Adult,{4},{4;2}
+556,2,Foraging,Foraging,Adult,{5},{4;5;8}
+556,4,Dig burrow,Foraging,Adult,{8},{5;8;2}
+556,5,Foraging,Foraging,Adult,{2},{6;4;2}
+556,6,Foraging,Waiting Area,Adult,{},{5}
+557,8,Sunbathe,Foraging,Adult,{4},{4;2}
+557,2,Foraging,Foraging,Adult,{4;5},{4;5;8}
+557,4,Dig burrow,Foraging,Adult,{8;2},{5;8;2}
+557,5,Foraging,Foraging,Adult,{2},{6;4;2}
+557,6,Foraging,Waiting Area,Adult,{},{5}
+558,8,Sunbathe,Foraging,Adult,{4},{4;2}
+558,1,Moving,Foraging,Adult,{5;2},{6;4;5;2}
+558,2,Foraging,Foraging,Adult,{1;5;4},{1;5;8;4}
+558,4,Dig burrow,Foraging,Adult,{8;2},{1;5;8;2}
+558,5,Foraging,Foraging,Adult,{1;2},{4;6;1;2}
+558,6,Foraging,Waiting Area,Adult,{},{1;5}
+559,8,Sunbathe,Foraging,Adult,{4},{4;2}
+559,2,Foraging,Foraging,Adult,{4;5},{4;5;8}
+559,4,Dig burrow,Foraging,Adult,{8;2},{5;8;2}
+559,5,Foraging,Foraging,Adult,{2},{6;4;2}
+559,6,Foraging,Waiting Area,Adult,{},{5}
+560,8,Sunbathe,Foraging,Adult,{4},{4;2}
+560,2,Foraging,Foraging,Adult,{4;5},{4;5;8}
+560,4,Dig burrow,Foraging,Adult,{8;2},{5;8;2}
+560,5,Foraging,Foraging,Adult,{2},{6;4;2}
+560,6,Foraging,Waiting Area,Adult,{},{5}
+561,8,Sunbathe,Foraging,Adult,{4},{4;5;2}
+561,2,Foraging,Foraging,Adult,{4;5},{4;5;8}
+561,4,Dig burrow,Foraging,Adult,{8;2},{5;8;2}
+561,5,Foraging,Foraging,Adult,{2},{6;4;8;2}
+561,6,Foraging,Waiting Area,Adult,{},{5}
+562,8,Sunbathe,Foraging,Adult,{4},{4;2}
+562,2,Foraging,Foraging,Adult,{4},{4;8}
+562,4,Dig burrow,Foraging,Adult,{8;2},{8;2}
+562,6,Foraging,Waiting Area,Adult,{},{}
+563,8,Sunbathe,Foraging,Adult,{4},{4;5;2}
+563,2,Foraging,Foraging,Adult,{4;5},{4;5;8}
+563,4,Dig burrow,Foraging,Adult,{8;2},{5;8;2}
+563,5,Foraging,Foraging,Adult,{2},{6;4;8;2}
+563,6,Foraging,Waiting Area,Adult,{},{5}
+564,8,Sunbathe,Foraging,Adult,{4},{4}
+564,4,Dig burrow,Foraging,Adult,{8},{8}
+564,6,Foraging,Waiting Area,Adult,{},{}
+565,8,Sunbathe,Foraging,Adult,{4},{4}
+565,4,Dig burrow,Foraging,Adult,{8},{8}
+565,6,Foraging,Waiting Area,Adult,{},{}
+566,8,Sunbathe,Foraging,Adult,{4},{4}
+566,4,Dig burrow,Foraging,Adult,{8},{8}
+566,6,Foraging,Waiting Area,Adult,{},{}
+567,8,Sunbathe,Foraging,Adult,{4},{4}
+567,4,Dig burrow,Foraging,Adult,{8},{8}
+567,6,Foraging,Waiting Area,Adult,{},{}
+568,8,Sunbathe,Foraging,Adult,{4},{4}
+568,4,Dig burrow,Foraging,Adult,{8},{8}
+568,6,Foraging,Waiting Area,Adult,{},{}
+569,8,Sunbathe,Foraging,Adult,{4},{4}
+569,4,Dig burrow,Foraging,Adult,{8},{8}
+569,6,Foraging,Waiting Area,Adult,{},{}
+570,8,Sunbathe,Foraging,Adult,{4},{4}
+570,4,Dig burrow,Foraging,Adult,{8},{8}
+570,6,Foraging,Waiting Area,Adult,{},{}
+571,8,Sunbathe,Foraging,Adult,{4},{4}
+571,4,Dig burrow,Foraging,Adult,{8},{7;8}
+571,6,Foraging,Waiting Area,Adult,{},{7}
+571,7,Foraging,Foraging,Adult,{},{6;4}
+572,8,Sunbathe,Foraging,Adult,{4},{4}
+572,4,Dig burrow,Foraging,Adult,{8},{7;8}
+572,6,Foraging,Waiting Area,Adult,{},{7}
+572,7,Foraging,Foraging,Adult,{},{6;4}
+573,8,Sunbathe,Foraging,Adult,{4},{4;7}
+573,4,Dig burrow,Foraging,Adult,{8},{7;8}
+573,6,Foraging,Waiting Area,Adult,{},{7}
+573,7,Dig burrow,Foraging,Adult,{},{6;4;8}
+574,8,Sunbathe,Foraging,Adult,{4},{4;7}
+574,12,Low sitting/standing (stationary),Background,Adult,{},{}
+574,4,Dig burrow,Foraging,Adult,{8},{7;8}
+574,6,Foraging,Waiting Area,Adult,{},{7}
+574,7,Dig burrow,Foraging,Adult,{},{6;4;8}
+575,8,Sunbathe,Foraging,Adult,{4},{1;7;4}
+575,1,Foraging,Foraging,Adult,{7},{4;7;8}
+575,4,Dig burrow,Foraging,Adult,{8},{1;7;8}
+575,6,Foraging,Waiting Area,Adult,{},{7}
+575,7,Dig burrow,Foraging,Adult,{1},{6;1;8;4}
+576,8,Sunbathe,Foraging,Adult,{4},{1;7;4}
+576,1,Foraging,Foraging,Adult,{7},{4;7;8}
+576,4,Dig burrow,Foraging,Adult,{8},{1;7;8}
+576,6,Foraging,Waiting Area,Adult,{},{7}
+576,7,Dig burrow,Foraging,Adult,{1},{6;1;8;4}
+577,8,Sunbathe,Foraging,Adult,{4},{4;7}
+577,4,Dig burrow,Foraging,Adult,{8},{7;8}
+577,6,Foraging,Waiting Area,Adult,{},{7}
+577,7,Dig burrow,Foraging,Adult,{},{6;4;8}
+578,8,Sunbathe,Foraging,Adult,{4},{4;7}
+578,4,Dig burrow,Foraging,Adult,{8},{7;8}
+578,6,Foraging,Waiting Area,Adult,{},{7}
+578,7,Dig burrow,Foraging,Adult,{},{6;4;8}
+579,8,Sunbathe,Foraging,Adult,{4},{4}
+579,4,Dig burrow,Foraging,Adult,{8},{7;8}
+579,6,Foraging,Waiting Area,Adult,{},{7}
+579,7,Dig burrow,Foraging,Adult,{},{6;4}
+580,8,Sunbathe,Foraging,Adult,{4},{4;2}
+580,2,Foraging,Foraging,Adult,{4;7},{4;7;8}
+580,4,Dig burrow,Foraging,Adult,{8;2},{7;8;2}
+580,6,Foraging,Waiting Area,Adult,{},{7}
+580,7,Dig burrow,Foraging,Adult,{2},{6;4;2}
+581,8,Sunbathe,Foraging,Adult,{4},{4;2}
+581,2,Foraging,Foraging,Adult,{4;7},{4;7;8}
+581,4,Dig burrow,Foraging,Adult,{8;2},{7;8;2}
+581,6,Foraging,Waiting Area,Adult,{},{}
+581,7,Foraging,Foraging,Adult,{2},{4;2}
+582,8,Sunbathe,Foraging,Adult,{4},{4;13;2}
+582,13,Moving,Foraging,Adult,{},{4;8}
+582,2,Foraging,Foraging,Adult,{4;7},{4;7;8}
+582,4,Dig burrow,Foraging,Adult,{8;2},{13;7;8;2}
+582,6,Foraging,Waiting Area,Adult,{},{}
+582,7,Foraging,Foraging,Adult,{2},{4;2}
+583,8,Sunbathe,Foraging,Adult,{13;2},{1;13;2}
+583,13,Moving,Foraging,Adult,{8;2},{1;7;8;2}
+583,1,Foraging,Foraging,Adult,{7;2},{13;7;8;2}
+583,2,Foraging,Foraging,Adult,{1;13;8},{1;13;7;8}
+583,6,Foraging,Waiting Area,Adult,{},{}
+583,7,Foraging,Foraging,Adult,{1},{1;13;2}
+584,8,Sunbathe,Foraging,Adult,{2},{2}
+584,2,Foraging,Foraging,Adult,{8},{7;8}
+584,6,Foraging,Waiting Area,Adult,{},{}
+584,7,Foraging,Foraging,Adult,{},{2}
+585,8,Sunbathe,Foraging,Adult,{2},{1;2}
+585,11,Foraging,Foraging,Adult,{6},{6}
+585,1,Foraging,Foraging,Adult,{7;2},{7;8;2}
+585,2,Foraging,Foraging,Adult,{1;8},{1;7;8}
+585,6,Foraging,Foraging,Adult,{11},{11}
+585,7,Foraging,Foraging,Adult,{1},{1;2}
+586,8,Sunbathe,Foraging,Adult,{2},{1;7;2}
+586,11,Foraging,Foraging,Adult,{6},{6}
+586,1,Foraging,Foraging,Adult,{7;2},{7;8;2}
+586,2,Foraging,Foraging,Adult,{1;8},{1;7;8}
+586,6,Foraging,Foraging,Adult,{11},{11}
+586,7,Foraging,Foraging,Adult,{1},{1;8;2}
+587,8,Sunbathe,Foraging,Adult,{4;2},{4;1;7;2}
+587,11,Foraging,Foraging,Adult,{},{}
+587,1,Foraging,Foraging,Adult,{7;2},{4;7;8;2}
+587,2,Foraging,Foraging,Adult,{1;8;4},{1;7;8;4}
+587,4,Dig burrow,Foraging,Adult,{8;2},{1;7;8;2}
+587,7,Foraging,Foraging,Adult,{1},{4;1;8;2}
+588,8,Sunbathe,Foraging,Adult,{4;2},{4;1;7;2}
+588,11,Foraging,Foraging,Adult,{},{}
+588,1,Foraging,Foraging,Adult,{7;2},{4;7;8;2}
+588,2,Foraging,Foraging,Adult,{1;8;4},{1;7;8;4}
+588,4,Dig burrow,Foraging,Adult,{8;2},{1;7;8;2}
+588,7,Foraging,Foraging,Adult,{1},{4;1;8;2}
+589,8,Sunbathe,Foraging,Adult,{4;2},{4;1;7;2}
+589,11,Foraging,Foraging,Adult,{},{}
+589,1,Foraging,Foraging,Adult,{7;2},{4;7;8;2}
+589,2,Foraging,Foraging,Adult,{1;8;4},{1;7;8;4}
+589,4,Dig burrow,Foraging,Adult,{8;2},{1;7;8;2}
+589,7,Foraging,Foraging,Adult,{1},{4;1;8;2}
+590,8,Sunbathe,Foraging,Adult,{4;2},{4;1;7;2}
+590,11,Foraging,Foraging,Adult,{},{}
+590,1,Foraging,Foraging,Adult,{7;2},{4;7;8;2}
+590,2,Foraging,Waiting Area,Adult,{1;8;4},{1;7;8;4}
+590,4,Dig burrow,Foraging,Adult,{8;2},{1;7;8;2}
+590,7,Foraging,Foraging,Adult,{1},{4;1;8;2}
+591,8,Sunbathe,Foraging,Adult,{4;2},{4;1;7;2}
+591,11,Foraging,Foraging,Adult,{},{}
+591,1,Foraging,Foraging,Adult,{7;2},{4;7;8;2}
+591,2,Foraging,Foraging,Adult,{1;8;4},{1;7;8;4}
+591,4,Dig burrow,Foraging,Adult,{8;2},{1;7;8;2}
+591,7,Foraging,Foraging,Adult,{1},{4;1;8;2}
+592,8,Sunbathe,Foraging,Adult,{2},{7;2}
+592,11,Foraging,Foraging,Adult,{},{}
+592,2,Foraging,Foraging,Adult,{8},{7;8}
+592,7,Foraging,Foraging,Adult,{},{8;2}
+593,8,Sunbathe,Foraging,Adult,{2},{7;2}
+593,11,Foraging,Foraging,Adult,{},{6}
+593,2,Foraging,Foraging,Adult,{8},{7;8}
+593,6,Moving,Foraging,Adult,{},{11}
+593,7,Foraging,Foraging,Adult,{},{8;2}
+594,8,Sunbathe,Foraging,Adult,{2},{2}
+594,11,Moving,Foraging,Adult,{6},{6;7}
+594,2,Foraging,Foraging,Adult,{8},{7;8}
+594,6,Moving,Foraging,Adult,{11},{11}
+594,7,Foraging,Foraging,Adult,{},{11;2}
+595,8,Sunbathe,Foraging,Adult,{2},{7;2}
+595,11,Moving,Foraging,Adult,{6},{6;7}
+595,2,Foraging,Foraging,Adult,{8},{7;8}
+595,6,Moving,Foraging,Adult,{11},{7;11}
+595,7,Foraging,Foraging,Adult,{},{6;11;8;2}
+596,8,Sunbathe,Foraging,Adult,{2},{7;2}
+596,11,Foraging,Foraging,Adult,{6;7},{6;7}
+596,2,Foraging,Foraging,Adult,{8},{7;8}
+596,6,Moving,Foraging,Adult,{11},{7;11}
+596,7,Foraging,Foraging,Adult,{11},{6;11;8;2}
+597,8,Sunbathe,Foraging,Adult,{2},{7;2}
+597,2,Moving,Foraging,Adult,{8},{8}
+597,6,Moving,Foraging,Adult,{7},{7}
+597,7,Foraging,Foraging,Adult,{6},{6;8}
+598,8,Moving,Foraging,Adult,{4;2},{4;2}
+598,11,Foraging,Foraging,Adult,{6;7},{6;7}
+598,2,Moving,Foraging,Adult,{8},{4;8}
+598,4,Dig burrow,Foraging,Adult,{8},{6;7;8;2}
+598,6,Moving,Foraging,Adult,{7;11},{4;7;11}
+598,7,Foraging,Foraging,Adult,{6;11},{6;4;11}
+599,8,Moving,Foraging,Adult,{4;2},{6;4;2}
+599,11,Foraging,Foraging,Adult,{7},{6;7}
+599,2,Foraging,Foraging,Adult,{4;8},{6;4;8}
+599,4,Dig burrow,Foraging,Adult,{8;2},{6;7;8;2}
+599,6,Moving,Foraging,Adult,{7},{4;8;7;11;2}
+599,7,Foraging,Foraging,Adult,{6;11},{6;4;11}
+600,8,Moving,Foraging,Adult,{2},{6;4;2}
+600,11,Foraging,Foraging,Adult,{7},{6;1;7}
+600,1,Foraging,Foraging,Adult,{6;7},{4;6;7;11;2}
+600,2,Foraging,Foraging,Adult,{4;8},{6;1;8;4}
+600,4,Dig burrow,Foraging,Adult,{6;2},{1;8;6;7;2}
+600,6,Moving,Foraging,Adult,{1;4},{4;1;8;7;11;2}
+600,7,Foraging,Foraging,Adult,{1;11},{6;1;11;4}
+601,8,Moving,Foraging,Adult,{2},{6;4;2}
+601,11,Foraging,Foraging,Adult,{7},{6;1;7}
+601,1,Foraging,Foraging,Adult,{6;7},{4;6;7;11;2}
+601,2,Foraging,Foraging,Adult,{6;4;8},{6;1;8;4}
+601,4,Dig burrow,Foraging,Adult,{6;2},{1;8;6;7;2}
+601,6,Moving,Foraging,Adult,{4;1;2},{4;1;8;7;11;2}
+601,7,Foraging,Foraging,Adult,{1;11},{6;1;11;4}
+602,8,Moving,Foraging,Adult,{},{6;4;2}
+602,11,Moving,Foraging,Adult,{1;7},{6;1;7;4}
+602,1,Foraging,Foraging,Adult,{7;11},{4;6;7;11;2}
+602,2,Foraging,Foraging,Adult,{6;4},{6;1;8;4}
+602,4,Dig burrow,Foraging,Adult,{6;2},{1;8;6;7;11;2}
+602,6,Moving,Foraging,Adult,{4;2},{4;1;8;7;11;2}
+602,7,Foraging,Foraging,Adult,{1;11},{6;1;11;4}
+603,8,Moving,Foraging,Adult,{},{}
+603,11,Moving,Foraging,Adult,{1;7},{1;4;5;6;7}
+603,1,Foraging,Foraging,Adult,{7;5;11},{4;5;6;7;11;2}
+603,2,Foraging,Foraging,Adult,{6;4},{6;1;4}
+603,4,Dig burrow,Foraging,Adult,{6;2},{1;5;6;7;11;2}
+603,5,Foraging,Waiting Area,Adult,{1;7},{1;4;6;7;11}
+603,6,Groom,Foraging,Adult,{4;2},{4;1;5;7;11;2}
+603,7,Foraging,Foraging,Adult,{1;5;11},{1;4;5;6;11}
+604,11,Moving,Foraging,Adult,{1;7},{1;4;5;6;7}
+604,1,Foraging,Foraging,Adult,{7;5;11},{4;5;6;7;11;2}
+604,2,Foraging,Foraging,Adult,{6;4},{6;1;4}
+604,4,Dig burrow,Foraging,Adult,{6;2},{1;5;6;7;11;2}
+604,5,Foraging,Waiting Area,Adult,{1;7},{1;4;6;7;11}
+604,6,Groom,Foraging,Adult,{4;2},{4;1;5;7;11;2}
+604,7,Foraging,Foraging,Adult,{1;5;11},{1;4;5;6;11}
+605,11,Foraging,Foraging,Adult,{1;7},{1;4;5;6;7}
+605,1,Foraging,Foraging,Adult,{7;5;11},{4;5;6;7;11;2}
+605,2,Foraging,Foraging,Adult,{6;4},{6;1;4}
+605,4,Dig burrow,Foraging,Adult,{6;2},{1;5;6;7;11;2}
+605,5,Foraging,Waiting Area,Adult,{1;7},{1;4;6;7;11}
+605,6,Groom,Foraging,Adult,{4;2},{4;1;5;7;11;2}
+605,7,Foraging,Foraging,Adult,{1;5;11},{1;4;5;6;11}
+606,11,Foraging,Foraging,Adult,{1;7},{1;4;5;6;7}
+606,1,Foraging,Foraging,Adult,{7;5;11},{4;5;6;7;11}
+606,2,Foraging,Foraging,Adult,{},{6;4}
+606,4,Dig burrow,Foraging,Adult,{6},{1;5;6;7;11;2}
+606,5,Foraging,Waiting Area,Adult,{1;7},{1;4;6;7;11}
+606,6,Groom,Foraging,Adult,{4},{4;1;5;7;11;2}
+606,7,Foraging,Foraging,Adult,{1;5;11},{1;4;5;6;11}
+607,11,Foraging,Foraging,Adult,{7},{6;4;5;7}
+607,2,Foraging,Foraging,Adult,{4},{6;4}
+607,4,Dig burrow,Foraging,Adult,{6;2},{5;6;7;11;2}
+607,5,Foraging,Waiting Area,Adult,{7},{6;4;7;11}
+607,6,Groom,Foraging,Adult,{4},{4;5;7;11;2}
+607,7,Foraging,Foraging,Adult,{5;11},{6;4;5;11}
+608,11,Foraging,Foraging,Adult,{7},{6;4;5;7}
+608,2,Foraging,Foraging,Adult,{4},{6;4}
+608,4,Dig burrow,Foraging,Adult,{6;2},{5;6;7;11;2}
+608,5,Foraging,Waiting Area,Adult,{7},{6;4;7;11}
+608,6,Groom,Foraging,Adult,{4},{4;5;7;11;2}
+608,7,Foraging,Foraging,Adult,{5;11},{6;4;5;11}
+609,11,Moving,Foraging,Adult,{6;7},{4;5;6;7;2}
+609,2,Moving,Foraging,Adult,{6;4},{4;5;6;7;11}
+609,4,Dig burrow,Foraging,Adult,{6;2},{5;6;7;11;2}
+609,5,Foraging,Waiting Area,Adult,{7},{4;6;7;11;2}
+609,6,Moving,Foraging,Adult,{4;11;2},{4;5;7;11;2}
+609,7,Foraging,Foraging,Adult,{5;11},{4;5;6;11;2}
+610,11,Moving,Foraging,Adult,{2},{4;5;7;2}
+610,2,Moving,Foraging,Adult,{7;11},{4;5;11;7}
+610,4,Dig burrow,Foraging,Adult,{},{7;5;11;2}
+610,5,Foraging,Waiting Area,Adult,{7},{4;7;11;2}
+610,7,Foraging,Foraging,Adult,{5;2},{4;5;11;2}
+611,11,Moving,Foraging,Adult,{6},{6;4;5;7}
+611,4,Dig burrow,Foraging,Adult,{},{6;7;5;11}
+611,5,Foraging,Waiting Area,Adult,{7},{6;4;7;11}
+611,6,Moving,Foraging,Adult,{7;11},{4;5;11;7}
+611,7,Foraging,Foraging,Adult,{6;5},{6;4;5;11}
+612,11,Moving,Foraging,Adult,{6},{6;4;7}
+612,4,Moving,Foraging,Adult,{},{6;7;11}
+612,6,Moving,Foraging,Adult,{7;11},{4;7;11}
+612,7,Foraging,Foraging,Adult,{6},{6;4;11}
+613,11,Moving,Foraging,Adult,{},{6;4;7}
+613,4,Moving,Foraging,Adult,{},{6;7;11}
+613,6,Foraging,Foraging,Adult,{7},{4;7;11}
+613,7,Foraging,Foraging,Adult,{6},{6;4;11}
+614,11,High sitting/standing (Vigilant),Foraging,Adult,{4},{6;4;7}
+614,4,Moving,Foraging,Adult,{11},{6;7;11}
+614,6,Foraging,Foraging,Adult,{7},{4;7;11}
+614,7,Dig burrow,Foraging,Adult,{6},{6;4;11}
+615,11,High sitting/standing (Vigilant),Foraging,Adult,{4},{6;4;7}
+615,4,Foraging,Foraging,Adult,{11},{6;7;11}
+615,6,Foraging,Foraging,Adult,{7},{4;7;11}
+615,7,Foraging,Foraging,Adult,{6},{6;4;11}
+616,11,High sitting/standing (Vigilant),Foraging,Adult,{4},{6;4;7}
+616,4,Foraging,Foraging,Adult,{7;11},{6;7;11}
+616,6,Foraging,Foraging,Adult,{7},{4;7;11}
+616,7,Foraging,Foraging,Adult,{6;4},{6;4;11}
+617,11,High sitting/standing (Vigilant),Foraging,Adult,{4},{6;4;7}
+617,4,Foraging,Foraging,Adult,{7;11},{6;7;11}
+617,6,Foraging,Foraging,Adult,{7},{4;7;11}
+617,7,Foraging,Foraging,Adult,{6;4},{6;4;11}
+618,11,Moving,Foraging,Adult,{},{6;4;7}
+618,4,Foraging,Foraging,Adult,{7},{6;7;11}
+618,6,Foraging,Foraging,Adult,{7},{4;7;11}
+618,7,Foraging,Foraging,Adult,{6;4},{6;4;11}
+619,11,Low sitting/standing (stationary),Foraging,Adult,{2},{6;7;2}
+619,2,Moving,Foraging,Adult,{6;7;11},{6;7;11}
+619,6,Foraging,Foraging,Adult,{7;2},{7;11;2}
+619,7,Foraging,Foraging,Adult,{6;2},{6;11;2}
+620,11,Low sitting/standing (stationary),Foraging,Adult,{2},{6;7;2}
+620,2,Moving,Foraging,Adult,{11},{6;7;11}
+620,6,Foraging,Foraging,Adult,{7},{7;11;2}
+620,7,Foraging,Foraging,Adult,{6},{6;11;2}
+621,11,Low sitting/standing (stationary),Foraging,Adult,{2},{6;7;2}
+621,2,Moving,Foraging,Adult,{11},{7;11}
+621,6,Foraging,Foraging,Adult,{7},{7;11}
+621,7,Foraging,Foraging,Adult,{6},{6;11;2}
+622,11,Moving,Foraging,Adult,{2},{6;7;2}
+622,2,Foraging,Foraging,Adult,{11},{11}
+622,6,Foraging,Foraging,Adult,{7},{7;11}
+622,7,Foraging,Foraging,Adult,{6},{6;11}
+623,11,Moving,Foraging,Adult,{},{2}
+623,2,Foraging,Foraging,Adult,{},{11}
+623,6,Foraging,Foraging,Adult,{7},{7}
+623,7,Foraging,Foraging,Adult,{6},{6}
+624,11,Moving,Foraging,Adult,{},{2}
+624,2,Moving,Foraging,Adult,{},{11}
+624,6,Foraging,Foraging,Adult,{7},{7}
+624,7,Foraging,Foraging,Adult,{6},{6}
+625,2,Moving,Foraging,Adult,{},{}
+625,6,Foraging,Foraging,Adult,{7},{7}
+625,7,Foraging,Foraging,Adult,{6},{6}
+626,2,Dig burrow,Foraging,Adult,{},{}
+626,6,Foraging,Foraging,Adult,{7},{7}
+626,7,Foraging,Foraging,Adult,{6},{6}
+627,11,Moving,Foraging,Adult,{},{2}
+627,1,Foraging,Foraging,Adult,{7},{6;7;2}
+627,2,Dig burrow,Foraging,Adult,{},{1;7;11}
+627,6,Foraging,Foraging,Adult,{7},{1;7}
+627,7,Foraging,Foraging,Adult,{6;1},{6;1;2}
+628,11,Moving,Foraging,Adult,{},{}
+628,1,Foraging,Foraging,Adult,{4;7},{6;4;7;2}
+628,2,Dig burrow,Foraging,Adult,{},{1;7;4}
+628,4,Foraging,Foraging,Adult,{6;1;7},{6;1;7;2}
+628,6,Foraging,Foraging,Adult,{4;7},{1;7;4}
+628,7,Foraging,Foraging,Adult,{6;1;4},{4;6;1;2}
+629,1,Foraging,Foraging,Adult,{4;7},{6;4;7;2}
+629,2,Dig burrow,Foraging,Adult,{},{1;7;4}
+629,4,Foraging,Foraging,Adult,{6;1;7},{6;1;7;2}
+629,6,Foraging,Foraging,Adult,{4;7},{1;7;4}
+629,7,Foraging,Foraging,Adult,{6;1;4},{4;6;1;2}
+630,1,Foraging,Foraging,Adult,{4;7},{6;4;7;2}
+630,2,Dig burrow,Foraging,Adult,{},{1;7;4}
+630,4,Foraging,Foraging,Adult,{1;7},{6;1;7;2}
+630,6,Foraging,Foraging,Adult,{7},{1;7;4}
+630,7,Foraging,Foraging,Adult,{6;1;4},{4;6;1;2}
+631,11,Moving,Background,Adult,{},{}
+631,1,Foraging,Foraging,Adult,{7},{6;7;2}
+631,2,Dig burrow,Foraging,Adult,{},{1;7}
+631,6,Foraging,Foraging,Adult,{7},{1;7}
+631,7,Foraging,Foraging,Adult,{6;1},{6;1;2}
+632,11,Moving,Background,Adult,{},{}
+632,4,Moving,Foraging,Adult,{},{7}
+632,6,Foraging,Foraging,Adult,{7},{7}
+632,7,Foraging,Foraging,Adult,{6},{6;4}
+633,11,Moving,Background,Adult,{},{}
+633,2,Dig burrow,Foraging,Adult,{4},{4;7}
+633,4,Moving,Foraging,Adult,{2},{2}
+633,6,Foraging,Foraging,Adult,{7},{7}
+633,7,Foraging,Foraging,Adult,{6},{6;2}
+634,11,Moving,Background,Adult,{},{}
+634,2,Dig burrow,Foraging,Adult,{4},{4;7}
+634,4,Moving,Foraging,Adult,{2},{2}
+634,6,Foraging,Foraging,Adult,{7},{7}
+634,7,Foraging,Foraging,Adult,{6},{6;2}
+635,11,Moving,Background,Adult,{},{}
+635,2,Dig burrow,Foraging,Adult,{4},{4;7}
+635,4,Foraging,Foraging,Adult,{2},{7;2}
+635,6,Foraging,Foraging,Adult,{7},{7}
+635,7,Foraging,Foraging,Adult,{6},{6;4;2}
+636,11,Moving,Background,Adult,{},{}
+636,2,Dig burrow,Foraging,Adult,{4},{4;7}
+636,4,Foraging,Foraging,Adult,{2},{7;2}
+636,6,Foraging,Foraging,Adult,{7},{7}
+636,7,Foraging,Foraging,Adult,{6},{6;4;2}
+637,11,Moving,Background,Adult,{},{}
+637,1,Foraging,Foraging,Adult,{4;7},{6;4;7;2}
+637,2,Dig burrow,Foraging,Adult,{4},{1;7;4}
+637,4,Foraging,Foraging,Adult,{1;2},{1;7;2}
+637,6,Foraging,Foraging,Adult,{7},{1;7}
+637,7,Foraging,Foraging,Adult,{6;1},{4;6;1;2}
+638,11,Moving,Background,Adult,{},{}
+638,13,Foraging,Waiting Area,Adult,{4;1;2},{4;1;6;7;2}
+638,1,Foraging,Foraging,Adult,{4;13;7},{4;13;6;7;2}
+638,2,Dig burrow,Foraging,Adult,{4;13},{1;13;7;4}
+638,4,Foraging,Foraging,Adult,{1;13;2},{1;13;6;7;2}
+638,6,Foraging,Foraging,Adult,{7},{1;13;7;4}
+638,7,Foraging,Foraging,Adult,{6;1},{4;1;13;6;2}
+639,11,Low sitting/standing (stationary),Background,Adult,{},{}
+639,13,Foraging,Waiting Area,Adult,{4;1;2},{4;1;6;7;2}
+639,1,Foraging,Foraging,Adult,{4;13;7},{4;13;6;7;2}
+639,2,Dig burrow,Foraging,Adult,{4;13},{1;13;7;4}
+639,4,Dig burrow,Foraging,Adult,{1;13;2},{1;13;6;7;2}
+639,6,Foraging,Foraging,Adult,{7},{1;13;7;4}
+639,7,Foraging,Foraging,Adult,{6;1},{4;1;13;6;2}
+640,11,Lying/resting (stationary),Background,Adult,{},{}
+640,13,Foraging,Waiting Area,Adult,{4;1;2},{4;1;6;7;2}
+640,1,Foraging,Foraging,Adult,{4;13;7},{4;13;6;7;2}
+640,2,Dig burrow,Foraging,Adult,{4;13},{1;13;7;4}
+640,4,Dig burrow,Foraging,Adult,{1;13;2},{1;13;6;7;2}
+640,6,Foraging,Foraging,Adult,{7},{1;13;7;4}
+640,7,Foraging,Foraging,Adult,{6;1},{4;1;13;6;2}
+641,11,Lying/resting (stationary),Background,Adult,{},{}
+641,13,Foraging,Waiting Area,Adult,{4;2},{6;4;7;2}
+641,2,Dig burrow,Foraging,Adult,{4;13},{4;13;7}
+641,4,Dig burrow,Foraging,Adult,{13;2},{6;13;7;2}
+641,6,Foraging,Foraging,Adult,{7},{4;13;7}
+641,7,Foraging,Foraging,Adult,{6},{6;4;13;2}
+642,11,Lying/resting (stationary),Background,Adult,{},{}
+642,13,Foraging,Waiting Area,Adult,{4;2},{6;4;7;2}
+642,2,Dig burrow,Foraging,Adult,{4;13},{4;13;7}
+642,4,Dig burrow,Foraging,Adult,{13;2},{6;13;7;2}
+642,6,Foraging,Foraging,Adult,{7},{4;13;7}
+642,7,Foraging,Foraging,Adult,{6},{6;4;13;2}
+643,11,Lying/resting (stationary),Background,Adult,{},{}
+643,13,Foraging,Waiting Area,Adult,{4;2},{6;4;7;2}
+643,2,Dig burrow,Foraging,Adult,{4;13},{4;13;7}
+643,4,Dig burrow,Foraging,Adult,{13;2},{6;13;7;2}
+643,6,Foraging,Foraging,Adult,{7},{4;13;7}
+643,7,Foraging,Foraging,Adult,{6},{6;4;13;2}
+644,11,Lying/resting (stationary),Background,Adult,{},{}
+644,13,Foraging,Waiting Area,Adult,{4;2},{6;4;7;2}
+644,2,Dig burrow,Foraging,Adult,{4;13},{4;13;7}
+644,4,Dig burrow,Foraging,Adult,{13;2},{6;13;7;2}
+644,6,Foraging,Foraging,Adult,{7},{4;13;7}
+644,7,Foraging,Foraging,Adult,{6},{6;4;13;2}
+645,11,Lying/resting (stationary),Background,Adult,{},{}
+645,13,Foraging,Waiting Area,Adult,{4;2},{6;4;7;2}
+645,2,Dig burrow,Foraging,Adult,{4;13},{4;13;7}
+645,4,Dig burrow,Foraging,Adult,{13;2},{6;13;7;2}
+645,6,Foraging,Foraging,Adult,{7},{4;13;7}
+645,7,Foraging,Foraging,Adult,{6},{6;4;13;2}
+646,11,Lying/resting (stationary),Background,Adult,{},{}
+646,13,Foraging,Waiting Area,Adult,{4;2},{6;4;7;2}
+646,2,Dig burrow,Foraging,Adult,{4;13},{4;13;7}
+646,4,Dig burrow,Foraging,Adult,{13;2},{6;13;7;2}
+646,6,Foraging,Foraging,Adult,{7},{4;13;7}
+646,7,Foraging,Foraging,Adult,{6},{6;4;13;2}
+647,11,Lying/resting (stationary),Background,Adult,{},{}
+647,13,Foraging,Waiting Area,Adult,{4;5;7;2},{4;5;6;7;2}
+647,2,Dig burrow,Foraging,Adult,{4;13},{4;13;5;7}
+647,4,Dig burrow,Foraging,Adult,{13;2},{5;13;6;7;2}
+647,5,Foraging,Waiting Area,Adult,{13;7},{4;13;6;7;2}
+647,6,Foraging,Foraging,Adult,{7},{4;13;5;7}
+647,7,Foraging,Foraging,Adult,{6;13;5},{4;5;13;6;2}
+648,11,Lying/resting (stationary),Background,Adult,{},{}
+648,13,Foraging,Foraging,Adult,{4;5;2},{4;1;5;6;2}
+648,1,Foraging,Foraging,Adult,{6;5},{4;5;13;6;2}
+648,2,Dig burrow,Foraging,Adult,{4;13},{1;13;5;4}
+648,4,Dig burrow,Foraging,Adult,{13;2},{1;5;13;6;2}
+648,5,Foraging,Waiting Area,Adult,{1;13},{4;1;13;6;2}
+648,6,Foraging,Foraging,Adult,{1},{1;13;5;4}
+649,11,Lying/resting (stationary),Background,Adult,{},{}
+649,13,Moving,Foraging,Adult,{4;1;5;2},{4;1;5;6;2}
+649,1,Foraging,Foraging,Adult,{6;13;5},{4;5;13;6;2}
+649,2,Dig burrow,Foraging,Adult,{4;13},{1;13;5;4}
+649,4,Dig burrow,Foraging,Adult,{13;2},{1;5;13;6;2}
+649,5,Foraging,Waiting Area,Adult,{1;13},{4;1;13;6;2}
+649,6,Foraging,Foraging,Adult,{1},{1;13;5;4}
+650,11,Lying/resting (stationary),Background,Adult,{},{}
+650,13,Moving,Foraging,Adult,{4;5;2},{4;1;5;6;2}
+650,1,Foraging,Foraging,Adult,{6;5},{4;5;13;6;2}
+650,2,Moving,Foraging,Adult,{4;13},{1;13;5;4}
+650,4,Dig burrow,Foraging,Adult,{13;2},{1;5;13;6;2}
+650,5,Foraging,Waiting Area,Adult,{1;13},{4;1;13;6;2}
+650,6,Foraging,Foraging,Adult,{1},{1;13;5;4}
+651,11,Lying/resting (stationary),Background,Adult,{},{}
+651,13,Moving,Foraging,Adult,{4;2},{4;1;5;2}
+651,1,Foraging,Foraging,Adult,{6;5},{6;4;13;5}
+651,2,Moving,Waiting Area,Adult,{13},{4;13;5}
+651,4,Dig burrow,Foraging,Adult,{13},{1;5;13;6;2}
+651,5,Foraging,Waiting Area,Adult,{1},{4;1;13;6;2}
+651,6,Foraging,Foraging,Adult,{1},{1;5;4}
+652,11,Lying/resting (stationary),Background,Adult,{},{}
+652,13,Dig burrow,Foraging,Adult,{4;2},{4;1;5;2}
+652,1,Foraging,Foraging,Adult,{6;5},{6;4;13;5}
+652,2,Foraging,Waiting Area,Adult,{13},{4;13;5}
+652,4,Dig burrow,Foraging,Adult,{13},{1;5;13;6;2}
+652,5,Foraging,Waiting Area,Adult,{1},{4;1;13;6;2}
+652,6,Foraging,Foraging,Adult,{1},{1;5;4}
+653,11,Lying/resting (stationary),Background,Adult,{},{}
+653,13,Dig burrow,Foraging,Adult,{4;2},{4;1;5;2}
+653,1,Foraging,Foraging,Adult,{6;5},{6;4;13;5}
+653,2,Foraging,Waiting Area,Adult,{13},{4;13;5}
+653,4,Dig burrow,Foraging,Adult,{13},{1;5;13;6;2}
+653,5,Foraging,Waiting Area,Adult,{1},{4;1;13;6;2}
+653,6,Foraging,Foraging,Adult,{1},{1;5;4}
+654,11,Lying/resting (stationary),Background,Adult,{},{}
+654,13,Dig burrow,Foraging,Adult,{4;2},{4;1;5;2}
+654,1,Foraging,Foraging,Adult,{6;5},{6;4;13;5}
+654,2,Foraging,Waiting Area,Adult,{13},{4;13;5}
+654,4,Dig burrow,Foraging,Adult,{13},{1;5;13;6;2}
+654,5,Foraging,Waiting Area,Adult,{1},{4;1;13;6;2}
+654,6,Foraging,Foraging,Adult,{1},{1;5;4}
+655,11,Lying/resting (stationary),Background,Adult,{},{}
+655,13,Dig burrow,Foraging,Adult,{4;2},{4;1;5;2}
+655,1,Foraging,Foraging,Adult,{6;5},{6;4;13;5}
+655,2,Foraging,Waiting Area,Adult,{13},{4;13;5}
+655,4,Dig burrow,Foraging,Adult,{13},{1;13;5;2}
+655,5,Foraging,Waiting Area,Adult,{1},{4;1;13;6;2}
+655,6,Foraging,Foraging,Adult,{1},{1;5}
+656,11,Lying/resting (stationary),Background,Adult,{},{}
+656,13,Moving,Foraging,Adult,{4;2},{4;2}
+656,1,Foraging,Foraging,Adult,{6},{6;4}
+656,2,Foraging,Waiting Area,Adult,{4;13},{4;13}
+656,4,Dig burrow,Foraging,Adult,{13;2},{1;13;2}
+656,6,Foraging,Foraging,Adult,{1},{1}
+657,11,Lying/resting (stationary),Background,Adult,{},{}
+657,13,Foraging,Foraging,Adult,{},{4;2}
+657,1,Foraging,Foraging,Adult,{6},{6;4}
+657,2,Foraging,Waiting Area,Adult,{},{4;13}
+657,4,Dig burrow,Foraging,Adult,{},{1;13;2}
+657,6,Foraging,Foraging,Adult,{1},{1}
+658,11,Lying/resting (stationary),Background,Adult,{},{}
+658,13,Foraging,Foraging,Adult,{},{4;2}
+658,1,Foraging,Foraging,Adult,{6},{6;4}
+658,2,Foraging,Waiting Area,Adult,{},{4;13}
+658,4,Dig burrow,Foraging,Adult,{},{1;13;2}
+658,6,Foraging,Foraging,Adult,{1},{1}
+659,11,Lying/resting (stationary),Background,Adult,{},{}
+659,13,Moving,Foraging,Adult,{},{4;2}
+659,1,Foraging,Foraging,Adult,{6},{6;4}
+659,2,Foraging,Waiting Area,Adult,{},{4;13}
+659,4,Dig burrow,Foraging,Adult,{},{1;13;2}
+659,6,Foraging,Foraging,Adult,{1},{1}
+660,11,Lying/resting (stationary),Background,Adult,{},{}
+660,1,Foraging,Foraging,Adult,{6},{6;4}
+660,2,Foraging,Waiting Area,Adult,{},{4}
+660,4,Dig burrow,Foraging,Adult,{},{1;2}
+660,6,Foraging,Foraging,Adult,{1},{1}
+661,11,Lying/resting (stationary),Background,Adult,{},{}
+661,1,Foraging,Foraging,Adult,{6},{6;4}
+661,2,Foraging,Waiting Area,Adult,{},{4}
+661,4,Dig burrow,Foraging,Adult,{},{1;2}
+661,6,Foraging,Foraging,Adult,{1},{1}
+662,11,Lying/resting (stationary),Background,Adult,{},{}
+662,1,Foraging,Foraging,Adult,{6},{6;4}
+662,2,Foraging,Waiting Area,Adult,{},{4}
+662,4,Dig burrow,Foraging,Adult,{},{1;2}
+662,6,Foraging,Foraging,Adult,{1},{1}
+663,11,Lying/resting (stationary),Background,Adult,{},{}
+663,1,Foraging,Foraging,Adult,{7},{6;4;7}
+663,2,Foraging,Waiting Area,Adult,{},{4}
+663,4,Dig burrow,Foraging,Adult,{},{1;7;2}
+663,6,Foraging,Foraging,Adult,{7},{1;7}
+663,7,Foraging,Foraging,Adult,{6;1},{6;1;4}
+664,11,Lying/resting (stationary),Background,Adult,{},{}
+664,1,Foraging,Foraging,Adult,{7},{6;4;7}
+664,4,Dig burrow,Foraging,Adult,{},{1;7}
+664,6,Foraging,Foraging,Adult,{7},{1;7}
+664,7,Foraging,Foraging,Adult,{6;1},{6;1;4}
+665,11,Lying/resting (stationary),Background,Adult,{},{}
+665,1,Foraging,Foraging,Adult,{7},{6;4;7}
+665,2,Moving,Waiting Area,Adult,{},{4}
+665,4,Dig burrow,Foraging,Adult,{},{1;7;2}
+665,6,Foraging,Foraging,Adult,{7},{1;7}
+665,7,Foraging,Foraging,Adult,{6;1},{6;1;4}
+666,11,Lying/resting (stationary),Background,Adult,{},{}
+666,1,Foraging,Foraging,Adult,{7},{6;4;7}
+666,4,Dig burrow,Foraging,Adult,{},{1;7}
+666,6,Foraging,Foraging,Adult,{7},{1;7}
+666,7,Foraging,Foraging,Adult,{6;1},{6;1;4}
+667,11,Lying/resting (stationary),Background,Adult,{},{}
+667,1,Foraging,Foraging,Adult,{6},{6;4;2}
+667,2,Moving,Waiting Area,Adult,{4},{1;4}
+667,4,Dig burrow,Foraging,Adult,{2},{1;2}
+667,6,Foraging,Foraging,Adult,{1},{1}
+668,11,Lying/resting (stationary),Background,Adult,{},{}
+668,1,Foraging,Foraging,Adult,{6},{6;4;2}
+668,2,High sitting/standing (Vigilant),Waiting Area,Adult,{4},{1;4}
+668,4,Dig burrow,Foraging,Adult,{2},{1;2}
+668,6,Foraging,Foraging,Adult,{1},{1}
+669,11,Lying/resting (stationary),Background,Adult,{},{}
+669,1,Foraging,Foraging,Adult,{7},{6;4;7;2}
+669,2,High sitting/standing (Vigilant),Waiting Area,Adult,{4},{1;7;4}
+669,4,Dig burrow,Foraging,Adult,{2},{1;7;2}
+669,6,Foraging,Foraging,Adult,{7},{1;7}
+669,7,Foraging,Foraging,Adult,{6;1},{4;6;1;2}
+670,11,Lying/resting (stationary),Background,Adult,{},{}
+670,4,Dig burrow,Foraging,Adult,{},{7}
+670,6,Foraging,Foraging,Adult,{7},{7}
+670,7,Foraging,Foraging,Adult,{6},{6;4}
+671,11,Lying/resting (stationary),Background,Adult,{},{}
+671,2,Moving,Waiting Area,Adult,{},{}
+671,4,Dig burrow,Foraging,Adult,{},{7}
+671,6,Foraging,Foraging,Adult,{7},{7}
+671,7,Foraging,Foraging,Adult,{6},{6;4}
+672,11,Lying/resting (stationary),Background,Adult,{},{}
+672,4,Dig burrow,Foraging,Adult,{},{7}
+672,6,Foraging,Foraging,Adult,{7},{7}
+672,7,Foraging,Foraging,Adult,{6},{6;4}
+673,11,Lying/resting (stationary),Background,Adult,{},{}
+673,2,Moving,Background,Adult,{},{}
+673,4,Dig burrow,Foraging,Adult,{},{7}
+673,6,Foraging,Foraging,Adult,{7},{7}
+673,7,Foraging,Foraging,Adult,{6},{6;4}
+674,11,Lying/resting (stationary),Background,Adult,{},{}
+674,4,Dig burrow,Foraging,Adult,{},{7}
+674,6,Foraging,Foraging,Adult,{7},{7}
+674,7,Foraging,Foraging,Adult,{6},{6;4}
+675,11,Lying/resting (stationary),Background,Adult,{},{}
+675,4,Dig burrow,Foraging,Adult,{},{7}
+675,6,Foraging,Foraging,Adult,{7},{7}
+675,7,Foraging,Foraging,Adult,{6},{6;4}
+676,11,Lying/resting (stationary),Background,Adult,{},{}
+676,4,Dig burrow,Foraging,Adult,{},{7}
+676,6,Foraging,Foraging,Adult,{7},{7}
+676,7,Foraging,Foraging,Adult,{6},{6;4}
+677,11,Lying/resting (stationary),Background,Adult,{},{}
+677,1,Foraging,Foraging,Adult,{7},{6;4;7}
+677,4,Dig burrow,Foraging,Adult,{},{1;7}
+677,6,Foraging,Foraging,Adult,{7},{1;7}
+677,7,Foraging,Foraging,Adult,{6;1},{6;1;4}
+678,11,Lying/resting (stationary),Background,Adult,{},{}
+678,1,Foraging,Foraging,Adult,{},{6;4}
+678,4,Dig burrow,Foraging,Adult,{},{1}
+678,6,Foraging,Foraging,Adult,{},{1}
+679,11,Lying/resting (stationary),Background,Adult,{},{}
+679,4,Dig burrow,Foraging,Adult,{},{}
+679,6,Foraging,Foraging,Adult,{},{}
+680,11,Lying/resting (stationary),Background,Adult,{},{}
+680,4,Dig burrow,Foraging,Adult,{},{}
+680,6,Foraging,Foraging,Adult,{},{}
+681,11,Lying/resting (stationary),Background,Adult,{},{}
+681,4,Dig burrow,Foraging,Adult,{5},{6;5}
+681,5,Moving,Foraging,Adult,{4},{6;4}
+681,6,Foraging,Foraging,Adult,{},{4;5}
+682,11,Lying/resting (stationary),Background,Adult,{},{}
+682,4,Dig burrow,Foraging,Adult,{5},{5}
+682,5,Foraging,Foraging,Adult,{4},{6;4}
+682,6,Foraging,Foraging,Adult,{},{5}
+683,11,Lying/resting (stationary),Background,Adult,{},{}
+683,4,Dig burrow,Foraging,Adult,{5},{6;5}
+683,5,Foraging,Foraging,Adult,{4},{6;4}
+683,6,Low sitting/standing (stationary),Foraging,Adult,{},{4;5}
+684,11,Lying/resting (stationary),Background,Adult,{},{}
+684,1,Moving,Foraging,Adult,{4;5},{6;4;5}
+684,4,Dig burrow,Foraging,Adult,{1;5},{6;1;5}
+684,5,Foraging,Foraging,Adult,{1;4},{6;1;4}
+684,6,Low sitting/standing (stationary),Foraging,Adult,{},{1;5;4}
+685,11,Lying/resting (stationary),Background,Adult,{},{}
+685,1,Moving,Foraging,Adult,{6},{6;4;5}
+685,4,Dig burrow,Foraging,Adult,{5},{6;1;5}
+685,5,Foraging,Foraging,Adult,{4},{6;1;4}
+685,6,Low sitting/standing (stationary),Foraging,Adult,{1},{1;5;4}
+686,11,Lying/resting (stationary),Background,Adult,{},{}
+686,14,Moving,Foraging,Adult,{},{}
+686,1,Moving,Foraging,Adult,{6},{6;4;5}
+686,4,Dig burrow,Foraging,Adult,{5},{6;1;5}
+686,5,Foraging,Foraging,Adult,{4},{6;1;4}
+686,6,Low sitting/standing (stationary),Foraging,Adult,{1},{1;5;4}
+687,11,Lying/resting (stationary),Background,Adult,{},{}
+687,14,Foraging,Foraging,Adult,{},{4}
+687,1,Moving,Foraging,Adult,{6},{6;4;5}
+687,4,Dig burrow,Foraging,Adult,{5},{5;6;1;14}
+687,5,Foraging,Foraging,Adult,{4},{6;1;4}
+687,6,Low sitting/standing (stationary),Foraging,Adult,{1},{1;5;4}
+688,11,Lying/resting (stationary),Background,Adult,{},{}
+688,14,Foraging,Foraging,Adult,{},{4}
+688,1,Moving,Foraging,Adult,{6},{6;4;5}
+688,4,Moving,Foraging,Adult,{5},{5;6;1;14}
+688,5,Foraging,Foraging,Adult,{4},{6;1;4}
+688,6,Moving,Foraging,Adult,{1},{1;5;4}
+689,11,Lying/resting (stationary),Background,Adult,{},{}
+689,14,Foraging,Foraging,Adult,{},{4;5}
+689,4,Foraging,Foraging,Adult,{5},{5;6;14}
+689,5,Foraging,Foraging,Adult,{6;4},{6;4;14}
+689,6,Moving,Foraging,Adult,{5},{4;5}
+690,11,Lying/resting (stationary),Background,Adult,{},{}
+690,14,Moving,Foraging,Adult,{},{4;5}
+690,1,Foraging,Foraging,Adult,{},{4;5}
+690,4,Foraging,Foraging,Adult,{5},{5;1;14}
+690,5,Foraging,Foraging,Adult,{4},{1;14;4}
+691,11,Lying/resting (stationary),Background,Adult,{},{}
+691,14,Moving,Foraging,Adult,{4;5},{1;5;4}
+691,1,Foraging,Foraging,Adult,{},{5;4;14}
+691,4,Foraging,Foraging,Adult,{5;14},{5;1;14}
+691,5,Foraging,Foraging,Adult,{4;14},{1;14;4}
+692,11,Lying/resting (stationary),Background,Adult,{},{}
+692,14,Foraging,Foraging,Adult,{6;4;5},{6;1;5;4}
+692,1,Foraging,Foraging,Adult,{6},{5;6;4;14}
+692,4,Foraging,Foraging,Adult,{5;6;14},{5;6;1;14}
+692,5,Foraging,Foraging,Adult,{6;4;14},{6;1;14;4}
+692,6,Moving,Foraging,Adult,{5;1;14;4},{5;1;14;4}
+693,11,Lying/resting (stationary),Background,Adult,{},{}
+693,14,Foraging,Foraging,Adult,{6;4;5},{6;1;5;4}
+693,1,Foraging,Foraging,Adult,{},{5;6;4;14}
+693,4,Foraging,Foraging,Adult,{5;6;14},{5;6;1;14}
+693,5,Foraging,Foraging,Adult,{6;4;14},{6;1;14;4}
+693,6,Moving,Foraging,Adult,{5;4;14},{5;1;14;4}
+694,11,Lying/resting (stationary),Background,Adult,{},{}
+694,1,Foraging,Foraging,Adult,{},{6;4;5}
+694,4,Foraging,Foraging,Adult,{6;5},{6;1;5}
+694,5,Foraging,Foraging,Adult,{6;4},{6;1;4}
+694,6,Foraging,Foraging,Adult,{4;5},{1;5;4}
+695,11,Lying/resting (stationary),Background,Adult,{},{}
+695,1,Foraging,Foraging,Adult,{},{6;4;5}
+695,4,Foraging,Foraging,Adult,{6;5},{6;1;5}
+695,5,Dig burrow,Foraging,Adult,{6;4},{6;1;4}
+695,6,Foraging,Foraging,Adult,{4;5},{1;5;4}
+696,11,Lying/resting (stationary),Background,Adult,{},{}
+696,1,Foraging,Foraging,Adult,{},{6;4;5}
+696,4,Foraging,Foraging,Adult,{6;5},{6;1;5}
+696,5,Dig burrow,Foraging,Adult,{6;4},{6;1;4}
+696,6,Foraging,Foraging,Adult,{4;5},{1;5;4}
+697,11,Lying/resting (stationary),Background,Adult,{},{}
+697,1,Foraging,Foraging,Adult,{},{6;4;5}
+697,4,Foraging,Foraging,Adult,{6;5},{6;1;5}
+697,5,Dig burrow,Foraging,Adult,{6;4},{6;1;4}
+697,6,Foraging,Foraging,Adult,{4;5},{1;5;4}
+698,11,Lying/resting (stationary),Background,Adult,{},{}
+698,14,Foraging,Waiting Area,Adult,{1;5;4},{6;1;5;4}
+698,1,Foraging,Foraging,Adult,{4;14},{5;6;4;14}
+698,4,Foraging,Foraging,Adult,{5;6;1;14},{5;6;1;14}
+698,5,Dig burrow,Waiting Area,Adult,{6;4;14},{6;1;14;4}
+698,6,Foraging,Foraging,Adult,{4;5},{5;1;14;4}
+699,11,Lying/resting (stationary),Background,Adult,{},{}
+699,14,Foraging,Waiting Area,Adult,{1;5;4},{6;1;5;4}
+699,1,Foraging,Foraging,Adult,{4;14},{5;6;4;14}
+699,4,Foraging,Foraging,Adult,{5;6;1;14},{5;6;1;14}
+699,5,Foraging,Foraging,Adult,{6;4;14},{6;1;14;4}
+699,6,Foraging,Foraging,Adult,{4;5},{5;1;14;4}
+700,11,Lying/resting (stationary),Background,Adult,{},{}
+700,14,Foraging,Waiting Area,Adult,{1;5;4},{6;1;5;4}
+700,1,Foraging,Foraging,Adult,{4;14},{5;6;4;14}
+700,4,Foraging,Foraging,Adult,{5;6;1;14},{5;6;1;14}
+700,5,Foraging,Foraging,Adult,{6;4;14},{6;1;14;4}
+700,6,Foraging,Foraging,Adult,{4;5},{5;1;14;4}
+701,11,Lying/resting (stationary),Background,Adult,{},{}
+701,14,Foraging,Waiting Area,Adult,{1;5;4},{6;1;5;4}
+701,1,Foraging,Foraging,Adult,{4;14},{5;6;4;14}
+701,4,Foraging,Foraging,Adult,{5;6;1;14},{5;6;1;14}
+701,5,Foraging,Foraging,Adult,{6;4;14},{6;1;14;4}
+701,6,Foraging,Foraging,Adult,{4;5},{5;1;14;4}
+702,11,Lying/resting (stationary),Background,Adult,{},{}
+702,14,Foraging,Waiting Area,Adult,{1;5;4},{6;1;5;4}
+702,1,Foraging,Foraging,Adult,{4;14},{5;6;4;14}
+702,4,Foraging,Foraging,Adult,{5;6;1;14},{5;6;1;14}
+702,5,Foraging,Waiting Area,Adult,{6;4;14},{6;1;14;4}
+702,6,Foraging,Foraging,Adult,{4;5},{5;1;14;4}
+703,11,Lying/resting (stationary),Background,Adult,{},{}
+703,14,Foraging,Waiting Area,Adult,{1;5;4},{6;1;5;4}
+703,1,Foraging,Foraging,Adult,{4;14},{5;6;4;14}
+703,4,Foraging,Foraging,Adult,{5;6;1;14},{5;6;1;14}
+703,5,Foraging,Waiting Area,Adult,{6;4;14},{6;1;14;4}
+703,6,Foraging,Foraging,Adult,{4;5},{5;1;14;4}
+704,11,Lying/resting (stationary),Background,Adult,{},{}
+704,14,Foraging,Waiting Area,Adult,{1;5;4},{6;1;5;4}
+704,1,Foraging,Foraging,Adult,{4;14},{5;6;4;14}
+704,4,Foraging,Foraging,Adult,{5;6;1;14},{5;6;1;14}
+704,5,Foraging,Waiting Area,Adult,{6;4;14},{6;1;14;4}
+704,6,Foraging,Foraging,Adult,{4;5},{5;1;14;4}
+705,11,Lying/resting (stationary),Background,Adult,{},{}
+705,14,Foraging,Waiting Area,Adult,{1;5;4},{6;1;5;4}
+705,1,Foraging,Foraging,Adult,{4;14},{5;6;4;14}
+705,4,Foraging,Foraging,Adult,{5;6;1;14},{5;6;1;14}
+705,5,Foraging,Waiting Area,Adult,{6;4;14},{6;1;14;4}
+705,6,Foraging,Foraging,Adult,{4;5},{5;1;14;4}
+706,11,Lying/resting (stationary),Background,Adult,{},{}
+706,14,Foraging,Waiting Area,Adult,{1;4},{6;1;5;4}
+706,1,Foraging,Foraging,Adult,{4;14},{5;6;4;14}
+706,4,Foraging,Foraging,Adult,{5;6;1;14},{5;6;1;14}
+706,5,Foraging,Waiting Area,Adult,{6;4},{6;1;14;4}
+706,6,Foraging,Foraging,Adult,{4;5},{5;1;14;4}

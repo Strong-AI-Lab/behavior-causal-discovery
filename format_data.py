@@ -1,4 +1,5 @@
 
+from typing import List, Union
 import pandas as pd
 import re
 import numpy as np
@@ -25,7 +26,8 @@ class PandasFormatter():
                         zone_key : str = "Zone", 
                         time_key : str = "Time", 
                         close_neighbour_key : str = "Close_neighbours", 
-                        distant_neighbour_key : str = "Distant_neighbours"):
+                        distant_neighbour_key : str = "Distant_neighbours",
+                        skip_faults : bool = True):
         self.df = df
         self.behaviour_key = behaviour_key
         self.individual_key = individual_key
@@ -33,6 +35,7 @@ class PandasFormatter():
         self.time_key = time_key
         self.close_neighbour_key = close_neighbour_key
         self.distant_neighbour_key = distant_neighbour_key
+        self.skip_faults = skip_faults
 
         self.individuals = None
         self.behaviours = None
@@ -73,8 +76,8 @@ class PandasFormatter():
         zones = self.get_zones()
 
         prefixes = ['', 'close_neighbour_', 'distant_neighbour_']
-        columns = [''.join([prefix, z, '_zone']) for prefix in prefixes for z in zones] + \
-                [''.join([prefix,b]) for prefix in prefixes for b in behaviours]
+        columns = [''.join([prefix, z, '_zone']) for prefix in prefixes for z in zones if isinstance(z,str)] + \
+                [''.join([prefix,b]) for prefix in prefixes for b in behaviours if isinstance(b,str)]
         
         return columns
 
@@ -97,29 +100,58 @@ class PandasFormatter():
             ts = pd.DataFrame(columns=columns)
 
             df_i = self.df[self.df[self.individual_key] == individual]
+            error_count = 0
             for _, row in df_i.iterrows():
-                zone = PandasFormatter.format_column(row[self.zone_key]) + '_zone'
-                behaviour = PandasFormatter.format_column(row[self.behaviour_key])
-                time = row[self.time_key]
+                try:
+                    zone = PandasFormatter.format_column(row[self.zone_key]) + '_zone'
+                    behaviour = PandasFormatter.format_column(row[self.behaviour_key])
+                    time = row[self.time_key]
+                except AttributeError as e:
+                    if self.skip_faults:
+                        error_count += 1
+                        print(f"\rWarning: faulty row. Discarding it from the sequence. ({error_count} errors)",end='')
+                        continue
+                    else:
+                        raise e
 
                 vec = [0] * len(columns)
                 vec[columns.index(zone)] = 1
                 vec[columns.index(behaviour)] = 1
 
                 for cn in re.findall(r'(\d+)[;\}]', row[self.close_neighbour_key]):
-                    cn = int(cn)
-                    zone_cn, behaviour_cn = get_values_from_timeid(time, cn)
-                    vec[columns.index('close_neighbour_' + zone_cn)] += 1
-                    vec[columns.index('close_neighbour_' + behaviour_cn)] += 1
+                    try:
+                        cn = int(cn)
+                        zone_cn, behaviour_cn = get_values_from_timeid(time, cn)
+                        vec[columns.index('close_neighbour_' + zone_cn)] += 1
+                        vec[columns.index('close_neighbour_' + behaviour_cn)] += 1
+                    except AttributeError as e:
+                        if self.skip_faults:
+                            error_count += 1
+                            print(f"\rWarning: faulty close neighbour. Discarding it from the sequence (keeping row and other close neigbours). ({error_count} errors)",end='')
+                            continue
+                        else:
+                            raise e
                 
                 for dn in re.findall(r'(\d+)[;\}]', row[self.distant_neighbour_key]):
-                    dn = int(dn)
-                    zone_dn, behaviour_dn = get_values_from_timeid(time, dn)
-                    vec[columns.index('distant_neighbour_' + zone_dn)] += 1
-                    vec[columns.index('distant_neighbour_' + behaviour_dn)] += 1
+                    try:
+                        dn = int(dn)
+                        zone_dn, behaviour_dn = get_values_from_timeid(time, dn)
+                        vec[columns.index('distant_neighbour_' + zone_dn)] += 1
+                        vec[columns.index('distant_neighbour_' + behaviour_dn)] += 1
+                    except AttributeError as e:
+                        if self.skip_faults:
+                            error_count += 1
+                            print(f"\rWarning: faulty distant neighbour. Discarding it from the sequence (keeping row and other distant neigbours). ({error_count} errors)",end='')
+                            continue
+                        else:
+                            raise e
 
                 ts.loc[len(ts)] = vec
-                sequences[individual] = ts
+
+            sequences[individual] = ts
+
+            if error_count > 0:
+                print(f"\x1b[1K\rIndividual {individual} done with {error_count} errors.")
 
         if event_driven: # keep only rows where there is a change in the sequence, discard contiguous duplicates
             # constants = []
@@ -161,6 +193,43 @@ class PandasFormatter():
                 return [ts.to_numpy(dtype=np.float64) for ts in res]
             else:
                 return res
+            
+
+class PandasFormatterEnsemble(PandasFormatter):
+
+    @staticmethod
+    def merge_dataframes(dfs : List[pd.DataFrame], individual_key : str, time_key : str, close_neighbour_key : str, distant_neighbour_key : str):
+        time_offset = 0
+        individual_offset = 0
+        for i in range(len(dfs)):
+            max_time = dfs[i][time_key].max()
+            max_id = dfs[i][individual_key].max()
+            dfs[i][time_key] += time_offset
+            dfs[i][individual_key] += individual_offset
+
+            dfs[i][close_neighbour_key] = dfs[i][close_neighbour_key].str.replace(r'(\d+)', lambda x: str(int(x.group(1)) + individual_offset), regex=True)
+            dfs[i][distant_neighbour_key] = dfs[i][distant_neighbour_key].str.replace(r'(\d+)', lambda x: str(int(x.group(1)) + individual_offset), regex=True)
+
+            time_offset += max_time + 1
+            individual_offset += max_id + 1
+        
+        return pd.concat(dfs)
+            
+
+    def __init__(self, dfs : Union[pd.DataFrame,List[pd.DataFrame]], 
+                        behaviour_key : str = "Behaviour", 
+                        individual_key : str = "ID", 
+                        zone_key : str = "Zone", 
+                        time_key : str = "Time", 
+                        close_neighbour_key : str = "Close_neighbours", 
+                        distant_neighbour_key : str = "Distant_neighbours",
+                        skip_faults : bool = True):
+        if isinstance(dfs, pd.DataFrame):
+            super().__init__(dfs, behaviour_key, individual_key, zone_key, time_key, close_neighbour_key, distant_neighbour_key, skip_faults)
+        elif isinstance(dfs, list):
+            df = PandasFormatterEnsemble.merge_dataframes(dfs, individual_key, time_key, close_neighbour_key, distant_neighbour_key)
+            super().__init__(df, behaviour_key, individual_key, zone_key, time_key, close_neighbour_key, distant_neighbour_key, skip_faults)
+        
 
 
 
@@ -208,9 +277,14 @@ class ResultsFormatter():
 
         return ResultsFormatter(graph, val_matrix)
 
-    def var_filter(self, cause_vars_to_remove : list = [], effect_vars_to_remove : list = []):
+    def var_filter(self, cause_vars_to_remove : list = None, effect_vars_to_remove : list = None):
         graph = self.graph.copy()
         val_matrix = self.val_matrix.copy()
+
+        if cause_vars_to_remove is None:
+            cause_vars_to_remove = []
+        if effect_vars_to_remove is None:
+            effect_vars_to_remove = []
 
         # If the link is bidirectional, do not remove
         for i in cause_vars_to_remove:

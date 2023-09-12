@@ -1,0 +1,2830 @@
+Time,ID,Behaviour,Zone,Meerkat type,Close_neighbours,Distant_neighbours
+0,0,Dig burrow,Sand Area,Adult,{},{}
+0,1,Moving,Around Mound,Adult,{},{}
+0,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+0,3,Groom,Around Mound,Adult,{},{4}
+0,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+0,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+1,0,Dig burrow,Sand Area,Adult,{},{}
+1,1,Dig burrow,Sand Area,Adult,{},{}
+1,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+1,3,Groom,Around Mound,Adult,{},{}
+1,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+1,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+2,0,Dig burrow,Sand Area,Adult,{},{}
+2,1,Dig burrow,Sand Area,Adult,{},{}
+2,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+2,3,Groom,Around Mound,Adult,{},{}
+2,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+2,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+3,0,Dig burrow,Sand Area,Adult,{},{}
+3,1,Dig burrow,Sand Area,Adult,{},{}
+3,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+3,3,Groom,Around Mound,Adult,{},{}
+3,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+3,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+4,0,Dig burrow,Sand Area,Adult,{},{}
+4,1,Dig burrow,Sand Area,Adult,{},{}
+4,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+4,3,Groom,Around Mound,Adult,{},{}
+4,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+4,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+5,0,Dig burrow,Sand Area,Adult,{},{}
+5,1,Dig burrow,Sand Area,Adult,{},{}
+5,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+5,3,Groom,Around Mound,Adult,{},{}
+5,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+5,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+6,0,Dig burrow,Sand Area,Adult,{},{}
+6,1,Dig burrow,Sand Area,Adult,{},{}
+6,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+6,3,Groom,Around Mound,Adult,{},{}
+6,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+6,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+7,0,Dig burrow,Sand Area,Adult,{},{}
+7,1,Dig burrow,Sand Area,Adult,{},{}
+7,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+7,3,Groom,Around Mound,Adult,{},{}
+7,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+7,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+8,0,Dig burrow,Sand Area,Adult,{},{}
+8,1,Dig burrow,Sand Area,Adult,{},{}
+8,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+8,3,Groom,Around Mound,Adult,{},{}
+8,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+8,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+9,1,Dig burrow,Sand Area,Adult,{},{}
+9,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+9,3,Groom,Around Mound,Adult,{},{}
+9,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+9,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+10,6,Moving,Around Mound,Adult,{},{}
+10,1,Dig burrow,Sand Area,Adult,{},{}
+10,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+10,3,Groom,Around Mound,Adult,{},{}
+10,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+10,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+11,6,Moving,Mound,Adult,{},{}
+11,1,Dig burrow,Sand Area,Adult,{},{}
+11,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+11,3,Groom,Around Mound,Adult,{},{}
+11,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+11,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+12,1,Dig burrow,Sand Area,Adult,{},{}
+12,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+12,3,Groom,Around Mound,Adult,{},{}
+12,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+12,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+13,1,Dig burrow,Sand Area,Adult,{},{}
+13,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+13,3,Groom,Around Mound,Adult,{},{}
+13,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+13,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+14,1,Dig burrow,Sand Area,Adult,{},{}
+14,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+14,3,Groom,Around Mound,Adult,{},{}
+14,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+14,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+15,1,Dig burrow,Sand Area,Adult,{},{}
+15,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+15,3,Groom,Around Mound,Adult,{},{}
+15,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+15,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+16,1,Dig burrow,Sand Area,Adult,{},{}
+16,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+16,3,Groom,Around Mound,Adult,{},{}
+16,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+16,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+17,1,Dig burrow,Sand Area,Adult,{},{}
+17,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+17,3,Groom,Around Mound,Adult,{},{}
+17,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+17,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+18,1,Dig burrow,Sand Area,Adult,{},{}
+18,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+18,3,Groom,Around Mound,Adult,{},{}
+18,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+18,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+19,1,Dig burrow,Sand Area,Adult,{},{}
+19,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+19,3,Groom,Around Mound,Adult,{},{4}
+19,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+19,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+20,1,Dig burrow,Sand Area,Adult,{},{}
+20,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+20,3,Groom,Around Mound,Adult,{},{4}
+20,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+20,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+21,1,Dig burrow,Sand Area,Adult,{},{}
+21,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+21,3,Groom,Around Mound,Adult,{},{4}
+21,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+21,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+22,1,Dig burrow,Sand Area,Adult,{},{}
+22,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+22,3,Groom,Around Mound,Adult,{},{4}
+22,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+22,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+23,1,Dig burrow,Sand Area,Adult,{},{}
+23,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+23,3,Groom,Around Mound,Adult,{},{4}
+23,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+23,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+24,1,Dig burrow,Sand Area,Adult,{},{}
+24,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+24,3,Groom,Around Mound,Adult,{},{4}
+24,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+24,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+25,1,Dig burrow,Sand Area,Adult,{},{}
+25,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+25,3,Groom,Around Mound,Adult,{},{4}
+25,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+25,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+26,1,Dig burrow,Sand Area,Adult,{},{}
+26,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+26,3,Groom,Around Mound,Adult,{},{4}
+26,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+26,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+27,1,Dig burrow,Sand Area,Adult,{},{}
+27,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+27,3,Groom,Around Mound,Adult,{},{4}
+27,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+27,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+28,1,Dig burrow,Sand Area,Adult,{},{}
+28,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+28,3,Groom,Around Mound,Adult,{},{4;5}
+28,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+28,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{3;4}
+29,0,Dig burrow,Sand Area,Adult,{},{1}
+29,1,Dig burrow,Sand Area,Adult,{},{0}
+29,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+29,3,Groom,Around Mound,Adult,{},{4;5}
+29,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+29,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{3;4}
+30,0,Dig burrow,Sand Area,Adult,{},{}
+30,1,Dig burrow,Sand Area,Adult,{},{}
+30,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+30,3,Groom,Around Mound,Adult,{},{4;5}
+30,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+30,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{3;4}
+31,0,Dig burrow,Sand Area,Adult,{},{}
+31,1,Dig burrow,Sand Area,Adult,{},{}
+31,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+31,3,Groom,Around Mound,Adult,{},{4;5}
+31,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+31,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{3;4}
+32,0,Dig burrow,Sand Area,Adult,{},{}
+32,1,Dig burrow,Sand Area,Adult,{},{}
+32,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+32,3,Sunbathe,Around Mound,Adult,{},{4}
+32,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+32,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+33,0,Dig burrow,Sand Area,Adult,{},{}
+33,1,Dig burrow,Sand Area,Adult,{},{}
+33,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+33,3,Groom,Around Mound,Adult,{},{4;5}
+33,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+33,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{3;4}
+34,0,Dig burrow,Sand Area,Adult,{},{}
+34,1,Dig burrow,Sand Area,Adult,{},{}
+34,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+34,3,Groom,Around Mound,Adult,{},{4;5}
+34,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+34,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{3;4}
+35,0,Dig burrow,Sand Area,Adult,{},{}
+35,1,Dig burrow,Sand Area,Adult,{},{}
+35,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+35,3,Groom,Around Mound,Adult,{},{4;5}
+35,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+35,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{3;4}
+36,0,Dig burrow,Sand Area,Adult,{},{}
+36,1,Dig burrow,Sand Area,Adult,{},{}
+36,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+36,3,Groom,Around Mound,Adult,{},{4;5}
+36,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+36,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{3;4}
+37,0,Dig burrow,Sand Area,Adult,{},{}
+37,1,Dig burrow,Sand Area,Adult,{},{}
+37,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+37,3,Groom,Around Mound,Adult,{},{4;5}
+37,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+37,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{3;4}
+38,0,Dig burrow,Sand Area,Adult,{},{1}
+38,1,Dig burrow,Sand Area,Adult,{},{0}
+38,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+38,3,Sunbathe,Around Mound,Adult,{},{4;5}
+38,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+38,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{3;4}
+39,7,Moving,Mound,Adult,{},{}
+39,0,Dig burrow,Sand Area,Adult,{},{}
+39,1,Dig burrow,Sand Area,Adult,{},{}
+39,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+39,3,Sunbathe,Around Mound,Adult,{},{4;5}
+39,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+39,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{3;4}
+40,7,Low sitting/standing (stationary),Mound,Adult,{},{}
+40,0,Dig burrow,Sand Area,Adult,{},{}
+40,1,Dig burrow,Sand Area,Adult,{},{}
+40,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+40,3,High sitting/standing (Vigilant),Around Mound,Adult,{},{4}
+40,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+40,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+41,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+41,0,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+41,1,Dig burrow,Sand Area,Adult,{},{}
+41,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+41,3,High sitting/standing (Vigilant),Around Mound,Adult,{},{4}
+41,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+41,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+42,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+42,0,Dig burrow,Sand Area,Adult,{},{}
+42,1,Dig burrow,Sand Area,Adult,{},{}
+42,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+42,3,Moving,Around Mound,Adult,{},{4;5}
+42,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+42,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{3;4}
+43,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+43,0,Dig burrow,Sand Area,Adult,{},{}
+43,1,Dig burrow,Sand Area,Adult,{},{}
+43,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+43,3,Moving,Mound,Adult,{4;5},{4;5}
+43,4,High sitting/standing (Vigilant),Around Mound,Adult,{3;5},{3;5}
+43,5,High sitting/standing (Vigilant),Around Mound,Adult,{3;4},{3;4}
+44,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+44,0,Dig burrow,Sand Area,Adult,{},{}
+44,1,Dig burrow,Sand Area,Adult,{},{}
+44,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+44,3,Moving,Mound,Adult,{5},{4;5}
+44,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+44,5,High sitting/standing (Vigilant),Around Mound,Adult,{3;4},{3;4}
+45,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+45,0,Dig burrow,Sand Area,Adult,{},{1}
+45,1,Dig burrow,Sand Area,Adult,{},{0}
+45,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+45,3,Moving,Mound,Adult,{},{4;5}
+45,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{3;5}
+45,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{3;4}
+46,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+46,0,Dig burrow,Sand Area,Adult,{},{}
+46,1,Dig burrow,Sand Area,Adult,{},{}
+46,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+46,3,Moving,Mound,Adult,{},{}
+46,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+46,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+47,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+47,0,Dig burrow,Sand Area,Adult,{},{}
+47,1,Dig burrow,Sand Area,Adult,{},{}
+47,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+47,4,High sitting/standing (Vigilant),Around Mound,Adult,{5},{5}
+47,5,High sitting/standing (Vigilant),Around Mound,Adult,{4},{4}
+48,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+48,0,Dig burrow,Sand Area,Adult,{},{}
+48,1,Dig burrow,Sand Area,Adult,{},{}
+48,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+48,4,Moving,Around Mound,Adult,{},{5}
+48,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{4}
+49,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+49,0,Dig burrow,Sand Area,Adult,{},{}
+49,1,Dig burrow,Sand Area,Adult,{},{}
+49,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+49,4,Moving,Left Sticks Area,Adult,{},{}
+49,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+50,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+50,0,Dig burrow,Sand Area,Adult,{},{}
+50,1,Dig burrow,Sand Area,Adult,{},{}
+50,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+50,4,Moving,Left Sticks Area,Adult,{},{}
+50,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+51,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+51,0,Dig burrow,Sand Area,Adult,{},{}
+51,1,Dig burrow,Sand Area,Adult,{},{}
+51,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+51,4,Moving,Around Mound,Adult,{},{}
+51,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+52,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+52,0,Dig burrow,Sand Area,Adult,{},{}
+52,1,Dig burrow,Sand Area,Adult,{},{}
+52,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+52,4,Moving,Sand Area,Adult,{},{}
+52,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+53,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+53,0,Dig burrow,Sand Area,Adult,{},{}
+53,1,Dig burrow,Sand Area,Adult,{},{}
+53,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+53,4,Moving,Sand Area,Adult,{},{}
+53,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+54,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+54,0,Dig burrow,Sand Area,Adult,{},{}
+54,1,Dig burrow,Sand Area,Adult,{},{}
+54,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+54,4,Dig burrow,Sand Area,Adult,{},{}
+54,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+55,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+55,0,Dig burrow,Sand Area,Adult,{},{}
+55,1,Dig burrow,Sand Area,Adult,{},{}
+55,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+55,4,Dig burrow,Sand Area,Adult,{},{}
+55,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+56,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+56,1,Dig burrow,Sand Area,Adult,{},{}
+56,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+56,4,Dig burrow,Sand Area,Adult,{},{}
+56,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+57,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+57,1,Dig burrow,Sand Area,Adult,{},{}
+57,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+57,4,Dig burrow,Sand Area,Adult,{},{}
+57,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+58,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+58,1,Dig burrow,Sand Area,Adult,{},{}
+58,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+58,4,Dig burrow,Sand Area,Adult,{},{}
+58,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+59,7,Raised Guarding (Vigilant),Mound,Adult,{},{}
+59,1,Dig burrow,Sand Area,Adult,{},{}
+59,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+59,4,Dig burrow,Sand Area,Adult,{},{}
+59,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+60,7,Moving,Mound,Adult,{},{}
+60,1,Dig burrow,Sand Area,Adult,{},{}
+60,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+60,4,Dig burrow,Sand Area,Adult,{},{}
+60,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+61,7,Moving,Mound,Adult,{},{}
+61,1,Dig burrow,Sand Area,Adult,{},{}
+61,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+61,4,Dig burrow,Sand Area,Adult,{},{}
+61,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+62,7,Moving,Mound,Adult,{},{}
+62,1,Dig burrow,Sand Area,Adult,{},{}
+62,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+62,4,Dig burrow,Sand Area,Adult,{},{}
+62,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+63,7,Moving,Mound,Adult,{},{}
+63,1,Dig burrow,Sand Area,Adult,{},{}
+63,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+63,4,Dig burrow,Sand Area,Adult,{},{}
+63,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+64,7,Moving,Around Mound,Adult,{},{}
+64,1,Dig burrow,Sand Area,Adult,{},{}
+64,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+64,4,Dig burrow,Sand Area,Adult,{},{}
+64,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+65,7,Moving,Sand Area,Adult,{},{1}
+65,1,Dig burrow,Sand Area,Adult,{},{7}
+65,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+65,4,Dig burrow,Sand Area,Adult,{},{}
+65,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+66,7,Moving,Sand Area,Adult,{},{1;0}
+66,0,Moving,Sand Area,Adult,{},{7}
+66,1,Dig burrow,Sand Area,Adult,{},{7}
+66,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+66,4,Dig burrow,Sand Area,Adult,{},{}
+66,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+67,7,Dig burrow,Sand Area,Adult,{0},{0}
+67,0,High sitting/standing (Vigilant),Sand Area,Adult,{7},{7}
+67,1,Dig burrow,Sand Area,Adult,{},{}
+67,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+67,4,Dig burrow,Sand Area,Adult,{},{}
+67,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+68,0,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+68,1,Dig burrow,Sand Area,Adult,{},{}
+68,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+68,4,Dig burrow,Sand Area,Adult,{},{}
+68,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+69,0,Moving,Sand Area,Adult,{},{}
+69,1,Dig burrow,Sand Area,Adult,{},{}
+69,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+69,4,Dig burrow,Sand Area,Adult,{},{}
+69,5,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+70,0,Moving,Around Mound,Adult,{},{}
+70,1,Dig burrow,Sand Area,Adult,{},{}
+70,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+70,4,Dig burrow,Sand Area,Adult,{},{}
+70,5,Moving,Around Mound,Adult,{},{}
+71,9,Moving,Background,Adult,{},{}
+71,0,Moving,Around Mound,Adult,{},{}
+71,1,Dig burrow,Sand Area,Adult,{},{}
+71,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+71,4,Dig burrow,Sand Area,Adult,{},{}
+72,0,Moving,Around Mound,Adult,{},{}
+72,1,Dig burrow,Sand Area,Adult,{},{}
+72,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+72,4,Dig burrow,Sand Area,Adult,{},{}
+73,1,Dig burrow,Sand Area,Adult,{},{}
+73,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+73,4,Dig burrow,Sand Area,Adult,{},{}
+74,7,Moving,Sand Area,Adult,{},{1}
+74,1,Dig burrow,Sand Area,Adult,{},{7}
+74,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+74,4,Dig burrow,Sand Area,Adult,{},{}
+75,7,Moving,Sand Area,Adult,{},{}
+75,1,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+75,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+75,4,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+76,7,Moving,Sand Area,Adult,{},{}
+76,1,Dig burrow,Sand Area,Adult,{},{}
+76,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+76,4,Dig burrow,Sand Area,Adult,{},{}
+77,7,Moving,Right Sand Area,Adult,{},{}
+77,1,Dig burrow,Sand Area,Adult,{},{}
+77,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+77,4,Dig burrow,Sand Area,Adult,{},{}
+78,7,Moving,Right Sand Area,Adult,{},{}
+78,10,Moving,Right Sand Area,Adult,{},{}
+78,1,Dig burrow,Sand Area,Adult,{},{}
+78,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+78,4,Dig burrow,Sand Area,Adult,{},{}
+79,10,Moving,Right Sand Area,Adult,{},{}
+79,1,Dig burrow,Sand Area,Adult,{},{}
+79,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+79,4,Dig burrow,Sand Area,Adult,{},{}
+80,11,Moving,Around Mound,Adult,{},{}
+80,1,Dig burrow,Sand Area,Adult,{},{}
+80,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+80,4,Dig burrow,Sand Area,Adult,{},{}
+81,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{12}
+81,12,Moving,Left Sticks Area,Adult,{},{11}
+81,1,Dig burrow,Sand Area,Adult,{},{}
+81,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+81,4,Dig burrow,Sand Area,Adult,{},{}
+82,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+82,12,Moving,Left Sticks Area,Adult,{},{}
+82,1,Dig burrow,Sand Area,Adult,{},{}
+82,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+82,4,Dig burrow,Sand Area,Adult,{},{}
+83,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+83,13,Moving,Right Sand Area,Adult,{},{}
+83,1,Dig burrow,Sand Area,Adult,{},{}
+83,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+83,4,Dig burrow,Sand Area,Adult,{},{}
+84,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+84,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+84,1,Dig burrow,Sand Area,Adult,{},{}
+84,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+84,4,Dig burrow,Sand Area,Adult,{},{}
+85,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+85,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+85,1,Dig burrow,Sand Area,Adult,{},{}
+85,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+85,4,Dig burrow,Sand Area,Adult,{},{}
+86,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+86,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+86,1,Dig burrow,Sand Area,Adult,{},{}
+86,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+86,4,Dig burrow,Sand Area,Adult,{},{}
+87,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+87,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+87,1,Dig burrow,Sand Area,Adult,{},{}
+87,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+87,4,Dig burrow,Sand Area,Adult,{},{}
+88,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+88,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+88,1,Dig burrow,Sand Area,Adult,{},{}
+88,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+88,4,Dig burrow,Sand Area,Adult,{},{}
+89,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+89,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+89,1,Dig burrow,Sand Area,Adult,{},{}
+89,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+89,4,Dig burrow,Sand Area,Adult,{},{}
+90,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+90,12,Moving,Left Sticks Area,Adult,{},{}
+90,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+90,1,Dig burrow,Sand Area,Adult,{},{}
+90,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+90,4,Dig burrow,Sand Area,Adult,{},{}
+91,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+91,12,Moving,Left Sticks Area,Adult,{},{}
+91,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+91,1,Dig burrow,Sand Area,Adult,{},{}
+91,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+91,4,Dig burrow,Sand Area,Adult,{},{}
+92,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+92,12,Moving,Around Mound,Adult,{},{}
+92,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+92,1,Dig burrow,Sand Area,Adult,{},{}
+92,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+92,4,Dig burrow,Sand Area,Adult,{},{}
+93,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+93,12,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+93,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+93,1,Dig burrow,Sand Area,Adult,{},{}
+93,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+93,4,Dig burrow,Sand Area,Adult,{},{}
+94,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+94,12,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+94,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+94,1,Dig burrow,Sand Area,Adult,{},{}
+94,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+94,4,Dig burrow,Sand Area,Adult,{},{}
+95,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+95,12,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+95,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+95,1,Dig burrow,Sand Area,Adult,{},{}
+95,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+95,4,Dig burrow,Sand Area,Adult,{},{}
+96,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+96,12,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+96,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+96,1,Dig burrow,Sand Area,Adult,{},{}
+96,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+96,4,Dig burrow,Sand Area,Adult,{},{}
+97,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+97,12,Moving,Around Mound,Adult,{},{}
+97,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+97,1,Dig burrow,Sand Area,Adult,{},{}
+97,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+97,4,Dig burrow,Sand Area,Adult,{},{}
+98,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+98,12,Moving,Sand Area,Adult,{},{}
+98,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+98,1,Dig burrow,Sand Area,Adult,{},{}
+98,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+98,4,Dig burrow,Sand Area,Adult,{},{}
+99,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+99,12,Moving,Sand Area,Adult,{},{}
+99,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+99,1,Dig burrow,Sand Area,Adult,{},{}
+99,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+99,4,Dig burrow,Sand Area,Adult,{},{}
+100,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+100,12,Moving,Sand Area,Adult,{},{}
+100,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+100,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+100,4,Dig burrow,Sand Area,Adult,{},{}
+101,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+101,12,Moving,Sand Area,Adult,{},{}
+101,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+101,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+101,4,Dig burrow,Sand Area,Adult,{},{}
+102,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+102,12,Moving,Sand Area,Adult,{},{}
+102,13,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+102,14,Moving,Right Sand Area,Adult,{},{}
+102,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+102,4,Dig burrow,Sand Area,Adult,{},{}
+103,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+103,12,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+103,13,Moving,Right Sand Area,Adult,{14},{14}
+103,14,Moving,Right Sand Area,Adult,{13},{13}
+103,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+103,4,Dig burrow,Sand Area,Adult,{},{}
+104,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+104,12,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+104,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+104,4,Dig burrow,Sand Area,Adult,{},{}
+105,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+105,12,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+105,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+105,4,Dig burrow,Sand Area,Adult,{},{}
+106,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+106,12,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+106,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+106,4,Dig burrow,Sand Area,Adult,{},{}
+107,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+107,12,Moving,Sand Area,Adult,{},{}
+107,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+107,4,Dig burrow,Sand Area,Adult,{},{}
+108,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+108,12,Moving,Sand Area,Adult,{},{}
+108,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+108,4,Dig burrow,Sand Area,Adult,{},{}
+109,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+109,12,Moving,Right Sticks Area,Adult,{},{}
+109,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+109,4,Dig burrow,Sand Area,Adult,{},{}
+110,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+110,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+110,4,Dig burrow,Sand Area,Adult,{},{}
+111,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+111,12,Moving,Right Sticks Area,Adult,{},{}
+111,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+111,4,Dig burrow,Sand Area,Adult,{},{}
+112,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+112,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+112,4,Dig burrow,Sand Area,Adult,{},{}
+113,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+113,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+113,4,Dig burrow,Sand Area,Adult,{},{}
+114,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+114,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+114,4,Dig burrow,Sand Area,Adult,{},{}
+115,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+115,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+115,4,Dig burrow,Sand Area,Adult,{},{}
+116,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+116,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+116,4,Dig burrow,Sand Area,Adult,{},{}
+117,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+117,16,Moving,Mound,Adult,{},{}
+117,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+117,4,Dig burrow,Sand Area,Adult,{},{}
+118,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+118,16,Moving,Background,Adult,{},{}
+118,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+118,4,Dig burrow,Sand Area,Adult,{},{}
+119,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+119,16,Moving,Right Sticks Area,Adult,{},{}
+119,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+119,4,Dig burrow,Sand Area,Adult,{},{}
+120,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+120,16,Moving,Right Sticks Area,Adult,{},{}
+120,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+120,4,Dig burrow,Sand Area,Adult,{},{}
+121,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+121,16,Moving,Right Sticks Area,Adult,{},{}
+121,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+121,4,Dig burrow,Sand Area,Adult,{},{}
+122,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+122,16,Moving,Right Sticks Area,Adult,{},{}
+122,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+122,4,Dig burrow,Sand Area,Adult,{},{}
+123,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+123,16,Moving,Right Sticks Area,Adult,{},{}
+123,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+123,4,Dig burrow,Sand Area,Adult,{},{}
+124,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+124,16,Moving,Right Sticks Area,Adult,{},{}
+124,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+124,4,Dig burrow,Sand Area,Adult,{},{}
+125,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+125,16,Moving,Right Sticks Area,Adult,{},{}
+125,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+125,4,Dig burrow,Sand Area,Adult,{},{}
+126,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+126,16,Moving,Right Sticks Area,Adult,{},{}
+126,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+126,4,Dig burrow,Sand Area,Adult,{},{}
+127,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+127,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+127,4,Dig burrow,Sand Area,Adult,{},{}
+128,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+128,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+128,4,Dig burrow,Sand Area,Adult,{},{}
+129,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+129,17,Moving,Right Sticks Area,Adult,{},{}
+129,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+129,4,Dig burrow,Sand Area,Adult,{},{}
+130,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+130,17,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+130,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+130,4,Dig burrow,Sand Area,Adult,{},{}
+131,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+131,17,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+131,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+131,4,Dig burrow,Sand Area,Adult,{},{}
+132,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+132,17,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+132,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+132,4,Dig burrow,Sand Area,Adult,{},{}
+133,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+133,17,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+133,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+133,4,Dig burrow,Sand Area,Adult,{},{}
+134,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+134,17,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+134,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+134,4,Dig burrow,Sand Area,Adult,{},{}
+135,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+135,17,Moving,Around Mound,Adult,{},{}
+135,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+135,4,Dig burrow,Sand Area,Adult,{},{}
+136,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+136,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+136,4,Dig burrow,Sand Area,Adult,{},{}
+137,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+137,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+137,4,Dig burrow,Sand Area,Adult,{},{}
+138,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+138,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+138,4,Dig burrow,Sand Area,Adult,{},{}
+139,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+139,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+139,4,Dig burrow,Sand Area,Adult,{},{}
+140,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+140,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+140,4,Dig burrow,Sand Area,Adult,{},{}
+141,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+141,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+141,4,Dig burrow,Sand Area,Adult,{},{}
+142,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+142,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+142,4,Dig burrow,Sand Area,Adult,{},{}
+143,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+143,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+143,4,Dig burrow,Sand Area,Adult,{},{}
+144,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+144,1,Dig burrow,Sand Area,Adult,{},{}
+144,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+144,4,Dig burrow,Sand Area,Adult,{},{}
+145,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+145,1,Dig burrow,Sand Area,Adult,{},{}
+145,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+145,4,Dig burrow,Sand Area,Adult,{},{}
+146,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+146,1,Dig burrow,Sand Area,Adult,{},{}
+146,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+146,4,Dig burrow,Sand Area,Adult,{},{}
+147,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+147,1,Dig burrow,Sand Area,Adult,{},{}
+147,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+147,4,Dig burrow,Sand Area,Adult,{},{}
+148,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+148,1,Dig burrow,Sand Area,Adult,{},{}
+148,18,Moving,Around Mound,Adult,{},{}
+148,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+148,4,Dig burrow,Sand Area,Adult,{},{}
+149,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+149,1,Dig burrow,Sand Area,Adult,{},{}
+149,18,Moving,Right Sticks Area,Adult,{},{}
+149,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+149,4,Dig burrow,Sand Area,Adult,{},{}
+150,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+150,1,Dig burrow,Sand Area,Adult,{},{}
+150,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+150,4,Dig burrow,Sand Area,Adult,{},{}
+151,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+151,1,Dig burrow,Sand Area,Adult,{},{}
+151,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+151,4,Dig burrow,Sand Area,Adult,{},{}
+152,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+152,1,Dig burrow,Sand Area,Adult,{},{}
+152,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+152,4,Dig burrow,Sand Area,Adult,{},{}
+153,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+153,1,Dig burrow,Sand Area,Adult,{},{}
+153,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+153,4,Dig burrow,Sand Area,Adult,{},{}
+154,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+154,1,Dig burrow,Sand Area,Adult,{},{}
+154,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+154,4,Dig burrow,Sand Area,Adult,{},{}
+155,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+155,1,Dig burrow,Sand Area,Adult,{},{}
+155,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+155,4,Dig burrow,Sand Area,Adult,{},{}
+156,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+156,1,Dig burrow,Sand Area,Adult,{},{}
+156,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+156,4,Dig burrow,Sand Area,Adult,{},{}
+157,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+157,1,Dig burrow,Sand Area,Adult,{},{}
+157,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+157,4,Dig burrow,Sand Area,Adult,{},{}
+158,11,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+158,1,Dig burrow,Sand Area,Adult,{},{}
+158,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+158,4,Dig burrow,Sand Area,Adult,{},{}
+159,1,Dig burrow,Sand Area,Adult,{},{}
+159,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+159,4,Dig burrow,Sand Area,Adult,{},{}
+160,1,Dig burrow,Sand Area,Adult,{},{}
+160,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+160,4,Dig burrow,Sand Area,Adult,{},{}
+161,1,Dig burrow,Sand Area,Adult,{},{}
+161,18,Moving,Right Sticks Area,Adult,{},{}
+161,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+161,4,Dig burrow,Sand Area,Adult,{},{}
+162,1,Dig burrow,Sand Area,Adult,{},{}
+162,18,Moving,Mound,Adult,{},{}
+162,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+162,4,Dig burrow,Sand Area,Adult,{},{}
+163,1,Dig burrow,Sand Area,Adult,{},{}
+163,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+163,4,Dig burrow,Sand Area,Adult,{},{}
+164,1,Dig burrow,Sand Area,Adult,{},{}
+164,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+164,4,Dig burrow,Sand Area,Adult,{},{}
+165,1,Dig burrow,Sand Area,Adult,{},{}
+165,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+165,4,Dig burrow,Sand Area,Adult,{},{}
+166,1,Dig burrow,Sand Area,Adult,{},{}
+166,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+166,4,Dig burrow,Sand Area,Adult,{},{}
+167,1,Dig burrow,Sand Area,Adult,{},{}
+167,20,Moving,Around Mound,Adult,{},{}
+167,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+167,4,Dig burrow,Sand Area,Adult,{},{}
+168,1,Moving,Sand Area,Adult,{},{4}
+168,20,Moving,Background,Adult,{},{}
+168,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+168,4,Dig burrow,Sand Area,Adult,{},{1}
+169,1,Moving,Sand Area,Adult,{},{4}
+169,20,Moving,Right Sticks Area,Adult,{},{}
+169,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+169,4,Dig burrow,Sand Area,Adult,{},{1}
+170,1,Dig burrow,Sand Area,Adult,{},{}
+170,20,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+170,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+170,4,Dig burrow,Sand Area,Adult,{},{}
+171,1,Dig burrow,Sand Area,Adult,{},{}
+171,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+171,4,Dig burrow,Sand Area,Adult,{},{}
+172,1,Dig burrow,Sand Area,Adult,{},{}
+172,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+172,4,Dig burrow,Sand Area,Adult,{},{}
+173,1,Moving,Sand Area,Adult,{},{}
+173,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+173,4,Dig burrow,Sand Area,Adult,{},{}
+174,1,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+174,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+174,4,Dig burrow,Sand Area,Adult,{},{}
+175,1,Moving,Sand Area,Adult,{},{}
+175,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+175,4,Dig burrow,Sand Area,Adult,{},{}
+176,1,Moving,Sand Area,Adult,{},{}
+176,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+176,4,Dig burrow,Sand Area,Adult,{},{}
+177,1,Dig burrow,Sand Area,Adult,{},{}
+177,21,Moving,Around Mound,Adult,{},{}
+177,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+177,4,Dig burrow,Sand Area,Adult,{},{}
+178,1,Dig burrow,Sand Area,Adult,{},{}
+178,21,Moving,Right Sticks Area,Adult,{},{22}
+178,22,None,Background,Pup,{},{21}
+178,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+178,4,Dig burrow,Sand Area,Adult,{},{}
+179,1,Moving,Sand Area,Adult,{},{}
+179,19,Carry pup,Background,Adult,{},{22;23;24;21}
+179,21,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{23;24;19}
+179,22,None,Background,Pup,{},{23;24;19}
+179,23,Moving,Background,Adult,{24},{22;24;19;21}
+179,24,Moving,Background,Adult,{23},{22;23;19;21}
+179,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+179,4,Dig burrow,Sand Area,Adult,{},{}
+180,1,Moving,Sand Area,Adult,{},{}
+180,24,Moving,Background,Adult,{},{}
+180,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+180,4,Dig burrow,Sand Area,Adult,{},{}
+181,1,Foraging,Around Mound,Adult,{},{}
+181,21,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+181,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+181,4,Moving,Sand Area,Adult,{},{}
+182,1,Foraging,Around Mound,Adult,{},{}
+182,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+182,4,Moving,Sand Area,Adult,{},{}
+183,1,Foraging,Sand Area,Adult,{},{}
+183,21,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{25}
+183,25,Moving,Right Sticks Area,Adult,{},{21}
+183,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+183,4,Dig burrow,Sand Area,Adult,{},{}
+184,1,Foraging,Sand Area,Adult,{},{}
+184,21,High sitting/standing (Vigilant),Right Sticks Area,Adult,{25},{25}
+184,25,Moving,Right Sticks Area,Adult,{21},{21}
+184,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+184,4,Dig burrow,Sand Area,Adult,{},{}
+185,1,Foraging,Sand Area,Adult,{},{}
+185,21,Low sitting/standing (stationary),Right Sticks Area,Adult,{25},{25}
+185,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{21},{21}
+185,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+185,4,Dig burrow,Sand Area,Adult,{},{}
+186,1,Moving,Around Mound,Adult,{},{}
+186,21,Low sitting/standing (stationary),Right Sticks Area,Adult,{25},{25}
+186,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{21},{21}
+186,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+186,4,Dig burrow,Sand Area,Adult,{},{}
+187,1,Moving,Around Mound,Adult,{},{}
+187,21,Moving,Right Sticks Area,Adult,{25},{25}
+187,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{21},{21}
+187,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+187,4,Dig burrow,Sand Area,Adult,{},{}
+188,1,Moving,Mound,Adult,{21},{21}
+188,21,Moving,Background,Adult,{1},{1;25}
+188,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{21}
+188,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+188,4,Dig burrow,Sand Area,Adult,{},{}
+189,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+189,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+189,4,Dig burrow,Sand Area,Adult,{},{}
+190,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+190,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+190,4,Dig burrow,Sand Area,Adult,{},{}
+191,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+191,26,Moving,Mound,Adult,{},{}
+191,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+191,4,Dig burrow,Sand Area,Adult,{},{}
+192,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+192,26,Moving,Mound,Adult,{},{}
+192,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+192,4,Dig burrow,Sand Area,Adult,{},{}
+193,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+193,26,Moving,Mound,Adult,{},{}
+193,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+193,4,Dig burrow,Sand Area,Adult,{},{}
+194,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+194,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+194,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+195,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+195,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+195,27,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+195,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+196,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+196,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+196,27,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+196,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+197,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+197,26,Moving,Mound,Adult,{},{}
+197,27,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+197,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+198,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+198,26,Moving,Mound,Adult,{},{}
+198,27,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+198,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+199,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+199,26,Moving,Mound,Adult,{},{}
+199,27,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+199,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+200,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+200,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+200,27,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+200,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+201,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+201,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+201,27,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+201,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+202,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+202,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+202,27,Moving,Mound,Adult,{},{}
+202,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+203,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+203,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+203,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+204,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+204,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+204,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+205,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+205,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+205,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+206,25,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+206,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+206,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+207,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+207,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+208,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+208,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+209,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+209,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+210,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+210,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+211,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+211,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+212,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+212,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+212,4,Moving,Sand Area,Adult,{},{}
+213,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+213,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+213,4,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+214,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+214,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+214,4,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+215,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+215,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+215,4,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+216,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+216,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+216,4,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+217,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+217,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+217,4,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+218,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+218,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+218,4,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+219,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+219,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+219,4,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+220,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+220,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+220,4,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+221,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+221,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+221,4,Moving,Sand Area,Adult,{},{}
+222,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+222,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+222,4,Dig burrow,Sand Area,Adult,{},{}
+223,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+223,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+223,4,Dig burrow,Sand Area,Adult,{},{}
+224,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+224,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+224,4,Dig burrow,Sand Area,Adult,{},{}
+225,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+225,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+225,4,Dig burrow,Sand Area,Adult,{},{}
+226,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+226,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+226,4,Dig burrow,Sand Area,Adult,{},{}
+227,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+227,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+227,4,Dig burrow,Sand Area,Adult,{},{}
+228,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+228,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+229,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+229,28,Moving,Right Sand Area,Adult,{},{}
+229,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+230,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+230,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+231,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+231,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+232,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+232,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+233,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+233,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+234,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+234,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+235,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+235,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+236,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+236,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+237,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+237,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+238,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+238,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+239,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+239,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+240,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+240,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+241,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+241,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+242,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+242,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+243,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+243,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+244,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+244,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+245,26,Raised Guarding (Vigilant),Mound,Adult,{},{}
+245,29,Moving,Around Mound,Adult,{},{}
+245,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+246,26,Moving,Mound,Adult,{},{}
+246,29,Moving,Around Mound,Adult,{},{}
+246,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+247,26,Moving,Mound,Adult,{},{}
+247,29,Moving,Around Mound,Adult,{},{}
+247,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+248,26,Moving,Mound,Adult,{},{}
+248,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+249,26,Moving,Mound,Adult,{},{}
+249,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+250,26,Low sitting/standing (stationary),Mound,Adult,{},{}
+250,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+251,26,Low sitting/standing (stationary),Mound,Adult,{},{}
+251,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+252,26,Low sitting/standing (stationary),Mound,Adult,{},{}
+252,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+253,26,Moving,Mound,Adult,{},{}
+253,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+254,26,Moving,Mound,Adult,{},{}
+254,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+255,26,Moving,Around Mound,Adult,{},{}
+255,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+256,26,Moving,Sand Area,Adult,{},{}
+256,30,Moving,Right Sand Area,Adult,{},{}
+256,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+257,26,Dig burrow,Sand Area,Adult,{},{}
+257,30,Moving,Right Sand Area,Adult,{},{}
+257,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+258,26,Dig burrow,Sand Area,Adult,{},{}
+258,30,Moving,Right Sand Area,Adult,{},{}
+258,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+259,26,Dig burrow,Sand Area,Adult,{},{}
+259,30,Moving,Right Sticks Area,Adult,{},{}
+259,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+260,26,Dig burrow,Sand Area,Adult,{},{}
+260,30,Moving,Right Sticks Area,Adult,{},{}
+260,4,Dig burrow,Sand Area,Adult,{},{}
+260,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+261,26,Dig burrow,Sand Area,Adult,{},{4}
+261,30,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+261,4,Moving,Sand Area,Adult,{},{26}
+261,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+262,26,Dig burrow,Sand Area,Adult,{},{}
+262,30,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+262,4,Moving,Sand Area,Adult,{},{}
+262,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+263,26,Dig burrow,Sand Area,Adult,{},{}
+263,30,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+263,4,Moving,Sand Area,Adult,{},{}
+263,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+264,26,Dig burrow,Sand Area,Adult,{},{}
+264,30,Moving,Right Sticks Area,Adult,{},{}
+264,4,Moving,Around Mound,Adult,{},{}
+264,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+265,26,Dig burrow,Sand Area,Adult,{},{}
+265,30,Moving,Right Sticks Area,Adult,{},{}
+265,4,Moving,Around Mound,Adult,{},{}
+265,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+266,26,Dig burrow,Sand Area,Adult,{},{}
+266,30,Moving,Sand Area,Adult,{4},{4}
+266,4,Moving,Around Mound,Adult,{30},{30}
+266,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+267,26,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+267,30,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+267,4,Moving,Sand Area,Adult,{},{}
+267,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+268,26,Dig burrow,Sand Area,Adult,{},{}
+268,30,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+268,4,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+268,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+269,26,Dig burrow,Sand Area,Adult,{},{}
+269,30,Moving,Sand Area,Adult,{},{}
+269,4,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+269,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+270,26,Dig burrow,Sand Area,Adult,{},{}
+270,30,Dig burrow,Sand Area,Adult,{},{}
+270,4,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+270,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+271,26,Dig burrow,Sand Area,Adult,{},{}
+271,30,Dig burrow,Sand Area,Adult,{},{}
+271,4,Groom,Sand Area,Adult,{},{}
+271,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+272,26,Dig burrow,Sand Area,Adult,{},{}
+272,30,Dig burrow,Sand Area,Adult,{},{}
+272,4,Moving,Sand Area,Adult,{},{}
+272,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+273,26,Dig burrow,Sand Area,Adult,{},{}
+273,30,Dig burrow,Sand Area,Adult,{},{}
+273,4,Moving,Right Sticks Area,Adult,{},{}
+273,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+274,26,Dig burrow,Sand Area,Adult,{},{}
+274,30,Dig burrow,Sand Area,Adult,{},{}
+274,4,Moving,Around Mound,Adult,{},{}
+274,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+275,26,Dig burrow,Sand Area,Adult,{},{}
+275,30,Dig burrow,Sand Area,Adult,{},{}
+275,4,Moving,Mound,Adult,{},{}
+275,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+276,26,Dig burrow,Sand Area,Adult,{},{}
+276,30,Dig burrow,Sand Area,Adult,{},{}
+276,4,Moving,Around Mound,Adult,{},{}
+276,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+277,26,Dig burrow,Sand Area,Adult,{},{}
+277,30,Dig burrow,Sand Area,Adult,{},{}
+277,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+278,26,Dig burrow,Sand Area,Adult,{},{}
+278,30,Dig burrow,Sand Area,Adult,{},{}
+278,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+279,26,Dig burrow,Sand Area,Adult,{},{}
+279,30,Dig burrow,Sand Area,Adult,{},{}
+279,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+280,26,Dig burrow,Sand Area,Adult,{},{}
+280,30,Dig burrow,Sand Area,Adult,{},{}
+280,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+281,26,Dig burrow,Sand Area,Adult,{},{}
+281,30,Dig burrow,Sand Area,Adult,{},{}
+281,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+282,26,Moving,Sand Area,Adult,{},{}
+282,30,Dig burrow,Sand Area,Adult,{},{}
+282,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+283,26,Dig burrow,Sand Area,Adult,{},{}
+283,30,Dig burrow,Sand Area,Adult,{},{}
+283,31,Moving,Around Mound,Adult,{},{}
+283,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+284,26,Dig burrow,Sand Area,Adult,{},{}
+284,30,Dig burrow,Sand Area,Adult,{},{}
+284,31,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+284,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+285,26,Dig burrow,Sand Area,Adult,{},{}
+285,30,Dig burrow,Sand Area,Adult,{},{}
+285,31,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+285,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+286,26,Dig burrow,Sand Area,Adult,{},{}
+286,30,Dig burrow,Sand Area,Adult,{},{}
+286,31,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+286,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+287,26,Dig burrow,Sand Area,Adult,{},{}
+287,30,Dig burrow,Sand Area,Adult,{},{}
+287,31,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+287,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+288,26,Dig burrow,Sand Area,Adult,{},{}
+288,30,Dig burrow,Sand Area,Adult,{},{}
+288,31,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+288,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+289,26,Dig burrow,Sand Area,Adult,{},{}
+289,30,Dig burrow,Sand Area,Adult,{},{}
+289,31,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+289,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+290,26,Moving,Sand Area,Adult,{},{}
+290,30,Dig burrow,Sand Area,Adult,{},{}
+290,31,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+290,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+291,26,Dig burrow,Sand Area,Adult,{},{}
+291,30,Dig burrow,Sand Area,Adult,{},{}
+291,31,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+291,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+292,26,Moving,Sand Area,Adult,{},{}
+292,30,Dig burrow,Sand Area,Adult,{},{}
+292,31,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+292,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+293,26,Moving,Sand Area,Adult,{},{}
+293,30,Dig burrow,Sand Area,Adult,{},{}
+293,31,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+293,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+294,26,Moving,Sand Area,Adult,{},{}
+294,30,Dig burrow,Sand Area,Adult,{},{}
+294,31,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+294,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+295,26,Dig burrow,Sand Area,Adult,{},{}
+295,30,Dig burrow,Sand Area,Adult,{},{}
+295,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+296,26,Dig burrow,Sand Area,Adult,{},{}
+296,30,Dig burrow,Sand Area,Adult,{},{}
+296,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+297,26,Dig burrow,Sand Area,Adult,{},{}
+297,30,Dig burrow,Sand Area,Adult,{},{}
+297,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+298,26,Dig burrow,Sand Area,Adult,{},{}
+298,30,Dig burrow,Sand Area,Adult,{},{}
+298,34,None,Background,Pup,{35;36},{35;36}
+298,35,Carry pup,Background,Adult,{34;36},{34;36}
+298,36,Moving,Background,Adult,{35;34},{35;34}
+298,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+299,26,Dig burrow,Sand Area,Adult,{},{}
+299,30,Dig burrow,Sand Area,Adult,{},{}
+299,34,None,Background,Pup,{36},{36}
+299,36,Moving,Right Sticks Area,Adult,{34},{34}
+299,37,Moving,Mound,Adult,{},{}
+299,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+300,26,Dig burrow,Sand Area,Adult,{},{}
+300,30,Dig burrow,Sand Area,Adult,{},{}
+300,34,None,Right Sticks Area,Pup,{},{}
+300,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+301,26,Moving,Sand Area,Adult,{},{}
+301,30,Dig burrow,Sand Area,Adult,{},{}
+301,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+302,26,Moving,Sand Area,Adult,{},{}
+302,30,Dig burrow,Sand Area,Adult,{},{}
+302,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+303,26,Moving,Sand Area,Adult,{},{}
+303,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+304,26,Moving,Sand Area,Adult,{},{}
+304,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+305,26,Moving,Sand Area,Adult,{},{}
+305,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+306,26,Moving,Right Sand Area,Adult,{},{}
+306,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+307,26,Moving,Right Sand Area,Adult,{},{}
+307,38,Carry pup,Right Sand Area,Adult,{40;39},{40;39}
+307,39,None,Right Sand Area,Pup,{38;40},{38;40}
+307,40,Moving,Right Sand Area,Adult,{38;39},{38;39}
+307,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+308,26,Moving,Right Sand Area,Adult,{},{}
+308,38,Carry pup,Right Sand Area,Adult,{},{}
+308,39,None,Right Sand Area,Pup,{},{}
+308,40,Moving,Right Sand Area,Adult,{},{}
+308,41,Moving,Right Sand Area,Adult,{},{}
+308,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+309,41,Moving,Right Sand Area,Adult,{},{}
+309,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+310,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+311,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+312,43,Moving,Right Sand Area,Adult,{},{}
+312,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+313,43,Moving,Right Sand Area,Adult,{},{}
+313,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+314,44,Moving,Right Sand Area,Adult,{},{}
+314,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+315,44,Moving,Right Sand Area,Adult,{},{}
+315,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+316,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+317,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+318,45,Moving,Right Sand Area,Adult,{},{}
+318,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+319,45,Moving,Right Sand Area,Adult,{},{}
+319,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+320,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+321,30,Dig burrow,Sand Area,Adult,{},{}
+321,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+322,30,Dig burrow,Sand Area,Adult,{},{}
+322,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+323,30,Dig burrow,Sand Area,Adult,{},{}
+323,46,Moving,Right Sticks Area,Adult,{},{}
+323,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+324,30,Dig burrow,Sand Area,Adult,{},{}
+324,46,Moving,Mound,Adult,{},{}
+324,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+325,30,Dig burrow,Sand Area,Adult,{},{}
+325,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+326,30,Dig burrow,Sand Area,Adult,{},{}
+326,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+327,30,Dig burrow,Sand Area,Adult,{},{}
+327,47,Moving,Right Sand Area,Adult,{},{}
+327,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+328,30,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+328,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+329,30,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+329,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+330,30,Dig burrow,Sand Area,Adult,{},{}
+330,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+331,30,Dig burrow,Sand Area,Adult,{},{}
+331,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+332,30,Dig burrow,Sand Area,Adult,{},{}
+332,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+333,30,Dig burrow,Sand Area,Adult,{},{}
+333,47,Moving,Right Sand Area,Adult,{},{}
+333,48,Moving,Right Sand Area,Adult,{},{}
+333,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+334,30,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+334,47,Moving,Right Sticks Area,Adult,{},{}
+334,48,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+334,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+335,30,Dig burrow,Sand Area,Adult,{},{}
+335,48,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+335,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+336,30,Dig burrow,Sand Area,Adult,{},{}
+336,48,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+336,49,Moving,Right Sand Area,Adult,{},{}
+336,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+337,30,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+337,47,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+337,48,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+337,49,Moving,Right Sand Area,Adult,{},{}
+337,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+338,30,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+338,47,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+338,48,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+338,49,Moving,Right Sand Area,Adult,{},{}
+338,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+339,30,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+339,47,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+339,48,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+339,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+340,30,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+340,48,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+340,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+341,30,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+341,47,Moving,Right Sticks Area,Adult,{},{}
+341,48,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+341,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+342,30,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+342,48,Low sitting/standing (stationary),Right Sand Area,Adult,{},{}
+342,50,Moving,Right Sticks Area,Adult,{},{}
+342,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+343,30,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+343,47,Low sitting/standing (stationary),Mound,Adult,{},{}
+343,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+344,30,Dig burrow,Sand Area,Adult,{},{}
+344,47,Raised Guarding (Vigilant),Mound,Adult,{},{}
+344,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+345,30,Dig burrow,Sand Area,Adult,{},{}
+345,47,Raised Guarding (Vigilant),Mound,Adult,{},{}
+345,51,Moving,Background,Adult,{},{}
+345,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+346,30,Dig burrow,Sand Area,Adult,{},{}
+346,47,Raised Guarding (Vigilant),Mound,Adult,{},{}
+346,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+347,30,Dig burrow,Sand Area,Adult,{},{}
+347,47,Raised Guarding (Vigilant),Mound,Adult,{},{}
+347,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+348,30,Dig burrow,Sand Area,Adult,{},{}
+348,47,Raised Guarding (Vigilant),Mound,Adult,{},{}
+348,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+349,30,Dig burrow,Sand Area,Adult,{},{}
+349,47,Raised Guarding (Vigilant),Mound,Adult,{},{}
+349,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+350,30,Dig burrow,Sand Area,Adult,{},{}
+350,47,Raised Guarding (Vigilant),Mound,Adult,{},{}
+350,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+351,30,Dig burrow,Sand Area,Adult,{},{}
+351,47,Raised Guarding (Vigilant),Mound,Adult,{},{}
+351,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+352,30,Dig burrow,Sand Area,Adult,{},{}
+352,47,Raised Guarding (Vigilant),Mound,Adult,{},{}
+352,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+353,30,Dig burrow,Sand Area,Adult,{},{}
+353,47,Raised Guarding (Vigilant),Mound,Adult,{},{}
+353,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+354,30,Dig burrow,Sand Area,Adult,{},{}
+354,47,Moving,Mound,Adult,{},{}
+354,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+355,30,Dig burrow,Sand Area,Adult,{},{}
+355,47,Moving,Mound,Adult,{},{}
+355,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+356,30,Dig burrow,Sand Area,Adult,{},{}
+356,47,Moving,Mound,Adult,{},{}
+356,52,Carry pup,Mound,Adult,{53},{53}
+356,53,None,Background,Pup,{52},{52}
+356,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+357,30,Dig burrow,Sand Area,Adult,{},{}
+357,47,Moving,Around Mound,Adult,{},{}
+357,53,None,Background,Pup,{},{}
+357,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+358,30,Dig burrow,Sand Area,Adult,{},{}
+358,47,Moving,Sand Area,Adult,{},{}
+358,53,None,Right Sticks Area,Pup,{},{}
+358,54,Moving,Background,Adult,{},{55}
+358,55,Moving,Background,Adult,{},{54}
+358,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+359,30,Dig burrow,Sand Area,Adult,{},{}
+359,47,Moving,Sand Area,Adult,{},{}
+359,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+360,30,Dig burrow,Sand Area,Adult,{},{}
+360,47,Dig burrow,Sand Area,Adult,{},{}
+360,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+361,30,Dig burrow,Sand Area,Adult,{},{}
+361,47,Dig burrow,Sand Area,Adult,{},{}
+361,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+362,30,Dig burrow,Sand Area,Adult,{},{}
+362,47,Dig burrow,Sand Area,Adult,{},{}
+362,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+363,30,Dig burrow,Sand Area,Adult,{},{}
+363,47,Dig burrow,Sand Area,Adult,{},{}
+363,56,Carry pup,Right Sand Area,Adult,{57},{57}
+363,57,None,Right Sand Area,Pup,{56},{56}
+363,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+364,30,Dig burrow,Sand Area,Adult,{},{}
+364,47,Dig burrow,Sand Area,Adult,{},{}
+364,56,Carry pup,Right Sand Area,Adult,{},{}
+364,57,None,Right Sand Area,Pup,{},{}
+364,58,Moving,Right Sand Area,Adult,{},{}
+364,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+365,30,Dig burrow,Sand Area,Adult,{},{}
+365,47,Dig burrow,Sand Area,Adult,{},{}
+365,56,Carry pup,Right Sand Area,Adult,{},{}
+365,57,None,Right Sand Area,Pup,{},{}
+365,58,Moving,Right Sand Area,Adult,{},{}
+365,59,Moving,Right Sand Area,Adult,{},{}
+365,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+366,30,Dig burrow,Sand Area,Adult,{},{}
+366,47,Dig burrow,Sand Area,Adult,{},{}
+366,59,Moving,Right Sand Area,Adult,{},{}
+366,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+367,30,Dig burrow,Sand Area,Adult,{},{}
+367,47,Dig burrow,Sand Area,Adult,{},{}
+367,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+368,30,Dig burrow,Sand Area,Adult,{},{}
+368,47,Dig burrow,Sand Area,Adult,{},{}
+368,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+369,30,Dig burrow,Sand Area,Adult,{},{}
+369,47,Dig burrow,Sand Area,Adult,{},{}
+369,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+370,47,Dig burrow,Sand Area,Adult,{},{}
+370,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+371,47,Dig burrow,Sand Area,Adult,{},{}
+371,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+372,47,Dig burrow,Sand Area,Adult,{},{}
+372,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+373,47,Dig burrow,Sand Area,Adult,{},{}
+373,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+374,47,Dig burrow,Sand Area,Adult,{},{}
+374,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+375,47,Dig burrow,Sand Area,Adult,{},{}
+375,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+376,47,Dig burrow,Sand Area,Adult,{},{}
+376,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+377,47,Dig burrow,Sand Area,Adult,{},{}
+377,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+378,47,Dig burrow,Sand Area,Adult,{},{}
+378,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+379,47,Dig burrow,Sand Area,Adult,{},{}
+379,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+380,47,Dig burrow,Sand Area,Adult,{},{}
+380,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+381,47,Dig burrow,Sand Area,Adult,{},{}
+381,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+382,47,Dig burrow,Sand Area,Adult,{},{}
+382,60,Moving,Right Sand Area,Adult,{},{}
+382,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+383,47,Dig burrow,Sand Area,Adult,{},{}
+383,60,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+383,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+384,47,Dig burrow,Sand Area,Adult,{},{}
+384,60,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+384,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+385,47,Dig burrow,Sand Area,Adult,{},{}
+385,60,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+385,61,Moving,Right Sand Area,Adult,{},{}
+385,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+386,47,Dig burrow,Sand Area,Adult,{},{}
+386,60,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+386,61,Moving,Right Sand Area,Adult,{},{}
+386,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+387,47,Dig burrow,Sand Area,Adult,{},{}
+387,60,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+387,61,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+387,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+388,47,Dig burrow,Sand Area,Adult,{},{}
+388,60,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+388,61,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+388,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+389,47,Dig burrow,Sand Area,Adult,{},{}
+389,60,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+389,61,Moving,Right Sand Area,Adult,{},{}
+389,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+390,47,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+390,60,Moving,Right Sand Area,Adult,{},{}
+390,62,Moving,Right Sand Area,Adult,{},{}
+390,63,Moving,Background,Adult,{},{}
+390,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+391,47,Dig burrow,Sand Area,Adult,{},{}
+391,62,Moving,Right Sand Area,Adult,{63},{63}
+391,63,Moving,Right Sand Area,Adult,{62},{62}
+391,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+392,47,Dig burrow,Sand Area,Adult,{},{}
+392,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+393,47,Dig burrow,Sand Area,Adult,{},{}
+393,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+394,47,Dig burrow,Sand Area,Adult,{},{}
+394,64,Moving,Background,Adult,{},{}
+394,65,Moving,Right Sticks Area,Adult,{},{}
+394,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+395,47,Dig burrow,Sand Area,Adult,{},{}
+395,65,Moving,Mound,Adult,{},{67;66}
+395,66,Moving,Right Sticks Area,Adult,{},{67;65}
+395,67,Moving,Background,Adult,{},{66;65}
+395,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+396,47,Dig burrow,Sand Area,Adult,{},{}
+396,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+396,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+397,47,Dig burrow,Sand Area,Adult,{},{}
+397,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+397,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+398,47,Dig burrow,Sand Area,Adult,{},{}
+398,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+398,68,Raised Guarding (Vigilant),Mound,Adult,{},{}
+398,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+399,47,Dig burrow,Sand Area,Adult,{},{}
+399,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+399,68,Raised Guarding (Vigilant),Mound,Adult,{},{}
+399,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+400,47,Dig burrow,Sand Area,Adult,{},{}
+400,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+400,68,Raised Guarding (Vigilant),Mound,Adult,{},{}
+400,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+401,47,Dig burrow,Sand Area,Adult,{},{}
+401,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+401,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+402,47,Dig burrow,Sand Area,Adult,{},{}
+402,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+402,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+403,47,Dig burrow,Sand Area,Adult,{},{}
+403,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+403,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+404,47,Dig burrow,Sand Area,Adult,{},{}
+404,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+404,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+405,47,Dig burrow,Sand Area,Adult,{},{}
+405,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+405,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+406,47,Dig burrow,Sand Area,Adult,{},{}
+406,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+406,69,Dig burrow,Sand Area,Adult,{},{}
+406,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+407,47,Dig burrow,Sand Area,Adult,{},{}
+407,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+407,69,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+407,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+408,47,Dig burrow,Sand Area,Adult,{},{}
+408,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+408,69,Dig burrow,Sand Area,Adult,{},{}
+408,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+409,47,Dig burrow,Sand Area,Adult,{},{}
+409,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+409,69,Dig burrow,Sand Area,Adult,{},{}
+409,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+410,47,Dig burrow,Sand Area,Adult,{},{}
+410,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+410,69,Dig burrow,Sand Area,Adult,{},{}
+410,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+411,47,Dig burrow,Sand Area,Adult,{},{}
+411,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+411,69,Dig burrow,Sand Area,Adult,{},{}
+411,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+412,47,Dig burrow,Sand Area,Adult,{},{}
+412,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+412,69,Dig burrow,Sand Area,Adult,{},{}
+412,70,Moving,Mound,Adult,{},{}
+412,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+413,47,Dig burrow,Sand Area,Adult,{},{}
+413,66,High sitting/standing (Vigilant),Around Mound,Adult,{70},{70}
+413,69,Dig burrow,Sand Area,Adult,{},{}
+413,70,Moving,Background,Adult,{66},{66}
+413,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+414,47,Dig burrow,Sand Area,Adult,{},{}
+414,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+414,69,Dig burrow,Sand Area,Adult,{},{}
+414,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+415,47,Dig burrow,Sand Area,Adult,{},{}
+415,66,High sitting/standing (Vigilant),Around Mound,Adult,{71},{71}
+415,71,Moving,Around Mound,Adult,{66},{66}
+415,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+416,47,Dig burrow,Sand Area,Adult,{},{}
+416,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{71}
+416,71,Moving,Right Sticks Area,Adult,{},{66}
+416,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+417,47,Dig burrow,Sand Area,Adult,{},{}
+417,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{71}
+417,71,Moving,Right Sticks Area,Adult,{},{66}
+417,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+418,47,Dig burrow,Sand Area,Adult,{},{}
+418,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{71}
+418,71,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{66}
+418,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+419,47,Dig burrow,Sand Area,Adult,{},{}
+419,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{71}
+419,71,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{66}
+419,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+420,47,Dig burrow,Sand Area,Adult,{},{}
+420,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{71}
+420,71,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{66}
+420,72,Moving,Right Sand Area,Adult,{},{}
+420,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+421,47,Dig burrow,Sand Area,Adult,{},{}
+421,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{71}
+421,71,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{66}
+421,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+422,47,Dig burrow,Sand Area,Adult,{},{}
+422,66,High sitting/standing (Vigilant),Around Mound,Adult,{},{71}
+422,71,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{66}
+422,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+423,47,Dig burrow,Sand Area,Adult,{},{}
+423,66,Moving,Around Mound,Adult,{},{71}
+423,71,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{66}
+423,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+424,47,Dig burrow,Sand Area,Adult,{},{}
+424,66,Moving,Mound,Adult,{},{71}
+424,71,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{66}
+424,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+425,47,Dig burrow,Sand Area,Adult,{},{}
+425,66,Moving,Around Mound,Adult,{},{71}
+425,71,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{66}
+425,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+426,47,Dig burrow,Sand Area,Adult,{},{}
+426,66,Moving,Around Mound,Adult,{},{}
+426,71,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+426,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+427,47,Dig burrow,Sand Area,Adult,{},{}
+427,66,Moving,Around Mound,Adult,{},{}
+427,71,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+427,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+428,47,Dig burrow,Sand Area,Adult,{},{}
+428,66,Moving,Around Mound,Adult,{},{}
+428,71,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+428,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+429,47,Dig burrow,Sand Area,Adult,{},{}
+429,66,Moving,Sand Area,Adult,{},{}
+429,71,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+429,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+430,47,Dig burrow,Sand Area,Adult,{},{}
+430,66,Moving,Sand Area,Adult,{},{}
+430,71,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+430,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+431,47,Dig burrow,Sand Area,Adult,{},{}
+431,66,Dig burrow,Sand Area,Adult,{},{}
+431,71,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+431,73,Carry pup,Right Sand Area,Adult,{74},{74}
+431,74,None,Right Sand Area,Pup,{73},{73}
+431,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+432,47,Dig burrow,Sand Area,Adult,{},{}
+432,66,Dig burrow,Sand Area,Adult,{},{}
+432,71,Moving,Right Sticks Area,Adult,{},{}
+432,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+433,47,Dig burrow,Sand Area,Adult,{},{}
+433,66,Dig burrow,Sand Area,Adult,{},{}
+433,71,Moving,Right Sticks Area,Adult,{},{}
+433,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+434,47,Dig burrow,Sand Area,Adult,{},{69}
+434,66,Dig burrow,Sand Area,Adult,{},{}
+434,71,Lying/resting (stationary),Right Sticks Area,Adult,{},{}
+434,69,Dig burrow,Sand Area,Adult,{},{47}
+434,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+435,47,Dig burrow,Sand Area,Adult,{},{69}
+435,66,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+435,71,Lying/resting (stationary),Right Sticks Area,Adult,{},{}
+435,69,Dig burrow,Sand Area,Adult,{},{47}
+435,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+436,47,Dig burrow,Sand Area,Adult,{},{}
+436,66,Dig burrow,Sand Area,Adult,{},{}
+436,71,Lying/resting (stationary),Right Sticks Area,Adult,{},{}
+436,75,Carry pup,Background,Adult,{},{76}
+436,76,None,Background,Pup,{},{75}
+436,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+437,47,Dig burrow,Sand Area,Adult,{},{}
+437,66,Dig burrow,Sand Area,Adult,{},{}
+437,71,Lying/resting (stationary),Right Sticks Area,Adult,{},{}
+437,75,Interact with pup,Background,Adult,{76},{76}
+437,76,None,Background,Pup,{75},{75}
+437,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+438,47,Dig burrow,Sand Area,Adult,{},{}
+438,66,Dig burrow,Sand Area,Adult,{},{}
+438,71,Lying/resting (stationary),Right Sticks Area,Adult,{},{}
+438,76,None,Background,Pup,{},{77}
+438,77,Moving,Background,Adult,{},{76}
+438,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+439,47,Dig burrow,Sand Area,Adult,{},{}
+439,66,Dig burrow,Sand Area,Adult,{},{}
+439,71,Lying/resting (stationary),Right Sticks Area,Adult,{},{}
+439,76,None,Background,Pup,{77},{77}
+439,77,Interact with pup,Right Sticks Area,Adult,{76},{76}
+439,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+440,47,Moving,Sand Area,Adult,{},{}
+440,66,Dig burrow,Sand Area,Adult,{},{}
+440,71,Moving,Right Sticks Area,Adult,{76;77},{76;77;78}
+440,76,None,Background,Pup,{71;77},{71;77}
+440,77,Interact with pup,Background,Adult,{76;71},{76;71}
+440,78,Moving,Right Sticks Area,Adult,{},{71}
+440,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+441,47,Moving,Sand Area,Adult,{},{}
+441,66,Dig burrow,Sand Area,Adult,{},{}
+441,76,None,Background,Pup,{77},{77}
+441,77,Interact with pup,Background,Adult,{76},{76}
+441,78,Moving,Right Sticks Area,Adult,{},{}
+441,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+442,47,Dig burrow,Sand Area,Adult,{},{}
+442,66,Dig burrow,Sand Area,Adult,{},{}
+442,76,None,Background,Pup,{77},{77}
+442,77,Interact with pup,Background,Adult,{76},{76;79}
+442,78,Moving,Right Sticks Area,Adult,{},{}
+442,79,Moving,Background,Adult,{},{77}
+442,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+443,47,Dig burrow,Sand Area,Adult,{},{}
+443,66,Dig burrow,Sand Area,Adult,{},{}
+443,76,None,Background,Pup,{79;77;78},{79;77;78}
+443,77,Interact with pup,Background,Adult,{76;79;78},{76;79;78}
+443,78,Interact with pup,Right Sticks Area,Adult,{76;77},{76;79;77}
+443,79,Moving,Background,Adult,{76;77},{76;77;78}
+443,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+444,47,Dig burrow,Sand Area,Adult,{},{}
+444,66,Dig burrow,Sand Area,Adult,{},{}
+444,76,None,Right Sticks Area,Pup,{},{78}
+444,77,Moving,Background,Adult,{79;78},{79;78}
+444,78,Carry pup,Right Sticks Area,Adult,{77},{76;79;77}
+444,79,Low sitting/standing (stationary),Background,Adult,{77},{77;78}
+444,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+445,47,Dig burrow,Sand Area,Adult,{},{}
+445,66,Dig burrow,Sand Area,Adult,{},{}
+445,76,None,Right Sticks Area,Pup,{78},{77;78}
+445,77,Moving,Right Sticks Area,Adult,{},{76}
+445,78,Moving,Right Sticks Area,Adult,{76},{76}
+445,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+446,47,Dig burrow,Sand Area,Adult,{},{}
+446,66,Dig burrow,Sand Area,Adult,{},{}
+446,76,None,Right Sticks Area,Pup,{},{77}
+446,77,Interact with pup,Right Sticks Area,Adult,{},{76}
+446,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+447,47,Dig burrow,Sand Area,Adult,{},{}
+447,66,Dig burrow,Sand Area,Adult,{},{}
+447,76,None,Right Sticks Area,Pup,{},{77}
+447,69,Dig burrow,Sand Area,Adult,{},{}
+447,77,Interact with pup,Right Sticks Area,Adult,{},{76}
+447,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+448,47,Dig burrow,Sand Area,Adult,{},{69}
+448,66,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+448,76,None,Right Sticks Area,Pup,{},{77}
+448,69,Moving,Sand Area,Adult,{},{47}
+448,77,Interact with pup,Right Sticks Area,Adult,{},{76;79}
+448,79,Low sitting/standing (stationary),Background,Adult,{},{77}
+448,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+449,47,Dig burrow,Sand Area,Adult,{},{}
+449,66,Moving,Sand Area,Adult,{},{}
+449,76,None,Right Sticks Area,Pup,{},{77}
+449,69,Moving,Left Sticks Area,Adult,{},{}
+449,77,Interact with pup,Right Sticks Area,Adult,{},{76;79}
+449,79,High sitting/standing (Vigilant),Background,Adult,{},{77}
+449,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+450,47,Dig burrow,Sand Area,Adult,{},{}
+450,66,Dig burrow,Sand Area,Adult,{},{}
+450,71,Low sitting/standing (stationary),Right Sticks Area,Adult,{76},{76;77}
+450,76,None,Right Sticks Area,Pup,{71},{71;77}
+450,69,Moving,Mound,Adult,{},{}
+450,77,Moving,Right Sticks Area,Adult,{},{76;71;79}
+450,79,High sitting/standing (Vigilant),Background,Adult,{},{77}
+450,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+451,47,Dig burrow,Sand Area,Adult,{},{}
+451,66,Dig burrow,Sand Area,Adult,{},{}
+451,76,None,Right Sticks Area,Pup,{},{77}
+451,77,Moving,Right Sticks Area,Adult,{79},{76;79}
+451,79,High sitting/standing (Vigilant),Background,Adult,{77},{77}
+451,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+452,47,Dig burrow,Sand Area,Adult,{},{}
+452,66,Moving,Sand Area,Adult,{},{}
+452,71,Moving,Right Sticks Area,Adult,{77},{76;79;77}
+452,76,None,Right Sticks Area,Pup,{},{71;77}
+452,77,Low sitting/standing (stationary),Right Sticks Area,Adult,{71;79},{76;71;79}
+452,79,High sitting/standing (Vigilant),Background,Adult,{77},{71;77}
+452,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+453,47,Dig burrow,Sand Area,Adult,{},{}
+453,66,Dig burrow,Sand Area,Adult,{},{}
+453,71,Interact with pup,Right Sticks Area,Adult,{77},{76;79;77}
+453,76,None,Right Sticks Area,Pup,{},{71;77}
+453,77,Low sitting/standing (stationary),Right Sticks Area,Adult,{71;79},{76;71;79}
+453,79,High sitting/standing (Vigilant),Background,Adult,{77},{71;77}
+453,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+454,47,Dig burrow,Sand Area,Adult,{},{}
+454,66,Dig burrow,Sand Area,Adult,{},{}
+454,71,Interact with pup,Right Sticks Area,Adult,{77},{76;79;77}
+454,76,None,Right Sticks Area,Pup,{},{71;77}
+454,77,Moving,Right Sticks Area,Adult,{71},{76;71;79}
+454,79,High sitting/standing (Vigilant),Background,Adult,{},{71;77}
+454,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+455,47,Dig burrow,Sand Area,Adult,{},{}
+455,66,Dig burrow,Sand Area,Adult,{},{}
+455,76,None,Right Sticks Area,Pup,{},{77}
+455,77,Moving,Right Sticks Area,Adult,{},{76;79}
+455,79,High sitting/standing (Vigilant),Background,Adult,{},{77}
+455,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+456,47,Dig burrow,Sand Area,Adult,{},{}
+456,66,Dig burrow,Sand Area,Adult,{},{}
+456,76,None,Right Sticks Area,Pup,{},{}
+456,77,Moving,Around Mound,Adult,{},{81}
+456,81,Low sitting/standing (stationary),Background,Adult,{},{77}
+456,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+457,47,Dig burrow,Sand Area,Adult,{},{}
+457,66,Dig burrow,Sand Area,Adult,{},{}
+457,76,None,Right Sticks Area,Pup,{},{79}
+457,77,Moving,Around Mound,Adult,{},{79}
+457,79,Moving,Right Sticks Area,Adult,{81},{76;77;81}
+457,81,High sitting/standing (Vigilant),Background,Adult,{79},{79}
+457,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+458,47,Dig burrow,Sand Area,Adult,{},{}
+458,66,Dig burrow,Sand Area,Adult,{},{}
+458,76,None,Right Sticks Area,Pup,{},{79}
+458,77,Moving,Around Mound,Adult,{},{}
+458,79,Moving,Right Sticks Area,Adult,{81},{76;81}
+458,81,High sitting/standing (Vigilant),Background,Adult,{79},{79}
+458,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+459,47,Dig burrow,Sand Area,Adult,{},{}
+459,76,None,Right Sticks Area,Pup,{},{79}
+459,77,Moving,Around Mound,Adult,{},{}
+459,79,Moving,Right Sticks Area,Adult,{81},{76;81}
+459,81,High sitting/standing (Vigilant),Background,Adult,{79},{79}
+459,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+460,47,Dig burrow,Sand Area,Adult,{},{}
+460,76,None,Right Sticks Area,Pup,{},{79}
+460,77,Moving,Sand Area,Adult,{},{}
+460,79,Low sitting/standing (stationary),Right Sticks Area,Adult,{81},{76;81}
+460,81,High sitting/standing (Vigilant),Background,Adult,{79},{79}
+460,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+461,47,Moving,Sand Area,Adult,{},{}
+461,76,None,Background,Pup,{80;79},{80;79}
+461,77,Moving,Sand Area,Adult,{},{}
+461,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{76;80},{76;80}
+461,80,Carry pup,Right Sticks Area,Adult,{76;79},{76;79}
+461,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+462,47,Moving,Sand Area,Adult,{},{}
+462,76,None,Mound,Pup,{},{}
+462,77,Moving,Sand Area,Adult,{},{}
+462,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+462,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+463,47,Dig burrow,Sand Area,Adult,{},{}
+463,77,Dig burrow,Sand Area,Adult,{},{}
+463,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+463,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+464,47,Dig burrow,Sand Area,Adult,{},{}
+464,77,Dig burrow,Sand Area,Adult,{},{}
+464,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+464,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+465,47,Dig burrow,Sand Area,Adult,{},{}
+465,77,Dig burrow,Sand Area,Adult,{},{}
+465,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+465,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+466,47,Dig burrow,Sand Area,Adult,{},{}
+466,77,Dig burrow,Sand Area,Adult,{},{}
+466,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+466,82,Moving,Around Mound,Adult,{},{}
+466,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+467,47,Dig burrow,Sand Area,Adult,{},{}
+467,77,Dig burrow,Sand Area,Adult,{},{}
+467,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{81},{81}
+467,81,Low sitting/standing (stationary),Background,Adult,{79},{79}
+467,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+468,47,Dig burrow,Sand Area,Adult,{},{77}
+468,77,Dig burrow,Sand Area,Adult,{},{47}
+468,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{81},{81}
+468,81,High sitting/standing (Vigilant),Background,Adult,{79},{79}
+468,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+469,47,Dig burrow,Sand Area,Adult,{},{77}
+469,77,Dig burrow,Sand Area,Adult,{},{47}
+469,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{81},{81}
+469,81,High sitting/standing (Vigilant),Background,Adult,{79},{79}
+469,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+470,47,Dig burrow,Sand Area,Adult,{},{}
+470,77,Dig burrow,Sand Area,Adult,{},{}
+470,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{81},{81}
+470,81,High sitting/standing (Vigilant),Background,Adult,{79},{79}
+470,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+471,47,Dig burrow,Sand Area,Adult,{},{77}
+471,77,Dig burrow,Sand Area,Adult,{},{47}
+471,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{81},{81}
+471,81,High sitting/standing (Vigilant),Background,Adult,{79},{79}
+471,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+472,47,Moving,Sand Area,Adult,{},{}
+472,77,Dig burrow,Sand Area,Adult,{},{}
+472,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{81},{81}
+472,81,High sitting/standing (Vigilant),Background,Adult,{79},{79}
+472,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+473,47,Dig burrow,Sand Area,Adult,{},{}
+473,77,Dig burrow,Sand Area,Adult,{},{}
+473,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{81},{81}
+473,81,High sitting/standing (Vigilant),Background,Adult,{79},{79}
+473,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+474,47,Dig burrow,Sand Area,Adult,{},{}
+474,77,Dig burrow,Sand Area,Adult,{},{}
+474,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{81},{81}
+474,81,High sitting/standing (Vigilant),Background,Adult,{79},{79}
+474,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+475,47,Dig burrow,Sand Area,Adult,{},{}
+475,77,Dig burrow,Sand Area,Adult,{},{}
+475,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{81},{81}
+475,81,High sitting/standing (Vigilant),Background,Adult,{79},{79}
+475,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+476,47,Dig burrow,Sand Area,Adult,{},{}
+476,77,Dig burrow,Sand Area,Adult,{},{}
+476,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{81},{81}
+476,81,High sitting/standing (Vigilant),Background,Adult,{79},{79}
+476,66,Dig burrow,Sand Area,Adult,{},{}
+476,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+477,47,Dig burrow,Sand Area,Adult,{},{}
+477,77,Dig burrow,Sand Area,Adult,{},{}
+477,79,High sitting/standing (Vigilant),Right Sticks Area,Adult,{81},{81}
+477,81,High sitting/standing (Vigilant),Background,Adult,{79},{79}
+477,66,Dig burrow,Sand Area,Adult,{},{}
+477,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+478,47,Dig burrow,Sand Area,Adult,{},{}
+478,77,Dig burrow,Sand Area,Adult,{},{}
+478,79,Moving,Right Sticks Area,Adult,{81},{81}
+478,81,High sitting/standing (Vigilant),Background,Adult,{79},{79}
+478,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+479,47,Dig burrow,Sand Area,Adult,{},{}
+479,77,Dig burrow,Sand Area,Adult,{},{}
+479,81,High sitting/standing (Vigilant),Background,Adult,{},{}
+479,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+480,47,Dig burrow,Sand Area,Adult,{},{}
+480,77,Dig burrow,Sand Area,Adult,{},{}
+480,81,High sitting/standing (Vigilant),Background,Adult,{},{}
+480,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+481,47,Dig burrow,Sand Area,Adult,{},{}
+481,77,Dig burrow,Sand Area,Adult,{},{}
+481,81,Moving,Background,Adult,{},{}
+481,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+482,47,Dig burrow,Sand Area,Adult,{},{}
+482,77,Dig burrow,Sand Area,Adult,{},{}
+482,83,Moving,Background,Adult,{},{}
+482,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+483,47,Dig burrow,Sand Area,Adult,{},{}
+483,77,Dig burrow,Sand Area,Adult,{},{}
+483,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+484,47,Dig burrow,Sand Area,Adult,{},{}
+484,77,Dig burrow,Sand Area,Adult,{},{}
+484,84,Carry pup,Right Sand Area,Adult,{},{}
+484,85,None,Right Sand Area,Pup,{},{}
+484,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+485,47,Dig burrow,Sand Area,Adult,{},{}
+485,77,Dig burrow,Sand Area,Adult,{},{}
+485,84,Carry pup,Right Sand Area,Adult,{},{}
+485,85,None,Right Sand Area,Pup,{},{}
+485,86,Moving,Right Sand Area,Adult,{},{}
+485,87,Moving,Around Mound,Adult,{},{}
+485,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+486,47,Dig burrow,Sand Area,Adult,{},{}
+486,77,Dig burrow,Sand Area,Adult,{},{}
+486,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+487,47,Dig burrow,Sand Area,Adult,{},{}
+487,77,Dig burrow,Sand Area,Adult,{},{}
+487,88,Moving,Right Sand Area,Adult,{},{}
+487,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+488,47,Dig burrow,Sand Area,Adult,{},{}
+488,77,Dig burrow,Sand Area,Adult,{},{}
+488,88,Moving,Right Sand Area,Adult,{},{}
+488,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+489,47,Dig burrow,Sand Area,Adult,{},{}
+489,77,Dig burrow,Sand Area,Adult,{},{}
+489,88,Moving,Right Sand Area,Adult,{},{}
+489,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+490,47,Dig burrow,Sand Area,Adult,{},{}
+490,77,Dig burrow,Sand Area,Adult,{},{}
+490,88,Moving,Right Sand Area,Adult,{},{}
+490,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+491,47,Dig burrow,Sand Area,Adult,{},{}
+491,77,Dig burrow,Sand Area,Adult,{},{}
+491,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+492,47,Dig burrow,Sand Area,Adult,{},{}
+492,77,Dig burrow,Sand Area,Adult,{},{}
+492,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+493,47,Dig burrow,Sand Area,Adult,{},{}
+493,77,Dig burrow,Sand Area,Adult,{},{}
+493,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+494,47,Dig burrow,Sand Area,Adult,{},{}
+494,77,Dig burrow,Sand Area,Adult,{},{}
+494,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+495,47,Dig burrow,Sand Area,Adult,{},{}
+495,77,Dig burrow,Sand Area,Adult,{},{}
+495,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+496,47,Dig burrow,Sand Area,Adult,{},{}
+496,77,Dig burrow,Sand Area,Adult,{},{}
+496,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+497,47,Dig burrow,Sand Area,Adult,{},{}
+497,77,Dig burrow,Sand Area,Adult,{},{}
+497,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+498,47,Dig burrow,Sand Area,Adult,{},{}
+498,77,Dig burrow,Sand Area,Adult,{},{}
+498,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+499,47,Dig burrow,Sand Area,Adult,{},{}
+499,77,Dig burrow,Sand Area,Adult,{},{}
+499,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+500,47,Dig burrow,Sand Area,Adult,{},{}
+500,77,Dig burrow,Sand Area,Adult,{},{}
+500,89,Moving,Background,Adult,{},{}
+500,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+501,47,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+501,77,Dig burrow,Sand Area,Adult,{},{66}
+501,89,Moving,Right Sticks Area,Adult,{},{}
+501,66,Moving,Sand Area,Adult,{},{77}
+501,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+502,47,Dig burrow,Sand Area,Adult,{},{}
+502,77,Dig burrow,Sand Area,Adult,{},{66}
+502,66,Moving,Sand Area,Adult,{},{77}
+502,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+503,47,Dig burrow,Sand Area,Adult,{},{}
+503,77,Dig burrow,Sand Area,Adult,{},{}
+503,66,Moving,Sand Area,Adult,{},{}
+503,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+504,47,Dig burrow,Sand Area,Adult,{},{}
+504,77,Dig burrow,Sand Area,Adult,{},{}
+504,66,Moving,Sand Area,Adult,{},{}
+504,90,Carry pup,Right Sand Area,Adult,{},{}
+504,91,None,Right Sand Area,Pup,{},{}
+504,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+505,47,Dig burrow,Sand Area,Adult,{},{}
+505,77,Dig burrow,Sand Area,Adult,{},{}
+505,66,Moving,Sand Area,Adult,{},{}
+505,90,Carry pup,Right Sand Area,Adult,{},{}
+505,91,None,Right Sand Area,Pup,{},{}
+505,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+506,47,Dig burrow,Sand Area,Adult,{},{}
+506,77,Dig burrow,Sand Area,Adult,{},{}
+506,66,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+506,90,Interact with pup,Right Sand Area,Adult,{},{}
+506,91,None,Right Sand Area,Pup,{},{}
+506,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+507,47,Dig burrow,Sand Area,Adult,{},{}
+507,77,Dig burrow,Sand Area,Adult,{},{}
+507,66,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+507,90,Interact with pup,Right Sand Area,Adult,{},{}
+507,91,None,Right Sand Area,Pup,{},{}
+507,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+508,47,Dig burrow,Sand Area,Adult,{},{}
+508,77,Dig burrow,Sand Area,Adult,{},{}
+508,66,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+508,90,Interact with pup,Right Sand Area,Adult,{},{}
+508,91,None,Right Sand Area,Pup,{},{}
+508,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+509,47,Dig burrow,Sand Area,Adult,{},{}
+509,77,Dig burrow,Sand Area,Adult,{},{}
+509,66,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+509,90,Carry pup,Right Sand Area,Adult,{},{91}
+509,91,None,Right Sand Area,Pup,{},{90}
+509,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+510,47,Dig burrow,Sand Area,Adult,{},{}
+510,77,Dig burrow,Sand Area,Adult,{},{}
+510,66,Moving,Sand Area,Adult,{},{}
+510,90,Carry pup,Right Sand Area,Adult,{91},{91}
+510,91,None,Right Sand Area,Pup,{90},{90}
+510,92,Low sitting/standing (stationary),Right Sand Area,Adult,{},{}
+510,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+511,47,Dig burrow,Sand Area,Adult,{},{}
+511,77,Dig burrow,Sand Area,Adult,{},{}
+511,66,Dig burrow,Sand Area,Adult,{},{}
+511,92,Moving,Right Sand Area,Adult,{},{}
+511,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+512,47,Moving,Sand Area,Adult,{},{}
+512,77,Dig burrow,Sand Area,Adult,{},{}
+512,66,Dig burrow,Sand Area,Adult,{},{}
+512,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+513,47,Moving,Sand Area,Adult,{},{}
+513,77,Dig burrow,Sand Area,Adult,{},{}
+513,66,Dig burrow,Sand Area,Adult,{},{}
+513,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+514,47,Moving,Around Mound,Adult,{},{}
+514,77,Dig burrow,Sand Area,Adult,{},{}
+514,66,Dig burrow,Sand Area,Adult,{},{}
+514,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+515,47,Moving,Around Mound,Adult,{},{}
+515,77,Dig burrow,Sand Area,Adult,{},{}
+515,66,Dig burrow,Sand Area,Adult,{},{}
+515,93,Carry pup,Right Sticks Area,Adult,{94},{94}
+515,94,None,Background,Pup,{93},{93}
+515,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+516,47,Moving,Around Mound,Adult,{},{}
+516,77,Dig burrow,Sand Area,Adult,{},{}
+516,66,Dig burrow,Sand Area,Adult,{},{}
+516,96,Carry pup,Right Sand Area,Adult,{97},{97}
+516,97,None,Right Sand Area,Pup,{96},{96}
+516,93,Carry pup,Background,Adult,{94},{95;94}
+516,94,None,Mound,Pup,{93},{93}
+516,95,Moving,Background,Adult,{},{93}
+516,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+517,47,Moving,Around Mound,Adult,{},{}
+517,77,Dig burrow,Sand Area,Adult,{},{}
+517,66,Moving,Sand Area,Adult,{},{}
+517,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+518,47,Moving,Mound,Adult,{},{}
+518,77,Dig burrow,Sand Area,Adult,{},{}
+518,66,Moving,Sand Area,Adult,{},{}
+518,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+519,47,Moving,Mound,Adult,{},{}
+519,77,Dig burrow,Sand Area,Adult,{},{}
+519,66,Moving,Sand Area,Adult,{},{}
+519,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+520,47,Moving,Right Sticks Area,Adult,{},{}
+520,77,Dig burrow,Sand Area,Adult,{},{}
+520,66,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+520,98,Moving,Left Sticks Area,Adult,{99},{99}
+520,99,Moving,Mound,Adult,{98},{98}
+520,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+521,47,Moving,Right Sticks Area,Adult,{},{}
+521,77,Dig burrow,Sand Area,Adult,{},{}
+521,66,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+521,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+522,47,Moving,Right Sticks Area,Adult,{},{}
+522,66,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+522,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+523,47,Moving,Right Sticks Area,Adult,{},{}
+523,66,Moving,Sand Area,Adult,{},{}
+523,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+524,66,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+524,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+525,66,Dig burrow,Sand Area,Adult,{},{}
+525,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+526,66,Dig burrow,Sand Area,Adult,{},{}
+526,100,Moving,Right Sticks Area,Adult,{},{}
+526,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+527,66,Dig burrow,Sand Area,Adult,{},{}
+527,100,Moving,Right Sticks Area,Adult,{},{}
+527,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+528,66,Dig burrow,Sand Area,Adult,{},{}
+528,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+528,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+529,66,Dig burrow,Sand Area,Adult,{},{}
+529,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+529,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+530,66,Dig burrow,Sand Area,Adult,{},{}
+530,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+530,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+531,66,Dig burrow,Sand Area,Adult,{},{}
+531,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+531,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+532,66,Dig burrow,Sand Area,Adult,{},{}
+532,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+532,101,Moving,Right Sticks Area,Adult,{100},{100}
+532,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+533,66,Dig burrow,Sand Area,Adult,{},{}
+533,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+533,101,Moving,Right Sticks Area,Adult,{100},{100}
+533,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+534,66,Dig burrow,Sand Area,Adult,{},{}
+534,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+534,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+534,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+535,66,Dig burrow,Sand Area,Adult,{},{}
+535,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+535,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+535,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+536,66,Dig burrow,Sand Area,Adult,{},{}
+536,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+536,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+536,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+537,66,Dig burrow,Sand Area,Adult,{},{}
+537,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+537,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+537,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+538,66,Dig burrow,Sand Area,Adult,{},{}
+538,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+538,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+538,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+539,66,Dig burrow,Sand Area,Adult,{},{}
+539,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+539,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+539,102,Moving,Right Sand Area,Adult,{},{}
+539,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+540,66,Dig burrow,Sand Area,Adult,{},{}
+540,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+540,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+540,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+541,66,Moving,Sand Area,Adult,{},{}
+541,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+541,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+541,77,Moving,Sand Area,Adult,{},{}
+541,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+542,66,Moving,Sand Area,Adult,{},{}
+542,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+542,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+542,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+542,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+543,66,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+543,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+543,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+543,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+543,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+544,66,Dig burrow,Sand Area,Adult,{},{}
+544,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+544,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+544,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+544,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+545,66,Dig burrow,Sand Area,Adult,{},{}
+545,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+545,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+545,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+545,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+546,66,Dig burrow,Sand Area,Adult,{},{}
+546,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+546,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+546,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+546,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+547,66,Dig burrow,Sand Area,Adult,{},{}
+547,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+547,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+547,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+547,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+548,66,Dig burrow,Sand Area,Adult,{},{}
+548,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+548,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+548,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+548,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+549,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+549,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+549,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+549,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+550,66,Dig burrow,Sand Area,Adult,{},{}
+550,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+550,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+550,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+550,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+551,66,Dig burrow,Sand Area,Adult,{},{}
+551,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+551,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+551,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+551,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+552,100,High sitting/standing (Vigilant),Right Sticks Area,Adult,{101},{101}
+552,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+552,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+552,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+553,100,Moving,Around Mound,Adult,{101},{101}
+553,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{100},{100}
+553,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+553,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+554,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+554,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+554,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+555,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+555,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+555,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+556,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+556,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+556,103,Carry pup,Right Sand Area,Adult,{104},{104}
+556,104,None,Right Sand Area,Pup,{103},{103}
+556,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+557,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+557,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+557,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+558,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+558,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+558,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+559,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+559,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+559,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+560,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+560,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+560,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+561,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+561,77,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+561,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+562,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+562,77,Moving,Sand Area,Adult,{},{}
+562,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+563,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+563,77,Moving,Around Mound,Adult,{},{}
+563,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+564,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{107;77}
+564,77,Moving,Around Mound,Adult,{},{101}
+564,106,Moving,Around Mound,Adult,{},{}
+564,107,Moving,Mound,Adult,{},{101}
+564,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+565,101,High sitting/standing (Vigilant),Right Sticks Area,Adult,{107},{107}
+565,107,Moving,Background,Adult,{101},{101}
+565,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+566,101,Low sitting/standing (stationary),Background,Adult,{107},{107;77}
+566,77,Moving,Right Sticks Area,Adult,{107},{107;101}
+566,107,Moving,Right Sticks Area,Adult,{77;101},{77;101}
+566,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+567,101,Moving,Right Sticks Area,Adult,{},{77}
+567,77,Moving,Right Sticks Area,Adult,{},{101}
+567,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+568,101,Moving,Around Mound,Adult,{},{108}
+568,108,Moving,Mound,Adult,{},{101}
+568,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+569,108,Moving,Background,Adult,{},{}
+569,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+570,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+571,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+572,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+573,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+574,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+575,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+576,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+577,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+578,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+579,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+580,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+581,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+582,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+583,110,Moving,Mound,Adult,{},{}
+583,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+584,110,Moving,Background,Adult,{},{}
+584,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+585,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+586,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+587,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+588,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+589,2,Low sitting/standing (stationary),Mound,Adult,{},{}
+590,2,Low sitting/standing (stationary),Mound,Adult,{},{}
+591,2,Low sitting/standing (stationary),Mound,Adult,{},{}
+592,2,Low sitting/standing (stationary),Mound,Adult,{},{}
+593,2,Low sitting/standing (stationary),Mound,Adult,{},{}
+594,2,Low sitting/standing (stationary),Mound,Adult,{},{}
+595,111,Moving,Mound,Adult,{},{}
+595,2,Low sitting/standing (stationary),Mound,Adult,{},{}
+596,111,Moving,Around Mound,Adult,{},{}
+596,2,Low sitting/standing (stationary),Mound,Adult,{},{}
+597,111,Moving,Around Mound,Adult,{},{}
+597,2,Low sitting/standing (stationary),Mound,Adult,{},{}
+598,111,Dig burrow,Sand Area,Adult,{},{}
+598,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+599,111,Dig burrow,Sand Area,Adult,{},{}
+599,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+600,111,Moving,Around Mound,Adult,{},{}
+600,112,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+600,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+601,111,Moving,Sand Area,Adult,{},{}
+601,112,High sitting/standing (Vigilant),Around Mound,Adult,{},{}
+601,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+602,111,Dig burrow,Sand Area,Adult,{},{}
+602,112,Moving,Around Mound,Adult,{},{}
+602,66,Moving,Sand Area,Adult,{},{}
+602,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+603,111,Moving,Sand Area,Adult,{66},{66}
+603,112,Moving,Right Sticks Area,Adult,{},{}
+603,66,Moving,Sand Area,Adult,{111},{111}
+603,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+604,111,Dig burrow,Sand Area,Adult,{},{}
+604,112,Moving,Right Sticks Area,Adult,{},{}
+604,66,Moving,Around Mound,Adult,{},{}
+604,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+605,111,Dig burrow,Sand Area,Adult,{},{}
+605,112,Moving,Sand Area,Adult,{},{66}
+605,66,Moving,Around Mound,Adult,{},{112}
+605,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+606,111,Dig burrow,Sand Area,Adult,{},{}
+606,112,Moving,Around Mound,Adult,{},{}
+606,66,Moving,Around Mound,Adult,{},{}
+606,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+607,111,Dig burrow,Sand Area,Adult,{},{}
+607,112,Moving,Sand Area,Adult,{},{}
+607,66,Moving,Right Sticks Area,Adult,{},{}
+607,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+608,111,Dig burrow,Sand Area,Adult,{},{}
+608,112,Dig burrow,Sand Area,Adult,{},{}
+608,66,Moving,Right Sticks Area,Adult,{},{}
+608,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+609,111,Dig burrow,Sand Area,Adult,{},{}
+609,112,Dig burrow,Sand Area,Adult,{},{}
+609,66,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+609,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+610,111,Dig burrow,Sand Area,Adult,{},{}
+610,112,Dig burrow,Sand Area,Adult,{},{}
+610,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+611,111,Dig burrow,Sand Area,Adult,{},{}
+611,112,Moving,Sand Area,Adult,{},{}
+611,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+612,111,Dig burrow,Sand Area,Adult,{},{}
+612,112,Moving,Sand Area,Adult,{},{}
+612,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+613,111,Dig burrow,Sand Area,Adult,{},{}
+613,112,Dig burrow,Sand Area,Adult,{},{}
+613,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+614,111,Dig burrow,Sand Area,Adult,{},{}
+614,112,Dig burrow,Sand Area,Adult,{},{}
+614,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+615,111,Dig burrow,Sand Area,Adult,{},{}
+615,112,Dig burrow,Sand Area,Adult,{},{}
+615,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+616,111,Dig burrow,Sand Area,Adult,{},{}
+616,112,Dig burrow,Sand Area,Adult,{},{}
+616,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+617,111,Moving,Sand Area,Adult,{},{}
+617,112,Dig burrow,Sand Area,Adult,{},{}
+617,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+618,111,Moving,Sand Area,Adult,{},{}
+618,112,Dig burrow,Sand Area,Adult,{},{}
+618,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+619,111,Moving,Sand Area,Adult,{},{}
+619,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+620,111,Moving,Sand Area,Adult,{},{}
+620,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+621,111,Moving,Sand Area,Adult,{},{}
+621,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+622,111,Dig burrow,Sand Area,Adult,{},{}
+622,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+623,111,Dig burrow,Sand Area,Adult,{},{}
+623,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+624,111,Dig burrow,Sand Area,Adult,{},{}
+624,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+625,111,Dig burrow,Sand Area,Adult,{},{}
+625,113,Moving,Sand Area,Adult,{},{}
+625,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+626,111,Dig burrow,Sand Area,Adult,{},{}
+626,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+627,111,Dig burrow,Sand Area,Adult,{},{}
+627,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+628,111,Moving,Sand Area,Adult,{},{}
+628,114,Moving,Sand Area,Adult,{},{}
+628,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+629,111,Dig burrow,Sand Area,Adult,{},{}
+629,114,Moving,Sand Area,Adult,{},{}
+629,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+629,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+630,111,Dig burrow,Sand Area,Adult,{},{}
+630,114,Low sitting/standing (stationary),Sand Area,Adult,{},{}
+630,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+630,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+631,111,Dig burrow,Sand Area,Adult,{},{}
+631,114,Moving,Sand Area,Adult,{},{}
+631,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+631,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+632,111,Dig burrow,Sand Area,Adult,{},{}
+632,114,Moving,Sand Area,Adult,{},{}
+632,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+632,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+633,111,Dig burrow,Sand Area,Adult,{},{114}
+633,114,Dig burrow,Sand Area,Adult,{},{111}
+633,115,Moving,Right Sticks Area,Adult,{},{}
+633,2,Low sitting/standing (stationary),Mound,Adult,{},{}
+634,111,Dig burrow,Sand Area,Adult,{},{114}
+634,114,Dig burrow,Sand Area,Adult,{},{111}
+634,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+634,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+635,111,Dig burrow,Sand Area,Adult,{},{}
+635,114,Moving,Sand Area,Adult,{},{}
+635,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+635,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+636,111,Dig burrow,Sand Area,Adult,{},{}
+636,114,Moving,Sand Area,Adult,{},{}
+636,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+636,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+637,111,Dig burrow,Sand Area,Adult,{},{}
+637,114,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+637,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+637,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+638,111,Dig burrow,Sand Area,Adult,{},{}
+638,114,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+638,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+638,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+639,111,Dig burrow,Sand Area,Adult,{},{}
+639,114,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+639,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+639,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+640,111,Dig burrow,Sand Area,Adult,{},{}
+640,114,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+640,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+640,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+641,111,Dig burrow,Sand Area,Adult,{},{}
+641,114,Moving,Sand Area,Adult,{},{}
+641,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+641,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+642,111,Dig burrow,Sand Area,Adult,{},{}
+642,114,Moving,Sand Area,Adult,{},{}
+642,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+642,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+643,111,Dig burrow,Sand Area,Adult,{},{}
+643,114,Moving,Left Sticks Area,Adult,{},{}
+643,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+643,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+644,111,Dig burrow,Sand Area,Adult,{},{}
+644,114,Moving,Left Sticks Area,Adult,{},{}
+644,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+644,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+645,111,Dig burrow,Sand Area,Adult,{},{}
+645,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+645,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+646,111,Dig burrow,Sand Area,Adult,{},{}
+646,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+646,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+647,111,Dig burrow,Sand Area,Adult,{},{}
+647,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+647,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+648,111,Dig burrow,Sand Area,Adult,{},{}
+648,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+648,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+649,111,Dig burrow,Sand Area,Adult,{},{}
+649,115,High sitting/standing (Vigilant),Right Sticks Area,Adult,{117},{117}
+649,117,Moving,Right Sticks Area,Adult,{115},{115}
+649,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+650,111,Dig burrow,Sand Area,Adult,{},{}
+650,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{117},{117}
+650,116,Moving,Around Mound,Adult,{},{}
+650,117,Moving,Right Sticks Area,Adult,{115},{115}
+650,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+651,111,Dig burrow,Sand Area,Adult,{},{}
+651,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+651,116,Moving,Around Mound,Adult,{},{}
+651,117,Moving,Background,Adult,{},{}
+651,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+652,111,Dig burrow,Sand Area,Adult,{},{}
+652,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+652,116,Moving,Sand Area,Adult,{},{}
+652,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+653,111,Dig burrow,Sand Area,Adult,{},{}
+653,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+653,116,Moving,Sand Area,Adult,{},{}
+653,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+654,111,Dig burrow,Sand Area,Adult,{},{}
+654,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+654,116,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+654,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+655,111,Dig burrow,Sand Area,Adult,{},{}
+655,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+655,116,Moving,Sand Area,Adult,{},{}
+655,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+656,111,Dig burrow,Sand Area,Adult,{},{}
+656,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+656,116,Moving,Sand Area,Adult,{},{}
+656,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+657,111,Dig burrow,Sand Area,Adult,{},{}
+657,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+657,116,Moving,Sand Area,Adult,{},{}
+657,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+658,111,Dig burrow,Sand Area,Adult,{},{}
+658,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+658,116,Moving,Sand Area,Adult,{},{}
+658,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+659,111,Dig burrow,Sand Area,Adult,{},{}
+659,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+659,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+660,111,Dig burrow,Sand Area,Adult,{},{}
+660,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+660,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+661,111,Dig burrow,Sand Area,Adult,{},{}
+661,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+661,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+662,111,Dig burrow,Sand Area,Adult,{},{}
+662,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+662,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+663,111,Dig burrow,Sand Area,Adult,{},{}
+663,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+663,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+664,111,Moving,Sand Area,Adult,{},{}
+664,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+664,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+665,111,Moving,Sand Area,Adult,{},{}
+665,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+665,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+666,111,Dig burrow,Sand Area,Adult,{},{}
+666,115,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+666,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+667,111,Dig burrow,Sand Area,Adult,{},{}
+667,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+668,111,Dig burrow,Sand Area,Adult,{},{}
+668,118,Moving,Right Sticks Area,Adult,{},{}
+668,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+669,111,Dig burrow,Sand Area,Adult,{},{}
+669,118,Moving,Right Sticks Area,Adult,{},{}
+669,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+670,111,Dig burrow,Sand Area,Adult,{},{}
+670,118,Moving,Right Sticks Area,Adult,{},{}
+670,119,Moving,Sand Area,Adult,{},{}
+670,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+671,111,Dig burrow,Sand Area,Adult,{},{}
+671,118,Moving,Right Sticks Area,Adult,{},{}
+671,119,Moving,Sand Area,Adult,{},{}
+671,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+672,111,Dig burrow,Sand Area,Adult,{},{}
+672,118,Moving,Right Sticks Area,Adult,{},{}
+672,119,Moving,Sand Area,Adult,{},{}
+672,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+673,111,Dig burrow,Sand Area,Adult,{},{}
+673,118,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+673,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+674,111,Dig burrow,Sand Area,Adult,{},{}
+674,118,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+674,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+675,111,Dig burrow,Sand Area,Adult,{},{}
+675,118,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+675,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+676,111,Dig burrow,Sand Area,Adult,{},{}
+676,118,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+676,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+677,111,Dig burrow,Sand Area,Adult,{},{}
+677,118,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+677,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+678,111,Dig burrow,Sand Area,Adult,{},{}
+678,118,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+678,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+679,111,Dig burrow,Sand Area,Adult,{},{}
+679,118,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+679,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+680,111,Dig burrow,Sand Area,Adult,{},{}
+680,118,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+680,120,Moving,Right Sand Area,Adult,{},{}
+680,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+681,111,Dig burrow,Sand Area,Adult,{},{}
+681,118,High sitting/standing (Vigilant),Right Sticks Area,Adult,{},{}
+681,120,Moving,Right Sand Area,Adult,{},{}
+681,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+682,111,Moving,Sand Area,Adult,{},{}
+682,118,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{}
+682,121,Carry pup,Mound,Adult,{122},{122}
+682,122,None,Background,Pup,{121},{121}
+682,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+683,111,Moving,Sand Area,Adult,{},{}
+683,118,Low sitting/standing (stationary),Right Sticks Area,Adult,{},{121;122}
+683,121,Carry pup,Background,Adult,{122},{118;122}
+683,122,None,Background,Pup,{121},{118;121}
+683,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+684,111,Dig burrow,Sand Area,Adult,{},{}
+684,118,Low sitting/standing (stationary),Right Sticks Area,Adult,{121;122},{121;122}
+684,121,Moving,Background,Adult,{118;122},{118;122}
+684,122,None,Background,Pup,{118;121},{118;121}
+684,123,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+684,125,Moving,Sand Area,Adult,{},{}
+684,124,Moving,Right Sand Area,Adult,{},{}
+684,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+685,111,Dig burrow,Sand Area,Adult,{},{}
+685,118,Moving,Right Sticks Area,Adult,{122},{122}
+685,122,None,Background,Pup,{118},{118}
+685,123,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+685,125,Moving,Sand Area,Adult,{},{}
+685,124,Moving,Right Sand Area,Adult,{},{}
+685,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+686,111,Dig burrow,Sand Area,Adult,{},{}
+686,118,Interact with pup,Right Sticks Area,Adult,{122},{122}
+686,122,None,Background,Pup,{118},{118}
+686,123,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+686,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+686,112,Dig burrow,Sand Area,Adult,{},{}
+686,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+687,111,Dig burrow,Sand Area,Adult,{},{}
+687,118,Moving,Right Sticks Area,Adult,{121;122},{121;122}
+687,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+687,122,None,Background,Pup,{118;121},{118;121}
+687,123,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+687,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+687,112,Moving,Sand Area,Adult,{},{}
+687,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+688,111,Dig burrow,Sand Area,Adult,{},{}
+688,118,High sitting/standing (Vigilant),Right Sticks Area,Adult,{121;122},{121;122}
+688,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+688,122,None,Background,Pup,{118;121},{118;121}
+688,123,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+688,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+688,112,Moving,Sand Area,Adult,{},{}
+688,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+689,111,Dig burrow,Sand Area,Adult,{},{}
+689,118,High sitting/standing (Vigilant),Right Sticks Area,Adult,{121;122},{121;122}
+689,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+689,122,None,Background,Pup,{118;121},{118;121}
+689,123,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+689,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+689,112,Moving,Sand Area,Adult,{},{}
+689,126,Moving,Sand Area,Adult,{},{}
+689,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+690,111,Dig burrow,Sand Area,Adult,{},{}
+690,118,High sitting/standing (Vigilant),Right Sticks Area,Adult,{121;122},{121;122}
+690,121,Moving,Right Sticks Area,Adult,{118;122},{118;122}
+690,122,None,Background,Pup,{118;121},{118;121}
+690,123,Moving,Sand Area,Adult,{},{}
+690,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+690,112,Moving,Sand Area,Adult,{},{}
+690,126,Moving,Sand Area,Adult,{},{}
+690,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+691,111,Dig burrow,Sand Area,Adult,{},{112}
+691,118,High sitting/standing (Vigilant),Right Sticks Area,Adult,{121;122},{121;122}
+691,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+691,122,None,Background,Pup,{118;121},{118;121}
+691,123,Moving,Sand Area,Adult,{},{}
+691,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+691,112,Moving,Sand Area,Adult,{},{111}
+691,126,Moving,Sand Area,Adult,{},{}
+691,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+692,111,Dig burrow,Sand Area,Adult,{},{}
+692,118,High sitting/standing (Vigilant),Right Sticks Area,Adult,{121;122},{121;122}
+692,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+692,122,None,Background,Pup,{118;121},{118;121}
+692,123,Moving,Sand Area,Adult,{},{}
+692,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+692,112,Moving,Sand Area,Adult,{},{}
+692,126,Dig burrow,Sand Area,Adult,{},{}
+692,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+693,111,Dig burrow,Sand Area,Adult,{},{112}
+693,118,High sitting/standing (Vigilant),Background,Adult,{121;122},{121;122}
+693,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+693,122,None,Background,Pup,{118;121},{118;121}
+693,123,Moving,Sand Area,Adult,{},{}
+693,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+693,112,Moving,Sand Area,Adult,{},{111}
+693,126,Dig burrow,Sand Area,Adult,{},{}
+693,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+694,111,Dig burrow,Sand Area,Adult,{},{}
+694,118,High sitting/standing (Vigilant),Background,Adult,{121;122},{121;122}
+694,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+694,122,None,Background,Pup,{118;121},{118;121}
+694,123,Moving,Sand Area,Adult,{},{}
+694,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+694,112,Dig burrow,Sand Area,Adult,{},{}
+694,126,Moving,Sand Area,Adult,{},{}
+694,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+695,111,Dig burrow,Sand Area,Adult,{},{}
+695,118,High sitting/standing (Vigilant),Background,Adult,{121;122},{121;122}
+695,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+695,122,None,Background,Pup,{118;121},{118;121}
+695,123,Moving,Sand Area,Adult,{},{}
+695,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+695,112,Dig burrow,Sand Area,Adult,{},{}
+695,126,Moving,Sand Area,Adult,{},{}
+695,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+696,111,Dig burrow,Sand Area,Adult,{},{}
+696,118,High sitting/standing (Vigilant),Background,Adult,{121;122},{121;122}
+696,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+696,122,None,Background,Pup,{118;121},{118;121}
+696,123,Moving,Left Sticks Area,Adult,{},{}
+696,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+696,112,Dig burrow,Sand Area,Adult,{},{}
+696,126,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+696,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+697,111,Dig burrow,Sand Area,Adult,{},{}
+697,118,High sitting/standing (Vigilant),Background,Adult,{121;122},{121;122}
+697,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+697,122,None,Background,Pup,{118;121},{118;121}
+697,123,Moving,Around Mound,Adult,{},{}
+697,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+697,112,Dig burrow,Sand Area,Adult,{},{}
+697,126,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+697,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+698,118,High sitting/standing (Vigilant),Background,Adult,{121;122},{121;122}
+698,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+698,122,None,Background,Pup,{118;121},{118;121}
+698,123,Moving,Mound,Adult,{},{}
+698,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+698,112,Dig burrow,Sand Area,Adult,{},{}
+698,126,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+698,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+699,118,High sitting/standing (Vigilant),Background,Adult,{121;122},{121;122}
+699,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+699,122,None,Background,Pup,{118;121},{118;121}
+699,123,Moving,Mound,Adult,{},{}
+699,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+699,112,Dig burrow,Sand Area,Adult,{},{}
+699,126,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+699,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+700,118,High sitting/standing (Vigilant),Background,Adult,{121;122},{121;122}
+700,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+700,122,None,Background,Pup,{118;121},{118;121}
+700,123,Moving,Mound,Adult,{},{}
+700,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+700,112,Dig burrow,Sand Area,Adult,{},{}
+700,126,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+700,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+701,118,High sitting/standing (Vigilant),Background,Adult,{121;122},{121;122}
+701,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+701,122,None,Background,Pup,{118;121},{118;121}
+701,123,Raised Guarding (Vigilant),Mound,Adult,{},{}
+701,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+701,112,Dig burrow,Sand Area,Adult,{},{}
+701,126,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+701,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+702,118,High sitting/standing (Vigilant),Background,Adult,{121;122},{121;122}
+702,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+702,122,None,Background,Pup,{118;121},{118;121}
+702,123,Raised Guarding (Vigilant),Mound,Adult,{},{}
+702,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+702,112,Dig burrow,Sand Area,Adult,{},{}
+702,126,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+702,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+703,118,High sitting/standing (Vigilant),Background,Adult,{121;122},{121;122}
+703,121,Interact with pup,Right Sticks Area,Adult,{118;122},{118;122}
+703,122,None,Background,Pup,{118;121},{118;121}
+703,123,Raised Guarding (Vigilant),Mound,Adult,{},{}
+703,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+703,112,Dig burrow,Sand Area,Adult,{},{}
+703,126,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+703,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+704,118,High sitting/standing (Vigilant),Background,Adult,{121;122},{121;122}
+704,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{118;122},{118;122}
+704,122,None,Background,Pup,{118;121},{118;121}
+704,123,Raised Guarding (Vigilant),Mound,Adult,{},{}
+704,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+704,112,Dig burrow,Sand Area,Adult,{},{}
+704,126,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+704,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+705,118,Moving,Background,Adult,{},{121;122}
+705,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{122},{118;122}
+705,122,None,Background,Pup,{121},{118;121}
+705,123,Raised Guarding (Vigilant),Mound,Adult,{},{}
+705,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+705,112,Dig burrow,Sand Area,Adult,{},{}
+705,126,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+705,2,Raised Guarding (Vigilant),Mound,Adult,{},{}
+706,121,Low sitting/standing (stationary),Right Sticks Area,Adult,{122},{122}
+706,122,None,Background,Pup,{121},{121}
+706,124,High sitting/standing (Vigilant),Right Sand Area,Adult,{},{}
+706,112,Dig burrow,Sand Area,Adult,{},{}
+706,126,High sitting/standing (Vigilant),Sand Area,Adult,{},{}
+706,2,Raised Guarding (Vigilant),Mound,Adult,{},{}

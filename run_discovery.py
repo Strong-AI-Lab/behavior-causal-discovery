@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-from format_data import PandasFormatter, ResultsFormatter
+from format_data import PandasFormatterEnsemble, ResultsFormatter
 
 from tigramite.pcmci import PCMCI
 from tigramite.independence_tests.parcorr import ParCorr
@@ -32,7 +32,8 @@ print(f"Arguments: save={save}, filter={filter}")
 
 
 # Read data
-data = pd.read_csv('data/cam2_2022_10_20_GH200023.csv')
+data_files = [name for name in os.listdir('data/train') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)]
+data = [pd.read_csv(f'data/train/{name}') for name in data_files]
 print(data)
 
 
@@ -44,7 +45,7 @@ low_filter = 0.075
 
 
 # Format data
-formatter = PandasFormatter(data)
+formatter = PandasFormatterEnsemble(data)
 sequences = formatter.format(event_driven=True)
 sequences = {i: sequence for i, sequence in enumerate(sequences)}
 variables = formatter.get_formatted_columns()
