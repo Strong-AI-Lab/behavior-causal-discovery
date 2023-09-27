@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-from format_data import PandasFormatterEnsemble, ResultsFormatter
+from src.data.format_data import PandasFormatterEnsemble, ResultsFormatter
 
 from tigramite.pcmci import PCMCI
 from tigramite.independence_tests.parcorr import ParCorr

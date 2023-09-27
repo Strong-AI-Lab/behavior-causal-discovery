@@ -4,11 +4,12 @@ import os
 import re
 import pandas as pd
 import numpy as np
-from format_data import PandasFormatterEnsemble
-import tqdm
 
-from dataset import SeriesDataset
-from model import TSLinearCausal
+from src.data.dataset import SeriesDataset
+from src.data.format_data import PandasFormatterEnsemble
+from src.model.model import TSLinearCausal
+from src.evaluate.evaluation import direct_prediction_accuracy, generate_series
+from src.evaluate.visualisation import generate_time_occurences, generate_sankey
 
 import torch
 from torch.utils.data import DataLoader
@@ -31,7 +32,7 @@ print(data)
 
 
 # Set constants
-tau_max = 5
+TAU_MAX = 5
 
 
 # Format data
@@ -44,7 +45,7 @@ print(f"Graph with {num_var} variables: {variables}.")
 
 
 # Create dataset
-dataset = SeriesDataset(sequences, tau_max=tau_max+1)
+dataset = SeriesDataset(sequences, tau_max=TAU_MAX+1)
 
 
 # Get model
@@ -58,11 +59,11 @@ graph[np.where(graph == "-->")] = "1"
 graph = graph.astype(np.int64)
 graph = torch.from_numpy(graph).float()
 
-model = TSLinearCausal(num_var, tau_max+1, weights=graph*val_matrix)
-loader = DataLoader(dataset, batch_size=4, shuffle=True)
+model = TSLinearCausal(num_var, TAU_MAX+1, weights=graph*val_matrix)
+random_loader = DataLoader(dataset, batch_size=4, shuffle=True)
 
 
-# Create mask
+# Mask context variables for predition
 masked_variables = [
     'foraging_zone', 
     'background_zone', 
@@ -129,17 +130,37 @@ masked_idxs = [variables.index(var) for var in masked_variables]
 print(f"Masking {len(masked_idxs)} variables: {masked_variables}")
 
 
+
 # Evaluate model
-acc = torch.tensor(0.0)
-for i, (x, y) in enumerate(tqdm.tqdm(loader)):
-    # Make prediction
-    y_pred = model(x)
 
-    # Remove masked variables
-    y_pred = y_pred[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
-    y = y[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
+# Compute direct prediction accuracy
+acc = direct_prediction_accuracy(model, random_loader, num_var, masked_idxs)
+print(f"Direct Prediction Accuracy: {acc}")
 
-    # Calculate accuracy
-    acc = acc * i / (i+1) + (y_pred.argmax(dim=-1) == y.argmax(dim=-1)).float().mean() / (i+1)
 
-print(f"Accuracy: {acc}")
+# Compute series prediction metrics
+series = generate_series(model, dataset, num_var, masked_idxs)
+nb_series = len(series)
+print(f"Generated {nb_series} series.")
+
+MIN_LENGTH = 30
+predicted_variable_names = [re.sub("_", " ", re.sub(r"\(.*\)", "", v)) for i, v in enumerate(variables) if i not in masked_idxs]
+nb_variables = len(predicted_variable_names)
+series = {k: v for k, v in series.items() if len(v) >= MIN_LENGTH}
+print(f"Removed {nb_series - len(series)}/{nb_series} series with length < {MIN_LENGTH}.")
+
+
+# Visualise time occurences
+generate_time_occurences(series, predicted_variable_names, save, nb_variables, MIN_LENGTH)
+
+# Visualise Sankey flows
+generate_sankey(series, predicted_variable_names, save, nb_variables, MIN_LENGTH)
+
+print(f"Figures saved in results/{save.split('/')[-1]}.")
+
+
+# ARIMA test (e.g. https://www.machinelearningplus.com/time-series/arima-model-time-series-forecasting-python/, https://machinelearningmastery.com/arima-for-time-series-forecasting-with-python/)
+
+# Granger test (e.g. https://www.rdocumentation.org/packages/lmtest/versions/0.9-35/topics/grangertest)
+
+# Kolmogorov-Smirnov test (e.g. https://towardsdatascience.com/how-to-compare-two-distributions-in-practice-8c676904a285)

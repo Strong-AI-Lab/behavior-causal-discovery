@@ -7,9 +7,9 @@ import os
 import  tqdm
 import time
 
-from format_data import PandasFormatterEnsemble
-from dataset import SeriesDataset
-from model import TSLinearCausal
+from src.data.format_data import PandasFormatterEnsemble
+from src.data.dataset import SeriesDataset
+from src.model.model import TSLinearCausal
 
 import torch
 import torch.nn.functional as F
@@ -145,7 +145,7 @@ print(f"Masking {len(masked_idxs)} variables: {masked_variables}")
 # Generate data
 initial = []
 generated = []
-for x, y in tqdm.tqdm(loader):
+for x, y, _ in tqdm.tqdm(loader):
     y_pred = model(x)
     y_pred = F.gumbel_softmax(y_pred.log(), hard=True)
     y_pred = torch.cat((x[:,:1,:], y_pred[:,:-1,:]), dim=1)
