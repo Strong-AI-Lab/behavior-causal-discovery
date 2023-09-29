@@ -10,7 +10,7 @@ from src.data.format_data import PandasFormatterEnsemble
 from src.data.constants import MASKED_VARIABLES
 from src.model.model import TSLinearCausal
 from src.evaluate.evaluation import direct_prediction_accuracy, generate_series
-from src.evaluate.visualisation import generate_time_occurences, generate_sankey
+from src.evaluate.visualisation import generate_time_occurences, generate_sankey, generate_clusters
 
 import torch
 from torch.utils.data import DataLoader
@@ -72,34 +72,35 @@ print(f"Masking {len(masked_idxs)} variables: {MASKED_VARIABLES}")
 
 # Evaluate model
 
-# Compute direct prediction accuracy
-acc = direct_prediction_accuracy(model, random_loader, num_var, masked_idxs)
-print(f"Direct Prediction Accuracy: {acc}")
+
+model.eval()
+with torch.no_grad():
+    # Compute direct prediction accuracy
+    acc = direct_prediction_accuracy(model, random_loader, num_var, masked_idxs)
+    print(f"Direct Prediction Accuracy: {acc}")
 
 
-# Compute series prediction metrics
-series = generate_series(model, dataset, num_var, masked_idxs)
-nb_series = len(series)
-print(f"Generated {nb_series} series.")
+    # Compute series prediction metrics
+    series = generate_series(model, dataset, num_var, masked_idxs)
+    nb_series = len(series)
+    print(f"Generated {nb_series} series.")
 
-MIN_LENGTH = 30
-predicted_variable_names = [re.sub("_", " ", re.sub(r"\(.*\)", "", v)) for i, v in enumerate(variables) if i not in masked_idxs]
-nb_variables = len(predicted_variable_names)
-series = {k: v for k, v in series.items() if len(v) >= MIN_LENGTH}
-print(f"Removed {nb_series - len(series)}/{nb_series} series with length < {MIN_LENGTH}.")
+    MIN_LENGTH = 30
+    series = {k: v for k, v in series.items() if len(v) >= MIN_LENGTH}
+    print(f"Removed {nb_series - len(series)}/{nb_series} series with length < {MIN_LENGTH}.")
 
 
-# Visualise time occurences
-generate_time_occurences(series, predicted_variable_names, save, nb_variables, MIN_LENGTH)
+    # Visualise time occurences
+    predicted_variable_names = [re.sub("_", " ", re.sub(r"\(.*\)", "", v)) for i, v in enumerate(variables) if i not in masked_idxs]
+    nb_variables = len(predicted_variable_names)
+    generate_time_occurences(series, predicted_variable_names, save, nb_variables, MIN_LENGTH)
 
-# Visualise Sankey flows
-generate_sankey(series, predicted_variable_names, save, nb_variables, MIN_LENGTH)
+    # Visualise Sankey flows
+    generate_sankey(series, predicted_variable_names, save, nb_variables, MIN_LENGTH)
 
-print(f"Figures saved in results/{save.split('/')[-1]}.")
+    # Visualise series clustering
+    generate_clusters(series, save, nb_variables, MIN_LENGTH)
+
+    print(f"Figures saved in results/{save.split('/')[-1]}.")
 
 
-# ARIMA test (e.g. https://www.machinelearningplus.com/time-series/arima-model-time-series-forecasting-python/, https://machinelearningmastery.com/arima-for-time-series-forecasting-with-python/)
-
-# Granger test (e.g. https://www.rdocumentation.org/packages/lmtest/versions/0.9-35/topics/grangertest)
-
-# Kolmogorov-Smirnov test (e.g. https://towardsdatascience.com/how-to-compare-two-distributions-in-practice-8c676904a285)

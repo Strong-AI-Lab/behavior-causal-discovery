@@ -4,6 +4,11 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import numpy as np
 
+from sklearn.cluster import BisectingKMeans, KMeans
+from sklearn.manifold import MDS
+import torch
+
+
 COLOR_TAGS = [
     "rgba(31, 119, 180, 0.8)",
     "rgba(255, 127, 14, 0.8)",
@@ -55,6 +60,7 @@ def generate_time_occurences(series, predicted_variable_names, save, nb_variable
 
         os.makedirs(f"results/{save.split('/')[-1]}", exist_ok=True)
         plt.savefig(f"results/{save.split('/')[-1]}/{save_file}.png", bbox_inches='tight')
+
 
 
 def generate_sankey(series, predicted_variable_names, save, nb_variables, min_length):
@@ -121,3 +127,37 @@ def generate_sankey(series, predicted_variable_names, save, nb_variables, min_le
         ))]) 
         fig_flat.update_layout(title_text=save_file, font_size=10, width=900, height=1800)
         fig_flat.write_image(f"results/{save.split('/')[-1]}/{save_file}_flat.png")
+
+
+
+CLUSTERING_ALGORITHMS = {
+    "Bisecting K-Means": BisectingKMeans,
+    "K-Means": KMeans,
+}
+def generate_clusters(series, save, nb_variables, min_length, cluster_lists=None):
+    if cluster_lists is None:
+        cluster_lists = [4, 8, 16]
+    
+    data_pred = torch.stack([torch.stack([y_pred[-1] for y_pred, y in s])[:min_length,:].view((nb_variables*min_length,)) for s in series.values()]).detach().numpy()
+    data_truth = torch.stack([torch.stack([y[-1] for y_pred, y in s])[:min_length,:].view((nb_variables*min_length,)) for s in series.values()]).detach().numpy()
+
+    embedding = MDS(n_components=2)
+    for data, file_name in [(data_pred, "prediction_clusters"), (data_truth, "true_clusters")]: # predicted series + ground truth series
+        data_embed = embedding.fit_transform(data)
+        fig, axs = plt.subplots(
+            len(CLUSTERING_ALGORITHMS), len(cluster_lists), figsize=(12, 5)
+        )
+        axs = axs.T
+        for i, (algorithm_name, Algorithm) in enumerate(CLUSTERING_ALGORITHMS.items()):
+            for j, n_clusters in enumerate(cluster_lists):
+                        algo = Algorithm(n_clusters=n_clusters, n_init=3)
+                        # algo.fit(data)
+                        algo.fit(data_embed)
+                        centers = algo.cluster_centers_
+
+                        axs[j, i].scatter(data_embed[:, 0], data_embed[:, 1], s=10, c=algo.labels_)
+                        axs[j, i].scatter(centers[:, 0], centers[:, 1], c="r", s=20)
+                        axs[j, i].set_title(f"{algorithm_name} : {n_clusters} clusters")
+        plt.savefig(f"results/{save.split('/')[-1]}/{file_name}.png")
+
+    
