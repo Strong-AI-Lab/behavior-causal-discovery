@@ -21,7 +21,7 @@ def direct_prediction_accuracy(model, loader, num_var, masked_idxs):
     return acc
 
 
-# Single individual Series generation
+# Single individual Series generation (context variables are left unchanged)
 def generate_series(model, dataset, num_var, masked_idxs):
     prev_ind = -1
     series = {}
@@ -35,7 +35,7 @@ def generate_series(model, dataset, num_var, masked_idxs):
         # Make prediction
         y_pred = model(x.unsqueeze(0))
         y_pred = F.gumbel_softmax(y_pred.log(), hard=True)
-        y_pred = torch.cat((x[:1,:], y_pred[0,:-1,:]), dim=0)
+        y_pred = torch.cat((x[1:,:], y_pred[-1,-1:,:]), dim=0)
 
         # Remove masked variables
         y_pred = y_pred[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
@@ -45,4 +45,4 @@ def generate_series(model, dataset, num_var, masked_idxs):
         if ind not in series:
             series[ind] = []
         series[ind].append((y_pred, y))
-    return series
+    return series # ((tau, num_var) (tau, num_var))
