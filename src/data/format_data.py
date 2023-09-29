@@ -57,8 +57,9 @@ class PandasFormatter():
 
         behaviours = PandasFormatter.format_df(self.df[self.behaviour_key])
         behaviours = behaviours.unique()
+        behaviours = [b for b in behaviours if isinstance(b,str)]
 
-        self.behaviours = behaviours
+        self.behaviours = sorted(behaviours)
         return behaviours
     
     def get_zones(self):
@@ -67,8 +68,9 @@ class PandasFormatter():
 
         zones = PandasFormatter.format_df(self.df[self.zone_key])
         zones = zones.unique()
+        zones = [z for z in zones if isinstance(z,str)]
 
-        self.zones = zones
+        self.zones = sorted(zones)
         return zones
     
     def get_formatted_columns(self):
@@ -76,8 +78,8 @@ class PandasFormatter():
         zones = self.get_zones()
 
         prefixes = ['', 'close_neighbour_', 'distant_neighbour_']
-        columns = [''.join([prefix, z, '_zone']) for prefix in prefixes for z in zones if isinstance(z,str)] + \
-                [''.join([prefix,b]) for prefix in prefixes for b in behaviours if isinstance(b,str)]
+        columns = [''.join([prefix, z, '_zone']) for prefix in prefixes for z in zones] + \
+                [''.join([prefix,b]) for prefix in prefixes for b in behaviours]
         
         return columns
 
