@@ -8,6 +8,7 @@ import  tqdm
 import time
 
 from src.data.format_data import PandasFormatterEnsemble
+from src.data.constants import MASKED_VARIABLES
 from src.data.dataset import SeriesDataset
 from src.model.model import TSLinearCausal
 
@@ -75,71 +76,9 @@ loader = DataLoader(dataset,sampler=RandomSampler(range(len(dataset)), num_sampl
 
 
 # Create mask
-masked_variables = [
-    'foraging_zone', 
-    'background_zone', 
-    'waiting_area_zone', 
-    'door_zone', 
-    'sand_area_zone', 
-    'mound_zone', 
-    'left_sticks_area_zone', 
-    'right_sand_area_zone', 
-    'right_sticks_area_zone', 
-    'around_mound_zone', 
-    'close_neighbour_foraging_zone', 
-    'close_neighbour_background_zone', 
-    'close_neighbour_waiting_area_zone', 
-    'close_neighbour_door_zone', 
-    'close_neighbour_sand_area_zone', 
-    'close_neighbour_mound_zone', 
-    'close_neighbour_left_sticks_area_zone', 
-    'close_neighbour_right_sand_area_zone', 
-    'close_neighbour_right_sticks_area_zone', 
-    'close_neighbour_around_mound_zone', 
-    'distant_neighbour_foraging_zone', 
-    'distant_neighbour_background_zone', 
-    'distant_neighbour_waiting_area_zone', 
-    'distant_neighbour_door_zone', 
-    'distant_neighbour_sand_area_zone', 
-    'distant_neighbour_mound_zone', 
-    'distant_neighbour_left_sticks_area_zone', 
-    'distant_neighbour_right_sand_area_zone', 
-    'distant_neighbour_right_sticks_area_zone', 
-    'distant_neighbour_around_mound_zone',
-    'close_neighbour_moving', 
-    'close_neighbour_foraging', 
-    'close_neighbour_high_sitting/standing_(vigilant)', 
-    'close_neighbour_raised_guarding_(vigilant)', 
-    'close_neighbour_low_sitting/standing_(stationary)', 
-    'close_neighbour_groom', 
-    'close_neighbour_human_interaction', 
-    'close_neighbour_playfight', 
-    'close_neighbour_sunbathe', 
-    'close_neighbour_interacting_with_foreign_object', 
-    'close_neighbour_dig_burrow', 
-    'close_neighbour_lying/resting_(stationary)', 
-    'close_neighbour_allogroom', 
-    'close_neighbour_carry_pup', 
-    'close_neighbour_interact_with_pup', 
-    'distant_neighbour_moving', 
-    'distant_neighbour_foraging', 
-    'distant_neighbour_high_sitting/standing_(vigilant)', 
-    'distant_neighbour_raised_guarding_(vigilant)', 
-    'distant_neighbour_low_sitting/standing_(stationary)', 
-    'distant_neighbour_groom', 
-    'distant_neighbour_human_interaction', 
-    'distant_neighbour_playfight', 
-    'distant_neighbour_sunbathe', 
-    'distant_neighbour_interacting_with_foreign_object', 
-    'distant_neighbour_dig_burrow', 
-    'distant_neighbour_lying/resting_(stationary)', 
-    'distant_neighbour_allogroom', 
-    'distant_neighbour_carry_pup', 
-    'distant_neighbour_interact_with_pup'
-    ]
-masked_idxs = [variables.index(var) for var in masked_variables]
+masked_idxs = [variables.index(var) for var in MASKED_VARIABLES]
 masked_num_var = num_var - len(masked_idxs)
-print(f"Masking {len(masked_idxs)} variables: {masked_variables}")
+print(f"Masking {len(masked_idxs)} variables: {MASKED_VARIABLES}")
 
 
 # Generate data
@@ -190,7 +129,7 @@ def compute_ecdf(data):
     ecdf = np.cumsum(data) if n == 0 else np.cumsum(data) / n
     return ecdf
     
-variable_names = [name for name in variables if name not in masked_variables]
+variable_names = [name for name in variables if name not in MASKED_VARIABLES]
 for i in range(masked_num_var):
     ks_values = []
     for batch in range(nb_seeds):

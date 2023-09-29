@@ -7,6 +7,7 @@ import numpy as np
 
 from src.data.dataset import SeriesDataset
 from src.data.format_data import PandasFormatterEnsemble
+from src.data.constants import MASKED_VARIABLES
 from src.model.model import TSLinearCausal
 from src.evaluate.evaluation import direct_prediction_accuracy, generate_series
 from src.evaluate.visualisation import generate_time_occurences, generate_sankey
@@ -64,70 +65,8 @@ random_loader = DataLoader(dataset, batch_size=4, shuffle=True)
 
 
 # Mask context variables for predition
-masked_variables = [
-    'foraging_zone', 
-    'background_zone', 
-    'waiting_area_zone', 
-    'door_zone', 
-    'sand_area_zone', 
-    'mound_zone', 
-    'left_sticks_area_zone', 
-    'right_sand_area_zone', 
-    'right_sticks_area_zone', 
-    'around_mound_zone', 
-    'close_neighbour_foraging_zone', 
-    'close_neighbour_background_zone', 
-    'close_neighbour_waiting_area_zone', 
-    'close_neighbour_door_zone', 
-    'close_neighbour_sand_area_zone', 
-    'close_neighbour_mound_zone', 
-    'close_neighbour_left_sticks_area_zone', 
-    'close_neighbour_right_sand_area_zone', 
-    'close_neighbour_right_sticks_area_zone', 
-    'close_neighbour_around_mound_zone', 
-    'distant_neighbour_foraging_zone', 
-    'distant_neighbour_background_zone', 
-    'distant_neighbour_waiting_area_zone', 
-    'distant_neighbour_door_zone', 
-    'distant_neighbour_sand_area_zone', 
-    'distant_neighbour_mound_zone', 
-    'distant_neighbour_left_sticks_area_zone', 
-    'distant_neighbour_right_sand_area_zone', 
-    'distant_neighbour_right_sticks_area_zone', 
-    'distant_neighbour_around_mound_zone',
-    'close_neighbour_moving', 
-    'close_neighbour_foraging', 
-    'close_neighbour_high_sitting/standing_(vigilant)', 
-    'close_neighbour_raised_guarding_(vigilant)', 
-    'close_neighbour_low_sitting/standing_(stationary)', 
-    'close_neighbour_groom', 
-    'close_neighbour_human_interaction', 
-    'close_neighbour_playfight', 
-    'close_neighbour_sunbathe', 
-    'close_neighbour_interacting_with_foreign_object', 
-    'close_neighbour_dig_burrow', 
-    'close_neighbour_lying/resting_(stationary)', 
-    'close_neighbour_allogroom', 
-    'close_neighbour_carry_pup', 
-    'close_neighbour_interact_with_pup', 
-    'distant_neighbour_moving', 
-    'distant_neighbour_foraging', 
-    'distant_neighbour_high_sitting/standing_(vigilant)', 
-    'distant_neighbour_raised_guarding_(vigilant)', 
-    'distant_neighbour_low_sitting/standing_(stationary)', 
-    'distant_neighbour_groom', 
-    'distant_neighbour_human_interaction', 
-    'distant_neighbour_playfight', 
-    'distant_neighbour_sunbathe', 
-    'distant_neighbour_interacting_with_foreign_object', 
-    'distant_neighbour_dig_burrow', 
-    'distant_neighbour_lying/resting_(stationary)', 
-    'distant_neighbour_allogroom', 
-    'distant_neighbour_carry_pup', 
-    'distant_neighbour_interact_with_pup'
-    ]
-masked_idxs = [variables.index(var) for var in masked_variables]
-print(f"Masking {len(masked_idxs)} variables: {masked_variables}")
+masked_idxs = [variables.index(var) for var in MASKED_VARIABLES]
+print(f"Masking {len(masked_idxs)} variables: {MASKED_VARIABLES}")
 
 
 
