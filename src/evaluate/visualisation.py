@@ -134,12 +134,12 @@ CLUSTERING_ALGORITHMS = {
     "Bisecting K-Means": BisectingKMeans,
     "K-Means": KMeans,
 }
-def generate_clusters(series, save, nb_variables, min_length, cluster_lists=None):
+def generate_clusters(series, save, nb_variables, tau, cluster_lists=None):
     if cluster_lists is None:
         cluster_lists = [4, 8, 16]
     
-    data_pred = torch.stack([torch.stack([y_pred[-1] for y_pred, y in s])[:min_length,:].view((nb_variables*min_length,)) for s in series.values()]).detach().numpy()
-    data_truth = torch.stack([torch.stack([y[-1] for y_pred, y in s])[:min_length,:].view((nb_variables*min_length,)) for s in series.values()]).detach().numpy()
+    data_pred = torch.stack([y_pred.view((nb_variables*tau,)) for s in series.values() for y_pred, y in s]).detach().numpy()
+    data_truth = torch.stack([y.view((nb_variables*tau,)) for s in series.values() for y_pred, y in s]).detach().numpy()
 
     embedding = MDS(n_components=2)
     for data, file_name in [(data_pred, "prediction_clusters"), (data_truth, "true_clusters")]: # predicted series + ground truth series

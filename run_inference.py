@@ -99,7 +99,7 @@ with torch.no_grad():
     generate_sankey(series, predicted_variable_names, save, nb_variables, MIN_LENGTH)
 
     # Visualise series clustering
-    generate_clusters(series, save, nb_variables, MIN_LENGTH)
+    generate_clusters(series, save, nb_variables, TAU_MAX+1)
 
     print(f"Figures saved in results/{save.split('/')[-1]}.")
 
