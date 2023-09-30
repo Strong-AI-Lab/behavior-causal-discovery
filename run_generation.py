@@ -86,12 +86,13 @@ initial = []
 generated = []
 for x, y, _ in tqdm.tqdm(loader):
     y_pred = model(x)
-    y_pred = F.gumbel_softmax(y_pred.log(), hard=True)
-    y_pred = torch.cat((x[:,:1,:], y_pred[:,:-1,:]), dim=1)
 
     # Remove masked variables
     x = x[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
     y_pred = y_pred[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
+    
+    y_pred = F.gumbel_softmax(y_pred.log(), hard=True)
+    y_pred = torch.cat((x[:,1:,:], y_pred[:,-1:,:]), dim=0)
 
     initial.append(x[0].detach().clone()) # batchsize is 1
     generated.append(y_pred[0].detach().clone())

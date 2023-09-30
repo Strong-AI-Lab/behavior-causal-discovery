@@ -2,6 +2,7 @@
 import torch
 
 
+# Causal time series prediction model
 class TSLinearCausal(torch.nn.Module):
     def __init__(self, num_variables, lookback, weights : torch.Tensor = None):
         super().__init__()
@@ -17,6 +18,7 @@ class TSLinearCausal(torch.nn.Module):
         batch_size = x.shape[0] # x shape is (batch_size, lookback, num_variables)
         x = x.view((batch_size,1, self.num_variables*self.lookback))
         x = self.conv(x)[:,:,:self.lookback].transpose(1,2)
-        x = x.relu().softmax(dim=-1)
+        # x = x.relu().softmax(dim=-1)
+        x = x.relu()
 
         return x

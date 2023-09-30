@@ -16,6 +16,8 @@ def direct_prediction_accuracy(model, loader, num_var, masked_idxs):
         y_pred = y_pred[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
         y = y[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
 
+        y_pred = y_pred.softmax(dim=-1)
+
         # Calculate accuracy
         acc = acc * i / (i+1) + (y_pred.argmax(dim=-1) == y.argmax(dim=-1)).float().mean() / (i+1)
     return acc
@@ -33,13 +35,15 @@ def generate_series(model, dataset, num_var, masked_idxs):
             x = torch.cat((series[ind][-1][0], x_obs), dim=1)
 
         # Make prediction
-        y_pred = model(x.unsqueeze(0))
-        y_pred = F.gumbel_softmax(y_pred.log(), hard=True)
-        y_pred = torch.cat((x[1:,:], y_pred[-1,-1:,:]), dim=0)
+        y_pred = model(x.unsqueeze(0))[0]
 
         # Remove masked variables
         y_pred = y_pred[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
         y = y[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
+        x = x[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
+
+        y_pred = F.gumbel_softmax(y_pred.log(), hard=True)
+        y_pred = torch.cat((x[1:,:], y_pred[-1:,:]), dim=0)
 
         # Update series
         if ind not in series:
