@@ -9,7 +9,7 @@ from src.data.dataset import SeriesDataset
 from src.data.format_data import PandasFormatterEnsemble
 from src.data.constants import MASKED_VARIABLES
 from src.model.model import TSLinearCausal
-from src.evaluate.evaluation import direct_prediction_accuracy, generate_series
+from src.evaluate.evaluation import direct_prediction_accuracy, mutual_information, generate_series
 from src.evaluate.visualisation import generate_time_occurences, generate_sankey, generate_clusters
 
 import torch
@@ -78,6 +78,10 @@ with torch.no_grad():
     # Compute direct prediction accuracy
     acc = direct_prediction_accuracy(model, random_loader, num_var, masked_idxs)
     print(f"Direct Prediction Accuracy: {acc}")
+
+    # Compute conditional mutual information
+    cmi = mutual_information(model, random_loader, num_var, masked_idxs)
+    print(f"Mutual Information: {cmi}")
 
 
     # Compute series prediction metrics
