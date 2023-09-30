@@ -28,3 +28,23 @@ class SeriesDataset(Dataset): # Switch to pytorch_forecasting.data.timeseries.Ti
     
     def __getitem__(self, idx):
         return self.x[idx], self.y[idx], self.individual[idx]
+    
+
+
+class DiscriminatorDataset(Dataset):
+
+    def __init__(self, series):
+        self.x = []
+        self.y = []
+        for _, s in series.items():
+            for y_pred, y_truth in s:
+                self.x.append(y_pred)
+                self.x.append(y_truth)
+                self.y.append(1)
+                self.y.append(0)
+
+    def __len__(self):
+        return len(self.x)
+    
+    def __getitem__(self, idx):
+        return self.x[idx], self.y[idx]

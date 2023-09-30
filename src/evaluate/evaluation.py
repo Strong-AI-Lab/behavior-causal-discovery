@@ -60,7 +60,6 @@ def mutual_information(model, loader, num_var, masked_idxs):
     joint_p_y_y_pred = (y_freq.unsqueeze(1).repeat(1,y_pred_given_y.size(-1)) * y_pred_given_y).view(((num_var - len(masked_idxs))**2,))# Compute the joint probability of y_pred and y: p(y_pred, y) = p(y_pred|y) * p(y)
 
     # Calculate mutual information I(y_pred; y) = H(y_pred) + H(y) - H(y_pred, y)
-    print(f"MI = H(y_pred) + H(y) - H(y_pred, y) = {entropy(p_y_pred, num_var)} + {entropy(p_y, num_var)} - {entropy(joint_p_y_y_pred, num_var)}")
     mi = entropy(p_y_pred, num_var) + entropy(p_y, num_var) - entropy(joint_p_y_y_pred, num_var)
 
     return mi
