@@ -8,7 +8,7 @@ import numpy as np
 from src.data.dataset import SeriesDataset, DiscriminatorDataset
 from src.data.format_data import PandasFormatterEnsemble
 from src.data.constants import MASKED_VARIABLES
-from src.model.model import TSLinearCausal, LSTMDiscriminator, TransformerDiscriminator
+from src.model.model import TSLinearCausal, DISCRIMINATORS, MODELS
 from src.evaluate.evaluation import direct_prediction_accuracy, generate_series
 from src.evaluate.visualisation import generate_time_occurences, generate_sankey
 
@@ -16,10 +16,6 @@ import torch
 from torch.utils.data import DataLoader
 import pytorch_lightning as pl
 
-DISCRIMINATORS = {
-    "lstm": LSTMDiscriminator,
-    "transformer": TransformerDiscriminator
-}
 
 
 # Parse arguments
@@ -28,6 +24,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('save', type=str, help='Load the causal graph from a save folder.')
 parser.add_argument('--discriminator_save', type=str, default=None, help='If provided, loads the discriminator from a save folder instead of running the algorithm again.')
 parser.add_argument('--discriminator_type', type=str, default="lstm", help=f'Type of discriminator to use. Options: {",".join(DISCRIMINATORS.keys())}.')
+parser.add_argument('--model_type', type=str, default="causal", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
 args = parser.parse_args()
 
 save = args.save
@@ -37,6 +34,7 @@ if args.discriminator_save is not None:
     print(f"Arguments: discriminator_save={discriminator_save}")
 
 assert args.discriminator_type in DISCRIMINATORS.keys(), f"Discriminator type {args.discriminator_type} not supported. Options: {','.join(DISCRIMINATORS.keys())}."
+assert args.model_type in MODELS.keys(), f"Model type {args.model_type} not supported. Options: {','.join(MODELS.keys())}."
 
 
 # Read data
@@ -77,16 +75,22 @@ if args.discriminator_save is None:
 
 # Get model
 print(f"Save provided. Loading results from {save}...")
-val_matrix = np.load(f'{save}/val_matrix.npy')
-val_matrix = torch.nan_to_num(torch.from_numpy(val_matrix).float())
+if args.model_type == "causal":
+    print("Causal model detected.")
+    val_matrix = np.load(f'{save}/val_matrix.npy')
+    val_matrix = torch.nan_to_num(torch.from_numpy(val_matrix).float())
 
-graph = np.load(f'{save}/graph.npy')
-graph[np.where(graph != "-->")] = "0"
-graph[np.where(graph == "-->")] = "1"
-graph = graph.astype(np.int64)
-graph = torch.from_numpy(graph).float()
+    graph = np.load(f'{save}/graph.npy')
+    graph[np.where(graph != "-->")] = "0"
+    graph[np.where(graph == "-->")] = "1"
+    graph = graph.astype(np.int64)
+    graph = torch.from_numpy(graph).float()
 
-model = TSLinearCausal(num_var, TAU_MAX+1, weights=graph*val_matrix)
+    model = TSLinearCausal(num_var, TAU_MAX+1, weights=graph*val_matrix)
+else:
+    print("Parametric model detected.")
+    model = MODELS[args.model_type].load_from_checkpoint(save)
+    model.eval()
 
 
 # Mask context variables for predition
@@ -130,7 +134,7 @@ else:
     train_loader = DataLoader(train_discr_dataset, batch_size=4, shuffle=True)
     trainer.fit(discriminator, train_loader)
 
-# # test model against discriminator
+# Test model against discriminator
 predictions = trainer.predict(discriminator, test_loader)
 accuracy = []
 for y_pred, (x, y) in zip(predictions, test_loader):

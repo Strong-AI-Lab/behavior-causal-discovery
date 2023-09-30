@@ -226,3 +226,16 @@ class TransformerDiscriminator(pl.LightningModule):
     
     def backward(self, loss):
         loss.backward(retain_graph=True)
+
+
+
+MODELS = {
+    "causal": TSLinearCausal,
+    "lstm": LSTMPredictor,
+    "transformer": TransformerPredictor
+}
+
+DISCRIMINATORS = {
+    "lstm": LSTMDiscriminator,
+    "transformer": TransformerDiscriminator
+}
