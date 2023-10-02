@@ -8,7 +8,7 @@ import numpy as np
 from src.data.dataset import SeriesDataset
 from src.data.format_data import PandasFormatterEnsemble
 from src.data.constants import MASKED_VARIABLES
-from src.model.model import TSLinearCausal
+from src.model.model import TSLinearCausal, MODELS
 from src.evaluate.evaluation import direct_prediction_accuracy, mutual_information, generate_series
 from src.evaluate.visualisation import generate_time_occurences, generate_sankey, generate_clusters
 
@@ -20,10 +20,13 @@ from torch.utils.data import DataLoader
 print("Parsing arguments..")
 parser = argparse.ArgumentParser()
 parser.add_argument('save', type=str, help='Load the causal graph from a save folder.')
+parser.add_argument('--model_type', type=str, default="causal", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
 args = parser.parse_args()
 
 save = args.save
 print(f"Arguments: save={save}")
+if save.endswith('/'):
+    save = save[:-1]
 
 
 # Read data
@@ -47,21 +50,34 @@ print(f"Graph with {num_var} variables: {variables}.")
 
 # Create dataset
 dataset = SeriesDataset(sequences, tau_max=TAU_MAX+1)
+random_loader = DataLoader(dataset, batch_size=4, shuffle=True)
 
 
 # Get model
-print(f"Save provided. Loading results from {save}...")
-val_matrix = np.load(f'{save}/val_matrix.npy')
-val_matrix = torch.nan_to_num(torch.from_numpy(val_matrix).float())
+print(f"Save provided. Loading {args.model_type} model from {save}...")
+if args.model_type == "causal":
+    print("Causal model detected.")
+    val_matrix = np.load(f'{save}/val_matrix.npy')
+    val_matrix = torch.nan_to_num(torch.from_numpy(val_matrix).float())
 
-graph = np.load(f'{save}/graph.npy')
-graph[np.where(graph != "-->")] = "0"
-graph[np.where(graph == "-->")] = "1"
-graph = graph.astype(np.int64)
-graph = torch.from_numpy(graph).float()
+    graph = np.load(f'{save}/graph.npy')
+    graph[np.where(graph != "-->")] = "0"
+    graph[np.where(graph == "-->")] = "1"
+    graph = graph.astype(np.int64)
+    graph = torch.from_numpy(graph).float()
 
-model = TSLinearCausal(num_var, TAU_MAX+1, weights=graph*val_matrix)
-random_loader = DataLoader(dataset, batch_size=4, shuffle=True)
+    model = TSLinearCausal(num_var, TAU_MAX+1, weights=graph*val_matrix)
+else:
+    print("Parametric model detected.")
+    if torch.cuda.is_available():
+        map_location=torch.device('cuda')
+    else:
+        map_location=torch.device('cpu')
+    model = MODELS[args.model_type].load_from_checkpoint(save, num_var=num_var, tau_max=TAU_MAX+1, map_location=map_location)
+
+    save_split = save.split('/')
+    save = "/".join(save_split[:-3] + [save_split[-3] + "_" + save_split[-1][:-5]]) # Remove .ckpt from save path and concact with version to build results directory
+
 
 
 # Mask context variables for predition

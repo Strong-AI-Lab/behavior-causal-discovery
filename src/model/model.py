@@ -58,7 +58,7 @@ class TSLinearCausal(torch.nn.Module):
 
 # LSTM prediction model
 class LSTMPredictor(pl.LightningModule):
-    def __init__(self, num_var, tau_max, hidden_size=32, num_layers=1):
+    def __init__(self, num_var, tau_max, hidden_size=128, num_layers=6):
         super().__init__()
         self.num_var = num_var
         self.tau_max = tau_max
@@ -66,30 +66,32 @@ class LSTMPredictor(pl.LightningModule):
         self.num_layers = num_layers
 
         self.lstm = torch.nn.LSTM(input_size=num_var, hidden_size=hidden_size, num_layers=num_layers, batch_first=True)
-        self.linear = torch.nn.Linear(tau_max*hidden_size, num_var)
+        self.linear = torch.nn.Linear(hidden_size, num_var)
+        self.save_hyperparameters()
 
     def forward(self, x):
         batch_size = x.shape[0]
         x, _ = self.lstm(x)
-        x = self.linear(x.reshape((batch_size, self.tau_max*self.hidden_size)))
+        x = self.linear(x.reshape((batch_size*self.tau_max, self.hidden_size)))
+        x = x.reshape((batch_size, self.tau_max, self.num_var))
         return x
     
     def training_step(self, batch, batch_idx):
-        x, y = batch
+        x, y, i = batch
         y_pred = self(x)
         loss = torch.nn.functional.binary_cross_entropy_with_logits(y_pred, y)
         self.log('train_loss', loss)
         return loss
     
     def validation_step(self, batch, batch_idx):
-        x, y = batch
+        x, y, i = batch
         y_pred = self(x)
         loss = torch.nn.functional.binary_cross_entropy_with_logits(y_pred, y)
         self.log('val_loss', loss)
         return loss
     
     def predict_step(self, batch, batch_idx):
-        x, y = batch
+        x, y, i = batch
         return self(x)
     
     def configure_optimizers(self):
@@ -111,6 +113,7 @@ class TransformerPredictor(pl.LightningModule):
 
         self.transformer = torch.nn.Transformer(d_model=num_var, nhead=nhead, num_encoder_layers=num_encoder_layers, num_decoder_layers=num_decoder_layers, batch_first=True)
         self.linear = torch.nn.Linear(tau_max*num_var, num_var)
+        self.save_hyperparameters()
     
     def forward(self, x):
         batch_size = x.shape[0]
@@ -119,21 +122,21 @@ class TransformerPredictor(pl.LightningModule):
         return x
     
     def training_step(self, batch, batch_idx):
-        x, y = batch
+        x, y, i = batch
         y_pred = self(x)
         loss = torch.nn.functional.binary_cross_entropy_with_logits(y_pred, y)
         self.log('train_loss', loss)
         return loss
     
     def validation_step(self, batch, batch_idx):
-        x, y = batch
+        x, y, i = batch
         y_pred = self(x)
         loss = torch.nn.functional.binary_cross_entropy_with_logits(y_pred, y)
         self.log('val_loss', loss)
         return loss
     
     def predict_step(self, batch, batch_idx):
-        x, y = batch
+        x, y, i = batch
         return self(x)
     
     def configure_optimizers(self):
@@ -152,6 +155,7 @@ class LSTMDiscriminator(pl.LightningModule):
 
         self.lstm = torch.nn.LSTM(input_size=num_var, hidden_size=hidden_size, num_layers=num_layers, batch_first=True)
         self.linear = torch.nn.Linear(tau_max*hidden_size, 1)
+        self.save_hyperparameters()
 
     def forward(self, x):
         batch_size = x.shape[0]
@@ -160,21 +164,21 @@ class LSTMDiscriminator(pl.LightningModule):
         return x
     
     def training_step(self, batch, batch_idx):
-        x, y = batch
+        x, y, i = batch
         y_pred = self(x)
         loss = torch.nn.functional.binary_cross_entropy_with_logits(y_pred, y.unsqueeze(-1).float())
         self.log('train_loss', loss)
         return loss
     
     def validation_step(self, batch, batch_idx):
-        x, y = batch
+        x, y, i = batch
         y_pred = self(x)
         loss = torch.nn.functional.binary_cross_entropy_with_logits(y_pred, y.unsqueeze(-1).float())
         self.log('val_loss', loss)
         return loss
     
     def predict_step(self, batch, batch_idx):
-        x, y = batch
+        x, y, i = batch
         return self(x)
     
     def configure_optimizers(self):
@@ -196,6 +200,7 @@ class TransformerDiscriminator(pl.LightningModule):
 
         self.transformer = torch.nn.Transformer(d_model=num_var, nhead=nhead, num_encoder_layers=num_encoder_layers, num_decoder_layers=num_decoder_layers, batch_first=True)
         self.linear = torch.nn.Linear(tau_max*num_var, 1)
+        self.save_hyperparameters()
     
     def forward(self, x):
         batch_size = x.shape[0]

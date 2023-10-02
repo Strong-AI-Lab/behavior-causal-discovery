@@ -74,7 +74,7 @@ if args.discriminator_save is None:
 
 
 # Get model
-print(f"Save provided. Loading results from {save}...")
+print(f"Save provided. Loading {args.model_type} model from {save}...")
 if args.model_type == "causal":
     print("Causal model detected.")
     val_matrix = np.load(f'{save}/val_matrix.npy')

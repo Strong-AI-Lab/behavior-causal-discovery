@@ -18,7 +18,7 @@ import pytorch_lightning as pl
 # Parse arguments
 print("Parsing arguments..")
 parser = argparse.ArgumentParser()
-parser.add_argument('--mode_type',ype=str, default="lstm", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
+parser.add_argument('--model_type',type=str, default="lstm", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
 args = parser.parse_args()
 
 assert args.model_type in MODELS.keys(), f"Model type {args.model_type} not supported. Options: {','.join(MODELS.keys())}."
@@ -55,15 +55,15 @@ print(f"Graph with {num_var} variables: {variables}.")
 # Create dataset
 test_dataset = SeriesDataset(test_sequences, tau_max=TAU_MAX+1)
 train_dataset = SeriesDataset(train_sequences, tau_max=TAU_MAX+1)
-test_loader = DataLoader(test_dataset, batch_size=4, shuffle=True)
-train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True)
+test_loader = DataLoader(test_dataset, batch_size=64, shuffle=True)
+train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 
 
 # Train model
 model = MODELS[args.model_type](num_var, tau_max=TAU_MAX+1)
 
 trainer = pl.Trainer(
-        max_epochs=3,
+        max_epochs=10,
         devices=[0], 
         accelerator="gpu")
 
@@ -73,6 +73,6 @@ trainer.fit(model, train_loader)
 predictions = trainer.predict(model, test_loader)
 accuracy = []
 for y_pred, (x, y, i) in zip(predictions, test_loader):
-    accuracy.append((y_pred.argmax(dim=-1) == y).float().mean())
+    accuracy.append((y_pred.argmax(dim=-1) == y.argmax(dim=-1)).float().mean())
 
 print(f"Model accuracy: {torch.tensor(accuracy).mean()}")

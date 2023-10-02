@@ -86,7 +86,7 @@ def generate_series(model, dataset, num_var, masked_idxs):
         y = y[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
         x = x[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
 
-        y_pred = F.gumbel_softmax(y_pred.log(), hard=True)
+        y_pred = F.gumbel_softmax(y_pred.clamp(min=1e-8, max=1-1e-8).log(), hard=True)
         y_pred = torch.cat((x[1:,:], y_pred[-1:,:]), dim=0)
 
         # Update series

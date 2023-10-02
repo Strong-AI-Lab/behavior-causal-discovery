@@ -158,6 +158,7 @@ def generate_clusters(series, save, nb_variables, tau, cluster_lists=None):
                         axs[j, i].scatter(data_embed[:, 0], data_embed[:, 1], s=10, c=algo.labels_)
                         axs[j, i].scatter(centers[:, 0], centers[:, 1], c="r", s=20)
                         axs[j, i].set_title(f"{algorithm_name} : {n_clusters} clusters")
+        os.makedirs(f"results/{save.split('/')[-1]}", exist_ok=True)
         plt.savefig(f"results/{save.split('/')[-1]}/{file_name}.png")
 
     
