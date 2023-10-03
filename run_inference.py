@@ -49,7 +49,7 @@ print(f"Graph with {num_var} variables: {variables}.")
 
 
 # Create dataset
-dataset = SeriesDataset(sequences, tau_max=TAU_MAX+1)
+dataset = SeriesDataset(sequences, lookback=TAU_MAX+1)
 random_loader = DataLoader(dataset, batch_size=4, shuffle=True)
 
 
@@ -73,7 +73,7 @@ else:
         map_location=torch.device('cuda')
     else:
         map_location=torch.device('cpu')
-    model = MODELS[args.model_type].load_from_checkpoint(save, num_var=num_var, tau_max=TAU_MAX+1, map_location=map_location)
+    model = MODELS[args.model_type].load_from_checkpoint(save, num_var=num_var, lookback=TAU_MAX+1, map_location=map_location)
 
     save_split = save.split('/')
     save = "/".join(save_split[:-3] + [save_split[-3] + "_" + save_split[-1][:-5]]) # Remove .ckpt from save path and concact with version to build results directory
@@ -87,7 +87,6 @@ print(f"Masking {len(masked_idxs)} variables: {MASKED_VARIABLES}")
 
 
 # Evaluate model
-
 
 model.eval()
 with torch.no_grad():

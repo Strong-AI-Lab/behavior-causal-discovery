@@ -38,7 +38,7 @@ print(data)
 
 
 # Set constants
-tau_max = 5
+TAU_MAX = 5
 nb_seeds = 10
 ks_threshold = 0.05
 
@@ -53,7 +53,7 @@ print(f"Graph with {num_var} variables: {variables}.")
 
 
 # Create dataset
-dataset = SeriesDataset(sequences, tau_max=tau_max+1)
+dataset = SeriesDataset(sequences, lookback=TAU_MAX+1)
 
 assert nb_seeds <= len(dataset), f"nb_seeds ({nb_seeds}) is larger than the number of sequences ({len(dataset)})."
 
@@ -69,9 +69,9 @@ graph[np.where(graph == "-->")] = "1"
 graph = graph.astype(np.int64)
 graph = torch.from_numpy(graph).float()
 
-assert tau_max == val_matrix.shape[2] - 1, f"tau_max ({tau_max}) does not match val_matrix.shape[2] ({val_matrix.shape[2]})."
+assert TAU_MAX == val_matrix.shape[2] - 1, f"tau_max ({TAU_MAX}) does not match val_matrix.shape[2] ({val_matrix.shape[2]})."
 
-model = TSLinearCausal(num_var, tau_max+1, weights=graph*val_matrix)
+model = TSLinearCausal(num_var, TAU_MAX+1, weights=graph*val_matrix)
 loader = DataLoader(dataset,sampler=RandomSampler(range(len(dataset)), num_samples=nb_seeds), batch_size=1, shuffle=False)
 
 

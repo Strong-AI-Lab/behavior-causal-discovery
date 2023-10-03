@@ -68,9 +68,9 @@ print(f"Graph with {num_var} variables: {variables}.")
 
 
 # Create dataset
-test_dataset = SeriesDataset(test_sequences, tau_max=TAU_MAX+1)
+test_dataset = SeriesDataset(test_sequences, lookback=TAU_MAX+1)
 if args.discriminator_save is None:
-    train_dataset = SeriesDataset(train_sequences, tau_max=TAU_MAX+1)
+    train_dataset = SeriesDataset(train_sequences, lookback=TAU_MAX+1)
 
 
 # Get model

@@ -38,7 +38,7 @@ print(data)
 
 
 # Set constants
-tau_max = 5
+TAU_MAX = 5
 alpha_level = 0.05
 pc_alpha = 0.05
 low_filter = 0.075
@@ -85,7 +85,7 @@ for member in data.values.keys():
 
 # Plot correlations
 print("Plotting correlations...")
-correlations = pcmci.get_lagged_dependencies(tau_max=tau_max, alpha_level=alpha_level, val_only=True)['val_matrix']
+correlations = pcmci.get_lagged_dependencies(tau_max=TAU_MAX, alpha_level=alpha_level, val_only=True)['val_matrix']
 matrix_lags = np.argmax(np.abs(correlations), axis=2)
 dataset_sizes = [value.shape[0] for value in data.values.values()]
 max_size_idx = dataset_sizes.index(max(dataset_sizes))
@@ -96,7 +96,7 @@ plt.savefig(f'{save_folder}/correlations.png')
 # Run causal discovery algorithm
 if results is None:
     print("Running causal discovery algorithm...")
-    results = pcmci.run_pcmci(tau_max=tau_max, alpha_level=alpha_level, pc_alpha=pc_alpha)
+    results = pcmci.run_pcmci(tau_max=TAU_MAX, alpha_level=alpha_level, pc_alpha=pc_alpha)
 else:
     print("Skipping causal discovery algorithm...")
 
