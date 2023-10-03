@@ -1,6 +1,7 @@
 
 import torch
 import pytorch_lightning as pl
+import torch_geometric as tg
 
 
 # Causal time series prediction model
@@ -38,7 +39,7 @@ class TSLinearCausal(torch.nn.Module):
     def __init__(self, num_variables, lookback, weights : torch.Tensor = None):
         super().__init__()
         self.num_variables = num_variables
-        self.lookback = lookback
+        self.lookback = lookback # lookback = = size of the shifting window = tau_max + 1
         self.conv = torch.nn.Conv1d(1, num_variables, num_variables*lookback, stride=num_variables, padding=num_variables*(lookback-1), bias=False)
 
         if weights is not None: # weight shape is (num_variables, num_variables, lookback)
@@ -56,12 +57,124 @@ class TSLinearCausal(torch.nn.Module):
     
 
 
-# LSTM prediction model
-class LSTMPredictor(pl.LightningModule):
-    def __init__(self, num_var, tau_max, hidden_size=128, num_layers=6):
+
+# TS Lightning module
+class TSPredictor(pl.LightningModule):
+    def __init__(self, masked_idxs_for_training=None):
         super().__init__()
+        self.masked_idxs_for_training = masked_idxs_for_training
+    
+    def training_step(self, batch, batch_idx):
+        x, y, i = batch
+        y_pred = self(x)
+        if self.masked_idxs_for_training is not None: # Remove masked variables
+            y_pred = y_pred[:,:,torch.where(~torch.tensor([i in self.masked_idxs_for_training for i in range(self.num_var)]))[0]]
+            y_pred = y_pred.softmax(dim=-1)
+            y = y[:,:,torch.where(~torch.tensor([i in self.masked_idxs_for_training for i in range(self.num_var)]))[0]]
+
+        loss = torch.nn.functional.binary_cross_entropy(y_pred, y)
+        self.log('train_loss', loss)
+        return loss
+    
+    def validation_step(self, batch, batch_idx):
+        x, y, i = batch
+        y_pred = self(x)
+        if self.masked_idxs_for_training is not None: # Remove masked variables
+            y_pred = y_pred[:,:,torch.where(~torch.tensor([i in self.masked_idxs_for_training for i in range(self.num_var)]))[0]]
+            y_pred = y_pred.softmax(dim=-1)
+            y = y[:,:,torch.where(~torch.tensor([i in self.masked_idxs_for_training for i in range(self.num_var)]))[0]]
+    
+        loss = torch.nn.functional.binary_cross_entropy(y_pred, y)
+        self.log('val_loss', loss)
+        return loss
+    
+    def predict_step(self, batch, batch_idx):
+        x, y, i = batch
+        y_pred = self(x)
+        if self.masked_idxs_for_training is not None: # Remove masked variables
+            y_pred = y_pred[:,:,torch.where(~torch.tensor([i in self.masked_idxs_for_training for i in range(self.num_var)]))[0]]
+            y_pred = y_pred.softmax(dim=-1)
+    
+        return y_pred
+    
+    def configure_optimizers(self):
+        return torch.optim.Adam(self.parameters(), lr=1e-3)
+    
+    def backward(self, loss):
+        loss.backward(retain_graph=True)
+
+
+
+# Graph Neural Network model
+class TSGNNPredictor(TSPredictor):
+    def __init__(self, num_var, lookback, weights, masked_idxs_for_training=None):
+        super().__init__(masked_idxs_for_training)
         self.num_var = num_var
-        self.tau_max = tau_max
+        self.lookback = lookback
+        self.graph = weights # shape is (num_var, num_var, lookback)
+
+        graph_layers = []
+        for i in range(1, lookback):
+            graph_layers.append(tg.nn.GATv2Conv(num_var, num_var))
+        self.graph_layers = torch.nn.ModuleList(graph_layers)
+        self.output_layer = torch.nn.Linear(num_var, 1)
+
+        self.save_hyperparameters()
+
+    def forward(self, x):
+        batch_size = x.shape[0]
+        features = torch.nn.functional.one_hot(torch.arange(self.num_var)).reshape((1,1,self.num_var,self.num_var)).repeat(batch_size,self.lookback,1,1).to(x.device)
+        features = x.unsqueeze(-1) * features
+        outputs = torch.zeros_like(features) # shape is (batch_size, lookback, num_var, num_var)
+
+        for i, layer in enumerate(self.graph_layers):
+            features_i = features[:,:i+1,:,:].view((batch_size, (i+1)*self.num_var, self.num_var))
+            edges_i = torch.stack(torch.where(self.graph[:,:,:i+1].permute(2,0,1).reshape(((i+1)*self.num_var, self.num_var))), dim=0).to(x.device)
+
+            if isinstance(layer, tg.nn.GATConv) or isinstance(layer, tg.nn.GATv2Conv): # GATConv and GATv2Conv do not support static graph (see https://github.com/pyg-team/pytorch_geometric/issues/2844 and https://pytorch-geometric.readthedocs.io/en/latest/notes/cheatsheet.html)
+                data_list = [tg.data.Data(features_i[j], edges_i) for j in range(len(features_i))]
+                mini_batch = tg.data.Batch.from_data_list(data_list)
+                batched_features_i =  mini_batch.x
+                batched_edges_i = mini_batch.edge_index
+                outputs[:,i,:,:] = layer(batched_features_i, batched_edges_i).reshape(features_i.shape)[:,:self.num_var,:]
+            else:
+                outputs[:,i,:,:] = layer(features_i, edges_i)[:,:self.num_var,:]
+        
+        outputs = outputs.relu()
+        outputs = self.output_layer(outputs)
+        outputs = outputs.relu()
+
+        return outputs.view((batch_size, self.lookback, self.num_var))
+
+
+# Neural Causal Discovery model
+class TSNeuralCausal(TSPredictor):
+    def __init__(self, num_var, lookback, neural_model, causal_model, masked_idxs_for_training=None):
+        super().__init__(masked_idxs_for_training)
+        self.num_var = num_var
+        self.lookback = lookback
+        self.neural_model = neural_model
+        
+        self.causal_model = causal_model # causal model must not be biased by gradient updates
+        for p in self.causal_model.parameters():
+            p.requires_grad = False
+        
+        self.save_hyperparameters(ignore=['neural_model','causal_model'])
+
+    def forward(self, x):
+        neural_response = self.neural_model(x)
+        causal_response = self.causal_model(x)
+
+        combined_response = neural_response * causal_response # TODO: to be refactored
+        return combined_response
+
+
+# LSTM prediction model
+class LSTMPredictor(TSPredictor):
+    def __init__(self, num_var, lookback, hidden_size=128, num_layers=6, masked_idxs_for_training=None):
+        super().__init__(masked_idxs_for_training)
+        self.num_var = num_var
+        self.lookback = lookback
         self.hidden_size = hidden_size
         self.num_layers = num_layers
 
@@ -72,108 +185,98 @@ class LSTMPredictor(pl.LightningModule):
     def forward(self, x):
         batch_size = x.shape[0]
         x, _ = self.lstm(x)
-        x = self.linear(x.reshape((batch_size*self.tau_max, self.hidden_size)))
-        x = x.reshape((batch_size, self.tau_max, self.num_var))
+        x = self.linear(x.reshape((batch_size*self.lookback, self.hidden_size)))
+        x = x.reshape((batch_size, self.lookback, self.num_var))
         return x
-    
-    def training_step(self, batch, batch_idx):
-        x, y, i = batch
-        y_pred = self(x)
-        loss = torch.nn.functional.binary_cross_entropy_with_logits(y_pred, y)
-        self.log('train_loss', loss)
-        return loss
-    
-    def validation_step(self, batch, batch_idx):
-        x, y, i = batch
-        y_pred = self(x)
-        loss = torch.nn.functional.binary_cross_entropy_with_logits(y_pred, y)
-        self.log('val_loss', loss)
-        return loss
-    
-    def predict_step(self, batch, batch_idx):
-        x, y, i = batch
-        return self(x)
-    
-    def configure_optimizers(self):
-        return torch.optim.Adam(self.parameters(), lr=1e-3)
-    
-    def backward(self, loss):
-        loss.backward(retain_graph=True)
     
 
 # Transformer prediction model
-class TransformerPredictor(pl.LightningModule):
-    def __init__(self, num_var, tau_max, nhead=3, num_encoder_layers=6, num_decoder_layers=6):
-        super().__init__()
+class TransformerPredictor(TSPredictor):
+    def __init__(self, num_var, lookback, nhead=3, num_encoder_layers=6, num_decoder_layers=6, masked_idxs_for_training=None):
+        super().__init__(masked_idxs_for_training)
         self.num_var = num_var
-        self.tau_max = tau_max
+        self.lookback = lookback
         self.nhead = nhead
         self.num_encoder_layers = num_encoder_layers
         self.num_decoder_layers = num_decoder_layers
 
         self.transformer = torch.nn.Transformer(d_model=num_var, nhead=nhead, num_encoder_layers=num_encoder_layers, num_decoder_layers=num_decoder_layers, batch_first=True)
-        self.linear = torch.nn.Linear(tau_max*num_var, num_var)
+        self.linear = torch.nn.Linear(num_var, num_var)
         self.save_hyperparameters()
     
     def forward(self, x):
         batch_size = x.shape[0]
         x = self.transformer(x, x)
-        x = self.linear(x.view(batch_size, self.tau_max*self.num_var))
+        x = self.linear(x.reshape((batch_size*self.lookback, self.num_var)))
+        x = x.reshape((batch_size, self.lookback, self.num_var))
         return x
+
+# Wrappers for loading
+class CausalLSTMWrapper():
+    def __new__(wrapper, *args, **kwargs):
+        return CausalLSTMWrapper.__call__(*args,**kwargs) # forbids instance creation and calls __call__ instead
+
+    @staticmethod
+    def load_from_checkpoint(*args, num_var=None, lookback=None, **kwargs):
+        neural_model = LSTMPredictor(num_var, lookback)
+        causal_model = TSLinearCausal(num_var, lookback)
+        return TSNeuralCausal.load_from_checkpoint(*args, num_var=num_var, lookback=lookback, neural_model=neural_model, causal_model=causal_model, **kwargs)
     
-    def training_step(self, batch, batch_idx):
-        x, y, i = batch
-        y_pred = self(x)
-        loss = torch.nn.functional.binary_cross_entropy_with_logits(y_pred, y)
-        self.log('train_loss', loss)
-        return loss
+    @staticmethod
+    def __call__(num_var, lookback, weights=None, hidden_size=128, num_layers=6, masked_idxs_for_training=None):
+        neural_model = LSTMPredictor(num_var, lookback, hidden_size, num_layers)
+        causal_model = TSLinearCausal(num_var, lookback, weights)
+        return TSNeuralCausal(num_var, lookback, neural_model, causal_model, masked_idxs_for_training)
+
+class CausalTransformerWrapper():
+    def __new__(wrapper, *args, **kwargs):
+        return CausalTransformerWrapper.__call__(*args,**kwargs) # forbids instance creation and calls __call__ instead
+
+    @staticmethod
+    def load_from_checkpoint(*args, num_var=None, lookback=None, **kwargs):
+        neural_model = TransformerPredictor(num_var, lookback)
+        causal_model = TSLinearCausal(num_var, lookback)
+        return TSNeuralCausal.load_from_checkpoint(*args, num_var=num_var, lookback=lookback, neural_model=neural_model, causal_model=causal_model, **kwargs)
     
-    def validation_step(self, batch, batch_idx):
-        x, y, i = batch
-        y_pred = self(x)
-        loss = torch.nn.functional.binary_cross_entropy_with_logits(y_pred, y)
-        self.log('val_loss', loss)
-        return loss
-    
-    def predict_step(self, batch, batch_idx):
-        x, y, i = batch
-        return self(x)
-    
-    def configure_optimizers(self):
-        return torch.optim.Adam(self.parameters(), lr=1e-3)
+    @staticmethod
+    def __call__(num_var, lookback, weights=None, nhead=3, num_encoder_layers=6, num_decoder_layers=6, masked_idxs_for_training=None):
+        neural_model = TransformerPredictor(num_var, lookback, nhead, num_encoder_layers, num_decoder_layers)
+        causal_model = TSLinearCausal(num_var, lookback, weights)
+        return TSNeuralCausal(num_var, lookback, neural_model, causal_model, masked_idxs_for_training)
 
 
 
 # LSTM Model that discriminates between real and generated time series
 class LSTMDiscriminator(pl.LightningModule):
-    def __init__(self, num_var, tau_max, hidden_size=32, num_layers=1):
+    def __init__(self, num_var, lookback, hidden_size=128, num_layers=6):
         super().__init__()
         self.num_var = num_var
-        self.tau_max = tau_max
+        self.lookback = lookback
         self.hidden_size = hidden_size
         self.num_layers = num_layers
 
         self.lstm = torch.nn.LSTM(input_size=num_var, hidden_size=hidden_size, num_layers=num_layers, batch_first=True)
-        self.linear = torch.nn.Linear(tau_max*hidden_size, 1)
+        self.linear = torch.nn.Linear(lookback*hidden_size, 1)
         self.save_hyperparameters()
 
     def forward(self, x):
         batch_size = x.shape[0]
         x, _ = self.lstm(x)
-        x = self.linear(x.reshape((batch_size, self.tau_max*self.hidden_size)))
+        x = self.linear(x.reshape((batch_size, self.lookback*self.hidden_size)))
+        x = x.sigmoid()
         return x
     
     def training_step(self, batch, batch_idx):
         x, y, i = batch
         y_pred = self(x)
-        loss = torch.nn.functional.binary_cross_entropy_with_logits(y_pred, y.unsqueeze(-1).float())
+        loss = torch.nn.functional.binary_cross_entropy(y_pred, y.unsqueeze(-1).float())
         self.log('train_loss', loss)
         return loss
     
     def validation_step(self, batch, batch_idx):
         x, y, i = batch
         y_pred = self(x)
-        loss = torch.nn.functional.binary_cross_entropy_with_logits(y_pred, y.unsqueeze(-1).float())
+        loss = torch.nn.functional.binary_cross_entropy(y_pred, y.unsqueeze(-1).float())
         self.log('val_loss', loss)
         return loss
     
@@ -190,35 +293,36 @@ class LSTMDiscriminator(pl.LightningModule):
 
 # Transformer Model that discriminates between real and generated time series
 class TransformerDiscriminator(pl.LightningModule):
-    def __init__(self, num_var, tau_max, nhead=3, num_encoder_layers=6, num_decoder_layers=6):
+    def __init__(self, num_var, lookback, nhead=3, num_encoder_layers=6, num_decoder_layers=6):
         super().__init__()
         self.num_var = num_var
-        self.tau_max = tau_max
+        self.lookback = lookback
         self.nhead = nhead
         self.num_encoder_layers = num_encoder_layers
         self.num_decoder_layers = num_decoder_layers
 
         self.transformer = torch.nn.Transformer(d_model=num_var, nhead=nhead, num_encoder_layers=num_encoder_layers, num_decoder_layers=num_decoder_layers, batch_first=True)
-        self.linear = torch.nn.Linear(tau_max*num_var, 1)
+        self.linear = torch.nn.Linear(lookback*num_var, 1)
         self.save_hyperparameters()
     
     def forward(self, x):
         batch_size = x.shape[0]
         x = self.transformer(x, x)
-        x = self.linear(x.view(batch_size, self.tau_max*self.num_var))
+        x = self.linear(x.view(batch_size, self.lookback*self.num_var))
+        x = x.sigmoid()
         return x
     
     def training_step(self, batch, batch_idx):
         x, y = batch
         y_pred = self(x)
-        loss = torch.nn.functional.binary_cross_entropy_with_logits(y_pred, y.unsqueeze(-1).float())
+        loss = torch.nn.functional.binary_cross_entropy(y_pred, y.unsqueeze(-1).float())
         self.log('train_loss', loss)
         return loss
     
     def validation_step(self, batch, batch_idx):
         x, y = batch
         y_pred = self(x)
-        loss = torch.nn.functional.binary_cross_entropy_with_logits(y_pred, y.unsqueeze(-1).float())
+        loss = torch.nn.functional.binary_cross_entropy(y_pred, y.unsqueeze(-1).float())
         self.log('val_loss', loss)
         return loss
     
@@ -237,10 +341,13 @@ class TransformerDiscriminator(pl.LightningModule):
 MODELS = {
     "causal": TSLinearCausal,
     "lstm": LSTMPredictor,
-    "transformer": TransformerPredictor
+    "transformer": TransformerPredictor,
+    "causal_gnn": TSGNNPredictor,
+    "causal_transformer": CausalTransformerWrapper,
+    "causal_lstm": CausalLSTMWrapper,
 }
 
 DISCRIMINATORS = {
     "lstm": LSTMDiscriminator,
-    "transformer": TransformerDiscriminator
+    "transformer": TransformerDiscriminator,
 }

@@ -8,6 +8,7 @@ import numpy as np
 from src.data.format_data import PandasFormatterEnsemble
 from src.data.dataset import SeriesDataset
 from src.model.model import MODELS
+from src.data.constants import MASKED_VARIABLES
 
 import torch
 from torch.utils.data import DataLoader
@@ -19,6 +20,8 @@ import pytorch_lightning as pl
 print("Parsing arguments..")
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_type',type=str, default="lstm", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
+parser.add_argument('--save', type=str, default=None, help='If provided, loads the model from a save. The save can be a `model.ckpt` file. If the model_type if `causal_*`, a save folder from a causal_discovery run can als be used.')
+parser.add_argument('--causal_graph', type=str, default="all", help='Only used when a save folder from a causal discovery run is loaded. Controls if the graph contains the edges the coefficients. Options: "all", "coefficients", "edges".')
 args = parser.parse_args()
 
 assert args.model_type in MODELS.keys(), f"Model type {args.model_type} not supported. Options: {','.join(MODELS.keys())}."
@@ -58,21 +61,46 @@ train_dataset = SeriesDataset(train_sequences, lookback=TAU_MAX+1)
 test_loader = DataLoader(test_dataset, batch_size=64, shuffle=True)
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 
+# Mask context variables for predition
+masked_idxs = [variables.index(var) for var in MASKED_VARIABLES]
+print(f"Masking {len(masked_idxs)} variables: {MASKED_VARIABLES}")
+
+
+# Build model
+if args.save is None:
+        model = MODELS[args.model_type](num_var=num_var, lookback=TAU_MAX+1, masked_idxs_for_training=masked_idxs)
+else:
+        print(f"Save provided. Loading {args.model_type} model from {args.save}...")
+        if args.model_type.startswith("causal_"):
+                print("Causal model detected.")
+                val_matrix = np.load(f'{args.save}/val_matrix.npy')
+                val_matrix = torch.nan_to_num(torch.from_numpy(val_matrix).float())
+
+                graph = np.load(f'{args.save}/graph.npy')
+                graph[np.where(graph != "-->")] = "0"
+                graph[np.where(graph == "-->")] = "1"
+                graph = graph.astype(np.int64)
+                graph = torch.from_numpy(graph).float()
+
+                if args.causal_graph == "all":
+                        weights=graph*val_matrix
+                elif args.causal_graph == "coefficients":
+                        weights=val_matrix
+                elif args.causal_graph == "edges":
+                        weights=graph
+                else:
+                        raise ValueError(f"causal_graph must be one of 'all', 'coefficients', 'edges'. Got {args.causal_graph}.")
+
+                model = MODELS[args.model_type](num_var=num_var, lookback=TAU_MAX+1, weights=weights, masked_idxs_for_training=masked_idxs)
+        else:
+                print("Parametric model detected.")
+                model = MODELS[args.model_type].load_from_checkpoint(args.save, num_var=num_var, lookback=TAU_MAX+1, masked_idxs_for_training=masked_idxs)
+
 
 # Train model
-model = MODELS[args.model_type](num_var, tau_max=TAU_MAX+1)
-
 trainer = pl.Trainer(
         max_epochs=10,
         devices=[0], 
         accelerator="gpu")
 
 trainer.fit(model, train_loader)
-
-# Test model
-predictions = trainer.predict(model, test_loader)
-accuracy = []
-for y_pred, (x, y, i) in zip(predictions, test_loader):
-    accuracy.append((y_pred.argmax(dim=-1) == y.argmax(dim=-1)).float().mean())
-
-print(f"Model accuracy: {torch.tensor(accuracy).mean()}")
