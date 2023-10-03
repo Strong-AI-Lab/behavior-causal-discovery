@@ -8,7 +8,11 @@ import torch.nn.functional as F
 # Direct prediction accuracy computation
 def direct_prediction_accuracy(model, loader, num_var, masked_idxs):
     acc = torch.tensor(0.0)
+    device = model.device
     for i, (x, y, _) in enumerate(tqdm.tqdm(loader)):
+        x = x.to(device)
+        y = y.to(device)
+        
         # Make prediction
         y_pred = model(x)
 
@@ -31,8 +35,12 @@ def entropy(y, n=2):
 def mutual_information(model, loader, num_var, masked_idxs):
     y_preds = []
     ys = []
+    device = model.device
 
     for i, (x, y, _) in enumerate(tqdm.tqdm(loader)):
+        x = x.to(device)
+        y = y.to(device)
+
         # Make prediction
         y_pred = model(x)
 
@@ -71,12 +79,18 @@ def mutual_information(model, loader, num_var, masked_idxs):
 def generate_series(model, dataset, num_var, masked_idxs):
     prev_ind = -1
     series = {}
+    device = model.device
     for i, (x, y, ind) in enumerate(tqdm.tqdm(dataset)):
+        x = x.to(device)
+        y = y.to(device)
+
         if prev_ind != ind:
             prev_ind = ind
         else:
+            hist = series[ind][-1][0]
+            hist = hist.to(device)
             x_obs = x[:,torch.where(torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
-            x = torch.cat((series[ind][-1][0], x_obs), dim=1)
+            x = torch.cat((hist, x_obs), dim=1)
 
         # Make prediction
         y_pred = model(x.unsqueeze(0))[0]
@@ -88,6 +102,9 @@ def generate_series(model, dataset, num_var, masked_idxs):
 
         y_pred = F.gumbel_softmax(y_pred.clamp(min=1e-8, max=1-1e-8).log(), hard=True)
         y_pred = torch.cat((x[1:,:], y_pred[-1:,:]), dim=0)
+
+        y_pred = y_pred.cpu()
+        y = y.cpu()
 
         # Update series
         if ind not in series:
