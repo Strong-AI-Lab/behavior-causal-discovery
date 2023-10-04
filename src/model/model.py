@@ -4,58 +4,6 @@ import pytorch_lightning as pl
 import torch_geometric as tg
 
 
-# Causal time series prediction model
-class TSLinearCausal(torch.nn.Module):
-    """
-    Causal time series prediction model.
-    The output corresponds to the series prediction one step in the future, e.g. if input = [x(t-2), x(t-1), x(t)], then output = [^x(t-1), ^x(t), ^x(t+1)].
-    Output is generated based on the cumulated previous values in the series up to lookback. Output is unnormalised. For example:
-    ```
-    w=torch.nn.functional.one_hot(torch.arange(4)).unsqueeze(0).repeat(3,1,1).permute(1,2,0) # identity matrix
-    model=TSLinearCausal(4,3,w) # 4 variables, lookback of 3, identity matrix as weights
-
-    x = torch.nn.functional.one_hot(torch.arange(4)).unsqueeze(0)[:,:3,:].float()
-    >>> x
-    tensor([[[1., 0., 0., 0.],
-            [0., 1., 0., 0.],
-            [0., 0., 1., 0.]]])
-    >>> model(x)
-    tensor([[[1., 0., 0., 0.],
-            [1., 1., 0., 0.],
-            [1., 1., 1., 0.]]])
-
-    y = torch.zeros((1,3,4))
-    y[:,:,2] = 1
-    >>> y
-    tensor([[[0., 0., 1., 0.],
-            [0., 0., 1., 0.],
-            [0., 0., 1., 0.]]])
-    >>> model(y)
-    tensor([[[0., 0., 1., 0.],
-            [0., 0., 2., 0.],
-            [0., 0., 3., 0.]]])
-    ```
-    """
-    def __init__(self, num_variables, lookback, weights : torch.Tensor = None):
-        super().__init__()
-        self.num_variables = num_variables
-        self.lookback = lookback # lookback = = size of the shifting window = tau_max + 1
-        self.conv = torch.nn.Conv1d(1, num_variables, num_variables*lookback, stride=num_variables, padding=num_variables*(lookback-1), bias=False)
-
-        if weights is not None: # weight shape is (num_variables, num_variables, lookback)
-            weights = weights.transpose(1,2).reshape((num_variables, 1, num_variables*lookback)).to(torch.float32)
-            self.conv.weight.data = weights
-
-    def forward(self, x):
-        batch_size = x.shape[0] # x shape is (batch_size, lookback, num_variables)
-        x = x.view((batch_size,1, self.num_variables*self.lookback))
-        x = self.conv(x)[:,:,:self.lookback].transpose(1,2)
-        # x = x.relu().softmax(dim=-1)
-        x = x.relu()
-
-        return x
-    
-
 
 
 # TS Lightning module
@@ -102,6 +50,58 @@ class TSPredictor(pl.LightningModule):
     
     def backward(self, loss):
         loss.backward(retain_graph=True)
+
+
+
+# Causal time series prediction model
+class TSLinearCausal(TSPredictor):
+    """
+    Causal time series prediction model.
+    The output corresponds to the series prediction one step in the future, e.g. if input = [x(t-2), x(t-1), x(t)], then output = [^x(t-1), ^x(t), ^x(t+1)].
+    Output is generated based on the cumulated previous values in the series up to lookback. Output is unnormalised. For example:
+    ```
+    w=torch.nn.functional.one_hot(torch.arange(4)).unsqueeze(0).repeat(3,1,1).permute(1,2,0) # identity matrix
+    model=TSLinearCausal(4,3,w) # 4 variables, lookback of 3, identity matrix as weights
+
+    x = torch.nn.functional.one_hot(torch.arange(4)).unsqueeze(0)[:,:3,:].float()
+    >>> x
+    tensor([[[1., 0., 0., 0.],
+            [0., 1., 0., 0.],
+            [0., 0., 1., 0.]]])
+    >>> model(x)
+    tensor([[[1., 0., 0., 0.],
+            [1., 1., 0., 0.],
+            [1., 1., 1., 0.]]])
+
+    y = torch.zeros((1,3,4))
+    y[:,:,2] = 1
+    >>> y
+    tensor([[[0., 0., 1., 0.],
+            [0., 0., 1., 0.],
+            [0., 0., 1., 0.]]])
+    >>> model(y)
+    tensor([[[0., 0., 1., 0.],
+            [0., 0., 2., 0.],
+            [0., 0., 3., 0.]]])
+    ```
+    """
+    def __init__(self, num_variables, lookback, weights : torch.Tensor = None):
+        super().__init__()
+        self.num_variables = num_variables
+        self.lookback = lookback # lookback = = size of the shifting window = tau_max + 1
+        self.conv = torch.nn.Conv1d(1, num_variables, num_variables*lookback, stride=num_variables, padding=num_variables*(lookback-1), bias=False)
+
+        if weights is not None: # weight shape is (num_variables, num_variables, lookback)
+            weights = weights.transpose(1,2).reshape((num_variables, 1, num_variables*lookback)).to(torch.float32)
+            self.conv.weight.data = weights
+
+    def forward(self, x):
+        batch_size = x.shape[0] # x shape is (batch_size, lookback, num_variables)
+        x = x.view((batch_size,1, self.num_variables*self.lookback))
+        x = self.conv(x)[:,:,:self.lookback].transpose(1,2)
+        x = x.relu()
+
+        return x
 
 
 
