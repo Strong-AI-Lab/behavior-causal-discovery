@@ -5,7 +5,7 @@ import re
 import pandas as pd
 import numpy as np
 
-from src.data.format_data import PandasFormatterEnsemble
+from src.data.format_data import PandasFormatterEnsemble, ResultsFormatter
 from src.data.dataset import SeriesDataset
 from src.model.model import MODELS
 from src.data.constants import MASKED_VARIABLES
@@ -22,6 +22,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--model_type',type=str, default="lstm", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
 parser.add_argument('--save', type=str, default=None, help='If provided, loads the model from a save. The save can be a `model.ckpt` file. If the model_type if `causal_*`, a save folder from a causal_discovery run can als be used.')
 parser.add_argument('--causal_graph', type=str, default="all", help='Only used when a save folder from a causal discovery run is loaded. Controls if the graph contains the edges the coefficients. Options: "all", "coefficients", "edges".')
+parser.add_argument('--filter', type=str, default=None, help='If provided, filters the causal graph to only include the most significant links. Options: ' + 
+                                                                '"low"  : remove links with low values; ' +
+                                                                '"neighbor_effect" : remove links to neighbors, ' + 
+                                                                '"corr" : remove correlations without causation. ' +
+                                                                'Multiple filters can be applied by separating them with a comma.')
 args = parser.parse_args()
 
 assert args.model_type in MODELS.keys(), f"Model type {args.model_type} not supported. Options: {','.join(MODELS.keys())}."
@@ -37,6 +42,7 @@ train_data = [pd.read_csv(f'data/train/{name}') for name in train_data_files]
 
 # Set constants
 TAU_MAX = 5
+LOW_FILTER = 0.075
 
 
 # Format data
@@ -74,9 +80,27 @@ else:
         if args.model_type.startswith("causal_"):
                 print("Causal model detected.")
                 val_matrix = np.load(f'{args.save}/val_matrix.npy')
-                val_matrix = torch.nan_to_num(torch.from_numpy(val_matrix).float())
-
                 graph = np.load(f'{args.save}/graph.npy')
+
+                if args.filter is not None:
+                        for f in args.filter.split(","):
+                                print(f"Filtering results using {f}...")
+                                if f == 'low':
+                                        filtered_values = ResultsFormatter(graph, val_matrix).low_filter(LOW_FILTER)
+                                        val_matrix = filtered_values.get_val_matrix()
+                                        graph = filtered_values.get_graph()
+                                elif f == "neighbor_effect":
+                                        filtered_values = ResultsFormatter(graph, val_matrix).var_filter([], [variables.index(v) for v in variables if v.startswith('close_neighbour_') or v.startswith('distant_neighbour_')])
+                                        val_matrix = filtered_values.get_val_matrix()
+                                        graph = filtered_values.get_graph()
+                                elif f == "corr":
+                                        filtered_values = ResultsFormatter(graph, val_matrix).corr_filter()
+                                        val_matrix = filtered_values.get_val_matrix()
+                                        graph = filtered_values.get_graph()
+                                else:
+                                        print(f"Filter {f} not recognised. Skipping filter...")
+
+                val_matrix = torch.nan_to_num(torch.from_numpy(val_matrix).float())
                 graph[np.where(graph != "-->")] = "0"
                 graph[np.where(graph == "-->")] = "1"
                 graph = graph.astype(np.int64)
