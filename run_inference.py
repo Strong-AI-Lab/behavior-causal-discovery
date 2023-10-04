@@ -91,8 +91,9 @@ print(f"Masking {len(masked_idxs)} variables: {MASKED_VARIABLES}")
 model.eval()
 with torch.no_grad():
     # Compute direct prediction accuracy
-    acc = direct_prediction_accuracy(model, random_loader, num_var, masked_idxs)
+    acc, acc_last = direct_prediction_accuracy(model, random_loader, num_var, masked_idxs)
     print(f"Direct Prediction Accuracy: {acc}")
+    print(f"Direct Prediction Accuracy (last layer only): {acc_last}")
 
     # Compute conditional mutual information
     cmi = mutual_information(model, random_loader, num_var, masked_idxs)

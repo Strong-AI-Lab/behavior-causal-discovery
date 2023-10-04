@@ -8,6 +8,7 @@ import torch.nn.functional as F
 # Direct prediction accuracy computation
 def direct_prediction_accuracy(model, loader, num_var, masked_idxs):
     acc = torch.tensor(0.0)
+    acc_last = torch.tensor(0.0)
     device = model.device
     for i, (x, y, _) in enumerate(tqdm.tqdm(loader)):
         x = x.to(device)
@@ -24,7 +25,8 @@ def direct_prediction_accuracy(model, loader, num_var, masked_idxs):
 
         # Calculate accuracy
         acc = acc * i / (i+1) + (y_pred.argmax(dim=-1) == y.argmax(dim=-1)).float().mean() / (i+1)
-    return acc
+        acc_last = acc_last * i / (i+1) + (y_pred[:,-1,:].argmax(dim=-1) == y[:,-1,:].argmax(dim=-1)).float().mean() / (i+1)
+    return acc, acc_last
 
 
 
