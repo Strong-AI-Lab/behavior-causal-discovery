@@ -175,7 +175,7 @@ class TSNeuralCausal(TSPredictor):
 
 # LSTM prediction model
 class LSTMPredictor(TSPredictor):
-    def __init__(self, num_var, lookback, hidden_size=128, num_layers=6, masked_idxs_for_training=None):
+    def __init__(self, num_var, lookback, hidden_size=128, num_layers=1, masked_idxs_for_training=None):
         super().__init__(masked_idxs_for_training)
         self.num_var = num_var
         self.lookback = lookback
@@ -196,7 +196,7 @@ class LSTMPredictor(TSPredictor):
 
 # Transformer prediction model
 class TransformerPredictor(TSPredictor):
-    def __init__(self, num_var, lookback, nhead=3, num_encoder_layers=6, num_decoder_layers=6, masked_idxs_for_training=None):
+    def __init__(self, num_var, lookback, nhead=3, num_encoder_layers=1, num_decoder_layers=1, masked_idxs_for_training=None):
         super().__init__(masked_idxs_for_training)
         self.num_var = num_var
         self.lookback = lookback
@@ -209,11 +209,14 @@ class TransformerPredictor(TSPredictor):
         self.save_hyperparameters()
     
     def forward(self, x):
-        batch_size = x.shape[0]
-        x = self.transformer(x, x)
-        x = self.linear(x.reshape((batch_size*self.lookback, self.num_var)))
-        x = x.reshape((batch_size, self.lookback, self.num_var))
-        return x
+        outputs = torch.zeros_like(x)
+        
+        for i in range(1,self.lookback+1):
+            output_i = self.transformer(x[:,:i,:], x[:,:i,:])
+            output_i = output_i[:,-1,:]
+            outputs[:,i-1,:] = self.linear(output_i)
+
+        return outputs
 
 # Wrappers for loading
 class CausalGCNWrapper():
@@ -264,7 +267,7 @@ class CausalLSTMWrapper():
         return TSNeuralCausal.load_from_checkpoint(*args, num_var=num_var, lookback=lookback, neural_model=neural_model, causal_model=causal_model, **kwargs)
     
     @staticmethod
-    def __call__(num_var, lookback, weights=None, hidden_size=128, num_layers=6, masked_idxs_for_training=None):
+    def __call__(num_var, lookback, weights=None, hidden_size=128, num_layers=1, masked_idxs_for_training=None):
         neural_model = LSTMPredictor(num_var, lookback, hidden_size, num_layers)
         causal_model = TSLinearCausal(num_var, lookback, weights)
         return TSNeuralCausal(num_var, lookback, neural_model, causal_model, masked_idxs_for_training)
@@ -280,7 +283,7 @@ class CausalTransformerWrapper():
         return TSNeuralCausal.load_from_checkpoint(*args, num_var=num_var, lookback=lookback, neural_model=neural_model, causal_model=causal_model, **kwargs)
     
     @staticmethod
-    def __call__(num_var, lookback, weights=None, nhead=3, num_encoder_layers=6, num_decoder_layers=6, masked_idxs_for_training=None):
+    def __call__(num_var, lookback, weights=None, nhead=3, num_encoder_layers=1, num_decoder_layers=1, masked_idxs_for_training=None):
         neural_model = TransformerPredictor(num_var, lookback, nhead, num_encoder_layers, num_decoder_layers)
         causal_model = TSLinearCausal(num_var, lookback, weights)
         return TSNeuralCausal(num_var, lookback, neural_model, causal_model, masked_idxs_for_training)
@@ -289,7 +292,7 @@ class CausalTransformerWrapper():
 
 # LSTM Model that discriminates between real and generated time series
 class LSTMDiscriminator(pl.LightningModule):
-    def __init__(self, num_var, lookback, hidden_size=128, num_layers=6):
+    def __init__(self, num_var, lookback, hidden_size=128, num_layers=1):
         super().__init__()
         self.num_var = num_var
         self.lookback = lookback
