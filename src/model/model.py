@@ -107,17 +107,20 @@ class TSPredictor(pl.LightningModule):
 
 # Graph Neural Network model
 class TSGNNPredictor(TSPredictor):
-    def __init__(self, num_var, lookback, weights, masked_idxs_for_training=None):
+    def __init__(self, num_var, lookback, weights, hidden_size=128, gnn_class=tg.nn.GCNConv, masked_idxs_for_training=None):
         super().__init__(masked_idxs_for_training)
         self.num_var = num_var
         self.lookback = lookback
         self.graph = weights # shape is (num_var, num_var, lookback)
+        self.hidden_size = hidden_size
+        self.gnn_class = gnn_class
 
+        self.input_layer = torch.nn.Linear(num_var, hidden_size)
         graph_layers = []
-        for i in range(1, lookback):
-            graph_layers.append(tg.nn.GATv2Conv(num_var, num_var))
+        for _ in range(lookback):
+            graph_layers.append(gnn_class(hidden_size, hidden_size))
         self.graph_layers = torch.nn.ModuleList(graph_layers)
-        self.output_layer = torch.nn.Linear(num_var, 1)
+        self.output_layer = torch.nn.Linear(hidden_size, 1)
 
         self.save_hyperparameters()
 
@@ -125,10 +128,11 @@ class TSGNNPredictor(TSPredictor):
         batch_size = x.shape[0]
         features = torch.nn.functional.one_hot(torch.arange(self.num_var)).reshape((1,1,self.num_var,self.num_var)).repeat(batch_size,self.lookback,1,1).to(x.device)
         features = x.unsqueeze(-1) * features
-        outputs = torch.zeros_like(features) # shape is (batch_size, lookback, num_var, num_var)
+        features = self.input_layer(features)
 
+        outputs = torch.zeros_like(features) # shape is (batch_size, lookback, num_var, hidden_size)
         for i, layer in enumerate(self.graph_layers):
-            features_i = features[:,:i+1,:,:].view((batch_size, (i+1)*self.num_var, self.num_var))
+            features_i = features[:,:i+1,:,:].view((batch_size, (i+1)*self.num_var, self.hidden_size))
             edges_i = torch.stack(torch.where(self.graph[:,:,:i+1].permute(2,0,1).reshape(((i+1)*self.num_var, self.num_var))), dim=0).to(x.device)
 
             if isinstance(layer, tg.nn.GATConv) or isinstance(layer, tg.nn.GATv2Conv): # GATConv and GATv2Conv do not support static graph (see https://github.com/pyg-team/pytorch_geometric/issues/2844 and https://pytorch-geometric.readthedocs.io/en/latest/notes/cheatsheet.html)
@@ -140,9 +144,9 @@ class TSGNNPredictor(TSPredictor):
             else:
                 outputs[:,i,:,:] = layer(features_i, edges_i)[:,:self.num_var,:]
         
-        outputs = outputs.relu()
+        outputs = torch.nn.functional.leaky_relu(outputs)
         outputs = self.output_layer(outputs)
-        outputs = outputs.relu()
+        outputs = torch.nn.functional.leaky_relu(outputs)
 
         return outputs.view((batch_size, self.lookback, self.num_var))
 
@@ -212,6 +216,43 @@ class TransformerPredictor(TSPredictor):
         return x
 
 # Wrappers for loading
+class CausalGCNWrapper():
+    def __new__(wrapper, *args, **kwargs):
+        return CausalGCNWrapper.__call__(*args,**kwargs) # forbids instance creation and calls __call__ instead
+
+    @staticmethod
+    def load_from_checkpoint(*args, num_var=None, lookback=None, **kwargs):
+        return TSGNNPredictor.load_from_checkpoint(*args, num_var=num_var, lookback=lookback, gnn_class=tg.nn.GCNConv, **kwargs)
+    
+    @staticmethod
+    def __call__(num_var, lookback, weights, hidden_size=128, masked_idxs_for_training=None):
+        return TSGNNPredictor(num_var, lookback, weights, hidden_size, gnn_class=tg.nn.GCNConv, masked_idxs_for_training=masked_idxs_for_training)
+    
+class CausalGATWrapper():
+    def __new__(wrapper, *args, **kwargs):
+        return CausalGATWrapper.__call__(*args,**kwargs) # forbids instance creation and calls __call__ instead
+
+    @staticmethod
+    def load_from_checkpoint(*args, num_var=None, lookback=None, **kwargs):
+        return TSGNNPredictor.load_from_checkpoint(*args, num_var=num_var, lookback=lookback, gnn_class=tg.nn.GATConv, **kwargs)
+    
+    @staticmethod
+    def __call__(num_var, lookback, weights, hidden_size=128, masked_idxs_for_training=None):
+        return TSGNNPredictor(num_var, lookback, weights, hidden_size, gnn_class=tg.nn.GATConv, masked_idxs_for_training=masked_idxs_for_training)
+    
+class CausalGATv2Wrapper():
+    def __new__(wrapper, *args, **kwargs):
+        return CausalGATv2Wrapper.__call__(*args,**kwargs) # forbids instance creation and calls __call__ instead
+
+    @staticmethod
+    def load_from_checkpoint(*args, num_var=None, lookback=None, **kwargs):
+        return TSGNNPredictor.load_from_checkpoint(*args, num_var=num_var, lookback=lookback, gnn_class=tg.nn.GATv2Conv, **kwargs)
+    
+    @staticmethod
+    def __call__(num_var, lookback, weights, hidden_size=128, masked_idxs_for_training=None):
+        return TSGNNPredictor(num_var=num_var, lookback=lookback, weights=weights, hidden_size=hidden_size, gnn_class=tg.nn.GATv2Conv, masked_idxs_for_training=masked_idxs_for_training)
+
+
 class CausalLSTMWrapper():
     def __new__(wrapper, *args, **kwargs):
         return CausalLSTMWrapper.__call__(*args,**kwargs) # forbids instance creation and calls __call__ instead
@@ -342,7 +383,9 @@ MODELS = {
     "causal": TSLinearCausal,
     "lstm": LSTMPredictor,
     "transformer": TransformerPredictor,
-    "causal_gnn": TSGNNPredictor,
+    "causal_gcn": CausalGCNWrapper,
+    "causal_gat": CausalGATWrapper,
+    "causal_gatv2": CausalGATv2Wrapper,
     "causal_transformer": CausalTransformerWrapper,
     "causal_lstm": CausalLSTMWrapper,
 }
