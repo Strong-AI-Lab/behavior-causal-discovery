@@ -1,5 +1,6 @@
 
 import tqdm
+from collections import Counter
 
 import torch
 import torch.nn.functional as F
@@ -83,7 +84,7 @@ def generate_series(model, dataset, num_var, masked_idxs):
     prev_ind = -1
     series = {}
     device = model.device
-    for i, (x, y, ind) in enumerate(tqdm.tqdm(dataset)):
+    for x, y, ind in tqdm.tqdm(dataset):
         x = x.to(device)
         y = y.to(device)
 
@@ -114,3 +115,110 @@ def generate_series(model, dataset, num_var, masked_idxs):
             series[ind] = []
         series[ind].append((y_pred, y))
     return series # ((tau, num_var) (tau, num_var))
+
+
+# Community Series generation (context variables are updated at each step with other individuals' predictions)
+def generate_series_community(model, dataset, neighbor_graphs, num_var, masked_idxs, close_neighbor_idxs, distant_neighbor_idxs, skip_faults=True):
+    series = {i: None for i in set(dataset.individual)}
+    device = model.device
+    lookback = len(dataset[0][0])
+    individual_indexes = {i: 0 for i in set(dataset.individual)}
+    individual_series_lengths = dict(Counter(dataset.individual))
+
+    prev_ind = -1
+    curr_ind = dataset[0][2]
+    with tqdm.tqdm(total=sum(individual_series_lengths)) as pbar:
+        while any([individual_indexes[ind] < individual_series_lengths[ind] for ind in individual_indexes.keys()]):
+            while individual_indexes[curr_ind] >= individual_series_lengths[curr_ind]:
+                curr_ind = list(individual_series_lengths.keys())[(list(individual_series_lengths.keys()).index(curr_ind) + 1) % len(individual_series_lengths)]
+            
+            x, y, ind = dataset[dataset.individual.index(curr_ind) + individual_indexes[curr_ind]] # individuals are sorted in the dataset
+            assert ind == curr_ind, f"individuals are not sorted in the dataset: {ind} != {curr_ind}"
+
+            x = x.to(device)
+            y = y.to(device)
+
+            if prev_ind != ind:
+                prev_ind = ind
+
+            if series[curr_ind] is not None:
+                # Retrieve history from previous prediction instead of the ground truth
+                hist = series[ind][-1][0]
+                hist = hist.to(device)
+                x_obs = x[:,torch.where(torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
+                x = torch.cat((hist, x_obs), dim=1)
+
+                # Get neighbors updates if inputs requires predictions from neighbors
+                neighbors_window = [] if curr_ind not in neighbor_graphs else neighbor_graphs[curr_ind][individual_indexes[curr_ind]:individual_indexes[curr_ind]+lookback]
+                neighbors_updated = True
+                x[:,torch.where(torch.tensor([(i in close_neighbor_idxs or i in distant_neighbor_idxs) for i in range(num_var)]))[0]] = 0 # Reset neighbor variables
+
+                for i, (time, close_neighbors, distant_neighbors) in enumerate(neighbors_window):
+                    for j, n in enumerate(close_neighbors + distant_neighbors):
+                        if n not in series: # If the neighbor is not in the dataset, skip. It can happen if the indivudal has less than lookback sequences
+                                if skip_faults:
+                                    print(f"Neighbor {n} not in dataset. Skipping...")
+                                    continue
+                                else:
+                                    raise ValueError(f"Neighbor {n} not in dataset.")
+
+                        if series[n] is not None:
+                            n_corresponding_index = [k for k, (t, _, _) in enumerate(neighbor_graphs[n]) if t <= time]
+
+                            if len(n_corresponding_index) < 1: # The neighbor sould contain at least one neighbor (the current individual) 
+                                if skip_faults:
+                                    print(f"cn_corresponding_index should have at least one element, but has {len(n_corresponding_index)} elements. Skipping...")
+                                    continue
+                                else:
+                                    raise ValueError(f"cn_corresponding_index should have at least one element, but has {len(n_corresponding_index)} elements.")
+
+                            n_corresponding_index = n_corresponding_index[-1] - lookback # Select the last index that is before the current time to get the current behaviour of the neighbor
+
+                            if n_corresponding_index < 0: # If the index corresponds to initial data and not generated series values, skip
+                                continue
+
+                            if n_corresponding_index < len(series[n]):
+                                idxs = close_neighbor_idxs if j < len(close_neighbors) else distant_neighbor_idxs
+                                n_obs = series[n][n_corresponding_index][0][-1]
+                                n_obs = n_obs.to(device)
+                                x[i,torch.where(torch.tensor([k in idxs for k in range(num_var)]))[0]] += n_obs
+                            else:
+                                neighbors_updated = False
+                                curr_ind = n
+                                break
+                        else:
+                            neighbors_updated = False
+                            curr_ind = n
+                            break
+                    if not neighbors_updated:
+                        break
+
+                if not neighbors_updated:
+                    continue
+
+
+            # Make prediction
+            y_pred = model(x.unsqueeze(0))[0]
+
+            # Remove masked variables
+            y_pred = y_pred[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
+            y = y[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
+            x = x[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
+
+            y_pred = F.gumbel_softmax(y_pred.clamp(min=1e-8, max=1-1e-8).log(), hard=True)
+            y_pred = torch.cat((x[1:,:], y_pred[-1:,:]), dim=0)
+
+            y_pred = y_pred.cpu()
+            y = y.cpu()
+
+            # Update series
+            if series[curr_ind] is None:
+                series[curr_ind] = []
+            series[curr_ind].append((y_pred, y))
+
+            # Update individual index
+            individual_indexes[curr_ind] += 1
+            pbar.update(1)
+        
+    return series # ((tau, num_var) (tau, num_var))
+

@@ -9,7 +9,7 @@ from src.data.dataset import SeriesDataset
 from src.data.format_data import PandasFormatterEnsemble, ResultsFormatter
 from src.data.constants import MASKED_VARIABLES
 from src.model.model import TSLinearCausal, MODELS
-from src.evaluate.evaluation import direct_prediction_accuracy, mutual_information, generate_series
+from src.evaluate.evaluation import direct_prediction_accuracy, mutual_information, generate_series, generate_series_community
 from src.evaluate.visualisation import generate_time_occurences, generate_sankey, generate_clusters
 
 import torch
@@ -47,7 +47,7 @@ LOW_FILTER = 0.075
 
 # Format data
 formatter = PandasFormatterEnsemble(data)
-sequences = formatter.format(event_driven=True)
+sequences, true_ind_sequences, neighbor_graphs = formatter.format(event_driven=True)
 sequences = {i: sequence for i, sequence in enumerate(sequences)}
 variables = formatter.get_formatted_columns()
 num_var = len(variables)
@@ -106,6 +106,8 @@ else:
 
 # Mask context variables for predition
 masked_idxs = [variables.index(var) for var in MASKED_VARIABLES]
+close_neighbor_idxs = [variables.index(var) for var in variables if var.startswith('close_neighbour_') and not var.endswith('_zone')]
+distant_neighbor_idxs = [variables.index(var) for var in variables if var.startswith('distant_neighbour_') and not var.endswith('_zone')]
 print(f"Masking {len(masked_idxs)} variables: {MASKED_VARIABLES}")
 
 
@@ -144,6 +146,31 @@ with torch.no_grad():
 
     # Visualise series clustering
     generate_clusters(series, save, nb_variables, TAU_MAX+1)
+
+    print(f"Figures saved in results/{save.split('/')[-1]}.")
+
+
+    # Compute community series prediction metrics
+    community_dataset = SeriesDataset({ind: seq.to_numpy(dtype=np.float64) for ind, seq in true_ind_sequences.items()}, lookback=TAU_MAX+1)
+    series = generate_series_community(model, community_dataset, neighbor_graphs, num_var, masked_idxs, close_neighbor_idxs, distant_neighbor_idxs)
+    nb_series = len(series)
+    print(f"Generated {nb_series} community series.")
+
+    MIN_LENGTH = 30
+    series = {k: v for k, v in series.items() if len(v) >= MIN_LENGTH}
+    print(f"Removed {nb_series - len(series)}/{nb_series} community series with length < {MIN_LENGTH}.")
+
+
+    # Visualise time occurences
+    predicted_variable_names = [re.sub("_", " ", re.sub(r"\(.*\)", "", v)) for i, v in enumerate(variables) if i not in masked_idxs]
+    nb_variables = len(predicted_variable_names)
+    generate_time_occurences(series, predicted_variable_names, save, nb_variables, MIN_LENGTH, prefix="community")
+
+    # Visualise Sankey flows
+    generate_sankey(series, predicted_variable_names, save, nb_variables, MIN_LENGTH, prefix="community")
+
+    # Visualise series clustering
+    generate_clusters(series, save, nb_variables, TAU_MAX+1, prefix="community")
 
     print(f"Figures saved in results/{save.split('/')[-1]}.")
 

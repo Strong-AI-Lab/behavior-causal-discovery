@@ -45,7 +45,7 @@ ks_threshold = 0.05
 
 # Format data
 formatter = PandasFormatterEnsemble(data)
-sequences = formatter.format(event_driven=True)
+sequences, *_ = formatter.format(event_driven=True)
 sequences = {i: sequence for i, sequence in enumerate(sequences)}
 variables = formatter.get_formatted_columns()
 num_var = len(variables)

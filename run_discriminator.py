@@ -52,13 +52,13 @@ TAU_MAX = 5
 
 # Format data
 test_formatter = PandasFormatterEnsemble(test_data)
-test_sequences = test_formatter.format(event_driven=True)
+test_sequences, *_ = test_formatter.format(event_driven=True)
 test_sequences = {i: sequence for i, sequence in enumerate(test_sequences)}
 variables = test_formatter.get_formatted_columns()
 
 if args.discriminator_save is None:
     train_formatter = PandasFormatterEnsemble(train_data)
-    train_sequences = train_formatter.format(event_driven=True)
+    train_sequences, *_ = train_formatter.format(event_driven=True)
     train_sequences = {i: sequence for i, sequence in enumerate(train_sequences)}
 
     assert variables == train_formatter.get_formatted_columns(), f"Test and train data have different variables: {variables} vs {train_formatter.get_formatted_columns()}"

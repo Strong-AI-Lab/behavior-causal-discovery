@@ -35,7 +35,7 @@ COLOR_TAGS = [
 
 
 
-def generate_time_occurences(series, predicted_variable_names, save, nb_variables, min_length):
+def generate_time_occurences(series, predicted_variable_names, save, nb_variables, min_length, prefix=None):
     x_axis = [i for _ in range(nb_variables) for i in range(min_length)]
     y_axis = [i for i in range(nb_variables) for _ in range(min_length)]
     area_pred = [0] * (nb_variables * min_length)
@@ -58,12 +58,14 @@ def generate_time_occurences(series, predicted_variable_names, save, nb_variable
         sc = ax.scatter(x_axis, y_axis, s=[r**1.5 for r in results], c=results, alpha=0.5, vmin=0, vmax=max_val)
         ax.legend(*sc.legend_elements(), loc="upper right", title="Occurence", bbox_to_anchor=(1.15, 1.05))
 
+        if prefix is not None:
+            save_file = f"{prefix}_{save_file}"
         os.makedirs(f"results/{save.split('/')[-1]}", exist_ok=True)
         plt.savefig(f"results/{save.split('/')[-1]}/{save_file}.png", bbox_inches='tight')
 
 
 
-def generate_sankey(series, predicted_variable_names, save, nb_variables, min_length):
+def generate_sankey(series, predicted_variable_names, save, nb_variables, min_length, prefix=None):
     for save_file, truth in [('prediction_sankey', 0), ('true_sankey', 1)]:
         labels = []
         colors = []
@@ -107,6 +109,9 @@ def generate_sankey(series, predicted_variable_names, save, nb_variables, min_le
             color = link_colors
         ))]) 
         fig.update_layout(title_text=save_file, font_size=10, width=3600, height=1800)
+
+        if prefix is not None:
+            save_file = f"{prefix}_{save_file}"
         os.makedirs(f"results/{save.split('/')[-1]}", exist_ok=True)
         fig.write_image(f"results/{save.split('/')[-1]}/{save_file}_full.png")
             
@@ -134,7 +139,7 @@ CLUSTERING_ALGORITHMS = {
     "Bisecting K-Means": BisectingKMeans,
     "K-Means": KMeans,
 }
-def generate_clusters(series, save, nb_variables, tau, cluster_lists=None):
+def generate_clusters(series, save, nb_variables, tau, cluster_lists=None, prefix=None):
     if cluster_lists is None:
         cluster_lists = [4, 8, 16]
     
@@ -158,6 +163,9 @@ def generate_clusters(series, save, nb_variables, tau, cluster_lists=None):
                         axs[j, i].scatter(data_embed[:, 0], data_embed[:, 1], s=10, c=algo.labels_)
                         axs[j, i].scatter(centers[:, 0], centers[:, 1], c="r", s=20)
                         axs[j, i].set_title(f"{algorithm_name} : {n_clusters} clusters")
+
+        if prefix is not None:
+            file_name = f"{prefix}_{file_name}"
         os.makedirs(f"results/{save.split('/')[-1]}", exist_ok=True)
         plt.savefig(f"results/{save.split('/')[-1]}/{file_name}.png")
 

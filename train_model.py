@@ -47,12 +47,10 @@ LOW_FILTER = 0.075
 
 # Format data
 test_formatter = PandasFormatterEnsemble(test_data)
-test_sequences = test_formatter.format(event_driven=True)
-test_sequences = {i: sequence for i, sequence in enumerate(test_sequences)}
 variables = test_formatter.get_formatted_columns()
 
 train_formatter = PandasFormatterEnsemble(train_data)
-train_sequences = train_formatter.format(event_driven=True)
+train_sequences, *_ = train_formatter.format(event_driven=True)
 train_sequences = {i: sequence for i, sequence in enumerate(train_sequences)}
 
 assert variables == train_formatter.get_formatted_columns(), f"Test and train data have different variables: {variables} vs {train_formatter.get_formatted_columns()}"
@@ -62,9 +60,7 @@ print(f"Graph with {num_var} variables: {variables}.")
 
 
 # Create dataset
-test_dataset = SeriesDataset(test_sequences, lookback=TAU_MAX+1)
 train_dataset = SeriesDataset(train_sequences, lookback=TAU_MAX+1)
-test_loader = DataLoader(test_dataset, batch_size=64, shuffle=True)
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 
 # Mask context variables for predition

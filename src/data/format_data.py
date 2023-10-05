@@ -87,13 +87,14 @@ class PandasFormatter():
     def format(self, merge : bool = False, to_np : bool = True, event_driven : bool = False):
         individuals = self.get_individuals()
         sequences = {i : None for i in individuals}
+        neighbor_graphs = {i : [] for i in individuals}
 
         columns = self.get_formatted_columns()
         
         def get_values_from_timeid(time, id):
             df_i = self.df[(self.df[self.individual_key] == id) & (self.df[self.time_key] == time)]
             if df_i.shape[0] == 0:
-                None, None
+                return None, None
             else:
                 row = df_i.iloc[0]
                 return PandasFormatter.format_column(row[self.zone_key]) + '_zone', PandasFormatter.format_column(row[self.behaviour_key])
@@ -120,12 +121,15 @@ class PandasFormatter():
                 vec[columns.index(zone)] = 1
                 vec[columns.index(behaviour)] = 1
 
+                close_neighbors = []
                 for cn in re.findall(r'(\d+)[;\}]', row[self.close_neighbour_key]):
                     try:
                         cn = int(cn)
                         zone_cn, behaviour_cn = get_values_from_timeid(time, cn)
                         vec[columns.index('close_neighbour_' + zone_cn)] += 1
                         vec[columns.index('close_neighbour_' + behaviour_cn)] += 1
+
+                        close_neighbors.append(dn)
                     except AttributeError as e:
                         if self.skip_faults:
                             error_count += 1
@@ -134,12 +138,15 @@ class PandasFormatter():
                         else:
                             raise e
                 
+                distant_neighbors = []
                 for dn in re.findall(r'(\d+)[;\}]', row[self.distant_neighbour_key]):
                     try:
                         dn = int(dn)
                         zone_dn, behaviour_dn = get_values_from_timeid(time, dn)
                         vec[columns.index('distant_neighbour_' + zone_dn)] += 1
                         vec[columns.index('distant_neighbour_' + behaviour_dn)] += 1
+
+                        distant_neighbors.append(dn)
                     except AttributeError as e:
                         if self.skip_faults:
                             error_count += 1
@@ -149,6 +156,7 @@ class PandasFormatter():
                             raise e
 
                 ts.loc[len(ts)] = vec
+                neighbor_graphs[individual].append((time, close_neighbors, distant_neighbors))
 
             sequences[individual] = ts
 
@@ -156,8 +164,6 @@ class PandasFormatter():
                 print(f"\x1b[1K\rIndividual {individual} done with {error_count} errors.")
 
         if event_driven: # keep only rows where there is a change in the sequence, discard contiguous duplicates
-            # constants = []
-            # non_constant_min_row = 5
             for individual in individuals:
                 ts = sequences[individual]
                 duplicates = ts.duplicated(keep='first')
@@ -174,27 +180,22 @@ class PandasFormatter():
                         last_non_duplicate = ts.iloc[idx]
                     idx += 1
 
-                # old_ts_len = len(ts)
                 ts = ts[-duplicates]
-                # if len(ts) < non_constant_min_row:
-                #     print(f"Warning: individual {individual} has less than {non_constant_min_row} rows after removing duplicates ({old_ts_len} --> {len(ts)}). Discarding it from the sequence.")
-                #     constants.append(individual)
                 sequences[individual] = ts
-            # for individual in constants:
-            #     del sequences[individual]
+
+                # Update neighbor graphs
+                neighbor_graphs[individual] = [neighbor_graphs[individual][i] for i in range(len(neighbor_graphs[individual])) if not duplicates.iloc[i].all()]
 
         if merge:
             res = pd.concat(sequences.values())
             if to_np:
-                return res.to_numpy(dtype=np.float64)
-            else:
-                return res
+                res = res.to_numpy(dtype=np.float64)
         else:
             res = list(sequences.values())
             if to_np:
-                return [ts.to_numpy(dtype=np.float64) for ts in res]
-            else:
-                return res
+                res = [ts.to_numpy(dtype=np.float64) for ts in res]
+        
+        return res, sequences, neighbor_graphs
             
 
 class PandasFormatterEnsemble(PandasFormatter):
