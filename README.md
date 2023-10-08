@@ -35,16 +35,29 @@ You can specify filter options to forbid unwanted dependencies (prediction for n
 python run_discovery.py --filter neighbor_effect,low,corr
 ``` 
 
-
-### Inverse Reinforcement Learning
-
-To be added
-
 ### Causal Inference
+
+Run the following script to train a model. The model can either be a baseline model or a neural-causal inference model from a `run_discovery.py` save.
+```
+python train_model.py --model_type <model-type>
+``` 
+
+Provide the save folder to load the causal graph from if training a causal model.
+```
+python train_model.py --model_type <model-type> --save saves/<name-of-the-save-folder>
+``` 
+
+
+### Evaluation
 
 Load the model for inference and evaluate it.
 ```
 python run_inference.py saves/<name-of-the-save-folder>
+```
+
+Specify the model type to correctly load the weights of a parametric model.
+```
+python run_inference.py lightning_logs/version_n/<name-of-the-save-checkpoint>.ckpt --model_type <model-type>
 ```
 
 ### Train discriminator
