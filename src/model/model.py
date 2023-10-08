@@ -311,21 +311,21 @@ class LSTMDiscriminator(pl.LightningModule):
         return x
     
     def training_step(self, batch, batch_idx):
-        x, y, i = batch
+        x, y = batch
         y_pred = self(x)
         loss = torch.nn.functional.binary_cross_entropy(y_pred, y.unsqueeze(-1).float())
         self.log('train_loss', loss)
         return loss
     
     def validation_step(self, batch, batch_idx):
-        x, y, i = batch
+        x, y = batch
         y_pred = self(x)
         loss = torch.nn.functional.binary_cross_entropy(y_pred, y.unsqueeze(-1).float())
         self.log('val_loss', loss)
         return loss
     
     def predict_step(self, batch, batch_idx):
-        x, y, i = batch
+        x, y = batch
         return self(x)
     
     def configure_optimizers(self):
