@@ -60,7 +60,7 @@ class PandasFormatter():
         behaviours = [b for b in behaviours if isinstance(b,str)]
 
         self.behaviours = sorted(behaviours)
-        return behaviours
+        return self.behaviours
     
     def get_zones(self):
         if self.zones is not None:
@@ -71,7 +71,7 @@ class PandasFormatter():
         zones = [z for z in zones if isinstance(z,str)]
 
         self.zones = sorted(zones)
-        return zones
+        return self.zones
     
     def get_formatted_columns(self):
         behaviours = self.get_behaviours()
@@ -129,7 +129,7 @@ class PandasFormatter():
                         vec[columns.index('close_neighbour_' + zone_cn)] += 1
                         vec[columns.index('close_neighbour_' + behaviour_cn)] += 1
 
-                        close_neighbors.append(dn)
+                        close_neighbors.append(cn)
                     except AttributeError as e:
                         if self.skip_faults:
                             error_count += 1
@@ -256,9 +256,10 @@ class ResultsFormatter():
         return ResultsFormatter(graph, val_matrix)
 
 
-    def __init__(self, graph : np.array, val_matrix : np.array):
+    def __init__(self, graph : np.array, val_matrix : np.array, var_names : list = None):
         self.graph = graph
         self.val_matrix = val_matrix
+        self.var_names = var_names
 
     
     def get_graph(self):
@@ -266,9 +267,12 @@ class ResultsFormatter():
     
     def get_val_matrix(self):
         return self.val_matrix
+    
+    def get_var_names(self):
+        return self.var_names
 
     def get_results(self):
-        return {"graph": self.graph, "val_matrix": self.val_matrix}
+        return {**{"graph": self.graph, "val_matrix": self.val_matrix}, **({"var_names": self.var_names} if self.var_names is not None else {})}
 
     
     def low_filter(self, abs_min = 0.5):
@@ -307,6 +311,25 @@ class ResultsFormatter():
         val_matrix[np.where(graph == "o-o")] = 0
 
         return ResultsFormatter(graph, val_matrix)
+    
+    def row_filter(self, var_names : list = None):
+        graph = self.graph.copy()
+        val_matrix = self.val_matrix.copy()
+
+        del_idxs = (graph=="").all(axis=(0,2)) & (graph=="").all(axis=(1,2))
+        
+        graph = graph[~del_idxs,:,:]
+        graph = graph[:,~del_idxs,:]
+        val_matrix = val_matrix[~del_idxs,:,:]
+        val_matrix = val_matrix[:,~del_idxs,:]
+
+        if var_names is None and self.var_names is not None:
+            var_names = self.var_names
+
+        if var_names is not None:
+            var_names = [v for i,v in enumerate(var_names) if not del_idxs[i]]
+
+        return ResultsFormatter(graph, val_matrix, var_names=var_names)
 
 
 

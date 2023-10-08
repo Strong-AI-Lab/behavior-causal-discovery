@@ -24,6 +24,8 @@ parser.add_argument('--filter', type=str, default=None, help='If provided, filte
                                                                 '"low"  : remove links with low values; ' +
                                                                 '"neighbor_effect" : remove links to neighbors, ' + 
                                                                 '"corr" : remove correlations without causation. ' +
+                                                                '"zone" : remove links to zone variables. ' +
+                                                                '"zero" : remove variables with no links. Careful, the order of the filters matters. ' +
                                                                 'Multiple filters can be applied by separating them with a comma.')
 args = parser.parse_args()
 save = args.save
@@ -46,7 +48,7 @@ low_filter = 0.075
 
 # Format data
 formatter = PandasFormatterEnsemble(data)
-sequences = formatter.format(event_driven=True)
+sequences, *_ = formatter.format(event_driven=True)
 sequences = {i: sequence for i, sequence in enumerate(sequences)}
 variables = formatter.get_formatted_columns()
 num_var = len(variables)
@@ -130,14 +132,23 @@ if filter is not None:
             results = ResultsFormatter(results['graph'], results['val_matrix']) \
                         .corr_filter() \
                         .get_results()
+        elif f == "zone":
+            results = ResultsFormatter(results['graph'], results['val_matrix']) \
+                        .var_filter([], [variables.index(v) for v in variables if v.endswith('_zone')]) \
+                        .get_results()
+        elif f == "zero":
+            results = ResultsFormatter(results['graph'], results['val_matrix']) \
+                        .row_filter(variables) \
+                        .get_results()
+            variables = results['var_names']
         else:
             print(f"Filter {f} not recognised. Skipping filter...")
 
 
 # Visualise results
 print("Visualising results...")
-tp.plot_graph(graph=results['graph'], val_matrix=results['val_matrix'], var_names=variables, label_fontsize = 15, figsize = (40, 40), node_size = 0.05)
+tp.plot_graph(graph=results['graph'], val_matrix=results['val_matrix'], var_names=variables, node_label_size = 38, label_fontsize = 38, figsize = (40, 40), node_size = 0.25)
 plt.savefig(f'{save_folder}/result_graph.png')
 
-tp.plot_time_series_graph(val_matrix=results['val_matrix'], graph=results['graph'], var_names=variables, link_colorbar_label='MCI', label_fontsize = 15, figsize = (40, 40), node_size = 0.01)
+tp.plot_time_series_graph(val_matrix=results['val_matrix'], graph=results['graph'], var_names=variables, link_colorbar_label='MCI', label_fontsize = 38, figsize = (40, 40), node_size = 0.05)
 plt.savefig(f'{save_folder}/result_time_series_graph.png')
