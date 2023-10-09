@@ -147,30 +147,25 @@ with torch.no_grad():
     # Visualise series clustering
     generate_clusters(series, save, nb_variables, TAU_MAX+1)
 
-    print(f"Figures saved in results/{save.split('/')[-1]}.")
-
 
     # Compute community series prediction metrics
     community_dataset = SeriesDataset({ind: seq.to_numpy(dtype=np.float64) for ind, seq in true_ind_sequences.items()}, lookback=TAU_MAX+1)
-    series = generate_series_community(model, community_dataset, neighbor_graphs, num_var, masked_idxs, close_neighbor_idxs, distant_neighbor_idxs)
-    nb_series = len(series)
-    print(f"Generated {nb_series} community series.")
+    community_series = generate_series_community(model, community_dataset, neighbor_graphs, num_var, masked_idxs, close_neighbor_idxs, distant_neighbor_idxs)
+    nb_community_series = len(community_series)
+    print(f"Generated {nb_community_series} community series.")
 
-    MIN_LENGTH = 30
-    series = {k: v for k, v in series.items() if len(v) >= MIN_LENGTH}
-    print(f"Removed {nb_series - len(series)}/{nb_series} community series with length < {MIN_LENGTH}.")
+    community_series = {k: v for k, v in community_series.items() if len(v) >= MIN_LENGTH}
+    print(f"Removed {nb_community_series - len(community_series)}/{nb_community_series} community series with length < {MIN_LENGTH}.")
 
 
     # Visualise time occurences
-    predicted_variable_names = [re.sub("_", " ", re.sub(r"\(.*\)", "", v)) for i, v in enumerate(variables) if i not in masked_idxs]
-    nb_variables = len(predicted_variable_names)
-    generate_time_occurences(series, predicted_variable_names, save, nb_variables, MIN_LENGTH, prefix="community")
+    generate_time_occurences(community_series, predicted_variable_names, save, nb_variables, MIN_LENGTH, prefix="community")
 
     # Visualise Sankey flows
-    generate_sankey(series, predicted_variable_names, save, nb_variables, MIN_LENGTH, prefix="community")
+    generate_sankey(community_series, predicted_variable_names, save, nb_variables, MIN_LENGTH, prefix="community")
 
     # Visualise series clustering
-    generate_clusters(series, save, nb_variables, TAU_MAX+1, prefix="community")
+    generate_clusters(community_series, save, nb_variables, TAU_MAX+1, prefix="community")
 
     print(f"Figures saved in results/{save.split('/')[-1]}.")
 

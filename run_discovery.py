@@ -147,8 +147,8 @@ if filter is not None:
 
 # Visualise results
 print("Visualising results...")
-tp.plot_graph(graph=results['graph'], val_matrix=results['val_matrix'], var_names=variables, node_label_size = 38, label_fontsize = 38, figsize = (40, 40), node_size = 0.25)
+tp.plot_graph(graph=results['graph'], val_matrix=results['val_matrix'], var_names=variables, node_label_size = 38, label_fontsize = 45, figsize = (40, 40), node_size = 0.25, arrow_linewidth=36.0)
 plt.savefig(f'{save_folder}/result_graph.png')
 
-tp.plot_time_series_graph(val_matrix=results['val_matrix'], graph=results['graph'], var_names=variables, link_colorbar_label='MCI', label_fontsize = 38, figsize = (40, 40), node_size = 0.05)
+tp.plot_time_series_graph(val_matrix=results['val_matrix'], graph=results['graph'], var_names=variables, link_colorbar_label='MCI', label_fontsize = 45, figsize = (40, 40), node_size = 0.05, arrow_linewidth=12.0)
 plt.savefig(f'{save_folder}/result_time_series_graph.png')

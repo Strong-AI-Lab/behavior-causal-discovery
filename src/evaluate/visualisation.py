@@ -98,8 +98,8 @@ def generate_sankey(series, predicted_variable_names, save, nb_variables, min_le
             node = dict(
             pad = 15,
             thickness = 20,
-            line = dict(color = "black", width = 0.5),
-            label = labels,
+            line = dict(color = "black", width = 0.1),
+            label = [label[2:] for label in labels[:nb_variables]],
             color = colors
             ),
             link = dict(
@@ -108,7 +108,7 @@ def generate_sankey(series, predicted_variable_names, save, nb_variables, min_le
             value = values,
             color = link_colors
         ))]) 
-        fig.update_layout(title_text=save_file, font_size=10, width=3600, height=1800)
+        fig.update_layout(title_text=save_file, font_size=38, width=3600, height=1800)
 
         if prefix is not None:
             save_file = f"{prefix}_{save_file}"
@@ -120,17 +120,17 @@ def generate_sankey(series, predicted_variable_names, save, nb_variables, min_le
             node = dict(
             pad = 15,
             thickness = 20,
-            line = dict(color = "black", width = 0.5),
-            label = labels[2*nb_variables:],
-            color = colors[2*nb_variables:]
+            line = dict(color = "black", width = 0.1),
+            label = [label[2:] for label in labels[:nb_variables]],
+            color = colors
             ),
             link = dict(
-            source = sources[nb_variables*nb_variables:],
-            target = targets[nb_variables*nb_variables:],
+            source = sources[:nb_variables*nb_variables],
+            target = targets[:nb_variables*nb_variables],
             value = flattened_values,
-            color = link_colors[nb_variables*nb_variables:]
+            color = link_colors[:nb_variables*nb_variables]
         ))]) 
-        fig_flat.update_layout(title_text=save_file, font_size=10, width=900, height=1800)
+        fig_flat.update_layout(title_text=save_file, font_size=38, width=900, height=1800)
         fig_flat.write_image(f"results/{save.split('/')[-1]}/{save_file}_flat.png")
 
 
