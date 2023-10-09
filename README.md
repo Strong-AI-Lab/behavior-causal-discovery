@@ -1,4 +1,4 @@
-# Behavior Caual Discovery
+# Behavior Causal Discovery
 
 This project provides tools to build behavioral causal models for communities of social animals. Follow the instructions to build and evaluate the models. The data used in this project comes from the Meerkat Behaviour Recognition Dataset by [[Rogers et al., 2023]](https://arxiv.org/abs/2306.11326).
 
