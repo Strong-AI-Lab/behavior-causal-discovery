@@ -7,13 +7,17 @@ import numpy as np
 
 from src.data.format_data import PandasFormatterEnsemble, ResultsFormatter
 from src.data.dataset import SeriesDataset
-from src.model.model import MODELS
+from src.model.behaviour_model import BEHAVIOUR_MODELS
 from src.data.constants import MASKED_VARIABLES
 
 import torch
 from torch.utils.data import DataLoader
 import pytorch_lightning as pl
 
+
+MODELS = {
+    **BEHAVIOUR_MODELS,
+}
 
 
 # Parse arguments

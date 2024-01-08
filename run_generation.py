@@ -10,7 +10,7 @@ import time
 from src.data.format_data import PandasFormatterEnsemble
 from src.data.constants import MASKED_VARIABLES
 from src.data.dataset import SeriesDataset
-from src.model.model import TSLinearCausal
+from src.model.behaviour_model import TSLinearCausal
 
 import torch
 import torch.nn.functional as F

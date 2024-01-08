@@ -9,7 +9,7 @@ import tqdm
 from src.data.dataset import SeriesDataset, DiscriminatorDataset
 from src.data.format_data import PandasFormatterEnsemble, ResultsFormatter
 from src.data.constants import MASKED_VARIABLES
-from src.model.model import TSLinearCausal, DISCRIMINATORS, MODELS
+from model.behaviour_model import TSLinearCausal, DISCRIMINATORS, BEHAVIOUR_MODELS
 from src.evaluate.evaluation import generate_series, generate_series_community
 
 import torch
@@ -17,6 +17,9 @@ from torch.utils.data import DataLoader
 import pytorch_lightning as pl
 
 
+MODELS = {
+    **BEHAVIOUR_MODELS,
+}
 
 # Parse arguments
 print("Parsing arguments..")

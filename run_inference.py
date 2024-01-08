@@ -8,12 +8,17 @@ import numpy as np
 from src.data.dataset import SeriesDataset
 from src.data.format_data import PandasFormatterEnsemble, ResultsFormatter
 from src.data.constants import MASKED_VARIABLES
-from src.model.model import TSLinearCausal, MODELS
+from src.model.behaviour_model import TSLinearCausal, BEHAVIOUR_MODELS
 from src.evaluate.evaluation import direct_prediction_accuracy, mutual_information, generate_series, generate_series_community
 from src.evaluate.visualisation import generate_time_occurences, generate_sankey, generate_clusters
 
 import torch
 from torch.utils.data import DataLoader
+
+
+MODELS = {
+    **BEHAVIOUR_MODELS,
+}
 
 
 # Parse arguments

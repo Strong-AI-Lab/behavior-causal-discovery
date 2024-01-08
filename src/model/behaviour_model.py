@@ -382,7 +382,7 @@ class TransformerDiscriminator(pl.LightningModule):
 
 
 
-MODELS = {
+BEHAVIOUR_MODELS = {
     "causal": TSLinearCausal,
     "lstm": LSTMPredictor,
     "transformer": TransformerPredictor,
