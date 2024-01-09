@@ -1,8 +1,22 @@
 
-from typing import List, Union
+from dataclasses import dataclass
+from typing import List, Union, Optional, Tuple
 import pandas as pd
 import re
 import numpy as np
+import math
+
+
+@dataclass
+class FormatOutput():
+    sequence_data : Union[np.ndarray, List[np.ndarray], pd.DataFrame, List[pd.DataFrame]]
+    sequences : dict
+    neighbor_graphs : dict
+    variables : list
+    num_individuals : int
+    num_behaviours : int
+    num_zones : int
+    movements : dict
 
 
 class PandasFormatter():
@@ -18,6 +32,32 @@ class PandasFormatter():
         column = column.lower()
         column = column.replace(' ', '_')
         return column
+    
+    @staticmethod
+    def format_coord(column : str, normalisation: Optional[str] = None, normalisation_parameters: Optional[Tuple[float, float]] = None):
+        res = re.match(r'\[(-?\d+(?:\.\d+));(-?\d+(?:\.\d+));(-?\d+(?:\.\d+))\]', column)
+        if res is not None and len(res.groups()) == 3:
+            x, y, z = float(res.group(1)), float(res.group(2)), float(res.group(3))
+            if normalisation is not None:
+                if normalisation == 'minmax':
+                    assert normalisation_parameters is not None and len(normalisation_parameters) == 6, "Normalisation parameters must be a tuple of 6 elements (x_min, x_max, y_min, y_max, z_min, z_max)."
+
+                    x = (x - normalisation_parameters[0]) / (normalisation_parameters[1] - normalisation_parameters[0])
+                    y = (y - normalisation_parameters[2]) / (normalisation_parameters[3] - normalisation_parameters[2])
+                    z = (z - normalisation_parameters[4]) / (normalisation_parameters[5] - normalisation_parameters[4])
+                elif normalisation == 'mean':
+                    assert normalisation_parameters is not None and len(normalisation_parameters) == 6, "Normalisation parameters must be a tuple of 6 elements (x_mean, x_std, y_mean, y_std, z_mean, z_std)."
+
+                    x = (x - normalisation_parameters[0]) / math.sqrt(normalisation_parameters[1]**2 + 1e-6)
+                    y = (y - normalisation_parameters[2]) / math.sqrt(normalisation_parameters[3]**2 + 1e-6)
+                    z = (z - normalisation_parameters[4]) / math.sqrt(normalisation_parameters[5]**2 + 1e-6)
+                else:
+                    raise NotImplementedError(f"Normalisation method {normalisation} not implemented.")
+            return x, y, z
+        else:
+            return None
+
+
 
 
     def __init__(self, df : pd.DataFrame, 
@@ -27,6 +67,7 @@ class PandasFormatter():
                         time_key : str = "Time", 
                         close_neighbour_key : str = "Close_neighbours", 
                         distant_neighbour_key : str = "Distant_neighbours",
+                        coordinates_key : str = "Coordinates",
                         skip_faults : bool = True):
         self.df = df
         self.behaviour_key = behaviour_key
@@ -35,6 +76,7 @@ class PandasFormatter():
         self.time_key = time_key
         self.close_neighbour_key = close_neighbour_key
         self.distant_neighbour_key = distant_neighbour_key
+        self.coordinates_key = coordinates_key
         self.skip_faults = skip_faults
 
         self.individuals = None
@@ -84,10 +126,16 @@ class PandasFormatter():
         return columns
 
 
-    def format(self, merge : bool = False, to_np : bool = True, event_driven : bool = False):
+    def format(self, 
+               merge : bool = False, 
+               to_np : bool = True, 
+               event_driven : bool = False,
+               output_format : str = 'tuple'
+               ):
         individuals = self.get_individuals()
-        sequences = {i : None for i in individuals}
-        neighbor_graphs = {i : [] for i in individuals}
+        sequences = {i : None for i in individuals} # sequences of behaviour and zone for individual and neighbour
+        neighbor_graphs = {i : [] for i in individuals} # list of (time, close_neighbours, distant_neighbours) for individual
+        movements = {i : None for i in individuals} # list of (time, coordinates) for individual
 
         columns = self.get_formatted_columns()
         
@@ -100,7 +148,8 @@ class PandasFormatter():
                 return PandasFormatter.format_column(row[self.zone_key]) + '_zone', PandasFormatter.format_column(row[self.behaviour_key])
 
         for individual in individuals:
-            ts = pd.DataFrame(columns=columns)
+            ts = pd.DataFrame(columns=columns) # Behaviour and zone columns for individual and neighbour
+            movements_i = pd.DataFrame(columns=['x', 'y', 'z']) # Movement columns for individual
 
             df_i = self.df[self.df[self.individual_key] == individual]
             error_count = 0
@@ -109,6 +158,7 @@ class PandasFormatter():
                     zone = PandasFormatter.format_column(row[self.zone_key]) + '_zone'
                     behaviour = PandasFormatter.format_column(row[self.behaviour_key])
                     time = row[self.time_key]
+                    x, y, z = PandasFormatter.format_coord(row[self.coordinates_key])
                 except AttributeError as e:
                     if self.skip_faults:
                         error_count += 1
@@ -120,6 +170,8 @@ class PandasFormatter():
                 vec = [0] * len(columns)
                 vec[columns.index(zone)] = 1
                 vec[columns.index(behaviour)] = 1
+
+                movements_i.loc[len(movements_i)] = [x, y, z]
 
                 close_neighbors = []
                 for cn in re.findall(r'(\d+)[;\}]', row[self.close_neighbour_key]):
@@ -159,6 +211,7 @@ class PandasFormatter():
                 neighbor_graphs[individual].append((time, close_neighbors, distant_neighbors))
 
             sequences[individual] = ts
+            movements[individual] = movements_i
 
             if error_count > 0:
                 print(f"\x1b[1K\rIndividual {individual} done with {error_count} errors.")
@@ -195,7 +248,23 @@ class PandasFormatter():
             if to_np:
                 res = [ts.to_numpy(dtype=np.float64) for ts in res]
         
-        return res, sequences, neighbor_graphs
+        if output_format == 'tuple':
+            return res, sequences, neighbor_graphs, columns, len(individuals), len(self.get_behaviours()), len(self.get_zones()), movements
+        elif output_format == 'dataclass':
+            return FormatOutput(
+                res, 
+                sequences, 
+                neighbor_graphs, 
+                columns, 
+                len(individuals), 
+                len(self.get_behaviours()), 
+                len(self.get_zones()),
+                movements
+            )
+        else:
+            raise NotImplementedError(f"Output format {output_format} not implemented.")
+
+
             
 
 class PandasFormatterEnsemble(PandasFormatter):
@@ -226,12 +295,13 @@ class PandasFormatterEnsemble(PandasFormatter):
                         time_key : str = "Time", 
                         close_neighbour_key : str = "Close_neighbours", 
                         distant_neighbour_key : str = "Distant_neighbours",
+                        coordinates_key : str = "Coordinates",
                         skip_faults : bool = True):
         if isinstance(dfs, pd.DataFrame):
-            super().__init__(dfs, behaviour_key, individual_key, zone_key, time_key, close_neighbour_key, distant_neighbour_key, skip_faults)
+            super().__init__(dfs, behaviour_key, individual_key, zone_key, time_key, close_neighbour_key, distant_neighbour_key, coordinates_key, skip_faults)
         elif isinstance(dfs, list):
             df = PandasFormatterEnsemble.merge_dataframes(dfs, individual_key, time_key, close_neighbour_key, distant_neighbour_key)
-            super().__init__(df, behaviour_key, individual_key, zone_key, time_key, close_neighbour_key, distant_neighbour_key, skip_faults)
+            super().__init__(df, behaviour_key, individual_key, zone_key, time_key, close_neighbour_key, distant_neighbour_key, coordinates_key, skip_faults)
         
 
 

@@ -52,7 +52,7 @@ LOW_FILTER = 0.075
 
 # Format data
 formatter = PandasFormatterEnsemble(data)
-sequences, true_ind_sequences, neighbor_graphs = formatter.format(event_driven=True)
+sequences, true_ind_sequences, neighbor_graphs, *_ = formatter.format(event_driven=True)
 sequences = {i: sequence for i, sequence in enumerate(sequences)}
 variables = formatter.get_formatted_columns()
 num_var = len(variables)
