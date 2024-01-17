@@ -354,7 +354,17 @@ class ResultsFormatter():
 
         return ResultsFormatter(graph, val_matrix)
 
-    def var_filter(self, cause_vars_to_remove : list = None, effect_vars_to_remove : list = None):
+    
+    def high_filter(self, abs_max = 0.5):
+        graph = self.graph.copy()
+        val_matrix = self.val_matrix.copy()
+
+        graph[np.abs(val_matrix) > abs_max] = ""
+        val_matrix[np.abs(val_matrix) > abs_max] = 0
+
+        return ResultsFormatter(graph, val_matrix)
+
+    def var_filter(self, cause_vars_to_remove : list = None, effect_vars_to_remove : list = None, remove_bidirectional : bool = False):
         graph = self.graph.copy()
         val_matrix = self.val_matrix.copy()
 
@@ -370,6 +380,14 @@ class ResultsFormatter():
         for j in effect_vars_to_remove:
             graph[:,j,:][np.where(graph[:,j,:] != "o-o")] = ""
             val_matrix[:,j,:][np.where(graph[:,j,:] != "o-o")] = 0
+
+        # If the link is bidirectional and both ends belong to one of the sets to remove, remove
+        if remove_bidirectional:
+            bidirectional_var_to_remove = cause_vars_to_remove + effect_vars_to_remove
+            for i in bidirectional_var_to_remove:
+                for j in bidirectional_var_to_remove:
+                    graph[i,j,:][np.where(graph[i,j,:] == "o-o")] = ""
+                    val_matrix[i,j,:][np.where(graph[i,j,:] == "o-o")] = 0
 
         return ResultsFormatter(graph, val_matrix)
 
