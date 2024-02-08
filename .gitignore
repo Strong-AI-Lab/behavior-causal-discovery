@@ -3,4 +3,4 @@ __pycache__/
 saves/
 results/
 nohup.out
-lightning_logs/
+lightning_logs*/

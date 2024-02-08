@@ -45,7 +45,7 @@ class DynamicsSolver():
             force = torch.zeros((batch_size, 1, self.dimensions), dtype=torch.float32)
 
         acc = (force / self.mass).repeat(1, dt, 1)  # apply force for dt timesteps
-        time = torch.arange(dt, dtype=torch.float32).reshape((1, dt, 1)).repeat(batch_size, 1, self.dimensions)  # time account for dt timesteps
+        time = torch.arange(1,dt+1, dtype=torch.float32).reshape((1, dt, 1)).repeat(batch_size, 1, self.dimensions)  # time account for dt timesteps
 
         new_v = v[:, -1, :].unsqueeze(1).repeat(1, dt, 1) + acc * time
         new_x = x[:, -1, :].unsqueeze(1).repeat(1, dt, 1) + new_v * time
