@@ -44,13 +44,22 @@ train_formatter = PandasFormatterEnsemble(train_data)
 train_sequences = train_formatter.format(output_format="dataclass").movements
 train_sequences = {ind : coords.to_numpy(dtype=np.float64).tolist() for ind, coords in train_sequences.items()}
 
+min_max_coords = tuple([(min(val), max(val)) for val in zip(*[sample for seq in train_sequences.values() for sample in seq])]) # min and max values for each dimension: [(min_x, max_x), (min_y, max_y), (min_z, max_z)]
+min_coord_t = torch.tensor([min_max_coords[0][0], min_max_coords[1][0], min_max_coords[2][0]])
+max_coord_t = torch.tensor([min_max_coords[0][1], min_max_coords[1][1], min_max_coords[2][1]])
+
 
 # Create dataset
 solver = DynamicsSolver(mass=1, dimensions=3)
 def transform(sample):
         x, y, ind = sample
+
+        x = (x - min_coord_t) / (max_coord_t - min_coord_t) # normalize data
+        y = (y - min_coord_t) / (max_coord_t - min_coord_t) # normalize data
+        
         y = solver.compute_acceleration(y.unsqueeze(0)) # target data is force applied on target step (t+1), corresponds to acceleration when setting mass=1
         y = y.squeeze(0)
+
         return x, y, ind
 
 train_dataset = SeriesDataset(train_sequences, lookback=TAU_MAX+1, target_offset_start=1, target_offset_end=3, transform=transform) # add 2 to offset to compute acceleration of target step (t+1)
