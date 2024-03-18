@@ -4,3 +4,6 @@ saves/
 results/
 nohup.out
 lightning_logs*/
+wandb/
+.pytest_cache/
+meerkat_modelling
