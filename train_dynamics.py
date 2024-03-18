@@ -13,6 +13,7 @@ from src.dynamics.solver import DynamicsSolver
 import torch
 from torch.utils.data import DataLoader
 import pytorch_lightning as pl
+from pytorch_lightning.loggers import WandbLogger
 
 
 MODELS = {
@@ -25,6 +26,7 @@ print("Parsing arguments..")
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_type',type=str, default="dynamical_lstm", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
 parser.add_argument('--save', type=str, default=None, help='If provided, loads the model from a save. The save can be a `model.ckpt` file. If the model_type if `causal_*`, a save folder from a causal_discovery run can als be used.')
+parser.add_argument('--wandb_project', type=str, default=None, help='If specified, logs the run to wandb under the specified project.')
 args = parser.parse_args()
 
 # assert args.model_type in MODELS.keys(), f"Model type {args.model_type} not supported. Options: {','.join(MODELS.keys())}."
@@ -83,7 +85,7 @@ for ind, seq in train_sequences.items():
                 })
 
 
-train_dataset = DynamicSeriesDataset(train_sequences, lookback=TAU_MAX+1, target_offset_start=0, target_offset_end=0) # no offset as we want to predict the force applied on the current step
+train_dataset = DynamicSeriesDataset(transformed_sequences, lookback=TAU_MAX+1, target_offset_start=0, target_offset_end=0) # no offset as we want to predict the force applied on the current step
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 
 
@@ -99,6 +101,8 @@ else:
 trainer = pl.Trainer(
         max_epochs=10,
         devices=[0],
-        accelerator="gpu")
+        accelerator="gpu",
+        logger=WandbLogger(name=f"{args.model_type}_train", project=args.wandb_project) if args.wandb_project else None,
+)
 
 trainer.fit(model, train_loader)
