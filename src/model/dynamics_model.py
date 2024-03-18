@@ -32,7 +32,7 @@ class DynamicalPredictor(pl.LightningModule):
         return y_pred
     
     def configure_optimizers(self):
-        return torch.optim.Adam(self.parameters(), lr=1e-3)
+        return torch.optim.AdamW(self.parameters(), lr=1e-3)
     
     def backward(self, loss):
         loss.backward(retain_graph=True)
@@ -114,7 +114,7 @@ class DynMLPPredictor(DynamicalPredictor):
     
 
 class DynTransformerPredictor(DynamicalPredictor):
-    def __init__(self, lookback, hidden_size=64, nhead=3, num_encoder_layers=1, num_decoder_layers=1):
+    def __init__(self, lookback, hidden_size=192, nhead=3, num_encoder_layers=1, num_decoder_layers=1):
         super().__init__()
         self.lookback = lookback
         self.hidden_size = hidden_size
@@ -135,11 +135,14 @@ class DynTransformerPredictor(DynamicalPredictor):
     
     def forward(self, x):
         x_shape = x.shape # [batch_size, lookback, dimensions]
-        outputs = torch.zeros_like(x)
+        lookback = min(self.lookback, x_shape[1])
         
         x = self.input_batch_norm(x.reshape((-1, self.dimensions)))
         x = x.reshape(x_shape)
-        for i in range(1,self.lookback+1):
+        x = self.input_layer(x)
+        
+        outputs = torch.zeros_like(x)
+        for i in range(1,lookback+1):
             output_i = self.transformer(x[:,:i,:], x[:,:i,:])
             outputs[:,i-1,:] = output_i[:,-1,:]
         
