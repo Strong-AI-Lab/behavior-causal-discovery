@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 
 from src.data.format_data import PandasFormatterEnsemble
-from src.data.dataset import SeriesDataset
+from src.data.dataset import DynamicSeriesDataset
 from src.model.dynamics_model import DYNAMIC_MODELS
 from src.dynamics.solver import DynamicsSolver
 
@@ -44,25 +44,46 @@ train_formatter = PandasFormatterEnsemble(train_data)
 train_sequences = train_formatter.format(output_format="dataclass").movements
 train_sequences = {ind : coords.to_numpy(dtype=np.float64).tolist() for ind, coords in train_sequences.items()}
 
-min_max_coords = tuple([(min(val), max(val)) for val in zip(*[sample for seq in train_sequences.values() for sample in seq])]) # min and max values for each dimension: [(min_x, max_x), (min_y, max_y), (min_z, max_z)]
-min_coord_t = torch.tensor([min_max_coords[0][0], min_max_coords[1][0], min_max_coords[2][0]])
-max_coord_t = torch.tensor([min_max_coords[0][1], min_max_coords[1][1], min_max_coords[2][1]])
+mean_std_coords = tuple([(np.array(val).mean(), np.array(val).std()) for val in zip(*[sample for seq in train_sequences.values() for sample in seq])]) # mean and std values for each dimension
+mean_coord_t = torch.tensor([mean_std_coords[0][0], mean_std_coords[1][0], mean_std_coords[2][0]])
+std_coord_t = torch.tensor([mean_std_coords[0][1], mean_std_coords[1][1], mean_std_coords[2][1]])
 
 
 # Create dataset
 solver = DynamicsSolver(mass=1, dimensions=3)
-def transform(sample):
-        x, y, ind = sample
 
-        x = (x - min_coord_t) / (max_coord_t - min_coord_t) # normalize data
-        y = (y - min_coord_t) / (max_coord_t - min_coord_t) # normalize data
+def transform(x_i, x_ip1, prev_v0 = None):
+        x = torch.tensor(x_i).float()
+        y = torch.stack([torch.tensor(x_i).float(), torch.tensor(x_ip1).float()]) # concatenate x_i and x_i+1
+
+        prev_v0 = prev_v0.view(1,1,-1) if prev_v0 is not None else None
+
+        x = (x - mean_coord_t) / std_coord_t # normalize data
+        y = (y - mean_coord_t) / std_coord_t # normalize data
         
-        y = solver.compute_acceleration(y.unsqueeze(0)) # target data is force applied on target step (t+1), corresponds to acceleration when setting mass=1
-        y = y.squeeze(0)
+        force, a, v = solver.compute_force(y.unsqueeze(0), v0=prev_v0, return_velocity=True) # target data is force applied on target step (t+1), corresponds to acceleration when setting mass=1
+        
+        y = force[:,0,:].squeeze(0) # force applied on step x_i to reach x_i+1
+        v0 = v[:,-1,:].squeeze(0) # velocity reached at step x_i+1
 
-        return x, y, ind
+        return x, y, v0
 
-train_dataset = SeriesDataset(train_sequences, lookback=TAU_MAX+1, target_offset_start=1, target_offset_end=3, transform=transform) # add 2 to offset to compute acceleration of target step (t+1)
+transformed_sequences = {}
+for ind, seq in train_sequences.items():
+        v0 = None # Assume initial speed is 0
+        for i in range(len(seq) - 1):
+                x, y, v0 = transform(seq[i], seq[i+1], v0)
+
+                if ind not in transformed_sequences:
+                        transformed_sequences[ind] = []
+                transformed_sequences[ind].append({
+                        "x": x.tolist(),
+                        "a": y.tolist(),
+                        "v": v0.tolist()
+                })
+
+
+train_dataset = DynamicSeriesDataset(train_sequences, lookback=TAU_MAX+1, target_offset_start=0, target_offset_end=0) # no offset as we want to predict the force applied on the current step
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 
 

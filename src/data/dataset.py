@@ -24,7 +24,6 @@ class SeriesDataset(Dataset): # Switch to pytorch_forecasting.data.timeseries.Ti
                 x.append(feature)
                 y.append(target)
                 individual.append(key)
-
         
         return torch.tensor(x, dtype=torch.float32), torch.tensor(y, dtype=torch.float32), individual # (num_samples, lookback, num_variables) (num_samples, lookback, num_variables) (num_samples,)
     
@@ -38,6 +37,29 @@ class SeriesDataset(Dataset): # Switch to pytorch_forecasting.data.timeseries.Ti
             sample = self.transform(sample)
 
         return sample
+    
+
+class DynamicSeriesDataset(SeriesDataset):
+
+    def __init__(self, sequences : dict, lookback : int, target_offset_start : int = 1, target_offset_end : int = 1, transform : Callable = None):
+        super().__init__(sequences, lookback, target_offset_start, target_offset_end, transform)
+
+    def _create_dataset(self, sequences : dict, lookback : int, target_offset_start : int = 1, target_offset_end : int = 1):
+        x, y, individual = [], [], []
+
+        for key, sequence in sequences.items():
+            for i in range(len(sequence)-lookback-target_offset_end+1):
+                feature = sequence[i:i+lookback]
+                target = sequence[i+target_offset_start:i+lookback+target_offset_end]
+
+                coordinates = [f["x"] for f in feature]
+                forces = [t["a"] for t in target]
+
+                x.append(coordinates)
+                y.append(forces)
+                individual.append(key)
+        
+        return torch.tensor(x, dtype=torch.float32), torch.tensor(y, dtype=torch.float32), individual # (num_samples, lookback, num_variables) (num_samples, lookback, num_variables) (num_samples,)
     
 
 
