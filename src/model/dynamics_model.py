@@ -69,14 +69,13 @@ class DynLSTMPredictor(DynamicalPredictor):
     
 
 class DynMLPPredictor(DynamicalPredictor):
-    def __init__(self, lookback, hidden_size=128, num_layers=1):
+    def __init__(self, lookback, hidden_size=128, num_layers=2):
         super().__init__()
         self.lookback = lookback
         self.hidden_size = hidden_size
         self.num_layers = num_layers
         self.dimensions = 3 # x, y, z
 
-        self.input_batch_norm = torch.nn.BatchNorm1d(self.dimensions)
         self.input_layer = torch.nn.Sequential(
             torch.nn.Linear(self.dimensions * self.lookback, self.hidden_size),
             torch.nn.ReLU()
@@ -90,26 +89,32 @@ class DynMLPPredictor(DynamicalPredictor):
             ))
         self.hidden_layers = torch.nn.ModuleList(hidden_layers)
 
-        self.output_batch_norm = torch.nn.BatchNorm1d(self.hidden_size)
-        self.outpout_layer = torch.nn.Linear(self.hidden_size, self.dimensions)
+        self.output_layer = torch.nn.Linear(self.hidden_size, self.dimensions)
 
         self.save_hyperparameters()
 
-    def forward(self, x):
+    def forward(self, x, return_latent=False):
         x_shape = x.shape # [batch_size, lookback, dimensions]
         
-        x = self.batch_norm(x.reshape((-1, self.dimensions)))
-        x = x.reshape(x_shape)
+        lookback = min(self.lookback, x_shape[1])
+        latents = torch.zeros(x_shape[0], lookback, self.hidden_size, device=x.device)
+        for i in range(1,lookback+1):
+            x_i = x[:,:i,:]
+            lookback_i = min(self.lookback, x_i.shape[1])
 
-        x = self.input_layer(x.reshape((-1, self.dimensions * self.lookback)))
+            if lookback_i < self.lookback:
+                x_i = torch.cat([torch.zeros(x_shape[0], self.lookback - lookback_i, self.dimensions, device=x_i.device), x_i], dim=1)
+
+            latents[:,i-1,:] = self.input_layer(x_i.reshape((-1, self.dimensions * self.lookback)))
 
         for layer in self.hidden_layers: # Residual connections
-            x = x + layer(x)
+            latents = latents + layer(latents)
 
-        x = self.output_batch_norm(x)
-        x = self.output_layer(x)
+        x = self.output_layer(latents)
         x = x.reshape(x_shape)
 
+        if return_latent:
+            return x, latents
         return x
     
 
