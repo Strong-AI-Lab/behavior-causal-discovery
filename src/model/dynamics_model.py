@@ -159,6 +159,62 @@ class DynTransformerPredictor(DynamicalPredictor):
         if return_latent:
             return outputs, latents
         return outputs
+    
+
+
+
+class DynVariationalPredictor(DynamicalPredictor):
+    def __init__(self, inner, beta = 0.25):
+        super().__init__()
+        self.inner = inner
+        self.log_var_fn = torch.nn.Linear(self.inner.hidden_size, self.inner.dimensions)
+        self.beta = beta
+
+        self.save_hyperparameters()
+
+    def forward(self, x, return_latent=False):
+        mu, latents = self.inner.forward(x, return_latent=True)
+        log_var = self.log_var_fn(latents)
+
+        sample = torch.randn_like(mu)
+        sample = mu + sample * torch.exp(0.5 * log_var)
+
+        if return_latent:
+            return sample, mu, log_var, latents
+        return sample
+    
+    def kl_loss(self, mu, log_var):
+        return torch.mean(-0.5 * torch.sum(1 + log_var - mu.pow(2) - log_var.exp()))
+    
+    def training_step(self, batch, batch_idx):
+        x, y, i = batch
+        y_pred, mu, log_var, _ = self(x, return_latent=True)
+
+        loss = torch.nn.functional.mse_loss(y_pred, y)
+        kl_loss = self.kl_loss(mu, log_var)
+        self.log('train_loss', loss)
+        self.log('train_kl_loss', kl_loss)
+        return loss + self.beta * kl_loss
+    
+    def validation_step(self, batch, batch_idx):
+        x, y, i = batch
+        y_pred, mu, log_var, _ = self(x, return_latent=True)
+    
+        loss = torch.nn.functional.mse_loss(y_pred, y)
+        kl_loss = self.kl_loss(mu, log_var)
+        self.log('val_loss', loss)
+        self.log('val_kl_loss', kl_loss)
+        return loss + self.beta * kl_loss
+    
+
+def DynVariationalMLPPredictor(lookback, hidden_size=128, num_layers=2, beta=0.25):
+    return DynVariationalPredictor(DynMLPPredictor(lookback, hidden_size, num_layers), beta=beta)
+
+def DynVariationalLSTMPredictor(lookback, hidden_size=128, num_layers=1, beta=0.25):
+    return DynVariationalPredictor(DynLSTMPredictor(lookback, hidden_size, num_layers), beta=beta)
+
+def DynVariationalTransformerPredictor(lookback, hidden_size=192, nhead=3, num_encoder_layers=2, num_decoder_layers=2, beta=0.25):
+    return DynVariationalPredictor(DynTransformerPredictor(lookback, hidden_size, nhead, num_encoder_layers, num_decoder_layers), beta=beta)
 
 
 
@@ -166,4 +222,8 @@ DYNAMIC_MODELS = {
     "dynamical_lstm": DynLSTMPredictor,
     "dynamical_mlp": DynMLPPredictor,
     "dynamical_transformer": DynTransformerPredictor,
+    "dynamical_variational": DynVariationalPredictor,
+    "dynamical_variational_lstm": DynVariationalLSTMPredictor,
+    "dynamical_variational_mlp": DynVariationalMLPPredictor,
+    "dynamical_variational_transformer": DynVariationalTransformerPredictor
 }
