@@ -53,18 +53,19 @@ class DynLSTMPredictor(DynamicalPredictor):
         self.linear = torch.nn.Linear(hidden_size, self.dimensions)
         self.save_hyperparameters()
 
-    def forward(self, x):
+    def forward(self, x, return_latent=False):
         x_shape = x.shape # [batch_size, lookback, dimensions]
         
         x = self.input_batch_norm(x.reshape((-1, self.dimensions)))
         x = x.reshape(x_shape)
 
-        x, _ = self.lstm(x)
-
-        x = self.output_batch_norm(x.reshape((-1, self.hidden_size)))
-        x = self.linear(x)
+        latents, _ = self.lstm(x)
+        latents = self.output_batch_norm(latents.reshape((-1, self.hidden_size)))
+        x = self.linear(latents)
         x = x.reshape(x_shape)
 
+        if return_latent:
+            return x, latents
         return x
     
 
@@ -119,7 +120,7 @@ class DynMLPPredictor(DynamicalPredictor):
     
 
 class DynTransformerPredictor(DynamicalPredictor):
-    def __init__(self, lookback, hidden_size=192, nhead=3, num_encoder_layers=1, num_decoder_layers=1):
+    def __init__(self, lookback, hidden_size=192, nhead=3, num_encoder_layers=2, num_decoder_layers=2):
         super().__init__()
         self.lookback = lookback
         self.hidden_size = hidden_size
@@ -128,33 +129,35 @@ class DynTransformerPredictor(DynamicalPredictor):
         self.num_decoder_layers = num_decoder_layers
         self.dimensions = 3 # x, y, z
 
-        self.input_batch_norm = torch.nn.BatchNorm1d(self.dimensions)
+        # self.input_batch_norm = torch.nn.BatchNorm1d(self.dimensions)
         self.input_layer = torch.nn.Sequential(
             torch.nn.Linear(self.dimensions, self.hidden_size),
             torch.nn.ReLU()
         )
         self.transformer = torch.nn.Transformer(d_model=hidden_size, nhead=nhead, num_encoder_layers=num_encoder_layers, num_decoder_layers=num_decoder_layers, batch_first=True)
-        self.output_batch_norm = torch.nn.BatchNorm1d(self.hidden_size)
+        # self.output_batch_norm = torch.nn.BatchNorm1d(self.hidden_size)
         self.output_layer = torch.nn.Linear(hidden_size, self.dimensions)
         self.save_hyperparameters()
     
-    def forward(self, x):
+    def forward(self, x, return_latent=False):
         x_shape = x.shape # [batch_size, lookback, dimensions]
         lookback = min(self.lookback, x_shape[1])
         
-        x = self.input_batch_norm(x.reshape((-1, self.dimensions)))
-        x = x.reshape(x_shape)
+        # x = self.input_batch_norm(x.reshape((-1, self.dimensions)))
+        # x = x.reshape(x_shape)
         x = self.input_layer(x)
         
-        outputs = torch.zeros_like(x)
+        latents = torch.zeros_like(x)
         for i in range(1,lookback+1):
             output_i = self.transformer(x[:,:i,:], x[:,:i,:])
-            outputs[:,i-1,:] = output_i[:,-1,:]
+            latents[:,i-1,:] = output_i[:,-1,:]
         
-        outputs = self.output_batch_norm(outputs.reshape((-1, self.hidden_size)))
-        outputs = self.output_layer(outputs)
-        outputs = outputs.reshape(x_shape)
+        # outputs = self.output_batch_norm(outputs.reshape((-1, self.hidden_size)))
+        outputs = self.output_layer(latents)
+        # outputs = outputs.reshape(x_shape)
 
+        if return_latent:
+            return outputs, latents
         return outputs
 
 
