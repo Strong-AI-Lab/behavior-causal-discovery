@@ -46,9 +46,20 @@ train_formatter = PandasFormatterEnsemble(train_data)
 train_sequences = train_formatter.format(output_format="dataclass").movements
 train_sequences = {ind : coords.to_numpy(dtype=np.float64).tolist() for ind, coords in train_sequences.items()}
 
-mean_std_coords = tuple([(np.array(val).mean(), np.array(val).std()) for val in zip(*[sample for seq in train_sequences.values() for sample in seq])]) # mean and std values for each dimension
-mean_coord_t = torch.tensor([mean_std_coords[0][0], mean_std_coords[1][0], mean_std_coords[2][0]])
-std_coord_t = torch.tensor([mean_std_coords[0][1], mean_std_coords[1][1], mean_std_coords[2][1]])
+# mean_std_coords = tuple([(np.array(val).mean(), np.array(val).std()) for val in zip(*[sample for seq in train_sequences.values() for sample in seq])]) # mean and std values for each dimension
+# mean_coord_t = torch.tensor([mean_std_coords[0][0], mean_std_coords[1][0], mean_std_coords[2][0]])
+# std_coord_t = torch.tensor([mean_std_coords[0][1], mean_std_coords[1][1], mean_std_coords[2][1]])
+min_coord_x, max_coord_x, min_coord_y, max_coord_y, min_coord_z, max_coord_z = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+for seq in train_sequences.values():
+        for sample in seq:
+                min_coord_x = min(min_coord_x, sample[0])
+                max_coord_x = max(max_coord_x, sample[0])
+                min_coord_y = min(min_coord_y, sample[1])
+                max_coord_y = max(max_coord_y, sample[1])
+                min_coord_z = min(min_coord_z, sample[2])
+                max_coord_z = max(max_coord_z, sample[2])
+min_coords = torch.tensor([min_coord_x, min_coord_y, min_coord_z])
+max_coords = torch.tensor([max_coord_x, max_coord_y, max_coord_z])
 
 
 # Create dataset
@@ -60,8 +71,11 @@ def transform(x_i, x_ip1, prev_v0 = None):
 
         prev_v0 = prev_v0.view(1,1,-1) if prev_v0 is not None else None
 
-        x = (x - mean_coord_t) / std_coord_t # normalize data
-        y = (y - mean_coord_t) / std_coord_t # normalize data
+        # x = (x - mean_coord_t) / std_coord_t # normalize data
+        # y = (y - mean_coord_t) / std_coord_t # normalize data
+        x = (x - min_coords) / (max_coords - min_coords) # normalize data
+        y = (y - min_coords) / (max_coords - min_coords) # normalize data
+
         
         force, a, v = solver.compute_force(y.unsqueeze(0), v0=prev_v0, return_velocity=True) # target data is force applied on target step (t+1), corresponds to acceleration when setting mass=1
         
@@ -99,7 +113,7 @@ else:
 
 # Train model
 trainer = pl.Trainer(
-        max_epochs=10,
+        max_epochs=20,
         devices=[0],
         accelerator="gpu",
         logger=WandbLogger(name=f"{args.model_type}_train", project=args.wandb_project) if args.wandb_project else None,
