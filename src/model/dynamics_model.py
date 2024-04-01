@@ -1,33 +1,78 @@
 
 import torch
+import torch.nn.functional as F
 import pytorch_lightning as pl
 
 
 
 # Dynamical Lightning module
 class DynamicalPredictor(pl.LightningModule):
-    def __init__(self):
+    def __init__(self, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25):
         super().__init__()
+        self.friction_penalty = friction_penalty
+        self.acceleration_penalty = acceleration_penalty
+        self.energy_penalty = energy_penalty
+
+    def friction_force(self, v):
+        return -self.friction_penalty * v
+    
+    def acceleration_loss(self, a):
+        return self.acceleration_penalty * torch.mean(a ** 2)
+
+    def _smooth_abs(self, x, beta=0.1):
+        return F.smooth_l1_loss(x, torch.zeros_like(x), beta, reduce=False, reduction='none')
+    
+    def energy_loss(self, x, v, a_target, a_pred):
+        # Compute the work done by the true application of the force (true past values)
+        future_x = x[:, 1:, :]
+        past_x = x[:, :-1, :]
+        work = self._smooth_abs(torch.sum(a_target[:,:-1,:] * (future_x - past_x), dim=2)) # Work done by the application of the force (batch_size, lookback-1)
+
+        for i in range(1, work.shape[1]):
+            work[:,i] += work[:,i-1]
+        work = torch.cat([torch.zeros(work.shape[0], 1, device=work.device), work], dim=1) # Cumulative work done by the application of the force (batch_size, lookback)
+
+        # Compute the energy spent by the system (predicted future values given true past work)
+        x_pred = x + v + 0.5 * a_pred
+        energy_pred = work + self._smooth_abs(torch.sum(a_pred * (x_pred - x), dim=2)) # Cumulative predicted energy spent by the system (batch_size, lookback)
+        
+        scaling_factor = self.energy_penalty * torch.arange(1, x.shape[1]+1, device=x.device).float().reshape((1, -1)) # Linear scaling factor reducing the effect of early predictions with low work (batch_size, lookback)
+        return torch.mean(scaling_factor * energy_pred**2)
     
     def training_step(self, batch, batch_idx):
-        x, y, i = batch
-        y_pred = self(x)
+        x, v, y, i = batch
+        y_pred = self(x, velocity=v)
+        y_pred = y_pred + self.friction_force(v)
 
-        loss = torch.nn.functional.mse_loss(y_pred, y)
+        prediction_loss = torch.nn.functional.mse_loss(y_pred, y)
+        acceleration_loss = self.acceleration_loss(y_pred)
+        energy_loss = self.energy_loss(x, v, y, y_pred)
+        loss = prediction_loss + acceleration_loss + energy_loss
         self.log('train_loss', loss)
+        self.log('train_prediction_loss', prediction_loss.detach())
+        self.log('train_acceleration_loss', acceleration_loss.detach())
+        self.log('train_energy_loss', energy_loss.detach())
         return loss
     
     def validation_step(self, batch, batch_idx):
-        x, y, i = batch
-        y_pred = self(x)
-    
-        loss = torch.nn.functional.mse_loss(y_pred, y)
+        x, v, y, i = batch
+        y_pred = self(x, velocity=v)
+        y_pred = y_pred + self.friction_force(v)
+        
+        prediction_loss = torch.nn.functional.mse_loss(y_pred, y)
+        acceleration_loss = self.acceleration_loss(y_pred)
+        energy_loss = self.energy_loss(x, v, y, y_pred)
+        loss = prediction_loss + acceleration_loss + energy_loss
         self.log('val_loss', loss)
+        self.log('val_prediction_loss', prediction_loss.detach())
+        self.log('val_acceleration_loss', acceleration_loss.detach())
+        self.log('val_energy_loss', energy_loss.detach())
         return loss
     
     def predict_step(self, batch, batch_idx):
-        x, y, i = batch
-        y_pred = self(x)
+        x, v, y, i = batch
+        y_pred = self(x, velocity=v)
+        y_pred = y_pred + self.friction_force(v)
     
         return y_pred
     
@@ -40,29 +85,33 @@ class DynamicalPredictor(pl.LightningModule):
 
 
 class DynLSTMPredictor(DynamicalPredictor):
-    def __init__(self, lookback, hidden_size=128, num_layers=1):
-        super().__init__()
+    def __init__(self, lookback, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25, hidden_size=128, num_layers=1, include_velocity=True):
+        super().__init__(friction_penalty, acceleration_penalty, energy_penalty)
         self.lookback = lookback
         self.hidden_size = hidden_size
         self.num_layers = num_layers
         self.dimensions = 3 # x, y, z
+        self.include_velocity = include_velocity # Additional velocity input with same dimensions
 
-        self.input_batch_norm = torch.nn.BatchNorm1d(self.dimensions)
-        self.lstm = torch.nn.LSTM(input_size=self.dimensions, hidden_size=hidden_size, num_layers=num_layers, batch_first=True)
-        self.output_batch_norm = torch.nn.BatchNorm1d(self.hidden_size)
-        self.linear = torch.nn.Linear(hidden_size, self.dimensions)
+        # self.input_batch_norm = torch.nn.BatchNorm1d(self.dimensions + (self.dimensions if include_velocity else 0))
+        self.lstm = torch.nn.LSTM(input_size=self.dimensions * (2 if self.include_velocity else 1), hidden_size=hidden_size, num_layers=num_layers, batch_first=True)
+        # self.output_batch_norm = torch.nn.BatchNorm1d(self.hidden_size)
+        self.linear = torch.nn.Linear(hidden_size, self.dimensions) # Output is the force applied on the system at the next timestep with same dimensions
         self.save_hyperparameters()
 
-    def forward(self, x, return_latent=False):
+    def forward(self, x, return_latent=False, velocity=None, **kwargs):
+        if self.include_velocity and velocity is not None:
+            x = torch.cat([x, velocity], dim=2)
+
         x_shape = x.shape # [batch_size, lookback, dimensions]
         
         x = self.input_batch_norm(x.reshape((-1, self.dimensions)))
         x = x.reshape(x_shape)
 
         latents, _ = self.lstm(x)
-        latents = self.output_batch_norm(latents.reshape((-1, self.hidden_size)))
+        # latents = self.output_batch_norm(latents.reshape((-1, self.hidden_size)))
         x = self.linear(latents)
-        x = x.reshape(x_shape)
+        # x = x.reshape(x_shape)
 
         if return_latent:
             return x, latents
@@ -70,15 +119,16 @@ class DynLSTMPredictor(DynamicalPredictor):
     
 
 class DynMLPPredictor(DynamicalPredictor):
-    def __init__(self, lookback, hidden_size=128, num_layers=2):
-        super().__init__()
+    def __init__(self, lookback, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25, hidden_size=128, num_layers=2, include_velocity=True):
+        super().__init__(friction_penalty, acceleration_penalty, energy_penalty)
         self.lookback = lookback
         self.hidden_size = hidden_size
         self.num_layers = num_layers
         self.dimensions = 3 # x, y, z
+        self.include_velocity = include_velocity # Additional velocity input with same dimensions
 
         self.input_layer = torch.nn.Sequential(
-            torch.nn.Linear(self.dimensions * self.lookback, self.hidden_size),
+            torch.nn.Linear(self.dimensions * self.lookback * (2 if self.include_velocity else 1), self.hidden_size),
             torch.nn.ReLU()
         )
 
@@ -90,12 +140,15 @@ class DynMLPPredictor(DynamicalPredictor):
             ))
         self.hidden_layers = torch.nn.ModuleList(hidden_layers)
 
-        self.output_layer = torch.nn.Linear(self.hidden_size, self.dimensions)
+        self.output_layer = torch.nn.Linear(self.hidden_size, self.dimensions) # Output is the force applied on the system at the next timestep with same dimensions
 
         self.save_hyperparameters()
 
-    def forward(self, x, return_latent=False):
+    def forward(self, x, return_latent=False, velocity=None, **kwargs):
         x_shape = x.shape # [batch_size, lookback, dimensions]
+
+        if self.include_velocity and velocity is not None:
+            x = torch.cat([x, velocity], dim=2)
         
         lookback = min(self.lookback, x_shape[1])
         latents = torch.zeros(x_shape[0], lookback, self.hidden_size, device=x.device)
@@ -104,9 +157,9 @@ class DynMLPPredictor(DynamicalPredictor):
             lookback_i = min(self.lookback, x_i.shape[1])
 
             if lookback_i < self.lookback:
-                x_i = torch.cat([torch.zeros(x_shape[0], self.lookback - lookback_i, self.dimensions, device=x_i.device), x_i], dim=1)
+                x_i = torch.cat([torch.zeros(x_shape[0], self.lookback - lookback_i, self.dimensions * (2 if self.include_velocity else 1), device=x_i.device), x_i], dim=1)
 
-            latents[:,i-1,:] = self.input_layer(x_i.reshape((-1, self.dimensions * self.lookback)))
+            latents[:,i-1,:] = self.input_layer(x_i.reshape((-1, self.dimensions * self.lookback* (2 if self.include_velocity else 1))))
 
         for layer in self.hidden_layers: # Residual connections
             latents = latents + layer(latents)
@@ -120,26 +173,30 @@ class DynMLPPredictor(DynamicalPredictor):
     
 
 class DynTransformerPredictor(DynamicalPredictor):
-    def __init__(self, lookback, hidden_size=192, nhead=3, num_encoder_layers=2, num_decoder_layers=2):
-        super().__init__()
+    def __init__(self, lookback, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25, hidden_size=192, nhead=3, num_encoder_layers=2, num_decoder_layers=2, include_velocity=True):
+        super().__init__(friction_penalty, acceleration_penalty, energy_penalty)
         self.lookback = lookback
         self.hidden_size = hidden_size
         self.nhead = nhead
         self.num_encoder_layers = num_encoder_layers
         self.num_decoder_layers = num_decoder_layers
         self.dimensions = 3 # x, y, z
+        self.include_velocity = include_velocity # Additional velocity input with same dimensions
 
         # self.input_batch_norm = torch.nn.BatchNorm1d(self.dimensions)
         self.input_layer = torch.nn.Sequential(
-            torch.nn.Linear(self.dimensions, self.hidden_size),
+            torch.nn.Linear(self.dimensions * (2 if self.include_velocity else 1), self.hidden_size),
             torch.nn.ReLU()
         )
         self.transformer = torch.nn.Transformer(d_model=hidden_size, nhead=nhead, num_encoder_layers=num_encoder_layers, num_decoder_layers=num_decoder_layers, batch_first=True)
         # self.output_batch_norm = torch.nn.BatchNorm1d(self.hidden_size)
-        self.output_layer = torch.nn.Linear(hidden_size, self.dimensions)
+        self.output_layer = torch.nn.Linear(hidden_size, self.dimensions) # Output is the force applied on the system at the next timestep with same dimensions
         self.save_hyperparameters()
     
-    def forward(self, x, return_latent=False):
+    def forward(self, x, return_latent=False, velocity=None, **kwargs):
+        if self.include_velocity and velocity is not None:
+            x = torch.cat([x, velocity], dim=2)
+
         x_shape = x.shape # [batch_size, lookback, dimensions]
         lookback = min(self.lookback, x_shape[1])
         
@@ -164,16 +221,16 @@ class DynTransformerPredictor(DynamicalPredictor):
 
 
 class DynVariationalPredictor(DynamicalPredictor):
-    def __init__(self, inner, beta = 0.25):
-        super().__init__()
+    def __init__(self, inner, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25, beta=0.25):
+        super().__init__(friction_penalty, acceleration_penalty, energy_penalty)
         self.inner = inner
         self.log_var_fn = torch.nn.Linear(self.inner.hidden_size, self.inner.dimensions)
         self.beta = beta
 
         self.save_hyperparameters()
 
-    def forward(self, x, return_latent=False):
-        mu, latents = self.inner.forward(x, return_latent=True)
+    def forward(self, x, return_latent=False, velocity=None, **kwargs):
+        mu, latents = self.inner.forward(x, return_latent=True, velocity=velocity)
         log_var = self.log_var_fn(latents)
 
         sample = torch.randn_like(mu)
@@ -187,34 +244,48 @@ class DynVariationalPredictor(DynamicalPredictor):
         return torch.mean(-0.5 * torch.sum(1 + log_var - mu.pow(2) - log_var.exp()))
     
     def training_step(self, batch, batch_idx):
-        x, y, i = batch
-        y_pred, mu, log_var, _ = self(x, return_latent=True)
+        x, v, y, i = batch
+        y_pred, mu, log_var, _ = self(x, return_latent=True, velocity=v)
+        y_pred = y_pred + self.friction_force(v)
 
-        loss = torch.nn.functional.mse_loss(y_pred, y)
+        prediction_loss = torch.nn.functional.mse_loss(y_pred, y)
         kl_loss = self.kl_loss(mu, log_var)
+        acceleration_loss = self.acceleration_loss(y_pred)
+        energy_loss = self.energy_loss(x, v, y, y_pred)
+        loss = prediction_loss + acceleration_loss + energy_loss + self.beta * kl_loss
         self.log('train_loss', loss)
-        self.log('train_kl_loss', kl_loss)
-        return loss + self.beta * kl_loss
+        self.log('train_prediction_loss', prediction_loss.detach())
+        self.log('train_acceleration_loss', acceleration_loss.detach())
+        self.log('train_energy_loss', energy_loss.detach())
+        self.log('train_kl_loss', kl_loss.detach())
+        return loss
     
     def validation_step(self, batch, batch_idx):
-        x, y, i = batch
-        y_pred, mu, log_var, _ = self(x, return_latent=True)
-    
-        loss = torch.nn.functional.mse_loss(y_pred, y)
+        x, v, y, i = batch
+        y_pred, mu, log_var, _ = self(x, return_latent=True, velocity=v)
+        y_pred = y_pred + self.friction_force(v)
+        
+        prediction_loss = torch.nn.functional.mse_loss(y_pred, y)
         kl_loss = self.kl_loss(mu, log_var)
+        acceleration_loss = self.acceleration_loss(y_pred)
+        energy_loss = self.energy_loss(x, v, y, y_pred)
+        loss = prediction_loss + acceleration_loss + energy_loss + self.beta * kl_loss
         self.log('val_loss', loss)
-        self.log('val_kl_loss', kl_loss)
-        return loss + self.beta * kl_loss
+        self.log('val_prediction_loss', prediction_loss.detach())
+        self.log('val_acceleration_loss', acceleration_loss.detach())
+        self.log('val_energy_loss', energy_loss.detach())
+        self.log('val_kl_loss', kl_loss.detach())
+        return loss
     
 
-def DynVariationalMLPPredictor(lookback, hidden_size=128, num_layers=2, beta=0.25):
-    return DynVariationalPredictor(DynMLPPredictor(lookback, hidden_size, num_layers), beta=beta)
+def DynVariationalMLPPredictor(lookback, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25, hidden_size=128, num_layers=2, beta=0.25):
+    return DynVariationalPredictor(DynMLPPredictor(lookback, hidden_size=hidden_size, num_layers=num_layers, include_velocity=True), beta=beta, friction_penalty=friction_penalty, acceleration_penalty=acceleration_penalty, energy_penalty=energy_penalty)
 
-def DynVariationalLSTMPredictor(lookback, hidden_size=128, num_layers=1, beta=0.25):
-    return DynVariationalPredictor(DynLSTMPredictor(lookback, hidden_size, num_layers), beta=beta)
+def DynVariationalLSTMPredictor(lookback, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25, hidden_size=128, num_layers=1, beta=0.25):
+    return DynVariationalPredictor(DynLSTMPredictor(lookback, hidden_size=hidden_size, num_layers=num_layers, include_velocity=True), beta=beta, friction_penalty=friction_penalty, acceleration_penalty=acceleration_penalty, energy_penalty=energy_penalty)
 
-def DynVariationalTransformerPredictor(lookback, hidden_size=192, nhead=3, num_encoder_layers=2, num_decoder_layers=2, beta=0.25):
-    return DynVariationalPredictor(DynTransformerPredictor(lookback, hidden_size, nhead, num_encoder_layers, num_decoder_layers), beta=beta)
+def DynVariationalTransformerPredictor(lookback, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25, hidden_size=192, nhead=3, num_encoder_layers=2, num_decoder_layers=2, beta=0.25):
+    return DynVariationalPredictor(DynTransformerPredictor(lookback, hidden_size=hidden_size, nhead=nhead, num_encoder_layers=num_encoder_layers, num_decoder_layers=num_decoder_layers, include_velocity=True), beta=beta, friction_penalty=friction_penalty, acceleration_penalty=acceleration_penalty, energy_penalty=energy_penalty)
 
 
 
