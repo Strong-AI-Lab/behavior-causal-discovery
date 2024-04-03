@@ -5,19 +5,33 @@ import pytorch_lightning as pl
 
 
 
+DEFAULT_FRICTION_PENALTY = 1.0
+DEFAULT_ACCELERATION_PENALTY = 2.0
+DEFAULT_VELOCITY_PENALTY = 2.0
+DEFAULT_ENERGY_PENALTY = 2.0
+DEFAULT_KL_BETA = 0.01
+DEFAULT_RANDOM_FACTOR = 0.1
+
+
 # Dynamical Lightning module
 class DynamicalPredictor(pl.LightningModule):
-    def __init__(self, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25):
+    def __init__(self, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY):
         super().__init__()
         self.friction_penalty = friction_penalty
         self.acceleration_penalty = acceleration_penalty
+        self.velocity_penalty = velocity_penalty
         self.energy_penalty = energy_penalty
+
+        self.save_hyperparameters()
 
     def friction_force(self, v):
         return -self.friction_penalty * v
     
     def acceleration_loss(self, a):
-        return self.acceleration_penalty * torch.mean(a ** 2)
+        return torch.mean(a ** 2)
+    
+    def velocity_loss(self, v, a):
+        return torch.mean((v + a) ** 2)
 
     def _smooth_abs(self, x, beta=0.1):
         return F.smooth_l1_loss(x, torch.zeros_like(x), beta, reduce=False, reduction='none')
@@ -36,37 +50,51 @@ class DynamicalPredictor(pl.LightningModule):
         x_pred = x + v + 0.5 * a_pred
         energy_pred = work + self._smooth_abs(torch.sum(a_pred * (x_pred - x), dim=2)) # Cumulative predicted energy spent by the system (batch_size, lookback)
         
-        scaling_factor = self.energy_penalty * torch.arange(1, x.shape[1]+1, device=x.device).float().reshape((1, -1)) # Linear scaling factor reducing the effect of early predictions with low work (batch_size, lookback)
+        scaling_factor = torch.arange(1, x.shape[1]+1, device=x.device).float().reshape((1, -1)) # Linear scaling factor reducing the effect of early predictions with low work (batch_size, lookback)
         return torch.mean(scaling_factor * energy_pred**2)
     
     def training_step(self, batch, batch_idx):
         x, v, y, i = batch
         y_pred = self(x, velocity=v)
-        y_pred = y_pred + self.friction_force(v)
+        friction = self.friction_force(v)
+        y_pred = y_pred + friction
 
         prediction_loss = torch.nn.functional.mse_loss(y_pred, y)
         acceleration_loss = self.acceleration_loss(y_pred)
+        velocity_loss = self.velocity_loss(v, y_pred)
         energy_loss = self.energy_loss(x, v, y, y_pred)
-        loss = prediction_loss + acceleration_loss + energy_loss
+        loss = prediction_loss + self.acceleration_penalty * acceleration_loss + self.velocity_penalty * velocity_loss + self.energy_penalty * energy_loss
         self.log('train_loss', loss)
         self.log('train_prediction_loss', prediction_loss.detach())
         self.log('train_acceleration_loss', acceleration_loss.detach())
+        self.log('train_velocity_loss', velocity_loss.detach())
         self.log('train_energy_loss', energy_loss.detach())
+        self.log('train_friction_force', torch.mean(friction).detach())
+        self.log('train_friction_force_std', torch.std(friction).detach())
+        self.log('train_predicted_force', torch.mean(y_pred).detach())
+        self.log('train_predicted_force_std', torch.std(y_pred).detach())
         return loss
     
     def validation_step(self, batch, batch_idx):
         x, v, y, i = batch
         y_pred = self(x, velocity=v)
-        y_pred = y_pred + self.friction_force(v)
+        friction = self.friction_force(v)
+        y_pred = y_pred + friction
         
         prediction_loss = torch.nn.functional.mse_loss(y_pred, y)
         acceleration_loss = self.acceleration_loss(y_pred)
+        velocity_loss = self.velocity_loss(v, y_pred)
         energy_loss = self.energy_loss(x, v, y, y_pred)
-        loss = prediction_loss + acceleration_loss + energy_loss
+        loss = prediction_loss + self.acceleration_penalty * acceleration_loss + self.velocity_penalty * velocity_loss + self.energy_penalty * energy_loss
         self.log('val_loss', loss)
         self.log('val_prediction_loss', prediction_loss.detach())
         self.log('val_acceleration_loss', acceleration_loss.detach())
+        self.log('val_velocity_loss', velocity_loss.detach())
         self.log('val_energy_loss', energy_loss.detach())
+        self.log('val_friction_force', torch.mean(friction).detach())
+        self.log('val_friction_force_std', torch.std(friction).detach())
+        self.log('val_predicted_force', torch.mean(y_pred).detach())
+        self.log('val_predicted_force_std', torch.std(y_pred).detach())
         return loss
     
     def predict_step(self, batch, batch_idx):
@@ -85,8 +113,8 @@ class DynamicalPredictor(pl.LightningModule):
 
 
 class DynLSTMPredictor(DynamicalPredictor):
-    def __init__(self, lookback, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25, hidden_size=128, num_layers=1, include_velocity=True):
-        super().__init__(friction_penalty, acceleration_penalty, energy_penalty)
+    def __init__(self, lookback, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, hidden_size=256, num_layers=3, include_velocity=True):
+        super().__init__(friction_penalty, acceleration_penalty, velocity_penalty, energy_penalty)
         self.lookback = lookback
         self.hidden_size = hidden_size
         self.num_layers = num_layers
@@ -105,8 +133,8 @@ class DynLSTMPredictor(DynamicalPredictor):
 
         x_shape = x.shape # [batch_size, lookback, dimensions]
         
-        x = self.input_batch_norm(x.reshape((-1, self.dimensions)))
-        x = x.reshape(x_shape)
+        # x = self.input_batch_norm(x.reshape((-1, self.dimensions)))
+        # x = x.reshape(x_shape)
 
         latents, _ = self.lstm(x)
         # latents = self.output_batch_norm(latents.reshape((-1, self.hidden_size)))
@@ -119,8 +147,8 @@ class DynLSTMPredictor(DynamicalPredictor):
     
 
 class DynMLPPredictor(DynamicalPredictor):
-    def __init__(self, lookback, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25, hidden_size=128, num_layers=2, include_velocity=True):
-        super().__init__(friction_penalty, acceleration_penalty, energy_penalty)
+    def __init__(self, lookback, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, hidden_size=128, num_layers=2, include_velocity=True):
+        super().__init__(friction_penalty, acceleration_penalty, velocity_penalty, energy_penalty)
         self.lookback = lookback
         self.hidden_size = hidden_size
         self.num_layers = num_layers
@@ -173,8 +201,8 @@ class DynMLPPredictor(DynamicalPredictor):
     
 
 class DynTransformerPredictor(DynamicalPredictor):
-    def __init__(self, lookback, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25, hidden_size=192, nhead=3, num_encoder_layers=2, num_decoder_layers=2, include_velocity=True):
-        super().__init__(friction_penalty, acceleration_penalty, energy_penalty)
+    def __init__(self, lookback, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, hidden_size=192, nhead=3, num_encoder_layers=2, num_decoder_layers=2, include_velocity=True):
+        super().__init__(friction_penalty, acceleration_penalty, velocity_penalty, energy_penalty)
         self.lookback = lookback
         self.hidden_size = hidden_size
         self.nhead = nhead
@@ -221,11 +249,12 @@ class DynTransformerPredictor(DynamicalPredictor):
 
 
 class DynVariationalPredictor(DynamicalPredictor):
-    def __init__(self, inner, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25, beta=0.25):
-        super().__init__(friction_penalty, acceleration_penalty, energy_penalty)
+    def __init__(self, inner, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, beta=DEFAULT_KL_BETA, random_factor=DEFAULT_RANDOM_FACTOR):
+        super().__init__(friction_penalty, acceleration_penalty, velocity_penalty, energy_penalty)
         self.inner = inner
         self.log_var_fn = torch.nn.Linear(self.inner.hidden_size, self.inner.dimensions)
         self.beta = beta
+        self.random_factor = random_factor
 
         self.save_hyperparameters()
 
@@ -233,7 +262,7 @@ class DynVariationalPredictor(DynamicalPredictor):
         mu, latents = self.inner.forward(x, return_latent=True, velocity=velocity)
         log_var = self.log_var_fn(latents)
 
-        sample = torch.randn_like(mu)
+        sample = self.random_factor * torch.randn_like(mu)
         sample = mu + sample * torch.exp(0.5 * log_var)
 
         if return_latent:
@@ -246,46 +275,60 @@ class DynVariationalPredictor(DynamicalPredictor):
     def training_step(self, batch, batch_idx):
         x, v, y, i = batch
         y_pred, mu, log_var, _ = self(x, return_latent=True, velocity=v)
-        y_pred = y_pred + self.friction_force(v)
+        friction = self.friction_force(v)
+        y_pred = y_pred + friction
 
         prediction_loss = torch.nn.functional.mse_loss(y_pred, y)
         kl_loss = self.kl_loss(mu, log_var)
         acceleration_loss = self.acceleration_loss(y_pred)
+        velocity_loss = self.velocity_loss(v, y_pred)
         energy_loss = self.energy_loss(x, v, y, y_pred)
-        loss = prediction_loss + acceleration_loss + energy_loss + self.beta * kl_loss
+        loss = prediction_loss + self.acceleration_penalty * acceleration_loss + self.velocity_penalty * velocity_loss + self.energy_penalty * energy_loss + self.beta * kl_loss
         self.log('train_loss', loss)
         self.log('train_prediction_loss', prediction_loss.detach())
         self.log('train_acceleration_loss', acceleration_loss.detach())
+        self.log('train_velocity_loss', velocity_loss.detach())
         self.log('train_energy_loss', energy_loss.detach())
         self.log('train_kl_loss', kl_loss.detach())
+        self.log('train_friction_force', torch.mean(friction).detach())
+        self.log('train_friction_force_std', torch.std(friction).detach())
+        self.log('train_predicted_force', torch.mean(y_pred).detach())
+        self.log('train_predicted_force_std', torch.std(y_pred).detach())
         return loss
     
     def validation_step(self, batch, batch_idx):
         x, v, y, i = batch
         y_pred, mu, log_var, _ = self(x, return_latent=True, velocity=v)
-        y_pred = y_pred + self.friction_force(v)
+        friction = self.friction_force(v)
+        y_pred = y_pred + friction
         
         prediction_loss = torch.nn.functional.mse_loss(y_pred, y)
         kl_loss = self.kl_loss(mu, log_var)
         acceleration_loss = self.acceleration_loss(y_pred)
+        velocity_loss = self.velocity_loss(v, y_pred)
         energy_loss = self.energy_loss(x, v, y, y_pred)
-        loss = prediction_loss + acceleration_loss + energy_loss + self.beta * kl_loss
+        loss = prediction_loss + self.acceleration_penalty * acceleration_loss + self.velocity_penalty * velocity_loss + self.energy_penalty * energy_loss + self.beta * kl_loss
         self.log('val_loss', loss)
         self.log('val_prediction_loss', prediction_loss.detach())
         self.log('val_acceleration_loss', acceleration_loss.detach())
+        self.log('val_velocity_loss', velocity_loss.detach())
         self.log('val_energy_loss', energy_loss.detach())
         self.log('val_kl_loss', kl_loss.detach())
+        self.log('val_friction_force', torch.mean(friction).detach())
+        self.log('val_friction_force_std', torch.std(friction).detach())
+        self.log('val_predicted_force', torch.mean(y_pred).detach())
+        self.log('val_predicted_force_std', torch.std(y_pred).detach())
         return loss
     
 
-def DynVariationalMLPPredictor(lookback, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25, hidden_size=128, num_layers=2, beta=0.25):
-    return DynVariationalPredictor(DynMLPPredictor(lookback, hidden_size=hidden_size, num_layers=num_layers, include_velocity=True), beta=beta, friction_penalty=friction_penalty, acceleration_penalty=acceleration_penalty, energy_penalty=energy_penalty)
+def DynVariationalMLPPredictor(lookback, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, hidden_size=128, num_layers=2, beta=DEFAULT_KL_BETA):
+    return DynVariationalPredictor(DynMLPPredictor(lookback, hidden_size=hidden_size, num_layers=num_layers, include_velocity=True), beta=beta, friction_penalty=friction_penalty, acceleration_penalty=acceleration_penalty, velocity_penalty=velocity_penalty, energy_penalty=energy_penalty)
 
-def DynVariationalLSTMPredictor(lookback, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25, hidden_size=128, num_layers=1, beta=0.25):
-    return DynVariationalPredictor(DynLSTMPredictor(lookback, hidden_size=hidden_size, num_layers=num_layers, include_velocity=True), beta=beta, friction_penalty=friction_penalty, acceleration_penalty=acceleration_penalty, energy_penalty=energy_penalty)
+def DynVariationalLSTMPredictor(lookback, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, hidden_size=256, num_layers=3, beta=DEFAULT_KL_BETA):
+    return DynVariationalPredictor(DynLSTMPredictor(lookback, hidden_size=hidden_size, num_layers=num_layers, include_velocity=True), beta=beta, friction_penalty=friction_penalty, acceleration_penalty=acceleration_penalty, velocity_penalty=velocity_penalty, energy_penalty=energy_penalty)
 
-def DynVariationalTransformerPredictor(lookback, friction_penalty=0.2, acceleration_penalty=0.1, energy_penalty=0.25, hidden_size=192, nhead=3, num_encoder_layers=2, num_decoder_layers=2, beta=0.25):
-    return DynVariationalPredictor(DynTransformerPredictor(lookback, hidden_size=hidden_size, nhead=nhead, num_encoder_layers=num_encoder_layers, num_decoder_layers=num_decoder_layers, include_velocity=True), beta=beta, friction_penalty=friction_penalty, acceleration_penalty=acceleration_penalty, energy_penalty=energy_penalty)
+def DynVariationalTransformerPredictor(lookback, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, hidden_size=192, nhead=3, num_encoder_layers=2, num_decoder_layers=2, beta=DEFAULT_KL_BETA):
+    return DynVariationalPredictor(DynTransformerPredictor(lookback, hidden_size=hidden_size, nhead=nhead, num_encoder_layers=num_encoder_layers, num_decoder_layers=num_decoder_layers, include_velocity=True), beta=beta, friction_penalty=friction_penalty, acceleration_penalty=acceleration_penalty, velocity_penalty=velocity_penalty, energy_penalty=energy_penalty)
 
 
 
