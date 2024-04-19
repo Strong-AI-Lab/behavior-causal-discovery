@@ -4,6 +4,7 @@ import os
 import re
 import pandas as pd
 import numpy as np
+import json
 
 from src.data.format_data import PandasFormatterEnsemble, ResultsFormatter
 from src.data.dataset import SeriesDataset
@@ -13,6 +14,7 @@ from src.data.constants import MASKED_VARIABLES
 import torch
 from torch.utils.data import DataLoader
 import pytorch_lightning as pl
+from pytorch_lightning.loggers import WandbLogger
 
 
 MODELS = {
@@ -24,10 +26,12 @@ MODELS = {
 print("Parsing arguments..")
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_type',type=str, default="lstm", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
-parser.add_argument('--save', type=str, default=None, help='If provided, loads the model from a save. The save can be a `model.ckpt` file. If the model_type if `causal_*`, a save folder from a causal_discovery run can als be used.')
+parser.add_argument('--save', type=str, default=None, help='If provided, loads the model from a save. The save can be a `model.ckpt` file. If the model_type if `causal_*`, a save folder from a causal_discovery run can also be used.')
+parser.add_argument('--wandb_project', type=str, default=None, help='If specified, logs the run to wandb under the specified project.')
+parser.add_argument('--force_data_computation', action="store_true", help='If specified, forces the computation of the force data from the raw data.')
 parser.add_argument('--causal_graph', type=str, default="all", help='Only used when a save folder from a causal discovery run is loaded. Controls if the graph contains the edges the coefficients. Options: "all", "coefficients", "edges".')
 parser.add_argument('--filter', type=str, default=None, help='If provided, filters the causal graph to only include the most significant links. Options: ' + 
-                                                                '"low"  : remove links with low values; ' +
+                                                                '"low" : remove links with low values; ' +
                                                                 '"neighbor_effect" : remove links to neighbors, ' + 
                                                                 '"corr" : remove correlations without causation. ' +
                                                                 'Multiple filters can be applied by separating them with a comma.')
@@ -36,36 +40,59 @@ args = parser.parse_args()
 assert args.model_type in MODELS.keys(), f"Model type {args.model_type} not supported. Options: {','.join(MODELS.keys())}."
 assert args.model_type != "causal", f"Model type {args.model_type} does not support training. Use `run_discovery.py` instead."
 
-# Read data
-test_data_files = [name for name in os.listdir('data/test') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)]
-test_data = [pd.read_csv(f'data/test/{name}') for name in test_data_files]
-
-train_data_files = [name for name in os.listdir('data/train') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)]
-train_data = [pd.read_csv(f'data/train/{name}') for name in train_data_files]
-
-
 # Set constants
 TAU_MAX = 5
 LOW_FILTER = 0.075
 
 
-# Format data
-test_formatter = PandasFormatterEnsemble(test_data)
-variables = test_formatter.get_formatted_columns()
+if not args.force_data_computation and os.path.exists(f"data/gen/data_behaviour.pt") and os.path.exists(f"data/gen/variables_behaviour.json"):
+        print("Loading dataset from data/gen/data_behaviour.pt...")
+        train_dataset = torch.load("data/gen/data_behaviour.pt")
+        variables = json.load(open("data/gen/variables_behaviour.json", "r"))
+        num_var = len(variables)
 
-train_formatter = PandasFormatterEnsemble(train_data)
-train_sequences, *_ = train_formatter.format(event_driven=True)
-train_sequences = {i: sequence for i, sequence in enumerate(train_sequences)}
+else:
+        if not os.path.exists("data/gen/data_behaviour.pt"):
+                print("No dataset found in data/gen. Generating dataset...")
+        if not os.path.exists("data/gen/variables_behaviour.json"):
+                print("No variables found in data/gen. Generating dataset...")
+        if args.force_data_computation:
+                print("Forced data computation. (Re)computing dataset...")
 
-assert variables == train_formatter.get_formatted_columns(), f"Test and train data have different variables: {variables} vs {train_formatter.get_formatted_columns()}"
+        # Read data
+        test_data_files = [name for name in os.listdir('data/test') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)]
+        test_data = [pd.read_csv(f'data/test/{name}') for name in test_data_files]
 
-num_var = len(variables)
-print(f"Graph with {num_var} variables: {variables}.")
+        train_data_files = [name for name in os.listdir('data/train') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)]
+        train_data = [pd.read_csv(f'data/train/{name}') for name in train_data_files]
+
+        # Format data
+        test_formatter = PandasFormatterEnsemble(test_data)
+        variables = test_formatter.get_formatted_columns()
+
+        train_formatter = PandasFormatterEnsemble(train_data)
+        train_sequences, *_ = train_formatter.format(event_driven=True)
+        train_sequences = {i: sequence for i, sequence in enumerate(train_sequences)}
+
+        assert variables == train_formatter.get_formatted_columns(), f"Test and train data have different variables: {variables} vs {train_formatter.get_formatted_columns()}"
+
+        num_var = len(variables)
+        print(f"Graph with {num_var} variables: {variables}.")
+
+        # Create dataset
+        train_dataset = SeriesDataset(train_sequences, lookback=TAU_MAX+1)
+
+        # Save dataset
+        os.makedirs("data/gen", exist_ok=True)
+        torch.save(train_dataset,"data/gen/data_behaviour.pt")
+        json.dump(variables, open("data/gen/variables_behaviour.json", "w"))
 
 
-# Create dataset
-train_dataset = SeriesDataset(train_sequences, lookback=TAU_MAX+1)
-train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
+
+# Build data loader
+dataset = torch.utils.data.random_split(train_dataset, [int(0.8*len(train_dataset)), len(train_dataset)-int(0.8*len(train_dataset))], generator=torch.Generator().manual_seed(1))
+train_loader = DataLoader(dataset[0], batch_size=64, shuffle=True)
+val_loader = DataLoader(dataset[1], batch_size=64, shuffle=False)
 
 # Mask context variables for predition
 masked_idxs = [variables.index(var) for var in MASKED_VARIABLES]
@@ -125,6 +152,9 @@ else:
 trainer = pl.Trainer(
         max_epochs=10,
         devices=[0], 
-        accelerator="gpu")
+        accelerator="gpu",
+        
+        logger=WandbLogger(name=f"{args.model_type}_train", project=args.wandb_project) if args.wandb_project else None,
+        )
 
-trainer.fit(model, train_loader)
+trainer.fit(model, train_loader, val_loader)
