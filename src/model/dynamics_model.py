@@ -53,26 +53,33 @@ class DynamicalPredictor(pl.LightningModule):
         scaling_factor = torch.arange(1, x.shape[1]+1, device=x.device).float().reshape((1, -1)) # Linear scaling factor reducing the effect of early predictions with low work (batch_size, lookback)
         return torch.mean(scaling_factor * energy_pred**2)
     
+    def compute_losses(self, y_pred, y, x, v, log_step = None):
+        prediction_loss = torch.nn.functional.mse_loss(y_pred, y)
+        acceleration_loss = self.acceleration_loss(y_pred)
+        velocity_loss = self.velocity_loss(v, y_pred)
+        energy_loss = self.energy_loss(x, v, y, y_pred)
+
+        loss = prediction_loss + self.acceleration_penalty * acceleration_loss + self.velocity_penalty * velocity_loss + self.energy_penalty * energy_loss
+
+        if log_step:
+            self.log(f'{log_step}_loss', loss)
+            self.log(f'{log_step}_prediction_loss', prediction_loss.detach())
+            self.log(f'{log_step}_acceleration_loss', acceleration_loss.detach())
+            self.log(f'{log_step}_velocity_loss', velocity_loss.detach())
+            self.log(f'{log_step}_energy_loss', energy_loss.detach())
+            self.log(f'{log_step}_predicted_force', torch.mean(y_pred).detach())
+            self.log(f'{log_step}_predicted_force_std', torch.std(y_pred).detach())
+        
+        return loss
+
+    
     def training_step(self, batch, batch_idx):
         x, v, y, i = batch
         y_pred = self(x, velocity=v)
         friction = self.friction_force(v)
         y_pred = y_pred + friction
 
-        prediction_loss = torch.nn.functional.mse_loss(y_pred, y)
-        acceleration_loss = self.acceleration_loss(y_pred)
-        velocity_loss = self.velocity_loss(v, y_pred)
-        energy_loss = self.energy_loss(x, v, y, y_pred)
-        loss = prediction_loss + self.acceleration_penalty * acceleration_loss + self.velocity_penalty * velocity_loss + self.energy_penalty * energy_loss
-        self.log('train_loss', loss)
-        self.log('train_prediction_loss', prediction_loss.detach())
-        self.log('train_acceleration_loss', acceleration_loss.detach())
-        self.log('train_velocity_loss', velocity_loss.detach())
-        self.log('train_energy_loss', energy_loss.detach())
-        self.log('train_friction_force', torch.mean(friction).detach())
-        self.log('train_friction_force_std', torch.std(friction).detach())
-        self.log('train_predicted_force', torch.mean(y_pred).detach())
-        self.log('train_predicted_force_std', torch.std(y_pred).detach())
+        loss = self.compute_losses(y_pred, y, x, v, 'train')
         return loss
     
     def validation_step(self, batch, batch_idx):
@@ -81,20 +88,7 @@ class DynamicalPredictor(pl.LightningModule):
         friction = self.friction_force(v)
         y_pred = y_pred + friction
         
-        prediction_loss = torch.nn.functional.mse_loss(y_pred, y)
-        acceleration_loss = self.acceleration_loss(y_pred)
-        velocity_loss = self.velocity_loss(v, y_pred)
-        energy_loss = self.energy_loss(x, v, y, y_pred)
-        loss = prediction_loss + self.acceleration_penalty * acceleration_loss + self.velocity_penalty * velocity_loss + self.energy_penalty * energy_loss
-        self.log('val_loss', loss)
-        self.log('val_prediction_loss', prediction_loss.detach())
-        self.log('val_acceleration_loss', acceleration_loss.detach())
-        self.log('val_velocity_loss', velocity_loss.detach())
-        self.log('val_energy_loss', energy_loss.detach())
-        self.log('val_friction_force', torch.mean(friction).detach())
-        self.log('val_friction_force_std', torch.std(friction).detach())
-        self.log('val_predicted_force', torch.mean(y_pred).detach())
-        self.log('val_predicted_force_std', torch.std(y_pred).detach())
+        loss = self.compute_losses(y_pred, y, x, v, 'val')
         return loss
     
     def predict_step(self, batch, batch_idx):
