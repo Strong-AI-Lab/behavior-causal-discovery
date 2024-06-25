@@ -1,5 +1,5 @@
 
-from .dynamics_model import DynamicalPredictor, DEFAULT_ACCELERATION_PENALTY, DEFAULT_ENERGY_PENALTY, DEFAULT_FRICTION_PENALTY, DEFAULT_VELOCITY_PENALTY
+from model.dynamics_model import DynamicalPredictor, DEFAULT_ACCELERATION_PENALTY, DEFAULT_ENERGY_PENALTY, DEFAULT_FRICTION_PENALTY, DEFAULT_VELOCITY_PENALTY
 
 import torch
 import torch_geometric as tg

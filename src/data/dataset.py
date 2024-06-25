@@ -1,7 +1,7 @@
 
 from typing import Callable
 
-from ..dynamics.solver import DynamicsSolver
+from dynamics.solver import DynamicsSolver
 
 import torch
 from torch.utils.data import Dataset
@@ -77,7 +77,6 @@ class DynamicSeriesDataset(SeriesDataset):
                 return x, y, v0
 
     def _create_dataset(self, sequences : dict, lookback : int, target_offset_start : int = 1, target_offset_end : int = 1):
-        x, v, y, individual = [], [], [], []
         
         dim = sequences[0][0].shape[0]
         min_coords, max_coords = self._compute_min_max(sequences)
@@ -98,7 +97,8 @@ class DynamicSeriesDataset(SeriesDataset):
                                 "v": v0.tolist()
                         })
 
-        for key, sequence in sequences.items():
+        x, v, y, individual = [], [], [], []
+        for key, sequence in transformed_sequences.items():
             for i in range(len(sequence)-lookback-target_offset_end+1):
                 feature = sequence[i:i+lookback]
                 target = sequence[i+target_offset_start:i+lookback+target_offset_end]
