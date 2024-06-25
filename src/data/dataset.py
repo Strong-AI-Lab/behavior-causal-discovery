@@ -125,6 +125,12 @@ class DynamicGraphSeriesDataset(DynamicSeriesDataset):
                 idx = individuals_list.index(ind)
                 res[i][idx] = snippet[i][ind][feature]
         return res
+    
+    def _to_index_vector(self, indices : list, vector_size : int):
+        res = [0.0] * vector_size
+        for idx in indices:
+            res[indices.index(idx)] = 1.0
+        return res
          
 
     def _create_dataset(self, sequences : dict, lookback : int, target_offset_start : int = 1, target_offset_end : int = 1, adjacency_list : dict = None):
@@ -175,7 +181,7 @@ class DynamicGraphSeriesDataset(DynamicSeriesDataset):
             x.append(coordinates)
             v.append(velocity)
             y.append(forces)
-            individuals.append(list(feature[0].keys()))
+            individuals.append([self._to_index_vector(list(feature[j].keys()), nb_individuals) for j in range(lookback)])
 
             g_lookback = [[[0.0]*nb_individuals]*nb_individuals]*lookback
             for j in range(lookback):
@@ -197,7 +203,16 @@ class DynamicGraphSeriesDataset(DynamicSeriesDataset):
                         print(f"Index Error: {e}. Ignoring as due to missing data.")
             g.append(g_lookback)
         
-        return torch.tensor(x, dtype=torch.float32), torch.tensor(v, dtype=torch.float32), torch.tensor(g, dtype=torch.float32), torch.tensor(y, dtype=torch.float32), individuals # coordinates: (num_samples, lookback, num_individuals, num_variables), velocity: (num_samples, lookback, num_individuals, num_variables), adjacency: (num_samples, lookback, num_individuals, num_individuals), target force: (num_samples, lookback, num_individuals, num_variables), individuals: (num_samples, num_individuals)
+        # coordinates: (num_samples, lookback, num_individuals, num_variables)
+        # velocity: (num_samples, lookback, num_individuals, num_variables)
+        # adjacency: (num_samples, lookback, num_individuals, num_individuals)
+        # target force: (num_samples, lookback, num_individuals, num_variables)
+        # individuals: (num_samples, lookback, nb_individuals)
+        return torch.tensor(x, dtype=torch.float32), \
+                torch.tensor(v, dtype=torch.float32), \
+                torch.tensor(g, dtype=torch.float32), \
+                torch.tensor(y, dtype=torch.float32), \
+                torch.tensor(individuals, dtype=torch.int64) 
     
 
 

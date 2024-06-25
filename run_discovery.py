@@ -61,8 +61,8 @@ formatter = PandasFormatterEnsemble(data)
 sequences, *_ = formatter.format(event_driven=True)
 sequences = {i: sequence for i, sequence in enumerate(sequences)}
 variables = formatter.get_formatted_columns()
-num_var = len(variables)
-print(f"Graph with {num_var} variables: {variables}.")
+num_variables = len(variables)
+print(f"Graph with {num_variables} variables: {variables}.")
 
 
 # Set variables

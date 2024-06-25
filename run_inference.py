@@ -55,8 +55,8 @@ formatter = PandasFormatterEnsemble(data)
 sequences, true_ind_sequences, neighbor_graphs, *_ = formatter.format(event_driven=True)
 sequences = {i: sequence for i, sequence in enumerate(sequences)}
 variables = formatter.get_formatted_columns()
-num_var = len(variables)
-print(f"Graph with {num_var} variables: {variables}.")
+num_variables = len(variables)
+print(f"Graph with {num_variables} variables: {variables}.")
 
 
 # Create dataset
@@ -95,14 +95,14 @@ if args.model_type == "causal":
     graph = graph.astype(np.int64)
     graph = torch.from_numpy(graph).float()
 
-    model = TSLinearCausal(num_var, TAU_MAX+1, weights=graph*val_matrix)
+    model = TSLinearCausal(num_variables, TAU_MAX+1, graph_weights=graph*val_matrix)
 else:
     print("Parametric model detected.")
     if torch.cuda.is_available():
         map_location=torch.device('cuda')
     else:
         map_location=torch.device('cpu')
-    model = MODELS[args.model_type].load_from_checkpoint(save, num_var=num_var, lookback=TAU_MAX+1, map_location=map_location)
+    model = MODELS[args.model_type].load_from_checkpoint(save, num_variables=num_variables, lookback=TAU_MAX+1, map_location=map_location)
 
     save_split = save.split('/')
     save = "/".join(save_split[:-3] + [save_split[-3] + "_" + save_split[-1][:-5]]) # Remove .ckpt from save path and concact with version to build results directory
@@ -122,17 +122,17 @@ print(f"Masking {len(masked_idxs)} variables: {MASKED_VARIABLES}")
 model.eval()
 with torch.no_grad():
     # Compute direct prediction accuracy
-    acc, acc_last = direct_prediction_accuracy(model, random_loader, num_var, masked_idxs)
+    acc, acc_last = direct_prediction_accuracy(model, random_loader, num_variables, masked_idxs)
     print(f"Direct Prediction Accuracy: {acc}")
     print(f"Direct Prediction Accuracy (last layer only): {acc_last}")
 
     # Compute conditional mutual information
-    cmi = mutual_information(model, random_loader, num_var, masked_idxs)
+    cmi = mutual_information(model, random_loader, num_variables, masked_idxs)
     print(f"Mutual Information: {cmi}")
 
 
     # Compute series prediction metrics
-    series = generate_series(model, dataset, num_var, masked_idxs)
+    series = generate_series(model, dataset, num_variables, masked_idxs)
     nb_series = len(series)
     print(f"Generated {nb_series} series.")
 
@@ -155,7 +155,7 @@ with torch.no_grad():
 
     # Compute community series prediction metrics
     community_dataset = SeriesDataset({ind: seq.to_numpy(dtype=np.float64) for ind, seq in true_ind_sequences.items()}, lookback=TAU_MAX+1)
-    community_series = generate_series_community(model, community_dataset, neighbor_graphs, num_var, masked_idxs, close_neighbor_idxs, distant_neighbor_idxs)
+    community_series = generate_series_community(model, community_dataset, neighbor_graphs, num_variables, masked_idxs, close_neighbor_idxs, distant_neighbor_idxs)
     nb_community_series = len(community_series)
     print(f"Generated {nb_community_series} community series.")
 

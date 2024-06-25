@@ -48,8 +48,8 @@ formatter = PandasFormatterEnsemble(data)
 sequences, *_ = formatter.format(event_driven=True)
 sequences = {i: sequence for i, sequence in enumerate(sequences)}
 variables = formatter.get_formatted_columns()
-num_var = len(variables)
-print(f"Graph with {num_var} variables: {variables}.")
+num_variables = len(variables)
+print(f"Graph with {num_variables} variables: {variables}.")
 
 
 # Create dataset
@@ -71,13 +71,13 @@ graph = torch.from_numpy(graph).float()
 
 assert TAU_MAX == val_matrix.shape[2] - 1, f"tau_max ({TAU_MAX}) does not match val_matrix.shape[2] ({val_matrix.shape[2]})."
 
-model = TSLinearCausal(num_var, TAU_MAX+1, weights=graph*val_matrix)
+model = TSLinearCausal(num_variables, TAU_MAX+1, graph_weights=graph*val_matrix)
 loader = DataLoader(dataset,sampler=RandomSampler(range(len(dataset)), num_samples=nb_seeds), batch_size=1, shuffle=False)
 
 
 # Create mask
 masked_idxs = [variables.index(var) for var in MASKED_VARIABLES]
-masked_num_var = num_var - len(masked_idxs)
+masked_num_variables = num_variables - len(masked_idxs)
 print(f"Masking {len(masked_idxs)} variables: {MASKED_VARIABLES}")
 
 
@@ -88,8 +88,8 @@ for x, y, _ in tqdm.tqdm(loader):
     y_pred = model(x)
 
     # Remove masked variables
-    x = x[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
-    y_pred = y_pred[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
+    x = x[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
+    y_pred = y_pred[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
     
     y_pred = F.gumbel_softmax(y_pred.log(), hard=True)
     y_pred = torch.cat((x[:,1:,:], y_pred[:,-1:,:]), dim=0)
@@ -97,7 +97,7 @@ for x, y, _ in tqdm.tqdm(loader):
     initial.append(x[0].detach().clone()) # batchsize is 1
     generated.append(y_pred[0].detach().clone())
 
-initial = torch.stack(initial).numpy() # (nb_seeds, tau_max+1, masked_num_var)
+initial = torch.stack(initial).numpy() # (nb_seeds, tau_max+1, masked_num_variables)
 generated = torch.stack(generated).numpy()
 
 
@@ -114,8 +114,8 @@ generated_samplet = torch.from_numpy(generated).float()
 
 print(f"initial_samplet.shape: {initial_samplet.shape}, generated_samplet.shape: {generated_samplet.shape}")
 
-initial_samplet = initial_samplet.mean(dim=1).view(nb_seeds, masked_num_var).clamp(min=1e-8, max=1-1e-8).log()
-generated_samplet = generated_samplet.mean(dim=1).view(nb_seeds, masked_num_var).clamp(min=1e-8, max=1-1e-8).log()
+initial_samplet = initial_samplet.mean(dim=1).view(nb_seeds, masked_num_variables).clamp(min=1e-8, max=1-1e-8).log()
+generated_samplet = generated_samplet.mean(dim=1).view(nb_seeds, masked_num_variables).clamp(min=1e-8, max=1-1e-8).log()
 
 div = kl_div(initial_samplet, generated_samplet, reduction='batchmean', log_target=True)
 print(f"Kullback-Leibler divergence: {div}")
@@ -131,7 +131,7 @@ def compute_ecdf(data):
     return ecdf
     
 variable_names = [name for name in variables if name not in MASKED_VARIABLES]
-for i in range(masked_num_var):
+for i in range(masked_num_variables):
     ks_values = []
     for batch in range(nb_seeds):
         # ecdf_i = compute_ecdf(initial[batch,:,i])

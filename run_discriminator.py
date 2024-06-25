@@ -73,8 +73,8 @@ if args.discriminator_save is None:
 
     assert variables == train_formatter.get_formatted_columns(), f"Test and train data have different variables: {variables} vs {train_formatter.get_formatted_columns()}"
 
-num_var = len(variables)
-print(f"Graph with {num_var} variables: {variables}.")
+num_variables = len(variables)
+print(f"Graph with {num_variables} variables: {variables}.")
 
 
 # Create dataset
@@ -114,14 +114,14 @@ if args.model_type == "causal":
     graph = graph.astype(np.int64)
     graph = torch.from_numpy(graph).float()
 
-    model = TSLinearCausal(num_var, TAU_MAX+1, weights=graph*val_matrix)
+    model = TSLinearCausal(num_variables, TAU_MAX+1, graph_weights=graph*val_matrix)
 else:
     print("Parametric model detected.")
     if torch.cuda.is_available():
         map_location=torch.device('cuda')
     else:
         map_location=torch.device('cpu')
-    model = MODELS[args.model_type].load_from_checkpoint(save, num_var=num_var, lookback=TAU_MAX+1, map_location=map_location)
+    model = MODELS[args.model_type].load_from_checkpoint(save, num_variables=num_variables, lookback=TAU_MAX+1, map_location=map_location)
 
 
 # Mask context variables for predition
@@ -137,9 +137,9 @@ MIN_LENGTH = 30
 with torch.no_grad():
     if args.community:
         test_community_dataset = SeriesDataset({ind: seq.to_numpy(dtype=np.float64) for ind, seq in test_true_ind_sequences.items()}, lookback=TAU_MAX+1)
-        test_series = generate_series_community(model, test_community_dataset, test_neighbor_graphs, num_var, masked_idxs, close_neighbor_idxs, distant_neighbor_idxs)
+        test_series = generate_series_community(model, test_community_dataset, test_neighbor_graphs, num_variables, masked_idxs, close_neighbor_idxs, distant_neighbor_idxs)
     else:
-        test_series = generate_series(model, test_dataset, num_var, masked_idxs)
+        test_series = generate_series(model, test_dataset, num_variables, masked_idxs)
 
     nb_test_series = len(test_series)
     test_series = {k: v for k, v in test_series.items() if len(v) >= MIN_LENGTH}
@@ -148,9 +148,9 @@ with torch.no_grad():
     if args.discriminator_save is None:
         if args.community:
             train_community_dataset = SeriesDataset({ind: seq.to_numpy(dtype=np.float64) for ind, seq in train_true_ind_sequences.items()}, lookback=TAU_MAX+1)
-            train_series = generate_series_community(model, train_community_dataset, train_neighbor_graphs, num_var, masked_idxs, close_neighbor_idxs, distant_neighbor_idxs)
+            train_series = generate_series_community(model, train_community_dataset, train_neighbor_graphs, num_variables, masked_idxs, close_neighbor_idxs, distant_neighbor_idxs)
         else:
-            train_series = generate_series(model, train_dataset, num_var, masked_idxs)
+            train_series = generate_series(model, train_dataset, num_variables, masked_idxs)
             nb_train_series = len(train_series)
             train_series = {k: v for k, v in train_series.items() if len(v) >= MIN_LENGTH}
             print(f"Removed {nb_train_series - len(train_series)}/{nb_train_series} series with length < {MIN_LENGTH}.")
@@ -162,11 +162,11 @@ test_loader = DataLoader(test_discr_dataset, batch_size=64, shuffle=True)
 
 if args.discriminator_save is not None:
     print(f"Discriminator save provided. Loading results from {discriminator_save}...")
-    discriminator = DISCRIMINATORS[args.discriminator_type].load_from_checkpoint(save, num_var=num_var-len(MASKED_VARIABLES), lookback=TAU_MAX+1)
+    discriminator = DISCRIMINATORS[args.discriminator_type].load_from_checkpoint(save, num_variables=num_variables-len(MASKED_VARIABLES), lookback=TAU_MAX+1)
 else:
     # Train discriminator
     print("Discriminator save not provided. Building a new discriminator.")
-    discriminator = DISCRIMINATORS[args.discriminator_type](num_var-len(MASKED_VARIABLES), TAU_MAX+1)
+    discriminator = DISCRIMINATORS[args.discriminator_type](num_variables-len(MASKED_VARIABLES), TAU_MAX+1)
     discriminator.train()
 
 

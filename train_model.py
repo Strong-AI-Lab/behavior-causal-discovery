@@ -49,7 +49,7 @@ if not args.force_data_computation and os.path.exists(f"data/gen/data_behaviour.
         print("Loading dataset from data/gen/data_behaviour.pt...")
         train_dataset = torch.load("data/gen/data_behaviour.pt")
         variables = json.load(open("data/gen/variables_behaviour.json", "r"))
-        num_var = len(variables)
+        num_variables = len(variables)
 
 else:
         if not os.path.exists("data/gen/data_behaviour.pt"):
@@ -76,8 +76,8 @@ else:
 
         assert variables == train_formatter.get_formatted_columns(), f"Test and train data have different variables: {variables} vs {train_formatter.get_formatted_columns()}"
 
-        num_var = len(variables)
-        print(f"Graph with {num_var} variables: {variables}.")
+        num_variables = len(variables)
+        print(f"Graph with {num_variables} variables: {variables}.")
 
         # Create dataset
         train_dataset = SeriesDataset(train_sequences, lookback=TAU_MAX+1)
@@ -101,7 +101,7 @@ print(f"Masking {len(masked_idxs)} variables: {MASKED_VARIABLES}")
 
 # Build model
 if args.save is None:
-        model = MODELS[args.model_type](num_var=num_var, lookback=TAU_MAX+1, masked_idxs_for_training=masked_idxs)
+        model = MODELS[args.model_type](num_variables=num_variables, lookback=TAU_MAX+1, masked_idxs_for_training=masked_idxs)
 else:
         print(f"Save provided. Loading {args.model_type} model from {args.save}...")
         if args.model_type.startswith("causal_"):
@@ -134,18 +134,18 @@ else:
                 graph = torch.from_numpy(graph).float()
 
                 if args.causal_graph == "all":
-                        weights=graph*val_matrix
+                        graph_weights=graph*val_matrix
                 elif args.causal_graph == "coefficients":
-                        weights=val_matrix
+                        graph_weights=val_matrix
                 elif args.causal_graph == "edges":
-                        weights=graph
+                        graph_weights=graph
                 else:
                         raise ValueError(f"causal_graph must be one of 'all', 'coefficients', 'edges'. Got {args.causal_graph}.")
 
-                model = MODELS[args.model_type](num_var=num_var, lookback=TAU_MAX+1, weights=weights, masked_idxs_for_training=masked_idxs)
+                model = MODELS[args.model_type](num_variables=num_variables, lookback=TAU_MAX+1, graph_weights=graph_weights, masked_idxs_for_training=masked_idxs)
         else:
                 print("Parametric model detected.")
-                model = MODELS[args.model_type].load_from_checkpoint(args.save, num_var=num_var, lookback=TAU_MAX+1, masked_idxs_for_training=masked_idxs)
+                model = MODELS[args.model_type].load_from_checkpoint(args.save, num_variables=num_variables, lookback=TAU_MAX+1, masked_idxs_for_training=masked_idxs)
 
 
 # Train model

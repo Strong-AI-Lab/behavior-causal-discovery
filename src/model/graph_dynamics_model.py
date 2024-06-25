@@ -16,6 +16,12 @@ class DynamicalGraphPredictor(DynamicalPredictor):
         friction = self.friction_force(v)
         y_pred = y_pred + friction
 
+        # Model computes the output for all individuals, move them to batch level for loss computation
+        y_pred = y_pred.permute(0,2,1,3).reshape(-1, y_pred.shape[1], y_pred.shape[3])
+        y = y.permute(0,2,1,3).reshape(-1, y.shape[1], y.shape[3])
+        x = x.permute(0,2,1,3).reshape(-1, x.shape[1], x.shape[3])
+        v = v.permute(0,2,1,3).reshape(-1, v.shape[1], v.shape[3])
+
         loss = self.compute_losses(y_pred, y, x, v, 'train')
         return loss
     
@@ -24,6 +30,12 @@ class DynamicalGraphPredictor(DynamicalPredictor):
         y_pred = self(coordinates=x, velocity=v, adjacency=g)
         friction = self.friction_force(v)
         y_pred = y_pred + friction
+
+        # Model computes the output for all individuals, move them to batch level for loss computation
+        y_pred = y_pred.permute(0,2,1,3).reshape(-1, y_pred.shape[1], y_pred.shape[3])
+        y = y.permute(0,2,1,3).reshape(-1, y.shape[1], y.shape[3])
+        x = x.permute(0,2,1,3).reshape(-1, x.shape[1], x.shape[3])
+        v = v.permute(0,2,1,3).reshape(-1, v.shape[1], v.shape[3])
         
         loss = self.compute_losses(y_pred, y, x, v, 'val')
         return loss

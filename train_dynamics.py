@@ -86,7 +86,7 @@ val_loader = DataLoader(dataset[1], batch_size=64, shuffle=False)
 
 
 
-# # Build model
+# Build model
 if args.save is None:
         model = MODELS[args.model_type](lookback=TAU_MAX+1)
 else:

@@ -7,7 +7,7 @@ import torch.nn.functional as F
 
 
 # Direct prediction accuracy computation
-def direct_prediction_accuracy(model, loader, num_var, masked_idxs):
+def direct_prediction_accuracy(model, loader, num_variables, masked_idxs):
     acc = torch.tensor(0.0)
     acc_last = torch.tensor(0.0)
     device = model.device
@@ -19,8 +19,8 @@ def direct_prediction_accuracy(model, loader, num_var, masked_idxs):
         y_pred = model(x)
 
         # Remove masked variables
-        y_pred = y_pred[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
-        y = y[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
+        y_pred = y_pred[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
+        y = y[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
 
         y_pred = y_pred.softmax(dim=-1)
 
@@ -35,7 +35,7 @@ def entropy(y, n=2):
     y = y.clamp(min=1e-8, max=1-1e-8)
     return -torch.sum(y * torch.log(y), dim=-1) / torch.log(torch.tensor(n).float())
 
-def mutual_information(model, loader, num_var, masked_idxs):
+def mutual_information(model, loader, num_variables, masked_idxs):
     y_preds = []
     ys = []
     device = model.device
@@ -48,8 +48,8 @@ def mutual_information(model, loader, num_var, masked_idxs):
         y_pred = model(x)
 
         # Remove masked variables + keep only last timestep
-        y_pred = y_pred[:,-1,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
-        y = y[:,-1,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
+        y_pred = y_pred[:,-1,torch.where(~torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
+        y = y[:,-1,torch.where(~torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
 
         y_pred = y_pred.softmax(dim=-1)
 
@@ -65,7 +65,7 @@ def mutual_information(model, loader, num_var, masked_idxs):
     p_y = torch.mean(ys, dim=0)
 
     # Calculate joint probability p(y_pred, y) = p(y_pred|y) * p(y). y_pred and y are not independent because they have a common cause x. we cannot buld a shared histogram because y_pred contains probabilities and y contains one-hot vectors.
-    remaining_vars = num_var - len(masked_idxs)
+    remaining_vars = num_variables - len(masked_idxs)
     y_uniques = torch.unique(ys, dim=0) # Select all unique values of y (/!\ unstated assumption: all values of y are present in the dataset)
     y_freq = torch.stack([torch.sum(torch.all(ys == y_value, dim=-1)) for y_value in y_uniques], dim=0) / ys.size(0) # Compute the frequency of each unique value of y: p(y)
     y_pred_given_y = torch.stack([torch.stack([v[1] for v in torch.stack([ys,y_preds],-2) if (v[0] == y).all()]).mean(0) for y in y_uniques]) # Compute the probability of y_pred given each unique value of y: p(y_pred|y)
@@ -80,7 +80,7 @@ def mutual_information(model, loader, num_var, masked_idxs):
 
 
 # Single individual Series generation (context variables are left unchanged)
-def generate_series(model, dataset, num_var, masked_idxs):
+def generate_series(model, dataset, num_variables, masked_idxs):
     prev_ind = -1
     series = {}
     device = model.device
@@ -93,16 +93,16 @@ def generate_series(model, dataset, num_var, masked_idxs):
         else:
             hist = series[ind][-1][0]
             hist = hist.to(device)
-            x_obs = x[:,torch.where(torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
+            x_obs = x[:,torch.where(torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
             x = torch.cat((hist, x_obs), dim=1)
 
         # Make prediction
         y_pred = model(x.unsqueeze(0))[0]
 
         # Remove masked variables
-        y_pred = y_pred[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
-        y = y[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
-        x = x[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
+        y_pred = y_pred[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
+        y = y[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
+        x = x[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
 
         y_pred = F.gumbel_softmax(y_pred.clamp(min=1e-8, max=1-1e-8).log(), hard=True)
         y_pred = torch.cat((x[1:,:], y_pred[-1:,:]), dim=0)
@@ -114,11 +114,11 @@ def generate_series(model, dataset, num_var, masked_idxs):
         if ind not in series:
             series[ind] = []
         series[ind].append((y_pred, y))
-    return series # ((tau, num_var) (tau, num_var))
+    return series # ((tau, num_variables) (tau, num_variables))
 
 
 # Community Series generation (context variables are updated at each step with other individuals' predictions)
-def generate_series_community(model, dataset, neighbor_graphs, num_var, masked_idxs, close_neighbor_idxs, distant_neighbor_idxs, skip_faults=True):
+def generate_series_community(model, dataset, neighbor_graphs, num_variables, masked_idxs, close_neighbor_idxs, distant_neighbor_idxs, skip_faults=True):
     series = {i: None for i in set(dataset.individual)}
     device = model.device
     lookback = len(dataset[0][0])
@@ -145,13 +145,13 @@ def generate_series_community(model, dataset, neighbor_graphs, num_var, masked_i
                 # Retrieve history from previous prediction instead of the ground truth
                 hist = series[ind][-1][0]
                 hist = hist.to(device)
-                x_obs = x[:,torch.where(torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
+                x_obs = x[:,torch.where(torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
                 x = torch.cat((hist, x_obs), dim=1)
 
                 # Get neighbors updates if inputs requires predictions from neighbors
                 neighbors_window = [] if curr_ind not in neighbor_graphs else neighbor_graphs[curr_ind][individual_indexes[curr_ind]:individual_indexes[curr_ind]+lookback]
                 neighbors_updated = True
-                x[:,torch.where(torch.tensor([(i in close_neighbor_idxs or i in distant_neighbor_idxs) for i in range(num_var)]))[0]] = 0 # Reset neighbor variables
+                x[:,torch.where(torch.tensor([(i in close_neighbor_idxs or i in distant_neighbor_idxs) for i in range(num_variables)]))[0]] = 0 # Reset neighbor variables
 
                 for i, (time, close_neighbors, distant_neighbors) in enumerate(neighbors_window):
                     for j, n in enumerate(close_neighbors + distant_neighbors):
@@ -181,7 +181,7 @@ def generate_series_community(model, dataset, neighbor_graphs, num_var, masked_i
                                 idxs = close_neighbor_idxs if j < len(close_neighbors) else distant_neighbor_idxs
                                 n_obs = series[n][n_corresponding_index][0][-1]
                                 n_obs = n_obs.to(device)
-                                x[i,torch.where(torch.tensor([k in idxs for k in range(num_var)]))[0]] += n_obs
+                                x[i,torch.where(torch.tensor([k in idxs for k in range(num_variables)]))[0]] += n_obs
                             else:
                                 neighbors_updated = False
                                 curr_ind = n
@@ -201,9 +201,9 @@ def generate_series_community(model, dataset, neighbor_graphs, num_var, masked_i
             y_pred = model(x.unsqueeze(0))[0]
 
             # Remove masked variables
-            y_pred = y_pred[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
-            y = y[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
-            x = x[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_var)]))[0]]
+            y_pred = y_pred[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
+            y = y[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
+            x = x[:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
 
             y_pred = F.gumbel_softmax(y_pred.clamp(min=1e-8, max=1-1e-8).log(), hard=True)
             y_pred = torch.cat((x[1:,:], y_pred[-1:,:]), dim=0)
@@ -220,5 +220,5 @@ def generate_series_community(model, dataset, neighbor_graphs, num_var, masked_i
             individual_indexes[curr_ind] += 1
             pbar.update(1)
         
-    return series # ((tau, num_var) (tau, num_var))
+    return series # ((tau, num_variables) (tau, num_variables))
 
