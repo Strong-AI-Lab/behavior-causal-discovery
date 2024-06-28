@@ -27,14 +27,14 @@ class DynamicsSolver():
         Applies a force to the system.
 
         Parameters:
-        - x (torch.Tensor): The position of the system.
-        - v (torch.Tensor, optional): The velocity of the system. If not provided, it is initialized as zero.
-        - force (torch.Tensor, optional): The force to be applied. If not provided, it is initialized as zero.
+        - x (torch.Tensor): The position of the system. [batch_size, lookback, dimensions]
+        - v (torch.Tensor, optional): The velocity of the system. If not provided, it is initialized as zero. [batch_size, lookback, dimensions]
+        - force (torch.Tensor, optional): The force to be applied. If not provided, it is initialized as zero. [batch_size, 1, dimensions]
         - dt (int): The number of timesteps to apply the force.
 
         Returns:
-        - x (torch.Tensor): The updated position of the system.
-        - v (torch.Tensor): The updated velocity of the system.
+        - x (torch.Tensor): The updated position of the system. [batch_size, lookback+dt, dimensions]
+        - v (torch.Tensor): The updated velocity of the system. [batch_size, lookback+dt, dimensions]
         """
         batch_size = x.size(0)  # [batch_size, lookback, dimensions]
 
@@ -60,13 +60,13 @@ class DynamicsSolver():
         Computes the acceleration of the system.
 
         Parameters:
-        - x (torch.Tensor): The position of the system.
-        - v0 (torch.Tensor, optional): The initial velocity of the system. If not provided, it is initialized as zero.
+        - x (torch.Tensor): The position of the system. [batch_size, lookback, dimensions]
+        - v0 (torch.Tensor, optional): The initial velocity of the system. If not provided, it is initialized as zero. [batch_size, 1, dimensions]
         - return_velocity (bool): Whether to return the velocity of the system.
 
         Returns:
-        - a (torch.Tensor): The acceleration of the system. We assume the acceleration is constant between each timestep and is the result of the application of an external force.
-        - v (torch.Tensor): The velocity of the system. Only returned if return_velocity is True. We assume the velocity is linear between each timestep and we report the current velocity at each timestep (i.e. not the average velocity between two coordinates).
+        - a (torch.Tensor): The acceleration of the system. We assume the acceleration is constant between each timestep and is the result of the application of an external force. [batch_size, lookback, dimensions]
+        - v (torch.Tensor): The velocity of the system. Only returned if return_velocity is True. We assume the velocity is linear between each timestep and we report the current velocity at each timestep (i.e. not the average velocity between two coordinates). [batch_size, lookback, dimensions]
         """
         batch_size = x.size(0)
         time_window = x.size(1)
@@ -91,15 +91,15 @@ class DynamicsSolver():
         Computes the force of the system.
 
         Parameters:
-        - x (torch.Tensor): The position of the system.
-        - v0 (torch.Tensor, optional): The initial velocity of the system. If not provided, it is initialized as zero. Only used if v is not provided.
-        - a (torch.Tensor, optional): The acceleration of the system. If not provided, it is computed using compute_acceleration().
+        - x (torch.Tensor): The position of the system. [batch_size, lookback, dimensions]
+        - v0 (torch.Tensor, optional): The initial velocity of the system. If not provided, it is initialized as zero. Only used if v is not provided. [batch_size, 1, dimensions]
+        - a (torch.Tensor, optional): The acceleration of the system. If not provided, it is computed using compute_acceleration(). [batch_size, lookback, dimensions]
         - return_velocity (bool): Whether to return the velocity of the system.
 
         Returns:
-        - force (torch.Tensor): The force of the system.
-        - a (torch.Tensor): The acceleration of the system. Only returned if return_velocity is True.
-        - v (torch.Tensor): The velocity of the system. Only returned if return_velocity is True. We assume the velocity is linear between each timestep and we report the current velocity at each timestep (i.e. not the average velocity between two coordinates).
+        - force (torch.Tensor): The force of the system. [batch_size, lookback, dimensions]
+        - a (torch.Tensor): The acceleration of the system. Only returned if return_velocity is True. [batch_size, lookback, dimensions]
+        - v (torch.Tensor): The velocity of the system. Only returned if return_velocity is True. We assume the velocity is linear between each timestep and we report the current velocity at each timestep (i.e. not the average velocity between two coordinates). [batch_size, lookback, dimensions]
         """
         if a is None:
             a, v = self.compute_acceleration(x, v0, return_velocity=True)

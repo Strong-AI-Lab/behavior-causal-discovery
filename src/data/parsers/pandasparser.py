@@ -63,6 +63,7 @@ class PandasParser(Parser):
         structure.start_time = time_ids.min()
         structure.end_time = time_ids.max()
         structure.individuals_ids = sorted(data[self.namekeys.individual_key].unique().tolist())
+        structure.first_occurence = data.drop_duplicates(self.namekeys.individual_key).set_index(self.namekeys.individual_key)[self.namekeys.time_key].to_dict()
         structure.zone_labels = PandasParser.listtolowercase(data[self.namekeys.zone_key].unique().tolist())
         structure.zone_labels = [zone + '_zone' for zone in structure.zone_labels]
         structure.behaviour_labels = PandasParser.listtolowercase(data[self.namekeys.behaviour_key].unique().tolist())
@@ -125,7 +126,7 @@ class PandasParser(Parser):
         close_neighbours = PandasParser.toneighbours(data[self.namekeys.close_neighbour_key].iloc[0])
         distant_neighbours = PandasParser.toneighbours(data[self.namekeys.distant_neighbour_key].iloc[0])
 
-        return State(individual_id, zone, behaviour, coordinates, close_neighbours, distant_neighbours, None, None)
+        return State(individual_id, zone, behaviour, coordinates, close_neighbours, distant_neighbours, None, None, None)
     
     
     

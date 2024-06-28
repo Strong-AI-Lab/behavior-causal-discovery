@@ -17,11 +17,12 @@ class Chronology:
         coordinates: Tuple[float, float, float]
         close_neighbours: List[int]
         distant_neighbours: List[int]
+        snapshot: Optional['Chronology.Snapshot']
         past_state: Optional['Chronology.State']
         future_state: Optional['Chronology.State']
         coord_epsilon: ClassVar[float] = 100
 
-        def time_eq(self, other: 'Chronology.State') -> bool: # /!\ past and future states are not compared!
+        def time_eq(self, other: 'Chronology.State') -> bool: # /!\ snapshots, past and future states are not compared!
             return self.individual_id == other.individual_id and \
                    self.zone == other.zone and \
                    self.behaviour == other.behaviour and \
@@ -33,7 +34,7 @@ class Chronology:
             return np.allclose(self.coordinates, other.coordinates, atol=self.coord_epsilon)
         
         def deep_copy(self) -> 'Chronology.State': # Deep copy /!\ past and future states are not copied
-            return Chronology.State(self.individual_id, self.zone, self.behaviour, self.coordinates, self.close_neighbours.copy(), self.distant_neighbours.copy(), self.past_state, self.future_state)
+            return Chronology.State(self.individual_id, self.zone, self.behaviour, self.coordinates, self.close_neighbours.copy(), self.distant_neighbours.copy(), self.snapshot, self.past_state, self.future_state)
 
 
     @dataclass
@@ -42,6 +43,10 @@ class Chronology:
         close_adjacency_list: Dict[int, List[int]]
         distant_adjacency_list: Dict[int, List[int]]
         states: Dict[int, 'Chronology.State']
+
+        def __post_init__(self):
+            for state in self.states.values():
+                state.snapshot = self
 
         def time_eq(self, other: 'Chronology.Snapshot') -> bool:
             return self.close_adjacency_list == other.close_adjacency_list and \
@@ -53,7 +58,11 @@ class Chronology:
             states_copy = {ind : state.deep_copy() for ind, state in self.states.items()}
             close_adjacency_list_copy = {ind : state.close_neighbours for ind, state in states_copy.items()}
             distant_adjacency_list_copy = {ind : state.distant_neighbours for ind, state in states_copy.items()}
-            return Chronology.Snapshot(self.time, close_adjacency_list_copy, distant_adjacency_list_copy, states_copy)
+
+            copy = Chronology.Snapshot(self.time, close_adjacency_list_copy, distant_adjacency_list_copy, states_copy)
+            for state in states_copy.values():
+                state.snapshot = copy
+            return copy
 
 
     @classmethod
@@ -85,11 +94,12 @@ class Chronology:
                     data : pd.DataFrame, 
                     parser : Optional[Parser] = None,
                     start_time : int = 0,
-                    end_time : int = 0,
+                    end_time : int = 0, # /!\ end_time is inclusive
                     stationary_times : List[int] = None,
                     empty_times : List[int] = None,
                     snapshots : List[Optional['Chronology.Snapshot']] = None,
                     individuals_ids : List[int] = None,
+                    first_occurence : Dict[int, int] = None,
                     zone_labels : List[str] = None,
                     behaviour_labels : List[str] = None,
                     parse_data : bool = True
@@ -100,6 +110,7 @@ class Chronology:
         self.empty_times = empty_times if empty_times is not None else []
         self.snapshots = snapshots if snapshots is not None else []
         self.individuals_ids = sorted(individuals_ids) if individuals_ids is not None else []
+        self.first_occurence = first_occurence if first_occurence is not None else {}
         self.zone_labels = zone_labels if zone_labels is not None else []
         self.behaviour_labels = behaviour_labels if behaviour_labels is not None else []
 
@@ -121,6 +132,7 @@ class Chronology:
                self.stationary_times == other.stationary_times and \
                self.empty_times == other.empty_times and \
                self.individuals_ids == other.individuals_ids and \
+               self.first_occurence == other.first_occurence and \
                self.zone_labels == other.zone_labels and \
                self.behaviour_labels == other.behaviour_labels and \
                len(self.snapshots) == len(other.snapshots) and \
@@ -137,6 +149,7 @@ class Chronology:
         stationary_times_copy = self.stationary_times.copy()
         empty_times_copy = self.empty_times.copy()
         individuals_ids_copy = self.individuals_ids.copy()
+        first_occurence_copy = self.first_occurence.copy()
         zone_labels_copy = self.zone_labels.copy()
         behaviour_labels_copy = self.behaviour_labels.copy()
         snapshots_copy = [None if snapshot is None else snapshot.deep_copy() for snapshot in self.snapshots]
@@ -154,6 +167,7 @@ class Chronology:
                             start_time=self.start_time, end_time=self.end_time,
                             stationary_times=stationary_times_copy, empty_times=empty_times_copy,
                             snapshots=snapshots_copy, individuals_ids=individuals_ids_copy,
+                            first_occurence=first_occurence_copy,
                             zone_labels=zone_labels_copy, behaviour_labels=behaviour_labels_copy)
 
 
@@ -185,11 +199,16 @@ class Chronology:
             if snapshot is not None:
                 chr0_individuals_ids.update(snapshot.states.keys())
         chr0_individuals_ids = sorted(list(chr0_individuals_ids))
+        chr0_first_occurence = {ind_id : chronology.first_occurence[ind_id] for ind_id in chr0_individuals_ids}
 
         chr1_individuals_ids = set()
+        chr1_first_occurence = {}
         for snapshot in chr1_snapshots:
             if snapshot is not None:
                 chr1_individuals_ids.update(snapshot.states.keys())
+                for ind_id in snapshot.states.keys():
+                    if ind_id not in chr1_first_occurence:
+                        chr1_first_occurence[ind_id] = snapshot.time # if individual first appears in chr0, we need to find the first time it appears in chr1
         chr1_individuals_ids = sorted(list(chr1_individuals_ids))
 
         # Cut past and future states
@@ -207,6 +226,7 @@ class Chronology:
                                 empty_times=chr0_empty_times,
                                 snapshots=chr0_snapshots, 
                                 individuals_ids=chr0_individuals_ids,
+                                first_occurence=chr0_first_occurence,
                                 zone_labels=chronology.zone_labels, 
                                 behaviour_labels=chronology.behaviour_labels)
         
@@ -217,6 +237,7 @@ class Chronology:
                                 empty_times=chr1_empty_times,
                                 snapshots=chr1_snapshots, 
                                 individuals_ids=chr1_individuals_ids,
+                                first_occurence=chr1_first_occurence,
                                 zone_labels=chronology.zone_labels, 
                                 behaviour_labels=chronology.behaviour_labels)
         
@@ -251,6 +272,7 @@ class Chronology:
         if not keep_individual_ids: # Offset individual ids
             chr1_individuals_offset = max(chronology0.individuals_ids) + 1 - min(chronology1.individuals_ids)
             chronology1.individuals_ids = [ind_id + chr1_individuals_offset for ind_id in chronology1.individuals_ids]
+            chronology1.first_occurence = {ind_id + chr1_individuals_offset : time for ind_id, time in chronology1.first_occurence.items()}
             for snapshot in chronology1.snapshots:
                 if snapshot is not None:
                     snapshot.states = {ind_id + chr1_individuals_offset : state for ind_id, state in snapshot.states.items()}
@@ -270,7 +292,9 @@ class Chronology:
                         chronology1.snapshots[0].states[ind_id].past_state = chronology0.snapshots[-1].states[ind_id]
             
             merged_individuals_ids = sorted(list(set(chronology0.individuals_ids + chronology1.individuals_ids)))
-
+        
+        merged_first_occurence = chronology1.first_occurence
+        merged_first_occurence.update(chronology0.first_occurence)
 
         # Merge chronologies
         return Chronology(data=None, parser=None,
@@ -280,6 +304,7 @@ class Chronology:
                             empty_times=chronology0.empty_times + chronology1.empty_times,
                             snapshots=chronology0.snapshots + chronology1.snapshots,
                             individuals_ids=merged_individuals_ids,
+                            first_occurence=merged_first_occurence,
                             zone_labels=chronology0.zone_labels,
                             behaviour_labels=chronology0.behaviour_labels)
 
