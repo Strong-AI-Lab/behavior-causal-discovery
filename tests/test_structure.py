@@ -149,16 +149,26 @@ class TestChronology:
                     for i in range(len(structure.snapshots)) if structure.snapshots[i] is not None and struct2.snapshots[i] is not None]) 
 
         assert structure == struct2
+        assert struct2 == structure
 
     def test_not_equal(self, structure):
         struct2 = Chronology(None)
         struct2.start_time = 1
         assert structure != struct2
+        assert struct2 != structure
 
     def test_not_equal2(self, structure):
         struct2 = Chronology.create("data/test/22-10-20_C2_20.csv")
         struct2.end_time = 1
         assert structure != struct2
+        assert struct2 != structure
+
+    def test_not_equal3(self, structure):
+        struct2 = Chronology.create("data/test/22-10-20_C2_20.csv")
+        struct2.snapshots[0] = None
+        assert structure != struct2
+        assert struct2 != structure
+
 
     def test_deep_copy(self, structure):
         # Check values
@@ -353,7 +363,63 @@ class TestChronology:
         merged = Chronology.merge_no_interlace_n([struct0, struct1, struct2, struct3, struct4], keep_individual_ids=True)
         
         assert merged == structure
+
+    def test_serialization(self, structure):
+        json_data = structure.to_json()
+        new_structure = Chronology.from_json(json_data)
+
+        assert new_structure.to_json() == json_data
+
+        assert new_structure.raw_data is None
+        assert new_structure.parser is None
+        assert structure.start_time == new_structure.start_time
+        assert structure.end_time == new_structure.end_time
+        assert structure.stationary_times == new_structure.stationary_times
+        assert structure.empty_times == new_structure.empty_times
+        assert structure.individuals_ids == new_structure.individuals_ids
+        assert structure.first_occurence == new_structure.first_occurence
+        assert structure.zone_labels == new_structure.zone_labels
+        assert structure.behaviour_labels == new_structure.behaviour_labels
+        assert len(structure.snapshots) == len(new_structure.snapshots)
+        assert all([(structure.snapshots[i] is None and new_structure.snapshots[i] is None) or (structure.snapshots[i].time_eq(new_structure.snapshots[i])) for i in range(len(structure.snapshots))])
         
+        assert structure != new_structure
+        
+        structure.raw_data = None
+        structure.parser = None
+        assert structure == new_structure
+
+    def test_serialization_state_snapshot(self, structure):
+        json_data = structure.to_json()
+        new_structure = Chronology.from_json(json_data)
+        
+        for snapshot, new_snapshot in zip(structure.snapshots, new_structure.snapshots):
+            if new_snapshot is not None:
+                assert new_snapshot.time_eq(snapshot)
+                for new_state in new_snapshot.states.values():
+                    assert new_state.snapshot is new_snapshot
+
+    def test_serialization_state_sequences(self, structure):
+        json_data = structure.to_json()
+        new_structure = Chronology.from_json(json_data)
+
+        for ind_id, time in structure.first_occurence.items():
+            state = structure.snapshots[time].states[ind_id]
+            new_state = new_structure.snapshots[time].states[ind_id]
+
+            sequence = [state]
+            while state.future_state is not None:
+                state = state.future_state
+                sequence.append(state)
+
+            new_sequence = [new_state]
+            while new_state.future_state is not None:
+                new_state = new_state.future_state
+                new_sequence.append(new_state)
+
+            assert len(sequence) == len(new_sequence)
+            assert all([state.time_eq(new_state) for state, new_state in zip(sequence, new_sequence)])
+
         
 
 

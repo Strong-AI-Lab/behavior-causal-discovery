@@ -22,6 +22,15 @@ class Chronology:
         future_state: Optional['Chronology.State']
         coord_epsilon: ClassVar[float] = 100
 
+        def __hash__(self) -> int:
+            return hash(self.individual_id) + hash(self.zone) + hash(self.behaviour) + hash(self.coordinates) + hash(tuple(self.close_neighbours)) + hash(tuple(self.distant_neighbours)) + (hash(self.snapshot) if self.snapshot is not None else 0)
+
+        def __repr__(self) -> str:
+            return f"{self.__class__.__name__}(individual_id={self.individual_id}, zone={self.zone}, behaviour={self.behaviour}, coordinates={self.coordinates}, close_neighbours={self.close_neighbours}, " + \
+                    f"distant_neighbours={self.distant_neighbours}, snapshot={str(self.snapshot.__class__.__name__) + '(time=' + str(self.snapshot.time) + '...)' if self.snapshot is not None else None}, " + \
+                    f"past_state={str(self.past_state.__class__.__name__) + '(individual_id=' + str(self.past_state.individual_id) + '...)' if self.past_state is not None else None}, " + \
+                    f"future_state={str(self.future_state.__class__.__name__) + '(individual_id=' + str(self.future_state.individual_id) + '...)' if self.future_state is not None else None})"
+
         def time_eq(self, other: 'Chronology.State') -> bool: # /!\ snapshots, past and future states are not compared!
             return self.individual_id == other.individual_id and \
                    self.zone == other.zone and \
@@ -35,6 +44,24 @@ class Chronology:
         
         def deep_copy(self) -> 'Chronology.State': # Deep copy /!\ past and future states are not copied
             return Chronology.State(self.individual_id, self.zone, self.behaviour, self.coordinates, self.close_neighbours.copy(), self.distant_neighbours.copy(), self.snapshot, self.past_state, self.future_state)
+        
+        def to_json(self) -> dict: # Serialisation does not save snapshot, past and future states. They must be managed at upper levels (Snapshot handles `snapshot` attribute, Chronology handles `past_state` and `future_state` attributes)
+            return {
+                "hash" : hash(self),
+                "individual_id" : self.individual_id,
+                "zone" : self.zone,
+                "behaviour" : self.behaviour,
+                "coordinates" : self.coordinates,
+                "close_neighbours" : self.close_neighbours,
+                "distant_neighbours" : self.distant_neighbours,
+                "snapshot" : hash(self.snapshot) if self.snapshot is not None else None,
+                "past_state" : hash(self.past_state) if self.past_state is not None else None,
+                "future_state" : hash(self.future_state) if self.future_state is not None else None
+            }
+        
+        @classmethod
+        def from_json(cls, json_data : dict) -> 'Chronology.State': # Deserialisation does not load snapshot, past and future states. They must be managed at upper levels
+            return cls(json_data["individual_id"], json_data["zone"], json_data["behaviour"], json_data["coordinates"], json_data["close_neighbours"], json_data["distant_neighbours"], None, None, None)
 
 
     @dataclass
@@ -47,6 +74,9 @@ class Chronology:
         def __post_init__(self):
             for state in self.states.values():
                 state.snapshot = self
+
+        def __hash__(self) -> int:
+            return hash(self.time) + hash(tuple(self.close_adjacency_list.keys())) + hash(tuple(self.distant_adjacency_list.keys())) + hash(tuple(self.states.keys()))
 
         def time_eq(self, other: 'Chronology.Snapshot') -> bool:
             return self.close_adjacency_list == other.close_adjacency_list and \
@@ -63,6 +93,23 @@ class Chronology:
             for state in states_copy.values():
                 state.snapshot = copy
             return copy
+        
+        def to_json(self) -> dict:
+            return {
+                "hash" : hash(self),
+                "time" : self.time,
+                "close_adjacency_list" : self.close_adjacency_list,
+                "distant_adjacency_list" : self.distant_adjacency_list,
+                "states" : {ind : state.to_json() for ind, state in self.states.items()}
+            }
+        
+        @classmethod
+        def from_json(cls, json_data : dict) -> 'Chronology.Snapshot':
+            states = {ind : Chronology.State.from_json(state_data) for ind, state_data in json_data["states"].items()}
+            snapshot = cls(json_data["time"], json_data["close_adjacency_list"], json_data["distant_adjacency_list"], states)
+            for state in states.values(): # Handling of state snapshot attributes
+                state.snapshot = snapshot
+            return snapshot
 
 
     @classmethod
@@ -125,8 +172,8 @@ class Chronology:
         parser.parse(data, self)
 
     def __eq__(self, other : 'Chronology') -> bool:
-        return ((self.raw_data is None and other.raw_data is None) or self.raw_data.equals(other.raw_data)) and \
-               ((self.parser is None and other.parser is None) or self.parser == other.parser) and \
+        return ((self.raw_data is None and other.raw_data is None) or (self.raw_data is not None and other.raw_data is not None and self.raw_data.equals(other.raw_data))) and \
+               ((self.parser is None and other.parser is None) or (self.parser is not None and other.parser is not None and self.parser == other.parser)) and \
                self.start_time == other.start_time and \
                self.end_time == other.end_time and \
                self.stationary_times == other.stationary_times and \
@@ -136,7 +183,7 @@ class Chronology:
                self.zone_labels == other.zone_labels and \
                self.behaviour_labels == other.behaviour_labels and \
                len(self.snapshots) == len(other.snapshots) and \
-               all([(self.snapshots[i] is None and other.snapshots[i] is None) or (self.snapshots[i].time_eq(other.snapshots[i])) for i in range(len(self.snapshots))])
+               all([(self.snapshots[i] is None and other.snapshots[i] is None) or (self.snapshots[i] is not None and other.snapshots[i] is not None and (self.snapshots[i].time_eq(other.snapshots[i]))) for i in range(len(self.snapshots))])
 
 
     def get_snapshot(self, time : int) -> 'Chronology.Snapshot':
@@ -318,4 +365,67 @@ class Chronology:
             chronology = cls.merge_not_interlace_2(chronology, chronologies[i], keep_individual_ids)
 
         return chronology
+    
+
+    def to_json(self) -> dict: # Serialisation does not save raw_data and solver
+        return {
+            "raw_data" : None,
+            "parser" : None,
+            "start_time" : self.start_time,
+            "end_time" : self.end_time,
+            "stationary_times" : self.stationary_times,
+            "empty_times" : self.empty_times,
+            "snapshots" : [snapshot.to_json() if snapshot is not None else None for snapshot in self.snapshots],
+            "individuals_ids" : self.individuals_ids,
+            "first_occurence" : self.first_occurence,
+            "zone_labels" : self.zone_labels,
+            "behaviour_labels" : self.behaviour_labels
+        }
+
+    @classmethod
+    def from_json(cls, json_data : dict) -> 'Chronology': # Deserialisation does not load raw_data and solver
+        snapshots = [Chronology.Snapshot.from_json(snapshot_data) if snapshot_data is not None else None for snapshot_data in json_data["snapshots"]]
+
+        chronology = cls(data=None, parser=None, 
+                    start_time=json_data["start_time"], 
+                    end_time=json_data["end_time"],
+                    stationary_times=json_data["stationary_times"], 
+                    empty_times=json_data["empty_times"],
+                    snapshots=snapshots, 
+                    individuals_ids=json_data["individuals_ids"],
+                    first_occurence=json_data["first_occurence"],
+                    zone_labels=json_data["zone_labels"],
+                    behaviour_labels=json_data["behaviour_labels"],
+                    parse_data=False)
+        
+        # Handling of past and future states
+        state_dict = {}
+        for i in range(len(snapshots)):
+            if snapshots[i] is not None:
+                for ind_id in snapshots[i].states.keys():
+                    state_dict[json_data["snapshots"][i]["states"][ind_id]["hash"]] = {
+                        "state" : snapshots[i].states[ind_id],
+                        "past_state" : json_data["snapshots"][i]["states"][ind_id]["past_state"],
+                        "future_state" : json_data["snapshots"][i]["states"][ind_id]["future_state"]
+                    }
+        for state_settings in state_dict.values():
+            state = state_settings["state"]
+            if state_settings["past_state"] is not None:
+                state.past_state = state_dict[state_settings["past_state"]]["state"]
+            if state_settings["future_state"] is not None:
+                state.future_state = state_dict[state_settings["future_state"]]["state"]
+
+        return chronology
+
+
+
+    def serialize(self, file_path : str) -> None:
+        with open(file_path, "w") as f:
+            f.write(self.to_json())
+
+    @classmethod
+    def deserialize(cls, file_path : str) -> 'Chronology':
+        with open(file_path, "r") as f:
+            return cls.from_json(f.read())
+
 
