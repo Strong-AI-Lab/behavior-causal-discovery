@@ -1,8 +1,9 @@
 
-from typing import List, Dict, Tuple, Union, Optional, ClassVar
+from typing import List, Dict, Tuple, Union, Optional, ClassVar, Set
 import pandas as pd
 import numpy as np
 from dataclasses import dataclass
+import json
 
 from data.parsers.baseparser import Parser
 
@@ -61,7 +62,7 @@ class Chronology:
         
         @classmethod
         def from_json(cls, json_data : dict) -> 'Chronology.State': # Deserialisation does not load snapshot, past and future states. They must be managed at upper levels
-            return cls(json_data["individual_id"], json_data["zone"], json_data["behaviour"], json_data["coordinates"], json_data["close_neighbours"], json_data["distant_neighbours"], None, None, None)
+            return cls(json_data["individual_id"], json_data["zone"], json_data["behaviour"], tuple(json_data["coordinates"]), json_data["close_neighbours"], json_data["distant_neighbours"], None, None, None)
 
 
     @dataclass
@@ -105,26 +106,29 @@ class Chronology:
         
         @classmethod
         def from_json(cls, json_data : dict) -> 'Chronology.Snapshot':
-            states = {ind : Chronology.State.from_json(state_data) for ind, state_data in json_data["states"].items()}
-            snapshot = cls(json_data["time"], json_data["close_adjacency_list"], json_data["distant_adjacency_list"], states)
+            states = {int(ind) : Chronology.State.from_json(state_data) for ind, state_data in json_data["states"].items()}
+            close_adjacency_list = {int(ind) : adj_list for ind, adj_list in json_data["close_adjacency_list"].items()}
+            distant_adjacency_list = {int(ind) : adj_list for ind, adj_list in json_data["distant_adjacency_list"].items()}
+
+            snapshot = cls(json_data["time"], close_adjacency_list, distant_adjacency_list, states)
             for state in states.values(): # Handling of state snapshot attributes
                 state.snapshot = snapshot
             return snapshot
 
 
     @classmethod
-    def create(cls, file_path : Union[str, List[str]]) -> 'Chronology':
+    def create(cls, file_path : Union[str, List[str]], fix_errors : bool = False, filter_null_state_trajectories : bool = False) -> 'Chronology':
         from data.parsers.pandasparser import PandasParser
-        parser = PandasParser()
+        parser = PandasParser(filter_null_state_trajectories=filter_null_state_trajectories)
 
         if isinstance(file_path, str):
             data = pd.read_csv(file_path)
-            chronology = cls(data, parser)
+            chronology = cls(data, parser, fix_errors=fix_errors)
         else:
             chronologies = []
             for path in file_path:
                 data = pd.read_csv(path)
-                chronologies.append(cls(data, parser))
+                chronologies.append(cls(data, parser, fix_errors=fix_errors))
             chronology = cls.merge_no_interlace_n(chronologies)
 
         return chronology
@@ -147,9 +151,10 @@ class Chronology:
                     snapshots : List[Optional['Chronology.Snapshot']] = None,
                     individuals_ids : List[int] = None,
                     first_occurence : Dict[int, int] = None,
-                    zone_labels : List[str] = None,
-                    behaviour_labels : List[str] = None,
-                    parse_data : bool = True
+                    zone_labels : Set[str] = None,
+                    behaviour_labels : Set[str] = None,
+                    parse_data : bool = True,
+                    fix_errors : bool = False, # Find missing data and update with last values. If set false, some functions (e.g. split, merge) may return an error
                     ):
         self.start_time = start_time
         self.end_time = end_time
@@ -158,14 +163,17 @@ class Chronology:
         self.snapshots = snapshots if snapshots is not None else []
         self.individuals_ids = sorted(individuals_ids) if individuals_ids is not None else []
         self.first_occurence = first_occurence if first_occurence is not None else {}
-        self.zone_labels = zone_labels if zone_labels is not None else []
-        self.behaviour_labels = behaviour_labels if behaviour_labels is not None else []
+        self.zone_labels = zone_labels if zone_labels is not None else set()
+        self.behaviour_labels = behaviour_labels if behaviour_labels is not None else set()
 
         self.raw_data = data
         self.parser = parser
 
         if parser is not None and parse_data:
             self._parse_data(data, parser)
+
+            if fix_errors:
+                self._fix_errors()
 
 
     def _parse_data(self, data : pd.DataFrame, parser : Parser) -> None:
@@ -302,11 +310,9 @@ class Chronology:
         chronology0 = chronology0.deep_copy()
         chronology1 = chronology1.deep_copy()
 
-        # Check if chronologies are compatible
-        if chronology0.zone_labels != chronology1.zone_labels:
-            raise ValueError("Chronologies have different zone labels!")
-        if chronology0.behaviour_labels != chronology1.behaviour_labels:
-            raise ValueError("Chronologies have different behaviour labels!")
+        # Merge chronologiy labels
+        merged_zone_labels = chronology0.zone_labels | chronology1.zone_labels
+        merged_behaviour_labels = chronology0.behaviour_labels | chronology1.behaviour_labels
         
         # Offset chronology1 times
         chr1_start_time_offset = chronology0.end_time + 1 - chronology1.start_time
@@ -315,6 +321,7 @@ class Chronology:
                 snapshot.time += chr1_start_time_offset
         chronology1.stationary_times = [time + chr1_start_time_offset for time in chronology1.stationary_times]
         chronology1.empty_times = [time + chr1_start_time_offset for time in chronology1.empty_times]
+        chronology1.first_occurence = {ind_id : time + chr1_start_time_offset for ind_id, time in chronology1.first_occurence.items()}
 
         if not keep_individual_ids: # Offset individual ids
             chr1_individuals_offset = max(chronology0.individuals_ids) + 1 - min(chronology1.individuals_ids)
@@ -352,8 +359,8 @@ class Chronology:
                             snapshots=chronology0.snapshots + chronology1.snapshots,
                             individuals_ids=merged_individuals_ids,
                             first_occurence=merged_first_occurence,
-                            zone_labels=chronology0.zone_labels,
-                            behaviour_labels=chronology0.behaviour_labels)
+                            zone_labels=merged_zone_labels,
+                            behaviour_labels=merged_behaviour_labels)
 
 
 
@@ -378,13 +385,16 @@ class Chronology:
             "snapshots" : [snapshot.to_json() if snapshot is not None else None for snapshot in self.snapshots],
             "individuals_ids" : self.individuals_ids,
             "first_occurence" : self.first_occurence,
-            "zone_labels" : self.zone_labels,
-            "behaviour_labels" : self.behaviour_labels
+            "zone_labels" : list(self.zone_labels),
+            "behaviour_labels" : list(self.behaviour_labels)
         }
 
     @classmethod
     def from_json(cls, json_data : dict) -> 'Chronology': # Deserialisation does not load raw_data and solver
         snapshots = [Chronology.Snapshot.from_json(snapshot_data) if snapshot_data is not None else None for snapshot_data in json_data["snapshots"]]
+        first_occurence = {int(ind_id) : time for ind_id, time in json_data["first_occurence"].items()}
+        zone_labels = set(json_data["zone_labels"])
+        behaviour_labels = set(json_data["behaviour_labels"])
 
         chronology = cls(data=None, parser=None, 
                     start_time=json_data["start_time"], 
@@ -393,20 +403,28 @@ class Chronology:
                     empty_times=json_data["empty_times"],
                     snapshots=snapshots, 
                     individuals_ids=json_data["individuals_ids"],
-                    first_occurence=json_data["first_occurence"],
-                    zone_labels=json_data["zone_labels"],
-                    behaviour_labels=json_data["behaviour_labels"],
+                    first_occurence=first_occurence,
+                    zone_labels=zone_labels,
+                    behaviour_labels=behaviour_labels,
                     parse_data=False)
+        
+        # If json data was dumped, dict keys are strings, we need to convert them back to integers
+        to_format = lambda x : x
+        for snapshot in json_data["snapshots"]:
+            if snapshot is not None:
+                if isinstance(list(snapshot["states"].keys())[0], str):
+                    to_format = lambda x : str(x)
+                break
         
         # Handling of past and future states
         state_dict = {}
         for i in range(len(snapshots)):
             if snapshots[i] is not None:
                 for ind_id in snapshots[i].states.keys():
-                    state_dict[json_data["snapshots"][i]["states"][ind_id]["hash"]] = {
+                    state_dict[json_data["snapshots"][i]["states"][to_format(ind_id)]["hash"]] = {
                         "state" : snapshots[i].states[ind_id],
-                        "past_state" : json_data["snapshots"][i]["states"][ind_id]["past_state"],
-                        "future_state" : json_data["snapshots"][i]["states"][ind_id]["future_state"]
+                        "past_state" : json_data["snapshots"][i]["states"][to_format(ind_id)]["past_state"],
+                        "future_state" : json_data["snapshots"][i]["states"][to_format(ind_id)]["future_state"]
                     }
         for state_settings in state_dict.values():
             state = state_settings["state"]
@@ -421,11 +439,91 @@ class Chronology:
 
     def serialize(self, file_path : str) -> None:
         with open(file_path, "w") as f:
-            f.write(self.to_json())
+            json.dump(self.to_json(), f, indent=4)
 
     @classmethod
     def deserialize(cls, file_path : str) -> 'Chronology':
         with open(file_path, "r") as f:
-            return cls.from_json(f.read())
+            json_data = json.load(f)
+        return cls.from_json(json_data)
 
+
+    def _get_neighbour_state_distribution(self, ind_id : int, time : int, state : str, proximity : str) -> Dict[str, int]:
+        snapshot = self.get_snapshot(time)
+
+        if proximity == "close":
+            adjacency_list = snapshot.close_adjacency_list[ind_id]
+        elif proximity == "distant":
+            adjacency_list = snapshot.distant_adjacency_list[ind_id]
+        else:
+            raise ValueError("Proximity must be either 'close' or 'distant'!")
+        
+        if state == "behaviour":
+            state_distribution = {behaviour : 0 for behaviour in self.behaviour_labels}
+            attribute = "behaviour"
+        elif state == "zone":
+            state_distribution = {zone : 0 for zone in self.zone_labels}
+            attribute = "zone"
+        
+        nb_nonzero_neighbours = 0
+        for neighbour_id in adjacency_list:
+            state = snapshot.states[neighbour_id]
+            if getattr(state, attribute) is not None:
+                state_distribution[getattr(state, attribute)] += 1
+                nb_nonzero_neighbours += 1
+
+        if nb_nonzero_neighbours > 0:
+            for key in state_distribution.keys():
+                state_distribution[key] /= nb_nonzero_neighbours
+
+        return state_distribution
+
+    def _fix_state(self, state : 'Chronology.State', weight_past : float = 2.0, weight_future : float = 1.0, weight_close_neighbours : float = 1.0, weight_distant_neighbours : float = 0.5, fix_mode : str = "max") -> None:
+        ind_id = state.individual_id
+        time = state.snapshot.time
+
+        for attribute, labels in [("behaviour", self.behaviour_labels), ("zone", self.zone_labels)]:
+            if getattr(state, attribute) is None:
+                distribution = {attr_val : 0 for attr_val in labels}
+
+                if state.past_state is not None and getattr(state, attribute) is not None:
+                    past_attribute = getattr(state.past_state, attribute)
+                    distribution[past_attribute] += weight_past
+
+                if state.future_state is not None and state.future_state.behaviour is not None:
+                    future_attribute = getattr(state.future_state, attribute)
+                    distribution[future_attribute] += weight_future
+
+                close_neighbour_attributes = self._get_neighbour_state_distribution(ind_id, time, attribute, "close")
+                for attr_val, weight in close_neighbour_attributes.items():
+                    distribution[attr_val] += weight * weight_close_neighbours
+
+                distant_neighbour_attributes = self._get_neighbour_state_distribution(ind_id, time, attribute, "distant")
+                for attr_val, weight in distant_neighbour_attributes.items():
+                    distribution[attr_val] += weight * weight_distant_neighbours
+                
+                if fix_mode == "max":
+                    setattr(state, attribute, max(distribution, key=distribution.get))
+                elif fix_mode == "random":
+                    setattr(state, attribute, np.random.choice(list(distribution.keys()), p=list(distribution.values())))
+                else:
+                    raise ValueError("Fix mode must be either 'max' or 'random'!")
+
+    def _fix_errors(self, weight_past : float = 2.0, weight_future : float = 1.0, weight_close_neighbours : float = 1.0, weight_distant_neighbours : float = 0.5, fix_mode : str = "max") -> None: # Find missing behaviour and zone data and update with most likely value
+        try:
+            self.zone_labels.remove(None)
+        except KeyError:
+            pass
+        try:
+            self.behaviour_labels.remove(None)
+        except KeyError:
+            pass
+        
+        for ind_id, start_time in self.first_occurence.items():
+            state = self.snapshots[start_time].states[ind_id]
+            self._fix_state(state, weight_past, weight_future, weight_close_neighbours, weight_distant_neighbours, fix_mode)
+
+            while state.future_state is not None:
+                state = state.future_state
+                self._fix_state(state, weight_past, weight_future, weight_close_neighbours, weight_distant_neighbours, fix_mode)
 

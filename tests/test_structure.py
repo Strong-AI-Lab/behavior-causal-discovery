@@ -1,8 +1,8 @@
 
 import pytest
+import json
 
 from data.structure.chronology import Chronology
-from data.constants import VECTOR_COLUMNS
 
 
 class TestChronology:
@@ -21,8 +21,8 @@ class TestChronology:
         assert structure.parser is not None
         assert structure.individuals_ids == [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41]
         assert structure.first_occurence == {0: 0, 1: 23, 2: 24, 3: 12, 4: 0, 5: 3, 6: 4, 7: 7, 8: 41, 10: 121, 11: 121, 12: 125, 13: 126, 14: 127, 15: 129, 16: 138, 17: 141, 18: 177, 19: 243, 20: 248, 21: 248, 22: 251, 23: 255, 24: 256, 25: 256, 26: 256, 27: 256, 28: 259, 29: 266, 30: 278, 31: 301, 32: 322, 33: 342, 34: 367, 35: 374, 36: 383, 37: 383, 38: 385, 39: 391, 40: 487, 41: 687}
-        assert structure.zone_labels == ['foraging_zone', 'background_zone', 'waiting_area_zone', 'door_zone']
-        assert structure.behaviour_labels == ['foraging', 'raised_guarding_(vigilant)', 'moving', 'low_sitting/standing_(stationary)', 'groom', 'high_sitting/standing_(vigilant)', 'sunbathe', 'human_interaction', 'interacting_with_foreign_object', 'playfight', 'dig_burrow']
+        assert structure.zone_labels == {'foraging_zone', 'background_zone', 'waiting_area_zone', 'door_zone'}
+        assert structure.behaviour_labels == {'foraging', 'raised_guarding_(vigilant)', 'moving', 'low_sitting/standing_(stationary)', 'groom', 'high_sitting/standing_(vigilant)', 'sunbathe', 'human_interaction', 'interacting_with_foreign_object', 'playfight', 'dig_burrow'}
 
     def test_delete(self, structure):
         del structure
@@ -368,7 +368,46 @@ class TestChronology:
         json_data = structure.to_json()
         new_structure = Chronology.from_json(json_data)
 
-        assert new_structure.to_json() == json_data
+        new_json_data = new_structure.to_json()
+        new_json_data['zone_labels'] = set(new_json_data['zone_labels'])
+        new_json_data['behaviour_labels'] = set(new_json_data['behaviour_labels'])
+        json_data['zone_labels'] = set(json_data['zone_labels'])
+        json_data['behaviour_labels'] = set(json_data['behaviour_labels'])
+        assert new_json_data == json_data # zone and behaviour labels are not ordered
+
+        assert new_structure.raw_data is None
+        assert new_structure.parser is None
+        assert structure.start_time == new_structure.start_time
+        assert structure.end_time == new_structure.end_time
+        assert structure.stationary_times == new_structure.stationary_times
+        assert structure.empty_times == new_structure.empty_times
+        assert structure.individuals_ids == new_structure.individuals_ids
+        assert structure.first_occurence == new_structure.first_occurence
+        assert structure.zone_labels == new_structure.zone_labels
+        assert structure.behaviour_labels == new_structure.behaviour_labels
+        assert len(structure.snapshots) == len(new_structure.snapshots)
+        assert all([(structure.snapshots[i] is None and new_structure.snapshots[i] is None) or (structure.snapshots[i].time_eq(new_structure.snapshots[i])) for i in range(len(structure.snapshots))])
+        
+        assert structure != new_structure
+        
+        structure.raw_data = None
+        structure.parser = None
+        assert structure == new_structure
+
+    def test_serialization2(self, structure):
+        json_data_init = structure.to_json()
+
+        json_data = json.dumps(json_data_init)
+        json_data = json.loads(json_data)
+
+        new_structure = Chronology.from_json(json_data)
+
+        new_json_data = new_structure.to_json()
+        new_json_data['zone_labels'] = set(new_json_data['zone_labels'])
+        new_json_data['behaviour_labels'] = set(new_json_data['behaviour_labels'])
+        json_data_init['zone_labels'] = set(json_data_init['zone_labels'])
+        json_data_init['behaviour_labels'] = set(json_data_init['behaviour_labels'])
+        assert new_json_data == json_data_init # zone and behaviour labels are not ordered
 
         assert new_structure.raw_data is None
         assert new_structure.parser is None
@@ -419,6 +458,72 @@ class TestChronology:
 
             assert len(sequence) == len(new_sequence)
             assert all([state.time_eq(new_state) for state, new_state in zip(sequence, new_sequence)])
+
+    def test_time_contiguity(self, structure):
+        time = structure.start_time
+        for i in range(len(structure.snapshots)):
+            if structure.snapshots[i] is not None:
+                assert time == structure.snapshots[i].time
+            time += 1
+        assert time == structure.end_time + 1
+
+
+class TestErrorChronology:
+    
+    @pytest.fixture
+    def err_structure(self):
+        return Chronology.create("data/train/22-11-07_C3_09.csv", fix_errors=False)
+
+
+    def test_fix_errors(self, err_structure):
+        count_behaviour_none = 0
+        count_zone_none = 0
+
+        for snapshot in err_structure.snapshots:
+            if snapshot is not None:
+                for state in snapshot.states.values():
+                    if state.behaviour is None:
+                        count_behaviour_none += 1
+                    if state.zone is None:
+                        count_zone_none += 1
+
+        assert count_behaviour_none == 1113
+        assert count_zone_none == 0
+
+        err_structure._fix_errors()
+
+        for snapshot in err_structure.snapshots:
+            if snapshot is not None:
+                for state in snapshot.states.values():
+                    assert state.behaviour is not None
+                    assert state.zone is not None
+
+
+
+class TestFilteredChronology:
+    
+    @pytest.fixture
+    def structure(self):
+        return Chronology.create("data/train/22-11-07_C3_09.csv", fix_errors=False, filter_null_state_trajectories=False)
+    
+    @pytest.fixture
+    def err_structure(self):
+        return Chronology.create("data/train/22-11-07_C3_09.csv", fix_errors=False, filter_null_state_trajectories=True)
+
+    def test_empty_times(self, structure, err_structure):
+        assert len(err_structure.empty_times) == len(structure.empty_times) + 5  # 5 empty times due to null state trajectories
+
+    def test_states(self, err_structure):
+
+        for snapshot in err_structure.snapshots:
+            if snapshot is not None:
+                for state in snapshot.states.values():
+                    assert state.behaviour is not None
+                    assert state.zone is not None
+
+    def test_ids(self, err_structure):
+        for id in [8, 9, 10, 11, 25, 26, 32, 34, 73, 77, 80, 85, 86, 91, 96, 106, 108, 118, 125, 133]: # IDs of individuals with null state trajectories
+            assert id not in err_structure.individuals_ids
 
         
 

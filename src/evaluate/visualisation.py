@@ -45,8 +45,8 @@ def generate_time_occurences(series, predicted_variable_names, save, nb_variable
         for i, (y_pred, y) in enumerate(s):
             if i >= min_length:
                 break
-            area_pred[y_pred[-1].argmax(dim=-1).tolist() * min_length + i] += 1
-            area[y[-1].argmax(dim=-1).tolist() * min_length + i] += 1
+            area_pred[y_pred.argmax(dim=-1).tolist() * min_length + i] += 1
+            area[y.argmax(dim=-1).tolist() * min_length + i] += 1
 
     max_val = max(max(area_pred), max(area))
     for save_file, results in [('prediction_time_occurences', area_pred), ('true_time_occurences', area)]:
@@ -86,8 +86,8 @@ def generate_sankey(series, predicted_variable_names, save, nb_variables, min_le
                 for i, s in series.items():
                     if t >= len(s):
                         continue
-                    x = s[t-1][truth][-1].argmax(dim=-1).tolist()
-                    y = s[t][truth][-1].argmax(dim=-1).tolist()
+                    x = s[t-1][truth].argmax(dim=-1).tolist()
+                    y = s[t][truth].argmax(dim=-1).tolist()
                     vals[x * nb_variables + y] += 1
                 values.extend(vals)
                 flattened_values = [flattened_values[i] + vals[i] for i in range(nb_variables * nb_variables)]
@@ -139,12 +139,12 @@ CLUSTERING_ALGORITHMS = {
     "Bisecting K-Means": BisectingKMeans,
     "K-Means": KMeans,
 }
-def generate_clusters(series, save, nb_variables, tau, cluster_lists=None, prefix=None):
+def generate_clusters(series, save, nb_variables, cluster_lists=None, prefix=None):
     if cluster_lists is None:
         cluster_lists = [4, 8, 16]
     
-    data_pred = torch.stack([y_pred.view((nb_variables*tau,)) for s in series.values() for y_pred, y in s]).detach().numpy()
-    data_truth = torch.stack([y.view((nb_variables*tau,)) for s in series.values() for y_pred, y in s]).detach().numpy()
+    data_pred = torch.stack([y_pred.view((nb_variables,)) for s in series.values() for y_pred, y in s]).detach().numpy()
+    data_truth = torch.stack([y.view((nb_variables,)) for s in series.values() for y_pred, y in s]).detach().numpy()
 
     embedding = MDS(n_components=2)
     for data, file_name in [(data_pred, "prediction_clusters"), (data_truth, "true_clusters")]: # predicted series + ground truth series

@@ -17,6 +17,7 @@ class Namekeys:
     close_neighbour_key : str = "Close_neighbours"
     distant_neighbour_key : str = "Distant_neighbours"
     coordinates_key : str = "Coordinates"
+    error_key : str = None
 
 
 State = Chronology.State
@@ -25,28 +26,34 @@ Snapshot = Chronology.Snapshot
 
 class PandasParser(Parser):
 
-    @staticmethod
-    def tolowercase(name : str) -> str:
+    def toformat(self, name : str) -> str:
+        if name is None or type(name) is not str:
+            return self.namekeys.error_key
         return name.lower().replace(' ','_')
 
-    @staticmethod
-    def listtolowercase(namelist : List[str]) -> List[str]:
-        return [PandasParser.tolowercase(name) for name in namelist]
+    def listtoformat(self, namelist : List[str]) -> List[str]:
+        return [self.toformat(name) for name in namelist]
     
-    @staticmethod
-    def toneighbours(neighbours : str) -> List[int]:
+    def toneighbours(self, neighbours : str) -> List[int]:
         neighbours = re.findall(r'(\d+)[;\}]', neighbours)
-        return [int(neighbour) for neighbour in neighbours]
+        neighbours = list(map(int, neighbours))
+        
+        if self.filter_null_state_trajectories:
+            neighbours = list(filter(lambda x: x not in self.ind_with_nulls, neighbours))
+
+        return neighbours
 
 
-
-    def __init__(self, namekeys : Optional[Namekeys] = None, coordinates_normalisation : Optional[str] = None):
+    def __init__(self, namekeys : Optional[Namekeys] = None, coordinates_normalisation : Optional[str] = None, filter_null_state_trajectories : bool = False):
         super().__init__()
 
         if namekeys is None:
             namekeys = Namekeys()
         self.namekeys = namekeys
+        
         self.coordinates_normalisation = coordinates_normalisation
+        self.filter_null_state_trajectories = filter_null_state_trajectories
+        self.ind_with_nulls = []
 
 
     def __eq__(self, other : 'PandasParser') -> bool:
@@ -54,19 +61,30 @@ class PandasParser(Parser):
     
     def copy(self) -> 'PandasParser':
         return PandasParser(self.namekeys, self.coordinates_normalisation)
+    
 
+    def _filter_null_state_trajectories(self, data : pd.DataFrame) -> pd.DataFrame:
+        self.ind_with_nulls = data[data[self.namekeys.behaviour_key].isna() | data[self.namekeys.zone_key].isna()][self.namekeys.individual_key].unique().tolist()
+        for ind in self.ind_with_nulls: # If all states are null, remove individual
+            if len(data[data[self.namekeys.individual_key] == ind]) == len(data[(data[self.namekeys.individual_key] == ind) & (data[self.namekeys.behaviour_key].isna() | data[self.namekeys.zone_key].isna())]):
+                data = data[data[self.namekeys.individual_key] != ind]
+
+        return data
 
     def parse(self, data: pd.DataFrame, structure : Chronology) -> None:
+        if self.filter_null_state_trajectories:
+            data = self._filter_null_state_trajectories(data)
+
         time_ids = data[self.namekeys.time_key]
 
         # Set structure attributes
-        structure.start_time = time_ids.min()
-        structure.end_time = time_ids.max()
+        structure.start_time = int(time_ids.min())
+        structure.end_time = int(time_ids.max())
         structure.individuals_ids = sorted(data[self.namekeys.individual_key].unique().tolist())
         structure.first_occurence = data.drop_duplicates(self.namekeys.individual_key).set_index(self.namekeys.individual_key)[self.namekeys.time_key].to_dict()
-        structure.zone_labels = PandasParser.listtolowercase(data[self.namekeys.zone_key].unique().tolist())
-        structure.zone_labels = [zone + '_zone' for zone in structure.zone_labels]
-        structure.behaviour_labels = PandasParser.listtolowercase(data[self.namekeys.behaviour_key].unique().tolist())
+        structure.zone_labels = self.listtoformat(data[self.namekeys.zone_key].unique().tolist())
+        structure.zone_labels = set([zone + '_zone' for zone in structure.zone_labels])
+        structure.behaviour_labels = set(self.listtoformat(data[self.namekeys.behaviour_key].unique().tolist()))
 
         # Set normalisation parameters
         if self.coordinates_normalisation is not None:
@@ -120,11 +138,11 @@ class PandasParser(Parser):
     
     
     def _parse_state(self, individual_id : int, data: pd.DataFrame) -> State:
-        behaviour = PandasParser.tolowercase(data[self.namekeys.behaviour_key].iloc[0])
-        zone = PandasParser.tolowercase(data[self.namekeys.zone_key].iloc[0]) + '_zone'
+        behaviour = self.toformat(data[self.namekeys.behaviour_key].iloc[0])
+        zone = self.toformat(data[self.namekeys.zone_key].iloc[0]) + '_zone'
         coordinates = self.tocoordinates(data[self.namekeys.coordinates_key].iloc[0])
-        close_neighbours = PandasParser.toneighbours(data[self.namekeys.close_neighbour_key].iloc[0])
-        distant_neighbours = PandasParser.toneighbours(data[self.namekeys.distant_neighbour_key].iloc[0])
+        close_neighbours = self.toneighbours(data[self.namekeys.close_neighbour_key].iloc[0])
+        distant_neighbours = self.toneighbours(data[self.namekeys.distant_neighbour_key].iloc[0])
 
         return State(individual_id, zone, behaviour, coordinates, close_neighbours, distant_neighbours, None, None, None)
     

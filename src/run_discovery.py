@@ -6,8 +6,12 @@ import re
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import pickle
 
-from src.data.format_data import PandasFormatterEnsemble, ResultsFormatter
+from data.structure.loaders import BehaviourSimpleLoader
+from data.structure.chronology import Chronology
+from data.constants import VECTOR_COLUMNS
+from model.causal_graph_formatter import CausalGraphFormatter
 
 from tigramite.pcmci import PCMCI
 from tigramite.independence_tests.parcorr import ParCorr
@@ -41,11 +45,39 @@ filter = args.filter
 skips = args.skip.split(",") if args.skip is not None else []
 print(f"Arguments: save={save}, filter={filter}")
 
+structure_savefile = "train_chronology_behaviours.json"
+sequences_savefile = "train_behaviour_sequences.pickle"
 
-# Read data
-data_files = [name for name in os.listdir('data/train') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)]
-data = [pd.read_csv(f'data/train/{name}') for name in data_files]
-print(data)
+
+# Create sequences
+if os.path.exists(f"data/gen/{sequences_savefile}"):
+        print(f"Loading sequences from data/gen/{sequences_savefile}...")
+        sequences = pickle.load(open(f"data/gen/{sequences_savefile}", "rb"))
+
+elif os.path.exists(f"data/gen/{structure_savefile}"):
+        print(f"No sequences found in data/gen. Data structure found and loaded from data/gen/{structure_savefile}. Re-computing the sequences from structure...")
+
+        chronology = Chronology.deserialize(f"data/gen/{structure_savefile}")
+        structure_loader = BehaviourSimpleLoader(skip_stationary=True)
+        sequences = structure_loader.load(chronology)
+
+        # Save sequences
+        pickle.dump(sequences, open(f"data/gen/{sequences_savefile}", "wb"))
+
+else:
+    print("No sequences or data structure found in data/gen. Generating structure and sequences...")
+    
+    chronology = Chronology.create([f'data/train/{name}' for name in os.listdir('data/train') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)])
+    structure_loader = BehaviourSimpleLoader(skip_stationary=True)
+    sequences = structure_loader.load(chronology)
+
+    # Save structure
+    os.makedirs("data/gen", exist_ok=True)
+    chronology.serialize(f"data/gen/{structure_savefile}")
+
+    # Save sequences
+    pickle.dump(sequences, open(f"data/gen/{sequences_savefile}", "wb"))
+
 
 
 # Set constants
@@ -54,14 +86,9 @@ alpha_level = 0.05
 pc_alpha = 0.05
 low_filter_default = 0.075
 high_filter_default = 0.925
-
-
-# Format data
-formatter = PandasFormatterEnsemble(data)
-sequences, *_ = formatter.format(event_driven=True)
-sequences = {i: sequence for i, sequence in enumerate(sequences)}
-variables = formatter.get_formatted_columns()
+variables = VECTOR_COLUMNS
 num_variables = len(variables)
+
 print(f"Graph with {num_variables} variables: {variables}.")
 
 
@@ -139,30 +166,30 @@ if filter is not None and not ("result_graph" in skips and "result_time_series_g
         print(f"Filtering results using {f}...")
         if f == 'low' or re.match(r'low=\d+(\.\d+)?', f):
             low_filter = float(re.match(r'low=(\d+(\.\d+)?)', f).group(1)) if re.match(r'low=\d+(\.\d+)?', f) else low_filter_default
-            results = ResultsFormatter(results['graph'], results['val_matrix']) \
+            results = CausalGraphFormatter(results['graph'], results['val_matrix']) \
                         .low_filter(low_filter) \
                         .get_results()
         elif f == "high" or re.match(r'high=\d+(\.\d+)?', f):
             high_filter = float(re.match(r'high=(\d+(\.\d+)?)', f).group(1)) if re.match(r'high=\d+(\.\d+)?', f) else high_filter_default
-            results = ResultsFormatter(results['graph'], results['val_matrix']) \
+            results = CausalGraphFormatter(results['graph'], results['val_matrix']) \
                         .high_filter(high_filter) \
                         .get_results()
         elif f == "neighbor_effect" or re.match(r'neighbor_effect=\w+', f):
             remove_bidirectional = re.match(r'neighbor_effect=(\w+)', f).group(1) == "bidirectional" if re.match(r'neighbor_effect=\w+', f) else False
-            results = ResultsFormatter(results['graph'], results['val_matrix']) \
+            results = CausalGraphFormatter(results['graph'], results['val_matrix']) \
                         .var_filter([], [variables.index(v) for v in variables if v.startswith('close_neighbour_') or v.startswith('distant_neighbour_')], remove_bidirectional=remove_bidirectional) \
                         .get_results()
         elif f == "corr":
-            results = ResultsFormatter(results['graph'], results['val_matrix']) \
+            results = CausalGraphFormatter(results['graph'], results['val_matrix']) \
                         .corr_filter() \
                         .get_results()
         elif f == "zone" or re.match(r'zone=\w+', f):
             remove_bidirectional = re.match(r'zone=(\w+)', f).group(1) == "bidirectional" if re.match(r'zone=\w+', f) else False
-            results = ResultsFormatter(results['graph'], results['val_matrix']) \
+            results = CausalGraphFormatter(results['graph'], results['val_matrix']) \
                         .var_filter([], [variables.index(v) for v in variables if v.endswith('_zone')], remove_bidirectional=remove_bidirectional) \
                         .get_results()
         elif f == "zero":
-            results = ResultsFormatter(results['graph'], results['val_matrix']) \
+            results = CausalGraphFormatter(results['graph'], results['val_matrix']) \
                         .row_filter(variables) \
                         .get_results()
             variables = results['var_names']

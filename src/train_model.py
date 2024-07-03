@@ -2,14 +2,14 @@
 import argparse
 import os
 import re
-import pandas as pd
 import numpy as np
-import json
 
-from src.data.format_data import PandasFormatterEnsemble, ResultsFormatter
-from src.data.dataset import SeriesDataset
-from src.model.behaviour_model import BEHAVIOUR_MODELS
-from src.data.constants import MASKED_VARIABLES
+from data.dataset import SeriesDataset
+from data.structure.chronology import Chronology
+from data.structure.loaders import BehaviourSeriesLoader
+from data.constants import MASKED_VARIABLES, VECTOR_COLUMNS
+from model.behaviour_model import BEHAVIOUR_MODELS
+from model.causal_graph_formatter import CausalGraphFormatter
 
 import torch
 from torch.utils.data import DataLoader
@@ -43,49 +43,46 @@ assert args.model_type != "causal", f"Model type {args.model_type} does not supp
 # Set constants
 TAU_MAX = 5
 LOW_FILTER = 0.075
+variables = VECTOR_COLUMNS
+num_variables = len(variables)
 
+structure_savefile = "train_chronology_behaviours.json"
+dataset_savefile = "train_data_behaviour.pt"
 
-if not args.force_data_computation and os.path.exists(f"data/gen/data_behaviour.pt") and os.path.exists(f"data/gen/variables_behaviour.json"):
-        print("Loading dataset from data/gen/data_behaviour.pt...")
-        train_dataset = torch.load("data/gen/data_behaviour.pt")
-        variables = json.load(open("data/gen/variables_behaviour.json", "r"))
-        num_variables = len(variables)
+if not args.force_data_computation and os.path.exists(f"data/gen/{dataset_savefile}"):
+        print(f"Loading dataset from data/gen/{dataset_savefile}...")
+        train_dataset = SeriesDataset.load(f"data/gen/{dataset_savefile}")
+
+elif not args.force_data_computation and os.path.exists(f"data/gen/{structure_savefile}"):
+        print(f"No dataset found in data/gen. Data structure found and loaded from data/gen/{structure_savefile}. Re-computing the dataset from structure...")
+
+        # Create dataset
+        chronology = Chronology.deserialize(f"data/gen/{structure_savefile}")
+        structure_loader = BehaviourSeriesLoader(lookback=TAU_MAX+1, skip_stationary=True)
+        train_dataset = SeriesDataset(chronology=chronology, struct_loader=structure_loader)
+
+        #Save dataset
+        train_dataset.save(f"data/gen/{dataset_savefile}")
 
 else:
-        if not os.path.exists("data/gen/data_behaviour.pt"):
-                print("No dataset found in data/gen. Generating dataset...")
-        if not os.path.exists("data/gen/variables_behaviour.json"):
-                print("No variables found in data/gen. Generating dataset...")
+        if not os.path.exists(f"data/gen/{dataset_savefile}"):
+                print("No dataset or data structure found in data/gen. Generating dataset...")
         if args.force_data_computation:
                 print("Forced data computation. (Re)computing dataset...")
 
-        # Read data
-        test_data_files = [name for name in os.listdir('data/test') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)]
-        test_data = [pd.read_csv(f'data/test/{name}') for name in test_data_files]
+        # Create structure
+        chronology = Chronology.create([f'data/train/{name}' for name in os.listdir('data/train') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)], fix_errors=True, filter_null_state_trajectories=True)
 
-        train_data_files = [name for name in os.listdir('data/train') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)]
-        train_data = [pd.read_csv(f'data/train/{name}') for name in train_data_files]
-
-        # Format data
-        test_formatter = PandasFormatterEnsemble(test_data)
-        variables = test_formatter.get_formatted_columns()
-
-        train_formatter = PandasFormatterEnsemble(train_data)
-        train_sequences, *_ = train_formatter.format(event_driven=True)
-        train_sequences = {i: sequence for i, sequence in enumerate(train_sequences)}
-
-        assert variables == train_formatter.get_formatted_columns(), f"Test and train data have different variables: {variables} vs {train_formatter.get_formatted_columns()}"
-
-        num_variables = len(variables)
-        print(f"Graph with {num_variables} variables: {variables}.")
+        # Save structure
+        os.makedirs("data/gen", exist_ok=True)
+        chronology.serialize(f"data/gen/{structure_savefile}")
 
         # Create dataset
-        train_dataset = SeriesDataset(train_sequences, lookback=TAU_MAX+1)
+        structure_loader = BehaviourSeriesLoader(lookback=TAU_MAX+1, skip_stationary=True)
+        train_dataset = SeriesDataset(chronology=chronology, struct_loader=structure_loader)
 
         # Save dataset
-        os.makedirs("data/gen", exist_ok=True)
-        torch.save(train_dataset,"data/gen/data_behaviour.pt")
-        json.dump(variables, open("data/gen/variables_behaviour.json", "w"))
+        train_dataset.save(f"data/gen/{dataset_savefile}")
 
 
 
@@ -113,15 +110,15 @@ else:
                         for f in args.filter.split(","):
                                 print(f"Filtering results using {f}...")
                                 if f == 'low':
-                                        filtered_values = ResultsFormatter(graph, val_matrix).low_filter(LOW_FILTER)
+                                        filtered_values = CausalGraphFormatter(graph, val_matrix).low_filter(LOW_FILTER)
                                         val_matrix = filtered_values.get_val_matrix()
                                         graph = filtered_values.get_graph()
                                 elif f == "neighbor_effect":
-                                        filtered_values = ResultsFormatter(graph, val_matrix).var_filter([], [variables.index(v) for v in variables if v.startswith('close_neighbour_') or v.startswith('distant_neighbour_')])
+                                        filtered_values = CausalGraphFormatter(graph, val_matrix).var_filter([], [variables.index(v) for v in variables if v.startswith('close_neighbour_') or v.startswith('distant_neighbour_')])
                                         val_matrix = filtered_values.get_val_matrix()
                                         graph = filtered_values.get_graph()
                                 elif f == "corr":
-                                        filtered_values = ResultsFormatter(graph, val_matrix).corr_filter()
+                                        filtered_values = CausalGraphFormatter(graph, val_matrix).corr_filter()
                                         val_matrix = filtered_values.get_val_matrix()
                                         graph = filtered_values.get_graph()
                                 else:
@@ -153,7 +150,6 @@ trainer = pl.Trainer(
         max_epochs=10,
         devices=[0], 
         accelerator="gpu",
-        
         logger=WandbLogger(name=f"{args.model_type}_train", project=args.wandb_project) if args.wandb_project else None,
         )
 

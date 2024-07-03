@@ -2,15 +2,17 @@
 import argparse
 import os
 import re
-import pandas as pd
 import numpy as np
+import pickle
 
-from src.data.dataset import SeriesDataset
-from src.data.format_data import PandasFormatterEnsemble, ResultsFormatter
-from src.data.constants import MASKED_VARIABLES
-from src.model.behaviour_model import TSLinearCausal, BEHAVIOUR_MODELS
-from src.evaluate.evaluation import direct_prediction_accuracy, mutual_information, generate_series, generate_series_community
-from src.evaluate.visualisation import generate_time_occurences, generate_sankey, generate_clusters
+from data.dataset import SeriesDataset
+from data.structure.chronology import Chronology
+from data.structure.loaders import BehaviourSeriesLoader, GeneratorLoader, GeneratorCommunityLoader
+from data.constants import VECTOR_COLUMNS, MASKED_VARIABLES
+from model.behaviour_model import TSLinearCausal, BEHAVIOUR_MODELS
+from model.causal_graph_formatter import CausalGraphFormatter
+from evaluate.evaluation import direct_prediction_accuracy, mutual_information
+from evaluate.visualisation import generate_time_occurences, generate_sankey, generate_clusters
 
 import torch
 from torch.utils.data import DataLoader
@@ -39,29 +41,67 @@ if save.endswith('/'):
     save = save[:-1]
 
 
-# Read data
-data_files = [name for name in os.listdir('data/test') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)]
-data = [pd.read_csv(f'data/test/{name}') for name in data_files]
-print(data)
-
-
 # Set constants
 TAU_MAX = 5
 LOW_FILTER = 0.075
 
 
-# Format data
-formatter = PandasFormatterEnsemble(data)
-sequences, true_ind_sequences, neighbor_graphs, *_ = formatter.format(event_driven=True)
-sequences = {i: sequence for i, sequence in enumerate(sequences)}
-variables = formatter.get_formatted_columns()
+structure_savefile = "test_chronology_behaviours.json"
+dataset_savefile = "test_data_behaviour.pt"
+
+generation_savefile = "test_data_generation"
+i = 0
+while os.path.exists(f"data/gen/{generation_savefile}_{i}.pickle"): # File is "test_data_generation_<i>.pickle", increment i if file already exists
+    i += 1
+generation_savefile = f"{generation_savefile}_{i}.pickle"
+
+community_generation_savefile = "test_data_community_generation"
+i = 0
+while os.path.exists(f"data/gen/{community_generation_savefile}_{i}.pickle"): # File is "test_data_community_generation_<i>.pickle", increment i if file already exists
+    i += 1
+community_generation_savefile = f"{community_generation_savefile}_{i}.pickle"
+
+
+if os.path.exists(f"data/gen/{structure_savefile}"):
+    print(f"Data structure found and loaded from data/gen/{structure_savefile}.")
+
+    # Create structure
+    chronology = Chronology.deserialize(f"data/gen/{structure_savefile}")
+
+    # Create or load dataset
+    if not os.path.exists(f"data/gen/{dataset_savefile}"):
+        behaviour_loader = BehaviourSeriesLoader(TAU_MAX+1, skip_stationary=True)
+        test_dataset = SeriesDataset(chronology=chronology, struct_loader=behaviour_loader)
+        test_dataset.save(f"data/gen/{dataset_savefile}")
+    else:
+        test_dataset = SeriesDataset.load(f"data/gen/{dataset_savefile}")
+
+else:
+    if args.force_data_computation:
+        print("Forced data computation. (Re)computing dataset...")
+    else:
+        print("No dataset or data structure found in data/gen. Generating dataset...")
+
+    # Create structure and dataset
+    chronology = Chronology.create([f'data/test/{name}' for name in os.listdir('data/train') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)])
+
+    structure_loader = BehaviourSeriesLoader(lookback=TAU_MAX+1, skip_stationary=True)
+    test_dataset = SeriesDataset(chronology=chronology, struct_loader=structure_loader)
+
+    # Save structure
+    os.makedirs("data/gen", exist_ok=True)
+    chronology.serialize(f"data/gen/{structure_savefile}")
+
+    # Save datasets
+    test_dataset.save(f"data/gen/{dataset_savefile}")
+
+
+
+variables = VECTOR_COLUMNS
 num_variables = len(variables)
 print(f"Graph with {num_variables} variables: {variables}.")
 
-
-# Create dataset
-dataset = SeriesDataset(sequences, lookback=TAU_MAX+1)
-random_loader = DataLoader(dataset, batch_size=4, shuffle=True)
+random_loader = DataLoader(test_dataset, batch_size=4, shuffle=True)
 
 
 # Get model
@@ -75,15 +115,15 @@ if args.model_type == "causal":
         for f in args.filter.split(","):
             print(f"Filtering results using {f}...")
             if f == 'low':
-                filtered_values = ResultsFormatter(graph, val_matrix).low_filter(LOW_FILTER)
+                filtered_values = CausalGraphFormatter(graph, val_matrix).low_filter(LOW_FILTER)
                 val_matrix = filtered_values.get_val_matrix()
                 graph = filtered_values.get_graph()
             elif f == "neighbor_effect":
-                filtered_values = ResultsFormatter(graph, val_matrix).var_filter([], [variables.index(v) for v in variables if v.startswith('close_neighbour_') or v.startswith('distant_neighbour_')])
+                filtered_values = CausalGraphFormatter(graph, val_matrix).var_filter([], [variables.index(v) for v in variables if v.startswith('close_neighbour_') or v.startswith('distant_neighbour_')])
                 val_matrix = filtered_values.get_val_matrix()
                 graph = filtered_values.get_graph()
             elif f == "corr":
-                filtered_values = ResultsFormatter(graph, val_matrix).corr_filter()
+                filtered_values = CausalGraphFormatter(graph, val_matrix).corr_filter()
                 val_matrix = filtered_values.get_val_matrix()
                 graph = filtered_values.get_graph()
             else:
@@ -110,6 +150,7 @@ else:
 
 
 # Mask context variables for predition
+MIN_LENGTH = 30
 masked_idxs = [variables.index(var) for var in MASKED_VARIABLES]
 close_neighbor_idxs = [variables.index(var) for var in variables if var.startswith('close_neighbour_') and not var.endswith('_zone')]
 distant_neighbor_idxs = [variables.index(var) for var in variables if var.startswith('distant_neighbour_') and not var.endswith('_zone')]
@@ -118,7 +159,6 @@ print(f"Masking {len(masked_idxs)} variables: {MASKED_VARIABLES}")
 
 
 # Evaluate model
-
 model.eval()
 with torch.no_grad():
     # Compute direct prediction accuracy
@@ -131,17 +171,15 @@ with torch.no_grad():
     print(f"Mutual Information: {cmi}")
 
 
-    # Compute series prediction metrics
-    series = generate_series(model, dataset, num_variables, masked_idxs)
-    nb_series = len(series)
-    print(f"Generated {nb_series} series.")
+    # Generate series
+    generation_loader = GeneratorLoader(TAU_MAX+1, skip_stationary=True, vector_columns=VECTOR_COLUMNS, masked_columns=MASKED_VARIABLES)
+    series = generation_loader.load(chronology, model, build_series=True)
 
-    MIN_LENGTH = 30
-    series = {k: v for k, v in series.items() if len(v) >= MIN_LENGTH}
-    print(f"Removed {nb_series - len(series)}/{nb_series} series with length < {MIN_LENGTH}.")
+    # Save series
+    with open(f"data/gen/{generation_savefile}", 'wb') as f:
+        pickle.dump(series, f)
 
-
-    # Visualise time occurences
+    # Visualise time occurences for series
     predicted_variable_names = [re.sub("_", " ", re.sub(r"\(.*\)", "", v)) for i, v in enumerate(variables) if i not in masked_idxs]
     nb_variables = len(predicted_variable_names)
     generate_time_occurences(series, predicted_variable_names, save, nb_variables, MIN_LENGTH)
@@ -150,27 +188,25 @@ with torch.no_grad():
     generate_sankey(series, predicted_variable_names, save, nb_variables, MIN_LENGTH)
 
     # Visualise series clustering
-    generate_clusters(series, save, nb_variables, TAU_MAX+1)
+    generate_clusters(series, save, nb_variables)
 
 
-    # Compute community series prediction metrics
-    community_dataset = SeriesDataset({ind: seq.to_numpy(dtype=np.float64) for ind, seq in true_ind_sequences.items()}, lookback=TAU_MAX+1)
-    community_series = generate_series_community(model, community_dataset, neighbor_graphs, num_variables, masked_idxs, close_neighbor_idxs, distant_neighbor_idxs)
-    nb_community_series = len(community_series)
-    print(f"Generated {nb_community_series} community series.")
+    # Generate community series
+    community_generation_loader = GeneratorCommunityLoader(TAU_MAX+1, skip_stationary=True, vector_columns=VECTOR_COLUMNS, masked_columns=MASKED_VARIABLES)
+    community_series = community_generation_loader.load(chronology, model, build_series=True)
 
-    community_series = {k: v for k, v in community_series.items() if len(v) >= MIN_LENGTH}
-    print(f"Removed {nb_community_series - len(community_series)}/{nb_community_series} community series with length < {MIN_LENGTH}.")
+    # Save community series
+    with open(f"data/gen/{community_generation_savefile}", 'wb') as f:
+        pickle.dump(community_series, f)
 
-
-    # Visualise time occurences
+    # Visualise time occurences for community series
     generate_time_occurences(community_series, predicted_variable_names, save, nb_variables, MIN_LENGTH, prefix="community")
 
     # Visualise Sankey flows
     generate_sankey(community_series, predicted_variable_names, save, nb_variables, MIN_LENGTH, prefix="community")
 
     # Visualise series clustering
-    generate_clusters(community_series, save, nb_variables, TAU_MAX+1, prefix="community")
+    generate_clusters(community_series, save, nb_variables, prefix="community")
 
     print(f"Figures saved in results/{save.split('/')[-1]}.")
 
