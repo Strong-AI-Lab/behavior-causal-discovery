@@ -86,6 +86,13 @@ class PandasParser(Parser):
         structure.zone_labels = set([zone + '_zone' for zone in structure.zone_labels])
         structure.behaviour_labels = set(self.listtoformat(data[self.namekeys.behaviour_key].unique().tolist()))
 
+        # Find start of all individual sequences
+        structure.all_occurences = {}
+        for ind_id in structure.individuals_ids:
+            idxs = data[data['ID']==ind_id].index.tolist() # Select all indexes of the individual
+            filtered_idxs = [idx for idx in idxs if (idx == 0) or (data.loc[idx]['Time'] != (data.loc[idxs[idxs.index(idx)-1]]['Time'] + 1))] # Select only the first occurence of each sequence (i.e. when the time is not the previous time + 1)
+            structure.all_occurences[ind_id] = data.loc[filtered_idxs]['Time'].tolist()
+
         # Set normalisation parameters
         if self.coordinates_normalisation is not None:
             self._get_normalisation_parameters(data)

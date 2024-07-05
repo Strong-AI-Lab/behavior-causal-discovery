@@ -151,6 +151,7 @@ class Chronology:
                     snapshots : List[Optional['Chronology.Snapshot']] = None,
                     individuals_ids : List[int] = None,
                     first_occurence : Dict[int, int] = None,
+                    all_occurences : Dict[int, List[int]] = None,
                     zone_labels : Set[str] = None,
                     behaviour_labels : Set[str] = None,
                     parse_data : bool = True,
@@ -163,6 +164,7 @@ class Chronology:
         self.snapshots = snapshots if snapshots is not None else []
         self.individuals_ids = sorted(individuals_ids) if individuals_ids is not None else []
         self.first_occurence = first_occurence if first_occurence is not None else {}
+        self.all_occurences = all_occurences if all_occurences is not None else {}
         self.zone_labels = zone_labels if zone_labels is not None else set()
         self.behaviour_labels = behaviour_labels if behaviour_labels is not None else set()
 
@@ -173,7 +175,7 @@ class Chronology:
             self._parse_data(data, parser)
 
             if fix_errors:
-                self._fix_errors()
+                self._fix_errors(time_threshold=999)
 
 
     def _parse_data(self, data : pd.DataFrame, parser : Parser) -> None:
@@ -188,6 +190,7 @@ class Chronology:
                self.empty_times == other.empty_times and \
                self.individuals_ids == other.individuals_ids and \
                self.first_occurence == other.first_occurence and \
+               self.all_occurences == other.all_occurences and \
                self.zone_labels == other.zone_labels and \
                self.behaviour_labels == other.behaviour_labels and \
                len(self.snapshots) == len(other.snapshots) and \
@@ -223,6 +226,7 @@ class Chronology:
                             stationary_times=stationary_times_copy, empty_times=empty_times_copy,
                             snapshots=snapshots_copy, individuals_ids=individuals_ids_copy,
                             first_occurence=first_occurence_copy,
+                            all_occurences={ind_id : self.all_occurences[ind_id].copy() for ind_id in self.all_occurences.keys()},
                             zone_labels=zone_labels_copy, behaviour_labels=behaviour_labels_copy)
 
 
@@ -255,6 +259,7 @@ class Chronology:
                 chr0_individuals_ids.update(snapshot.states.keys())
         chr0_individuals_ids = sorted(list(chr0_individuals_ids))
         chr0_first_occurence = {ind_id : chronology.first_occurence[ind_id] for ind_id in chr0_individuals_ids}
+        chr0_all_occurences = {ind_id : [time for time in chronology.all_occurences[ind_id] if time < split_time] for ind_id in chr0_individuals_ids}
 
         chr1_individuals_ids = set()
         chr1_first_occurence = {}
@@ -265,6 +270,7 @@ class Chronology:
                     if ind_id not in chr1_first_occurence:
                         chr1_first_occurence[ind_id] = snapshot.time # if individual first appears in chr0, we need to find the first time it appears in chr1
         chr1_individuals_ids = sorted(list(chr1_individuals_ids))
+        chr1_all_occurences = {ind_id : sorted(list({chr1_first_occurence[ind_id]} | {time for time in chronology.all_occurences[ind_id] if time >= split_time})) for ind_id in chr1_individuals_ids}
 
         # Cut past and future states
         if chr0_snapshots[-1] is not None and chr1_snapshots[0] is not None:
@@ -282,6 +288,7 @@ class Chronology:
                                 snapshots=chr0_snapshots, 
                                 individuals_ids=chr0_individuals_ids,
                                 first_occurence=chr0_first_occurence,
+                                all_occurences=chr0_all_occurences,
                                 zone_labels=chronology.zone_labels, 
                                 behaviour_labels=chronology.behaviour_labels)
         
@@ -293,6 +300,7 @@ class Chronology:
                                 snapshots=chr1_snapshots, 
                                 individuals_ids=chr1_individuals_ids,
                                 first_occurence=chr1_first_occurence,
+                                all_occurences=chr1_all_occurences,
                                 zone_labels=chronology.zone_labels, 
                                 behaviour_labels=chronology.behaviour_labels)
         
@@ -322,11 +330,13 @@ class Chronology:
         chronology1.stationary_times = [time + chr1_start_time_offset for time in chronology1.stationary_times]
         chronology1.empty_times = [time + chr1_start_time_offset for time in chronology1.empty_times]
         chronology1.first_occurence = {ind_id : time + chr1_start_time_offset for ind_id, time in chronology1.first_occurence.items()}
+        chronology1.all_occurences = {ind_id : [time + chr1_start_time_offset for time in times] for ind_id, times in chronology1.all_occurences.items()}
 
         if not keep_individual_ids: # Offset individual ids
             chr1_individuals_offset = max(chronology0.individuals_ids) + 1 - min(chronology1.individuals_ids)
             chronology1.individuals_ids = [ind_id + chr1_individuals_offset for ind_id in chronology1.individuals_ids]
             chronology1.first_occurence = {ind_id + chr1_individuals_offset : time for ind_id, time in chronology1.first_occurence.items()}
+            chronology1.all_occurences = {ind_id + chr1_individuals_offset : times for ind_id, times in chronology1.all_occurences.items()}
             for snapshot in chronology1.snapshots:
                 if snapshot is not None:
                     snapshot.states = {ind_id + chr1_individuals_offset : state for ind_id, state in snapshot.states.items()}
@@ -347,8 +357,22 @@ class Chronology:
             
             merged_individuals_ids = sorted(list(set(chronology0.individuals_ids + chronology1.individuals_ids)))
         
+        # Merge first occurences of individuals
         merged_first_occurence = chronology1.first_occurence
         merged_first_occurence.update(chronology0.first_occurence)
+        
+        # Find and merge start of sequences
+        merged_all_occurences = chronology0.all_occurences
+        for ind_id, times in chronology1.all_occurences.items():
+            if ind_id in merged_all_occurences:
+                merged_all_occurences[ind_id] = sorted(merged_all_occurences[ind_id] + times)
+            else:
+                merged_all_occurences[ind_id] = times
+            
+            # Handle links between chronology 0 and 1
+            if chronology1.start_time in times and chronology1.get_snapshot(chronology1.start_time).states[ind_id].past_state is not None:
+                merged_all_occurences[ind_id].remove(chronology1.start_time)
+
 
         # Merge chronologies
         return Chronology(data=None, parser=None,
@@ -359,6 +383,7 @@ class Chronology:
                             snapshots=chronology0.snapshots + chronology1.snapshots,
                             individuals_ids=merged_individuals_ids,
                             first_occurence=merged_first_occurence,
+                            all_occurences=merged_all_occurences,
                             zone_labels=merged_zone_labels,
                             behaviour_labels=merged_behaviour_labels)
 
@@ -385,6 +410,7 @@ class Chronology:
             "snapshots" : [snapshot.to_json() if snapshot is not None else None for snapshot in self.snapshots],
             "individuals_ids" : self.individuals_ids,
             "first_occurence" : self.first_occurence,
+            "all_occurences" : self.all_occurences,
             "zone_labels" : list(self.zone_labels),
             "behaviour_labels" : list(self.behaviour_labels)
         }
@@ -393,6 +419,7 @@ class Chronology:
     def from_json(cls, json_data : dict) -> 'Chronology': # Deserialisation does not load raw_data and solver
         snapshots = [Chronology.Snapshot.from_json(snapshot_data) if snapshot_data is not None else None for snapshot_data in json_data["snapshots"]]
         first_occurence = {int(ind_id) : time for ind_id, time in json_data["first_occurence"].items()}
+        all_occurences = {int(ind_id) : times for ind_id, times in json_data["all_occurences"].items()}
         zone_labels = set(json_data["zone_labels"])
         behaviour_labels = set(json_data["behaviour_labels"])
 
@@ -404,6 +431,7 @@ class Chronology:
                     snapshots=snapshots, 
                     individuals_ids=json_data["individuals_ids"],
                     first_occurence=first_occurence,
+                    all_occurences=all_occurences,
                     zone_labels=zone_labels,
                     behaviour_labels=behaviour_labels,
                     parse_data=False)
@@ -509,7 +537,7 @@ class Chronology:
                 else:
                     raise ValueError("Fix mode must be either 'max' or 'random'!")
 
-    def _fix_errors(self, weight_past : float = 2.0, weight_future : float = 1.0, weight_close_neighbours : float = 1.0, weight_distant_neighbours : float = 0.5, fix_mode : str = "max") -> None: # Find missing behaviour and zone data and update with most likely value
+    def _fix_states(self, weight_past : float = 2.0, weight_future : float = 1.0, weight_close_neighbours : float = 1.0, weight_distant_neighbours : float = 0.5, fix_mode : str = "max") -> None: # Find missing behaviour and zone data and update with most likely value
         try:
             self.zone_labels.remove(None)
         except KeyError:
@@ -526,4 +554,91 @@ class Chronology:
             while state.future_state is not None:
                 state = state.future_state
                 self._fix_state(state, weight_past, weight_future, weight_close_neighbours, weight_distant_neighbours, fix_mode)
+
+
+    def _interpolate_states(self, state0 : 'Chronology.State', state1 : 'Chronology.State', time_ratio : float) -> 'Chronology.State':
+        # Interpolate zone and behaviour
+        if time_ratio > 0.5:
+            zone = state1.zone
+            behaviour = state1.behaviour
+        else:
+            zone = state0.zone
+            behaviour = state0.behaviour
+
+        # Interpolate coordinates
+        coord0 = state0.coordinates
+        coord1 = state1.coordinates
+        coordinates = tuple([coord0[i] + time_ratio * (coord1[i] - coord0[i]) for i in range(len(coord0))])
+
+        return Chronology.State(state0.individual_id, zone, behaviour, coordinates, [], [], None, None, None)
+
+    def _attach_states(self, state0 : 'Chronology.State', state1 : 'Chronology.State') -> None:
+        start_time = state0.snapshot.time
+        end_time = state1.snapshot.time
+
+        prev_state = state0
+        for time in range(start_time+1, end_time):
+            # Create new state for the individual
+            state = self._interpolate_states(state0, state1, (time - start_time) / (end_time - start_time))
+            
+            # Link state to snapshot and past state
+            snapshot = self.get_snapshot(time)
+            if snapshot is None:
+                snapshot = Chronology.Snapshot(time, {}, {}, {})
+                self.snapshots[time - self.start_time] = snapshot
+
+            snapshot.states[state.individual_id] = state
+            snapshot.close_adjacency_list[state.individual_id] = state0.close_neighbours
+            snapshot.distant_adjacency_list[state.individual_id] = state0.distant_neighbours
+            state.snapshot = snapshot
+            prev_state.future_state = state
+            state.past_state = prev_state
+
+            # Update past state
+            prev_state = state
+        
+        # Link last state
+        prev_state.future_state = state1
+        state1.past_state = prev_state
+
+    def _fix_sequences(self, time_threshold : int) -> None: # Re-attach cut trajectories within time threshold
+        for ind_id in self.all_occurences.keys():
+            occurence_times = self.all_occurences[ind_id]
+            updated_times = occurence_times.copy()
+            
+            for i in range(len(occurence_times)-1):
+                state = self.snapshots[occurence_times[i]].states[ind_id]
+                
+                # Find end time of current sequence
+                while state.future_state is not None:
+                    state = state.future_state
+                end_time = state.snapshot.time
+
+                # Find if next sequence starts within threshold
+                time = occurence_times[i + 1]
+                if time <= (end_time + time_threshold):
+                    snapshot = self.get_snapshot(time)
+
+                    # Attach sequence
+                    self._attach_states(state, snapshot.states[ind_id])
+                    
+                    # Update current state and list of occurences
+                    updated_times.remove(time)
+            
+            self.all_occurences[ind_id] = updated_times
+
+
+    def _fix_errors(self,
+                    weight_past : float = 2.0,
+                    weight_future : float = 1.0,
+                    weight_close_neighbours : float = 1.0,
+                    weight_distant_neighbours : float = 0.5,
+                    fix_mode : str = "max",
+                    time_threshold : int = 20) -> None:
+        
+        # Fix missing behaviour and zone data
+        self._fix_states(weight_past, weight_future, weight_close_neighbours, weight_distant_neighbours, fix_mode)
+
+        # Fix cut sequences
+        self._fix_sequences(time_threshold)
 

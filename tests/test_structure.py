@@ -62,6 +62,19 @@ class TestChronology:
 
         assert first_occurence_in_snapshot == structure.first_occurence
 
+    def test_all_occurences(self, structure):
+        all_occurences = {}
+        for snapshot in structure.snapshots:
+            if snapshot is not None:
+                for ind_id, state in snapshot.states.items():
+                    if state.past_state is None:
+                        if ind_id not in all_occurences:
+                            all_occurences[ind_id] = [snapshot.time]
+                        else:
+                            all_occurences[ind_id].append(snapshot.time)
+
+        assert all_occurences == structure.all_occurences
+
     def test_snapshot(self, structure):
         snapshot = structure.snapshots[0]
         assert snapshot.time == 0
@@ -140,6 +153,7 @@ class TestChronology:
         assert structure.empty_times == struct2.empty_times
         assert structure.individuals_ids == struct2.individuals_ids
         assert structure.first_occurence == struct2.first_occurence
+        assert structure.all_occurences == struct2.all_occurences
         assert structure.zone_labels == struct2.zone_labels
         assert structure.behaviour_labels == struct2.behaviour_labels
         assert len(structure.snapshots) == len(struct2.snapshots)
@@ -183,6 +197,7 @@ class TestChronology:
         assert copy.parser is not None
         assert copy.individuals_ids == structure.individuals_ids
         assert copy.first_occurence == structure.first_occurence
+        assert copy.all_occurences == structure.all_occurences
         assert structure.zone_labels == structure.zone_labels
         assert structure.behaviour_labels == structure.behaviour_labels
 
@@ -214,6 +229,7 @@ class TestChronology:
         assert copy.raw_data is not structure.raw_data
         assert copy.individuals_ids is not structure.individuals_ids
         assert copy.first_occurence is not structure.first_occurence
+        assert copy.all_occurences is not structure.all_occurences
         assert copy.zone_labels is not structure.zone_labels
         assert copy.behaviour_labels is not structure.behaviour_labels
 
@@ -265,6 +281,8 @@ class TestChronology:
         assert struct1.individuals_ids == [21, 23, 25, 26, 27, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41]
         assert struct0.first_occurence == {0: 0, 4: 0, 5: 3, 6: 4, 7: 7, 3: 12, 1: 23, 2: 24, 8: 41, 10: 121, 11: 121, 12: 125, 13: 126, 14: 127, 15: 129, 16: 138, 17: 141, 18: 177, 19: 243, 20: 248, 21: 248, 22: 251, 23: 255, 25: 256, 24: 256, 26: 256, 27: 256, 28: 259, 29: 266, 30: 278}
         assert struct1.first_occurence == {21: 300, 23: 300, 25: 300, 26: 300, 30: 300, 27: 301, 29: 301, 31: 301, 32: 322, 33: 342, 34: 367, 35: 374, 36: 383, 37: 383, 38: 385, 39: 391, 40: 487, 41: 687}
+        assert struct0.all_occurences == {0: [0], 1: [23], 2: [24], 3: [12], 4: [0], 5: [3], 6: [4, 11], 7: [7], 8: [41, 46], 10: [121, 152, 198, 237, 243, 248], 11: [121, 129, 141, 150, 237, 242, 245], 12: [125, 224, 241], 13: [126, 134, 243, 247], 14: [127, 144, 196, 217, 224, 239], 15: [129, 133], 16: [138, 188, 195, 210, 212], 17: [141, 238], 18: [177, 189], 19: [243], 20: [248], 21: [248, 270, 275], 22: [251], 23: [255, 264, 271, 278, 293, 298], 24: [256, 264, 287], 25: [256, 258], 26: [256, 259, 262, 267], 27: [256, 281, 285], 28: [259], 29: [266, 270, 280, 286, 295], 30: [278, 290]}
+        assert struct1.all_occurences == {21: [300], 23: [300, 304, 336, 360], 25: [300, 323, 333, 355, 360], 26: [300, 317, 359], 27: [301], 29: [301, 317, 330, 384, 460, 491], 30: [300, 303, 329, 368, 384], 31: [301], 32: [322, 325, 328, 361], 33: [342], 34: [367, 372, 384], 35: [374, 385, 399, 457, 460, 467, 505, 549, 561, 564, 569, 577, 592, 599, 620, 628, 635, 645, 657, 663, 683, 687, 703], 36: [383, 385, 469, 545, 591, 610, 627, 643], 37: [383, 385, 420, 432, 434, 557, 641], 38: [385], 39: [391, 416, 429, 477, 514, 548], 40: [487, 492, 506, 513, 532, 561, 611], 41: [687, 694]}
         assert struct0.zone_labels == struct1.zone_labels
         assert struct0.behaviour_labels == struct1.behaviour_labels
 
@@ -311,6 +329,7 @@ class TestChronology:
         assert structure.empty_times == merged.empty_times
         assert merged.individuals_ids == [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 33, 35, 36, 37, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51]
         assert merged.first_occurence == {0: 0, 4: 0, 5: 3, 6: 4, 7: 7, 3: 12, 1: 23, 2: 24, 8: 41, 10: 121, 11: 121, 12: 125, 13: 126, 14: 127, 15: 129, 16: 138, 17: 141, 18: 177, 19: 243, 20: 248, 21: 248, 22: 251, 23: 255, 25: 256, 24: 256, 26: 256, 27: 256, 28: 259, 29: 266, 30: 278, 31: 300, 33: 300, 35: 300, 36: 300, 40: 300, 37: 301, 39: 301, 41: 301, 42: 322, 43: 342, 44: 367, 45: 374, 46: 383, 47: 383, 48: 385, 49: 391, 50: 487, 51: 687}
+        assert merged.all_occurences == {0: [0], 1: [23], 2: [24], 3: [12], 4: [0], 5: [3], 6: [4, 11], 7: [7], 8: [41, 46], 10: [121, 152, 198, 237, 243, 248], 11: [121, 129, 141, 150, 237, 242, 245], 12: [125, 224, 241], 13: [126, 134, 243, 247], 14: [127, 144, 196, 217, 224, 239], 15: [129, 133], 16: [138, 188, 195, 210, 212], 17: [141, 238], 18: [177, 189], 19: [243], 20: [248], 21: [248, 270, 275], 22: [251], 23: [255, 264, 271, 278, 293, 298], 24: [256, 264, 287], 25: [256, 258], 26: [256, 259, 262, 267], 27: [256, 281, 285], 28: [259], 29: [266, 270, 280, 286, 295], 30: [278, 290], 31: [300], 33: [300, 304, 336, 360], 35: [300, 323, 333, 355, 360], 36: [300, 317, 359], 37: [301], 39: [301, 317, 330, 384, 460, 491], 40: [300, 303, 329, 368, 384], 41: [301], 42: [322, 325, 328, 361], 43: [342], 44: [367, 372, 384], 45: [374, 385, 399, 457, 460, 467, 505, 549, 561, 564, 569, 577, 592, 599, 620, 628, 635, 645, 657, 663, 683, 687, 703], 46: [383, 385, 469, 545, 591, 610, 627, 643], 47: [383, 385, 420, 432, 434, 557, 641], 48: [385], 49: [391, 416, 429, 477, 514, 548], 50: [487, 492, 506, 513, 532, 561, 611], 51: [687, 694]}
         assert struct0.zone_labels == struct1.zone_labels
         assert structure.zone_labels == merged.zone_labels
         assert structure.behaviour_labels == merged.behaviour_labels
@@ -383,6 +402,7 @@ class TestChronology:
         assert structure.empty_times == new_structure.empty_times
         assert structure.individuals_ids == new_structure.individuals_ids
         assert structure.first_occurence == new_structure.first_occurence
+        assert structure.all_occurences == new_structure.all_occurences
         assert structure.zone_labels == new_structure.zone_labels
         assert structure.behaviour_labels == new_structure.behaviour_labels
         assert len(structure.snapshots) == len(new_structure.snapshots)
@@ -417,6 +437,7 @@ class TestChronology:
         assert structure.empty_times == new_structure.empty_times
         assert structure.individuals_ids == new_structure.individuals_ids
         assert structure.first_occurence == new_structure.first_occurence
+        assert structure.all_occurences == new_structure.all_occurences
         assert structure.zone_labels == new_structure.zone_labels
         assert structure.behaviour_labels == new_structure.behaviour_labels
         assert len(structure.snapshots) == len(new_structure.snapshots)
@@ -490,13 +511,23 @@ class TestErrorChronology:
         assert count_behaviour_none == 1113
         assert count_zone_none == 0
 
-        err_structure._fix_errors()
+        assert err_structure.all_occurences[0] == [0, 275, 278, 285]
+        assert err_structure.all_occurences[1] == [0, 95, 103, 110, 112]
+        assert err_structure.all_occurences[6] == [10, 37, 46, 49]
+        assert err_structure.all_occurences[75] == [481]
+
+        err_structure._fix_errors(time_threshold=5)
 
         for snapshot in err_structure.snapshots:
             if snapshot is not None:
                 for state in snapshot.states.values():
                     assert state.behaviour is not None
                     assert state.zone is not None
+
+        assert err_structure.all_occurences[0] == [0, 275]
+        assert err_structure.all_occurences[1] == [0, 95]
+        assert err_structure.all_occurences[6] == [10, 46]
+        assert err_structure.all_occurences[75] == [481]
 
 
 
