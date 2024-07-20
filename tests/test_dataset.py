@@ -1,6 +1,7 @@
 
 import pytest
 import torch
+import torch_geometric as  tg
 
 from data.dataset import SeriesDataset
 from data.structure.loaders import BehaviourSeriesLoader, DynamicSeriesLoader, DynamicGraphSeriesLoader, GeneratorLoader, GeneratorCommunityLoader, DiscriminatorLoader, DiscriminatorCommunityLoader
@@ -308,27 +309,44 @@ class TestDynamicGraphSeriesDataset:
         assert len(dataset) == 2
 
     def test_getitem(self, dataset):
-        x, v, a, adj, i = dataset[0]
-        assert x.shape == (2, 4, 3)
-        assert v.shape == (2, 4, 3)
-        assert a.shape == (2, 4, 3)
-        assert adj.shape == (2, 4, 4)
-        assert i.shape == (2, 4)
+        data = dataset[0]
+        assert data.x.shape == (8, 3)
+        assert data.v.shape == (8, 3)
+        assert data.a.shape == (8, 3)
+        assert data.edge_index.shape == (2, 4)
+        assert data.edge_attr.shape == (4,)
+        assert data.individuals.shape == (8,)
+
+        adjacency_matrix = tg.utils.to_dense_adj(edge_index=data.edge_index, edge_attr=data.edge_attr)
+
+        true_adj = torch.zeros(1, 8, 8)
+        true_adj[0, 0, 4] = 1
+        true_adj[0, 1, 5] = 1
+        true_adj[0, 2, 6] = 1
+        true_adj[0, 3, 7] = 1
         
-        assert (adj == torch.zeros(2, 4, 4)).all()
+        assert (adjacency_matrix == true_adj).all()
 
     def test_getitem_last(self, dataset):
-        x, v, a, adj, i = dataset[-1]
-        assert x.shape == (2, 4, 3)
-        assert v.shape == (2, 4, 3)
-        assert a.shape == (2, 4, 3)
-        assert adj.shape == (2, 4, 4)
-        assert i.shape == (2, 4)
+        data = dataset[-1]
+        assert data.x.shape == (8, 3)
+        assert data.v.shape == (8, 3)
+        assert data.a.shape == (8, 3)
+        assert data.edge_index.shape == (2, 6)
+        assert data.edge_attr.shape == (6,)
+        assert data.individuals.shape == (8,)
 
-        true_adj = torch.zeros(2, 4, 4)
-        true_adj[1, 0, 1] = 1
-        true_adj[1, 1, 2] = 0.5
-        assert (adj == true_adj).all()
+        adjacency_matrix = tg.utils.to_dense_adj(edge_index=data.edge_index, edge_attr=data.edge_attr)
+        
+        true_adj = torch.zeros(1, 8, 8)
+        true_adj[0, 0, 4] = 1
+        true_adj[0, 1, 5] = 1
+        true_adj[0, 2, 6] = 1
+        true_adj[0, 3, 7] = 1
+        true_adj[0, 4, 5] = 1
+        true_adj[0, 5, 6] = 0.5
+
+        assert (adjacency_matrix == true_adj).all()
 
 
 

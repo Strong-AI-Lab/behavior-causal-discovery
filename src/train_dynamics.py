@@ -11,6 +11,7 @@ from model.graph_dynamics_model import GRAPH_DYNAMIC_MODELS
 
 import torch
 from torch.utils.data import DataLoader
+from torch_geometric.loader import DataLoader as GraphDataLoader
 import pytorch_lightning as pl
 from pytorch_lightning.loggers import WandbLogger
 
@@ -82,8 +83,12 @@ else:
 
 # Build data loader
 dataset = torch.utils.data.random_split(train_dataset, [int(0.8*len(train_dataset)), len(train_dataset)-int(0.8*len(train_dataset))], generator=torch.Generator().manual_seed(1))
-train_loader = DataLoader(dataset[0], batch_size=64, shuffle=True)
-val_loader = DataLoader(dataset[1], batch_size=64, shuffle=False)
+if is_graph_model:
+        train_loader = GraphDataLoader(dataset[0], batch_size=64, shuffle=True)
+        val_loader = GraphDataLoader(dataset[1], batch_size=64, shuffle=False)
+else:
+        train_loader = DataLoader(dataset[0], batch_size=64, shuffle=True)
+        val_loader = DataLoader(dataset[1], batch_size=64, shuffle=False)
 
 
 

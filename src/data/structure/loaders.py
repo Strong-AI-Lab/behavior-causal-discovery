@@ -8,6 +8,7 @@ from dynamics.solver import DynamicsSolver
 
 import numpy as np
 import torch
+import torch_geometric as tg
 
 
 class Loader(metaclass=abc.ABCMeta):
@@ -209,17 +210,22 @@ class DynamicGraphSeriesLoader(DynamicSeriesLoader):
         super().__init__(lookback, target_offset_start, target_offset_end, skip_stationary, solver)
 
     def _snapshot_to_graph(self, snapshot : Chronology.Snapshot, structure : Chronology) -> torch.Tensor:
-        adjacency = torch.zeros(len(structure.individuals_ids), len(structure.individuals_ids))
+        nb_individuals_snapshot = len(snapshot.states)
+        individuals_snapshot =list(snapshot.states.keys())
+        adjacency = torch.zeros(nb_individuals_snapshot, nb_individuals_snapshot)
 
         for ind_id, close_adj in snapshot.close_adjacency_list.items():
             for ind_id2 in close_adj:
-                adjacency[structure.individuals_ids.index(ind_id), structure.individuals_ids.index(ind_id2)] = 1.0
+                adjacency[individuals_snapshot.index(ind_id), individuals_snapshot.index(ind_id2)] = 1.0
         
         for ind_id, distant_adj in snapshot.distant_adjacency_list.items():
             for ind_id2 in distant_adj:
-                adjacency[structure.individuals_ids.index(ind_id), structure.individuals_ids.index(ind_id2)] = 0.5
+                adjacency[individuals_snapshot.index(ind_id), individuals_snapshot.index(ind_id2)] = 0.5
 
-        return adjacency
+        # Convert to sparse representation
+        adjacency_index, adjacency_attr = tg.utils.sparse.dense_to_sparse(adjacency) # [2, num_edges], [num_edges]
+
+        return adjacency_index, adjacency_attr
 
     def _snapshot_to_ids(self, snapshot : Chronology.Snapshot, structure : Chronology) -> torch.Tensor:
         inds = torch.zeros(len(structure.individuals_ids))
@@ -228,55 +234,76 @@ class DynamicGraphSeriesLoader(DynamicSeriesLoader):
         return inds
 
     def _struct_to_graphs(self, structure : Chronology) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
-        x, v, a, adjacency, individual = [], [], [], [], []
-        nb_individuals = len(structure.individuals_ids)
+        data = []
         
         current_speed = {ind_id : torch.zeros(1, 1, 3) for ind_id in structure.individuals_ids}
         for snapshot in structure.snapshots:
             if snapshot is not None and (not self.skip_stationary or snapshot.time not in structure.stationary_times):
-                x_snapshot = torch.zeros(nb_individuals, 3) # [num_individuals, dimensions]
-                v_snapshot = torch.zeros(nb_individuals, 3) # [num_individuals, dimensions]
-                a_snapshot = torch.zeros(nb_individuals, 3) # [num_individuals, dimensions]
+                nb_individuals_snapshot = len(snapshot.states)
+                x_snapshot = torch.zeros(nb_individuals_snapshot, 3) # [nb_individuals_snapshot, dimensions]
+                v_snapshot = torch.zeros(nb_individuals_snapshot, 3) # [nb_individuals_snapshot, dimensions]
+                a_snapshot = torch.zeros(nb_individuals_snapshot, 3) # [nb_individuals_snapshot, dimensions]
                 
-                for ind_id, state in snapshot.states.items():
+                for i, (ind_id, state) in enumerate(snapshot.states.items()):
                     self.v0 = current_speed[ind_id]
                     feature = self._state_to_vector(state, structure) # [3, dimensions]
                     current_speed[ind_id] = self.v0
-                    x_snapshot[structure.individuals_ids.index(ind_id)] = feature[0]
-                    v_snapshot[structure.individuals_ids.index(ind_id)] = feature[1]
-                    a_snapshot[structure.individuals_ids.index(ind_id)] = feature[2]
+                    x_snapshot[i] = feature[0]
+                    v_snapshot[i] = feature[1]
+                    a_snapshot[i] = feature[2]
                 
-                adjacency_snapshot = self._snapshot_to_graph(snapshot, structure) # [num_individuals, num_individuals]
+                adjacency_snapshot_index, adjacency_snapshot_attr = self._snapshot_to_graph(snapshot, structure) # [2, num_edges], [num_edges]
                 individuals_snapshot = self._snapshot_to_ids(snapshot, structure) # [num_individuals]
                 
-                x.append(x_snapshot)
-                v.append(v_snapshot)
-                a.append(a_snapshot)
-                adjacency.append(adjacency_snapshot)
-                individual.append(individuals_snapshot)
+                data_snapshot = tg.data.Data(x=x_snapshot, v=v_snapshot, a=a_snapshot, edge_index=adjacency_snapshot_index, edge_attr=adjacency_snapshot_attr, individuals=individuals_snapshot)
+                data.append(data_snapshot)
         
-        return torch.stack(x), torch.stack(v), torch.stack(a), torch.stack(adjacency), torch.stack(individual)
+        return data
+    
+    def _merge_lookback_graphs(self, data : List[tg.data.Data], merge_same_ids : bool = True) -> tg.data.Data:
+        batch = tg.data.Batch.from_data_list(data)
+        x = batch.x # [sum_i(num_individuals_i in lookback), dimensions]
+        v = batch.v # [sum_i(num_individuals_i in lookback), dimensions]
+        a = batch.a # [sum_i(num_individuals_i in lookback), dimensions]
+        adjacency_index = batch.edge_index # [2, sum_i(num_edges_i) in lookback]
+        adjacency_attr = batch.edge_attr # [sum_i(num_edges_i) in lookback]
+        individuals = batch.individuals # [lookback * num_individuals]
+        
+        if merge_same_ids: # Add edge between same individuals in different time steps
+            lookback = len(data)
+            individuals_ids = [torch.where(data[i].individuals != 0)[0].tolist() for i in range(lookback)]
 
-    def load(self, structure : Chronology) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+            offset = 0
+            for i in range(lookback-1):
+                idxs = []
+                idxt = []
+                for ind_id in individuals_ids[i]:
+                    if ind_id in individuals_ids[i+1]:
+                        idxs.append(individuals_ids[i].index(ind_id) + offset)
+                        idxt.append(individuals_ids[i+1].index(ind_id) + offset + len(individuals_ids[i]))
+                        
+                adjacency_index = torch.cat((adjacency_index, torch.tensor((idxs, idxt), dtype=torch.int64)),dim=1)
+                adjacency_attr = torch.cat((adjacency_attr, torch.ones(len(idxs))))
+                offset += len(individuals_ids[i])
+
+        return tg.data.Data(x=x, v=v, a=a, edge_index=adjacency_index, edge_attr=adjacency_attr, individuals=individuals)
+
+
+    def load(self, structure : Chronology) -> List[tg.data.Data]:
         # Build individual sequences
-        x, v, a, adjacency, individual = self._struct_to_graphs(structure)
+        data = self._struct_to_graphs(structure)
 
         # Create lookback blocks
-        x_lookback, v_lookback, a_lookback, adjacency_lookback, individual_lookback = [], [], [], [], []
-
-        for i in range(len(x)-self.lookback-self.target_offset_end+1):
-            x_lookback.append(x[i:i+self.lookback])
-            v_lookback.append(v[i:i+self.lookback])
-            a_lookback.append(a[i+self.target_offset_start:i+self.lookback+self.target_offset_end])
-            adjacency_lookback.append(adjacency[i:i+self.lookback])
-            individual_lookback.append(individual[i:i+self.lookback])
-
-        return torch.stack(x_lookback), torch.stack(v_lookback), torch.stack(a_lookback), torch.stack(adjacency_lookback), torch.stack(individual_lookback)
+        data_lookback = []
+        for i in range(len(data)-self.lookback-self.target_offset_end+1):
+            data_lookback.append(self._merge_lookback_graphs(data[i:i+self.lookback]))
+        
+        return data_lookback
 
 
 
 class GeneratorLoader(BehaviourSeriesLoader):
-    def __init__(self, lookback : int, target_offset_start : int = 1, target_offset_end : int = 1, skip_stationary : bool = False, vector_columns : List[str] = None, masked_variables : List[str] = None):
+    def __init__(self, lookback : int, target_offset_start : int = 1, target_offset_end : int = 1, skip_stationary : bool = False, vector_columns : List[str] = None, masked_variables : Optional[List[str]] = None):
         super().__init__(lookback, target_offset_start, target_offset_end, skip_stationary, vector_columns)
         if masked_variables is None:
             masked_variables = MASKED_VARIABLES
@@ -338,8 +365,8 @@ class DiscriminatorLoader(GeneratorLoader):
         for i in range(len(x)):
             x_discr.append(x[i])
             x_discr.append(y[i])
-            y_discr.append(1) # Generated
-            y_discr.append(0) # Sampled from ground truth
+            y_discr.append([1]) # Generated
+            y_discr.append([0]) # Sampled from ground truth
 
         return torch.stack(x_discr), torch.tensor(y_discr)
     
@@ -500,7 +527,7 @@ class DiscriminatorCommunityLoader(GeneratorCommunityLoader):
         for i in range(len(x)):
             x_discr.append(x[i])
             x_discr.append(y[i])
-            y_discr.append(1) # Generated
-            y_discr.append(0) # Sampled from ground truth
+            y_discr.append([1]) # Generated
+            y_discr.append([0]) # Sampled from ground truth
 
         return torch.stack(x_discr), torch.tensor(y_discr)
