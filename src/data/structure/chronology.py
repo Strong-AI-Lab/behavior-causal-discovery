@@ -119,7 +119,7 @@ class Chronology:
     @classmethod
     def create(cls, file_path : Union[str, List[str]], fix_errors : bool = False, filter_null_state_trajectories : bool = False) -> 'Chronology':
         from data.parsers.pandasparser import PandasParser
-        parser = PandasParser(filter_null_state_trajectories=filter_null_state_trajectories)
+        parser = PandasParser(filter_null_state_trajectories=filter_null_state_trajectories, coordinates_normalisation='minmax')
 
         if isinstance(file_path, str):
             data = pd.read_csv(file_path)

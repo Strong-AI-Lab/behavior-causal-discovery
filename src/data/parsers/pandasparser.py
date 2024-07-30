@@ -5,6 +5,7 @@ from typing import Optional, List, Tuple
 import re
 
 from data.parsers.baseparser import Parser
+from data.parsers.norm_utils import MinMaxNormaliser, GaussianNormaliser
 from data.structure.chronology import Chronology
 
 
@@ -42,6 +43,12 @@ class PandasParser(Parser):
             neighbours = list(filter(lambda x: x not in self.ind_with_nulls, neighbours))
 
         return neighbours
+    
+
+    NORMALISERS = {
+        'minmax': MinMaxNormaliser,
+        'gaussian': GaussianNormaliser
+    }
 
 
     def __init__(self, namekeys : Optional[Namekeys] = None, coordinates_normalisation : Optional[str] = None, filter_null_state_trajectories : bool = False):
@@ -52,15 +59,18 @@ class PandasParser(Parser):
         self.namekeys = namekeys
         
         self.coordinates_normalisation = coordinates_normalisation
+        if self.coordinates_normalisation is not None:
+            self.coordinates_normaliser = self.NORMALISERS[coordinates_normalisation]()
+
         self.filter_null_state_trajectories = filter_null_state_trajectories
         self.ind_with_nulls = []
 
 
     def __eq__(self, other : 'PandasParser') -> bool:
-        return self.namekeys == other.namekeys and self.coordinates_normalisation == other.coordinates_normalisation
+        return self.namekeys == other.namekeys and self.coordinates_normalisation == other.coordinates_normalisation and self.filter_null_state_trajectories == other.filter_null_state_trajectories
     
     def copy(self) -> 'PandasParser':
-        return PandasParser(self.namekeys, self.coordinates_normalisation)
+        return PandasParser(self.namekeys, self.coordinates_normalisation, self.filter_null_state_trajectories)
     
 
     def _filter_null_state_trajectories(self, data : pd.DataFrame) -> pd.DataFrame:
@@ -155,22 +165,24 @@ class PandasParser(Parser):
     
     
     
-    def tocoordinates(self, coordinates : str) -> Tuple[float, float, float]:
+    def tocoordinates(self, coordinates : str, force_no_normalisation : bool= False) -> Tuple[float, float, float]:
         res = re.match(r'\[(-?\d+(?:\.\d+));(-?\d+(?:\.\d+));(-?\d+(?:\.\d+))\]', coordinates)
 
         if res is not None and len(res.groups()) == 3:
             x, y, z = res.groups()
             x, y, z = float(x), float(y), float(z)
 
-            if self.coordinates_normalisation is not None:
-                x, y, z = self._normalise_coordinates((float(x), float(y), float(z)))
+            if self.coordinates_normalisation is not None and not force_no_normalisation:
+                x, y, z = self._normalise_coordinates((x, y, z))
 
-            return (float(x), float(y), float(z))
+            return x, y, z
         else:
             return None
 
     def _get_normalisation_parameters(self, data: pd.DataFrame) -> None:
-        raise NotImplementedError("Normalisation parameters computation not implemented yet.")
+        if self.coordinates_normalisation is not None:
+            coordinates = data[self.namekeys.coordinates_key].apply(lambda x: self.tocoordinates(x, force_no_normalisation=True)).tolist()
+            self.coordinates_normaliser.setup(coordinates)
     
     def _normalise_coordinates(self, coordinates : Tuple[float, float, float]) -> Tuple[float, float, float]:
-        raise NotImplementedError("Coordinates normalisation not implemented yet.")
+        return self.coordinates_normaliser.normalise(coordinates)
