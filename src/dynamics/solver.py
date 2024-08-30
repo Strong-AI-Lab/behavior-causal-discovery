@@ -39,13 +39,13 @@ class DynamicsSolver():
         batch_size = x.size(0)  # [batch_size, lookback, dimensions]
 
         if v is None:
-            v = torch.zeros(x.shape, dtype=torch.float32)
+            v = torch.zeros(x.shape, dtype=torch.float32, device=x.device)
 
         if force is None:
-            force = torch.zeros((batch_size, 1, self.dimensions), dtype=torch.float32)
+            force = torch.zeros((batch_size, 1, self.dimensions), dtype=torch.float32, device=x.device)
 
         acc = (force / self.mass).repeat(1, dt, 1)  # apply force for dt timesteps
-        time = torch.arange(1,dt+1, dtype=torch.float32).reshape((1, dt, 1)).repeat(batch_size, 1, self.dimensions)  # time account for dt timesteps
+        time = torch.arange(1,dt+1, dtype=torch.float32, device=x.device).reshape((1, dt, 1)).repeat(batch_size, 1, self.dimensions)  # time account for dt timesteps
 
         new_v = v[:, -1, :].unsqueeze(1).repeat(1, dt, 1) + acc * time
         new_x = x[:, -1, :].unsqueeze(1).repeat(1, dt, 1) + v[:, -1, :].unsqueeze(1).repeat(1, dt, 1) * time + 0.5 * acc * time ** 2

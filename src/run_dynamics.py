@@ -25,8 +25,8 @@ MODELS = {
 # Parse arguments
 print("Parsing arguments..")
 parser = argparse.ArgumentParser()
+parser.add_argument('save', type=str, help='Load the model from a save folder.')
 parser.add_argument('--model_type',type=str, default="dynamical_lstm", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
-parser.add_argument('--save', type=str, default=None, help='If provided, loads the model from a save. The save can be a `model.ckpt` file. If the model_type if `causal_*`, a save folder from a causal_discovery run can also be used.')
 parser.add_argument('--wandb_project', type=str, default=None, help='If specified, logs the run to wandb under the specified project.')
 parser.add_argument('--force_data_computation', action="store_true", help='If specified, forces the computation of the force data from the raw data.')
 args = parser.parse_args()
@@ -34,11 +34,11 @@ args = parser.parse_args()
 assert args.model_type in MODELS.keys(), f"Model type {args.model_type} not supported. Options: {','.join(MODELS.keys())}."
 
 is_graph_model = False
-structure_savefile = "train_chronology_dynamics.json"
-dataset_savefile = "train_data_dynamics.pt"
+structure_savefile = "test_chronology_dynamics.json"
+dataset_savefile = "test_data_dynamics.pt"
 if args.model_type in GRAPH_DYNAMIC_MODELS.keys():
-    is_graph_model = True
-    dataset_savefile = "graph_" + dataset_savefile
+        is_graph_model = True
+        dataset_savefile = "graph_" + dataset_savefile
 
 
 # Set constants
@@ -67,7 +67,7 @@ else:
             print("Forced data computation. (Re)computing dataset...")
 
     # Create structure
-    chronology = Chronology.create([f'data/train/{name}' for name in os.listdir('data/train') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)])
+    chronology = Chronology.create([f'data/test/{name}' for name in os.listdir('data/test') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)])
     
     # Save structure
     os.makedirs("data/gen", exist_ok=True)
@@ -75,38 +75,30 @@ else:
 
     # Create dataset
     structure_loader = DynamicGraphSeriesLoader(lookback=TAU_MAX+1, skip_stationary=True) if is_graph_model else DynamicSeriesLoader(lookback=TAU_MAX+1, skip_stationary=True)
-    train_dataset = SeriesDataset(chronology=chronology, struct_loader=structure_loader)
+    dataset = SeriesDataset(chronology=chronology, struct_loader=structure_loader)
 
     # Save dataset
-    train_dataset.save(f"data/gen/{dataset_savefile}")
+    dataset.save(f"data/gen/{dataset_savefile}")
 
 
 # Build data loader
-dataset = torch.utils.data.random_split(train_dataset, [int(0.8*len(train_dataset)), len(train_dataset)-int(0.8*len(train_dataset))], generator=torch.Generator().manual_seed(1))
 if is_graph_model:
-    train_loader = GraphDataLoader(dataset[0], batch_size=64, shuffle=True)
-    val_loader = GraphDataLoader(dataset[1], batch_size=64, shuffle=False)
+    loader = GraphDataLoader(dataset[1], batch_size=64, shuffle=False)
 else:
-    train_loader = DataLoader(dataset[0], batch_size=64, shuffle=True)
-    val_loader = DataLoader(dataset[1], batch_size=64, shuffle=False)
+    loader = DataLoader(dataset[1], batch_size=64, shuffle=False)
 
 
 
 # Build model
-if args.save is None:
-    print(f"No save provided. Building {args.model_type} model...")
-    model = MODELS[args.model_type](lookback=TAU_MAX+1)
-else:
-    print(f"Save provided. Loading {args.model_type} model from {args.save}...")
-    model = MODELS[args.model_type].load_from_checkpoint(args.save, lookback=TAU_MAX+1)
+model = MODELS[args.model_type].load_from_checkpoint(args.save, lookback=TAU_MAX+1)
 
 
-# Train model
+# Test model
 trainer = pl.Trainer(
     max_epochs=20,
     devices=[0],
     accelerator="gpu",
-    logger=WandbLogger(name=f"{args.model_type}_train", project=args.wandb_project) if args.wandb_project else None,
+    logger=WandbLogger(name=f"{args.model_type}_test", project=args.wandb_project) if args.wandb_project else None,
 )
 
-trainer.fit(model, train_loader, val_loader)
+trainer.test(model, loader)

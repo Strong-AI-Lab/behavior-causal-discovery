@@ -8,3 +8,4 @@ wandb/
 .pytest_cache/
 meerkat_modelling
 data/gen*/
+data/anim*/
