@@ -91,6 +91,15 @@ class DynamicalPredictor(pl.LightningModule):
         loss = self.compute_losses(y_pred, y, x, v, 'val')
         return loss
     
+    def test_step(self, batch, batch_idx):
+        x, v, y, i = batch
+        y_pred = self(x, velocity=v)
+        friction = self.friction_force(v)
+        y_pred = y_pred + friction
+        
+        loss = self.compute_losses(y_pred, y, x, v, 'test')
+        return loss
+    
     def predict_step(self, batch, batch_idx):
         x, v, y, i = batch
         y_pred = self(x, velocity=v)

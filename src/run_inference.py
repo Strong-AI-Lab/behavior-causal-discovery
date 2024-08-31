@@ -3,7 +3,6 @@ import argparse
 import os
 import re
 import numpy as np
-import pickle
 
 from data.dataset import SeriesDataset
 from data.structure.chronology import Chronology
@@ -13,6 +12,7 @@ from model.behaviour_model import TSLinearCausal, BEHAVIOUR_MODELS
 from model.causal_graph_formatter import CausalGraphFormatter
 from evaluate.evaluation import direct_prediction_accuracy, mutual_information
 from evaluate.visualisation import generate_time_occurences, generate_sankey, generate_clusters
+from script_utils.data_commons import DataManager
 
 import torch
 from torch.utils.data import DataLoader
@@ -27,12 +27,15 @@ MODELS = {
 print("Parsing arguments..")
 parser = argparse.ArgumentParser()
 parser.add_argument('save', type=str, help='Load the causal graph from a save folder.')
+parser.add_argument('data_path', type=str, help='Path to the data folder.')
 parser.add_argument('--model_type', type=str, default="causal", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
 parser.add_argument('--filter', type=str, default=None, help='If provided, filters the causal graph to only include the most significant links. Options: ' + 
                                                                 '"low"  : remove links with low values; ' +
                                                                 '"neighbor_effect" : remove links to neighbors, ' + 
                                                                 '"corr" : remove correlations without causation. ' +
                                                                 'Multiple filters can be applied by separating them with a comma.')
+parser.add_argument('--force_data_computation', action="store_true", help='If specified, forces the computation of the force data from the raw data.')
+
 args = parser.parse_args()
 
 save = args.save
@@ -46,54 +49,22 @@ TAU_MAX = 5
 LOW_FILTER = 0.075
 
 
-structure_savefile = "test_chronology_behaviours.json"
-dataset_savefile = "test_data_behaviour.pt"
-
-generation_savefile = "test_data_generation"
-i = 0
-while os.path.exists(f"data/gen/{generation_savefile}_{i}.pickle"): # File is "test_data_generation_<i>.pickle", increment i if file already exists
-    i += 1
-generation_savefile = f"{generation_savefile}_{i}.pickle"
-
-community_generation_savefile = "test_data_community_generation"
-i = 0
-while os.path.exists(f"data/gen/{community_generation_savefile}_{i}.pickle"): # File is "test_data_community_generation_<i>.pickle", increment i if file already exists
-    i += 1
-community_generation_savefile = f"{community_generation_savefile}_{i}.pickle"
-
-
-if os.path.exists(f"data/gen/{structure_savefile}"):
-    print(f"Data structure found and loaded from data/gen/{structure_savefile}.")
-
-    # Create structure
-    chronology = Chronology.deserialize(f"data/gen/{structure_savefile}")
-
-    # Create or load dataset
-    if not os.path.exists(f"data/gen/{dataset_savefile}"):
-        behaviour_loader = BehaviourSeriesLoader(TAU_MAX+1, skip_stationary=True)
-        test_dataset = SeriesDataset(chronology=chronology, struct_loader=behaviour_loader)
-        test_dataset.save(f"data/gen/{dataset_savefile}")
-    else:
-        test_dataset = SeriesDataset.load(f"data/gen/{dataset_savefile}")
-
-else:
-    if args.force_data_computation:
-        print("Forced data computation. (Re)computing dataset...")
-    else:
-        print("No dataset or data structure found in data/gen. Generating dataset...")
-
-    # Create structure and dataset
-    chronology = Chronology.create([f'data/test/{name}' for name in os.listdir('data/train') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)])
-
-    structure_loader = BehaviourSeriesLoader(lookback=TAU_MAX+1, skip_stationary=True)
-    test_dataset = SeriesDataset(chronology=chronology, struct_loader=structure_loader)
-
-    # Save structure
-    os.makedirs("data/gen", exist_ok=True)
-    chronology.serialize(f"data/gen/{structure_savefile}")
-
-    # Save datasets
-    test_dataset.save(f"data/gen/{dataset_savefile}")
+# Load chronology and dataset
+test_dataset = DataManager.load_data(
+    path=args.data_path,
+    data_type=SeriesDataset,
+    loader_type=BehaviourSeriesLoader,
+    chronology_kwargs={"fix_errors": True, "filter_null_state_trajectories": True},
+    loader_kwargs={"lookback": TAU_MAX+1, "skip_stationary": True},
+    force_data_computation=args.force_data_computation,
+    saving_allowed=True,
+)
+chronology = DataManager.load_data(
+    path=args.data_path,
+    data_type=Chronology,
+    force_data_computation=False,
+    saving_allowed=False,
+)
 
 
 
@@ -172,12 +143,8 @@ with torch.no_grad():
 
 
     # Generate series
-    generation_loader = GeneratorLoader(TAU_MAX+1, skip_stationary=True, vector_columns=VECTOR_COLUMNS, masked_columns=MASKED_VARIABLES)
+    generation_loader = GeneratorLoader(TAU_MAX+1, skip_stationary=True, vector_columns=VECTOR_COLUMNS, masked_variables=MASKED_VARIABLES)
     series = generation_loader.load(chronology, model, build_series=True)
-
-    # Save series
-    with open(f"data/gen/{generation_savefile}", 'wb') as f:
-        pickle.dump(series, f)
 
     # Visualise time occurences for series
     predicted_variable_names = [re.sub("_", " ", re.sub(r"\(.*\)", "", v)) for i, v in enumerate(variables) if i not in masked_idxs]
@@ -192,12 +159,8 @@ with torch.no_grad():
 
 
     # Generate community series
-    community_generation_loader = GeneratorCommunityLoader(TAU_MAX+1, skip_stationary=True, vector_columns=VECTOR_COLUMNS, masked_columns=MASKED_VARIABLES)
+    community_generation_loader = GeneratorCommunityLoader(TAU_MAX+1, skip_stationary=True, vector_columns=VECTOR_COLUMNS, masked_variables=MASKED_VARIABLES)
     community_series = community_generation_loader.load(chronology, model, build_series=True)
-
-    # Save community series
-    with open(f"data/gen/{community_generation_savefile}", 'wb') as f:
-        pickle.dump(community_series, f)
 
     # Visualise time occurences for community series
     generate_time_occurences(community_series, predicted_variable_names, save, nb_variables, MIN_LENGTH, prefix="community")

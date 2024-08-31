@@ -36,6 +36,20 @@ class DynamicalGraphPredictor(DynamicalPredictor):
         loss = self.compute_losses(y_pred, y, x, v, 'val')
         return loss
     
+    def test_step(self, batch : tg.data.Batch, batch_idx):
+        y_pred = self(coordinates=batch.x, velocity=batch.v, adjacency_index=batch.edge_index, adjacency_attr=batch.edge_attr)
+
+        friction = self.friction_force(batch.v)
+        y_pred = y_pred + friction
+        
+        y_pred = y_pred.view(1, -1, y_pred.shape[-1]) # Add batch dimension for loss computation
+        y = batch.a.view(1, -1, batch.a.shape[-1])
+        x = batch.x.view(1, -1, batch.x.shape[-1])
+        v = batch.v.view(1, -1, batch.v.shape[-1])
+
+        loss = self.compute_losses(y_pred, y, x, v, 'test')
+        return loss
+    
     def predict_step(self, batch : tg.data.Batch, batch_idx):
         y_pred = self(coordinates=batch.x, velocity=batch.v, adjacency_index=batch.edge_index, adjacency_attr=batch.edge_attr)
         y_pred = y_pred + self.friction_force(batch.v)

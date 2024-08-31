@@ -38,11 +38,12 @@ def filter_kwargs_per_mode(mode : str, kwargs : Dict) -> Dict:
         raise ValueError(f"Mode {mode} not supported.")
 
 class ChronologyGenerator:
-    def __init__(self, chronology : Chronology, models : Union[pl.LightningModule, List[pl.LightningModule]], lookback : int, skip_stationary : bool = True, modes : Union[str,List[str]] = "dynamic", **kwargs):
+    def __init__(self, chronology : Chronology, models : Union[pl.LightningModule, List[pl.LightningModule]], lookback : int, skip_stationary : bool = True, modes : Union[str,List[str]] = "dynamic", device : str = "cuda:0", **kwargs):
         self.chronology = chronology
         
         self.lookback = lookback
         self.skip_stationary = skip_stationary
+        self.device = device
         
         if isinstance(modes, str):
             modes = [modes]
@@ -57,7 +58,7 @@ class ChronologyGenerator:
 
         if isinstance(models, pl.LightningModule):
             models = [models]
-        self.models = {mode: model.to('cuda:0') for mode, model in zip(modes, models)}
+        self.models = {mode: model.to(self.device) for mode, model in zip(modes, models)}
 
         if len(modes) != len(models):
             raise ValueError("The number of modes and models must be the same.")
@@ -71,8 +72,6 @@ class ChronologyGenerator:
         self.loaders = {}
         for mode in modes:
             self.loaders[mode] = GENERATOR_MODE_LOADER[mode](lookback=lookback, skip_stationary=skip_stationary, **filter_kwargs_per_mode(mode, kwargs))
-
-        self.trainer = pl.Trainer(devices=[0], accelerator="gpu")
 
         
     def get_last_idx_individuals(self, data : List[int]) -> List[int]:
@@ -89,13 +88,13 @@ class ChronologyGenerator:
         data = self.loaders[mode].load(self.chronology)
         if mode == "behaviour":
             last_idx_individuals = self.get_last_idx_individuals(data[-1])
-            return {'x': data[0][last_idx_individuals].to('cuda:0')}
+            return {'x': data[0][last_idx_individuals].to(self.device)}
         elif mode == "dynamic":
             last_idx_individuals = self.get_last_idx_individuals(data[-1])
-            return {'x': data[0][last_idx_individuals].to('cuda:0'), 'velocity': data[1][last_idx_individuals].to('cuda:0')}
+            return {'x': data[0][last_idx_individuals].to(self.device), 'velocity': data[1][last_idx_individuals].to(self.device)}
         elif mode == "graph":
             batch = data[-1]
-            return {'coordinates': batch.x.to('cuda:0'), 'velocity': batch.v.to('cuda:0'), 'adjacency_index': batch.edge_index.to('cuda:0'), "adjacency_attr": batch.edge_attr.to('cuda:0')}
+            return {'coordinates': batch.x.to(self.device), 'velocity': batch.v.to(self.device), 'adjacency_index': batch.edge_index.to(self.device), "adjacency_attr": batch.edge_attr.to(self.device)}
         else:
             raise ValueError(f"Mode {mode} not supported.")
 

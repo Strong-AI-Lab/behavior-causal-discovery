@@ -3,15 +3,13 @@ import argparse
 import os
 import time
 import re
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import pickle
 
 from data.structure.loaders import BehaviourSimpleLoader
-from data.structure.chronology import Chronology
 from data.constants import VECTOR_COLUMNS
 from model.causal_graph_formatter import CausalGraphFormatter
+from script_utils.data_commons import DataManager
 
 from tigramite.pcmci import PCMCI
 from tigramite.independence_tests.parcorr import ParCorr
@@ -23,6 +21,7 @@ from tigramite import data_processing as pp
 # Parse arguments
 print("Parsing arguments..")
 parser = argparse.ArgumentParser()
+parser.add_argument('data_path', type=str, help='Path to the data folder.')
 parser.add_argument('--save', type=str, default=None, help='If provided, loads the results from a save folder instead of running the algorithm again.')
 parser.add_argument('--filter', type=str, default=None, help='If provided, filters the results to only include the most significant links. Options: ' + 
                                                                 '"low"  : remove links with low values (default threshold can be modified by setting `low=new_threshold`); ' +
@@ -38,6 +37,7 @@ parser.add_argument('--skip', type=str, default=None, help='If provided, skips t
                                                                 '"result_graph" : skip result graph plot; ' +
                                                                 '"result_time_series_graph" : skip result time series graph plot. ' +
                                                                 'Multiple plots can be skipped by separating them with a comma.')
+parser.add_argument('--force_data_computation', action="store_true", help='If specified, forces the computation of the force data from the raw data.')
 
 args = parser.parse_args()
 save = args.save
@@ -45,38 +45,17 @@ filter = args.filter
 skips = args.skip.split(",") if args.skip is not None else []
 print(f"Arguments: save={save}, filter={filter}")
 
-structure_savefile = "train_chronology_behaviours.json"
-sequences_savefile = "train_behaviour_sequences.pickle"
-
 
 # Create sequences
-if os.path.exists(f"data/gen/{sequences_savefile}"):
-        print(f"Loading sequences from data/gen/{sequences_savefile}...")
-        sequences = pickle.load(open(f"data/gen/{sequences_savefile}", "rb"))
-
-elif os.path.exists(f"data/gen/{structure_savefile}"):
-        print(f"No sequences found in data/gen. Data structure found and loaded from data/gen/{structure_savefile}. Re-computing the sequences from structure...")
-
-        chronology = Chronology.deserialize(f"data/gen/{structure_savefile}")
-        structure_loader = BehaviourSimpleLoader(skip_stationary=True)
-        sequences = structure_loader.load(chronology)
-
-        # Save sequences
-        pickle.dump(sequences, open(f"data/gen/{sequences_savefile}", "wb"))
-
-else:
-    print("No sequences or data structure found in data/gen. Generating structure and sequences...")
-    
-    chronology = Chronology.create([f'data/train/{name}' for name in os.listdir('data/train') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)])
-    structure_loader = BehaviourSimpleLoader(skip_stationary=True)
-    sequences = structure_loader.load(chronology)
-
-    # Save structure
-    os.makedirs("data/gen", exist_ok=True)
-    chronology.serialize(f"data/gen/{structure_savefile}")
-
-    # Save sequences
-    pickle.dump(sequences, open(f"data/gen/{sequences_savefile}", "wb"))
+sequences = DataManager.load_data(
+    path=args.data_path,
+    data_type=dict,
+    loader_type=BehaviourSimpleLoader,
+    chronology_kwargs={"fix_errors": True, "filter_null_state_trajectories": True},
+    loader_kwargs={"skip_stationary": True},
+    force_data_computation=args.force_data_computation,
+    saving_allowed=True,
+)
 
 
 

@@ -1,15 +1,13 @@
 
 import argparse
-import os
-import re
 import numpy as np
 
 from data.dataset import SeriesDataset
-from data.structure.chronology import Chronology
 from data.structure.loaders import BehaviourSeriesLoader
 from data.constants import MASKED_VARIABLES, VECTOR_COLUMNS
 from model.behaviour_model import BEHAVIOUR_MODELS
 from model.causal_graph_formatter import CausalGraphFormatter
+from script_utils.data_commons import DataManager
 
 import torch
 from torch.utils.data import DataLoader
@@ -25,6 +23,7 @@ MODELS = {
 # Parse arguments
 print("Parsing arguments..")
 parser = argparse.ArgumentParser()
+parser.add_argument('data_path', type=str, help='Path to the data folder.')
 parser.add_argument('--model_type',type=str, default="lstm", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
 parser.add_argument('--save', type=str, default=None, help='If provided, loads the model from a save. The save can be a `model.ckpt` file. If the model_type if `causal_*`, a save folder from a causal_discovery run can also be used.')
 parser.add_argument('--wandb_project', type=str, default=None, help='If specified, logs the run to wandb under the specified project.')
@@ -46,43 +45,16 @@ LOW_FILTER = 0.075
 variables = VECTOR_COLUMNS
 num_variables = len(variables)
 
-structure_savefile = "train_chronology_behaviours.json"
-dataset_savefile = "train_data_behaviour.pt"
 
-if not args.force_data_computation and os.path.exists(f"data/gen/{dataset_savefile}"):
-        print(f"Loading dataset from data/gen/{dataset_savefile}...")
-        train_dataset = SeriesDataset.load(f"data/gen/{dataset_savefile}")
-
-elif not args.force_data_computation and os.path.exists(f"data/gen/{structure_savefile}"):
-        print(f"No dataset found in data/gen. Data structure found and loaded from data/gen/{structure_savefile}. Re-computing the dataset from structure...")
-
-        # Create dataset
-        chronology = Chronology.deserialize(f"data/gen/{structure_savefile}")
-        structure_loader = BehaviourSeriesLoader(lookback=TAU_MAX+1, skip_stationary=True)
-        train_dataset = SeriesDataset(chronology=chronology, struct_loader=structure_loader)
-
-        #Save dataset
-        train_dataset.save(f"data/gen/{dataset_savefile}")
-
-else:
-        if not os.path.exists(f"data/gen/{dataset_savefile}"):
-                print("No dataset or data structure found in data/gen. Generating dataset...")
-        if args.force_data_computation:
-                print("Forced data computation. (Re)computing dataset...")
-
-        # Create structure
-        chronology = Chronology.create([f'data/train/{name}' for name in os.listdir('data/train') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)], fix_errors=True, filter_null_state_trajectories=True)
-
-        # Save structure
-        os.makedirs("data/gen", exist_ok=True)
-        chronology.serialize(f"data/gen/{structure_savefile}")
-
-        # Create dataset
-        structure_loader = BehaviourSeriesLoader(lookback=TAU_MAX+1, skip_stationary=True)
-        train_dataset = SeriesDataset(chronology=chronology, struct_loader=structure_loader)
-
-        # Save dataset
-        train_dataset.save(f"data/gen/{dataset_savefile}")
+# Load dataset
+train_dataset = DataManager.load_data(
+    path=args.data_path,
+    data_type=SeriesDataset,
+    loader_type=BehaviourSeriesLoader,
+    loader_kwargs={"lookback": TAU_MAX+1, "skip_stationary": True},
+    force_data_computation=args.force_data_computation,
+    saving_allowed=True,
+)
 
 
 

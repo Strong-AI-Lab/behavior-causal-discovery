@@ -1,7 +1,5 @@
 
 import argparse
-import os
-import re
 import time
 
 from data.modelling.chronology_generator import ChronologyGenerator, GENERATOR_MODE_LOADER
@@ -18,10 +16,10 @@ MODELS = {**DYNAMIC_MODELS, **GRAPH_DYNAMIC_MODELS, **BEHAVIOUR_MODELS}
 print("Parsing arguments..")
 parser = argparse.ArgumentParser()
 parser.add_argument('save', type=str, help='Load the model from a save folder.')
+parser.add_argument('structure', type=str, help='Load the model from a save folder.')
 parser.add_argument('--mode', type=str, default="dynamic", help=f'Mode of the generator. Options: {",".join(GENERATOR_MODE_LOADER.keys())}.')
 parser.add_argument('--model_type',type=str, default="dynamical_lstm", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
 parser.add_argument('--nb_steps', type=int, default=1, help='Number of steps to generate.')
-
 args = parser.parse_args()
 
 
@@ -29,9 +27,8 @@ args = parser.parse_args()
 TAU_MAX = 5
 
 
-# Create structure
-print("Loading chronology..")
-chronology = Chronology.create([f'data/test/{name}' for name in os.listdir('data/test') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)])
+# Load structure
+chronology = Chronology.deserialize(args.structure)
 end_time = chronology.end_time
 _, chronology = chronology.split(end_time-2*(TAU_MAX+1)) # Keep only the last 2*(TAU_MAX+1) snapshots
 

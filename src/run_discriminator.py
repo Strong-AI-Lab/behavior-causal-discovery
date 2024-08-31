@@ -1,17 +1,15 @@
 
 import argparse
-import os
-import re
 import numpy as np
 import tqdm
-from typing import List, Optional
+from typing import Optional, Any
 
 from data.dataset import SeriesDataset
-from data.structure.loaders import GeneratorLoader, DiscriminatorLoader, DiscriminatorCommunityLoader
-from data.structure.chronology import Chronology
+from data.structure.loaders import DiscriminatorLoader, DiscriminatorCommunityLoader
 from data.constants import MASKED_VARIABLES, VECTOR_COLUMNS
 from model.behaviour_model import TSLinearCausal, DISCRIMINATORS, BEHAVIOUR_MODELS
 from model.causal_graph_formatter import CausalGraphFormatter
+from script_utils.data_commons import DataManager
 
 import torch
 from torch.utils.data import DataLoader
@@ -26,7 +24,9 @@ MODELS = {
 print("Parsing arguments..")
 parser = argparse.ArgumentParser()
 parser.add_argument('save', type=str, help='Load the parametric model or the causal graph from a save folder.')
+parser.add_argument('data_path', type=str, help='Path to the data folder.')
 parser.add_argument('--discriminator_save', type=str, default=None, help='If provided, loads the discriminator from a save folder instead of running the algorithm again.')
+parser.add_argument('--train_data_path', type=str, help='Path to the training data folder. Required if a discriminator save is not provided to train the discriminator.')
 parser.add_argument('--discriminator_type', type=str, default="lstm", help=f'Type of discriminator to use. Options: {",".join(DISCRIMINATORS.keys())}.')
 parser.add_argument('--model_type', type=str, default="causal", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
 parser.add_argument('--community', action='store_true', help='If provided, the discriminator is trained and evaluated on community-generated data.')
@@ -35,15 +35,21 @@ parser.add_argument('--filter', type=str, default=None, help='If provided and th
                                                                 '"neighbor_effect" : remove links to neighbors, ' + 
                                                                 '"corr" : remove correlations without causation. ' +
                                                                 'Multiple filters can be applied by separating them with a comma.')
+parser.add_argument('--force_data_computation', action="store_true", help='If specified, forces the computation of the force data from the raw data.')
 args = parser.parse_args()
 
 print(f"Arguments: save={args.save}")
 if args.discriminator_save is not None:
     discriminator_save = args.discriminator_save
     print(f"Arguments: discriminator_save={discriminator_save}")
+elif args.train_data_path is None:
+    raise ValueError("If a discriminator save is not provided, a training data path must be provided.")
 
-assert args.discriminator_type in DISCRIMINATORS.keys(), f"Discriminator type {args.discriminator_type} not supported. Options: {','.join(DISCRIMINATORS.keys())}."
-assert args.model_type in MODELS.keys(), f"Model type {args.model_type} not supported. Options: {','.join(MODELS.keys())}."
+if args.discriminator_type not in DISCRIMINATORS.keys():
+    raise ValueError(f"Discriminator type {args.discriminator_type} not supported. Options: {','.join(DISCRIMINATORS.keys())}.")
+
+if args.model_type not in MODELS.keys():
+    raise ValueError(f"Model type {args.model_type} not supported. Options: {','.join(MODELS.keys())}.")
 
 
 # Set constants
@@ -52,31 +58,32 @@ LOW_FILTER = 0.075
 variables = VECTOR_COLUMNS
 num_variables = len(variables)
 
-train_structure_savefile = "train_chronology_behaviours.json"
-test_tructure_savefile = "test_chronology_behaviours.json"
-
-if args.community:
-    train_dataset_savefile = "train_data_community_discriminator.pt"
-    test_dataset_savefile =  "test_data_community_discriminator.pt"
-    loader = DiscriminatorCommunityLoader
-else:
-    train_dataset_savefile = "train_data_discriminator.pt"
-    test_dataset_savefile = "test_data_discriminator.pt"
-    loader = DiscriminatorLoader
+loader = DiscriminatorCommunityLoader if args.community else DiscriminatorLoader
 
 
-# Load functions
-def load_model(model_type : str, model_savefile : str, filter : Optional[str] = None):
-    if load_model.model is None:
-        # Get model first as required to generate data
-        print(f"No dataset found in data/gen. Model save provided. Loading {model_type} model from {model_savefile}...")
-        if model_type == "causal":
+# Create lazy model class
+class LazyModel(): # Lazy loading model to avoid loading it if not needed (i.e. if the dataset is loaded from a save and not re-computed)
+    def __init__(self, model_type : str, model_savefile : str, filter : Optional[str] = None):
+        self.model_type = model_type
+        self.model_savefile = model_savefile
+        self.filter = filter
+        self.model = None
+        
+        if torch.cuda.is_available():
+            map_location=torch.device('cuda')
+        else:
+            map_location=torch.device('cpu')
+        self.device = map_location
+
+    def load_model(self):
+        print(f"Model save provided. Loading {self.model_type} model from {self.model_savefile}...")
+        if self.model_type == "causal":
             print("Causal model detected.")
-            val_matrix = np.load(f'{model_savefile}/val_matrix.npy')
-            graph = np.load(f'{model_savefile}/graph.npy')
+            val_matrix = np.load(f'{self.model_savefile}/val_matrix.npy')
+            graph = np.load(f'{self.model_savefile}/graph.npy')
 
-            if filter is not None:
-                for f in filter.split(","):
+            if self.filter is not None:
+                for f in self.filter.split(","):
                     print(f"Filtering results using {f}...")
                     if f == 'low':
                         filtered_values = CausalGraphFormatter(graph, val_matrix).low_filter(LOW_FILTER)
@@ -84,10 +91,6 @@ def load_model(model_type : str, model_savefile : str, filter : Optional[str] = 
                         graph = filtered_values.get_graph()
                     elif f == "neighbor_effect":
                         filtered_values = CausalGraphFormatter(graph, val_matrix).var_filter([], [variables.index(v) for v in variables if v.startswith('close_neighbour_') or v.startswith('distant_neighbour_')])
-                        val_matrix = filtered_values.get_val_matrix()
-                        graph = filtered_values.get_graph()
-                    elif f == "corr":
-                        filtered_values = CausalGraphFormatter(graph, val_matrix).corr_filter()
                         val_matrix = filtered_values.get_val_matrix()
                         graph = filtered_values.get_graph()
                     else:
@@ -98,68 +101,46 @@ def load_model(model_type : str, model_savefile : str, filter : Optional[str] = 
             graph[np.where(graph == "-->")] = "1"
             graph = graph.astype(np.int64)
             graph = torch.from_numpy(graph).float()
-
-            load_model.model = TSLinearCausal(num_variables, TAU_MAX+1, graph_weights=graph*val_matrix)
+            model = TSLinearCausal(num_variables, TAU_MAX+1, graph_weights=graph*val_matrix)
         else:
             print("Parametric model detected.")
-            if torch.cuda.is_available():
-                map_location=torch.device('cuda')
-            else:
-                map_location=torch.device('cpu')
-            load_model.model = MODELS[model_type].load_from_checkpoint(model_savefile, num_variables=num_variables, lookback=TAU_MAX+1, map_location=map_location)
-    
-    return load_model.model
-load_model.model = None
+            model = MODELS[self.model_type].load_from_checkpoint(self.model_savefile, num_variables=num_variables, lookback=TAU_MAX+1, map_location=self.device)
+
+        return model
+
+    def __call__(self, *args, **kwargs) -> Any:
+        if self.model is None:
+            self.model = self.load_model()
+        
+        return self.model(*args, **kwargs)
 
 
-def load_data_files(data_files : List[str], structure_savefile : str, dataset_savefile : str, loader : GeneratorLoader, model_type : str, model_savefile : str, filter : Optional[str] = None) -> SeriesDataset:
-    if os.path.exists(f"data/gen/{dataset_savefile}"):
-        print(f"Loading dataset from data/gen/{dataset_savefile}...")
-        dataset = SeriesDataset.load(f"data/gen/{dataset_savefile}")
-
-    else:
-        model = load_model(model_type, model_savefile, filter)
-
-        if os.path.exists(f"data/gen/{structure_savefile}"):
-            print(f"No dataset found in data/gen. Data structure found and loaded from data/gen/{structure_savefile}. Re-computing the dataset from structure...")
-
-            # Create dataset
-            chronology = Chronology.deserialize(f"data/gen/{structure_savefile}")
-            structure_loader = loader(lookback=TAU_MAX+1, skip_stationary=True, vector_columns=VECTOR_COLUMNS, masked_variables=MASKED_VARIABLES)
-            dataset = SeriesDataset(chronology=chronology, struct_loader=structure_loader, model=model)
-
-            #Save dataset
-            dataset.save(f"data/gen/{dataset_savefile}")
-
-        else:
-            print("No dataset or data structure found in data/gen. Generating dataset...")
-
-            # Create structure
-            chronology = Chronology.create(data_files, fix_errors=True, filter_null_state_trajectories=True)
-
-            # Save structure
-            os.makedirs("data/gen", exist_ok=True)
-            chronology.serialize(f"data/gen/{structure_savefile}")
-
-            # Create dataset
-            structure_loader = loader(lookback=TAU_MAX+1, skip_stationary=True, vector_columns=VECTOR_COLUMNS, masked_variables=MASKED_VARIABLES)
-            dataset = SeriesDataset(chronology=chronology, struct_loader=structure_loader, model=model)
-
-            # Save dataset
-            dataset.save(f"data/gen/{dataset_savefile}")
-
-    return dataset
-
+# Create optional model
+model = LazyModel(args.model_type, args.save, args.filter)
 
 
 
 # Read data
-test_data_files = [f'data/test/{name}' for name in os.listdir('data/test') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)]
-test_discr_dataset = load_data_files(test_data_files, test_tructure_savefile, test_dataset_savefile, loader, args.model_type, args.save, args.filter)
+test_discr_dataset = DataManager.load_data(
+    path=args.data_path,
+    data_type=SeriesDataset,
+    loader_type=loader,
+    dataset_kwargs={"model": model},
+    loader_kwargs={"lookback": TAU_MAX+1, "skip_stationary": True, "vector_columns": VECTOR_COLUMNS, "masked_variables": MASKED_VARIABLES},
+    force_data_computation=args.force_data_computation,
+    saving_allowed=True,
+)
 
 if args.discriminator_save is None:
-    train_data_files = [f'data/train/{name}' for name in os.listdir('data/train') if re.match(r'\d{2}-\d{2}-\d{2}_C\d_\d+.csv', name)]
-    train_discr_dataset = load_data_files(train_data_files, train_structure_savefile, train_dataset_savefile, loader, args.model_type, args.save, args.filter)
+    train_discr_dataset = DataManager.load_data(
+        path=args.train_data_path,
+        data_type=SeriesDataset,
+        loader_type=loader,
+        dataset_kwargs={"model": model},
+        loader_kwargs={"lookback": TAU_MAX+1, "skip_stationary": True, "vector_columns": VECTOR_COLUMNS, "masked_variables": MASKED_VARIABLES},
+        force_data_computation=args.force_data_computation,
+        saving_allowed=True,
+    )
 
 print(f"Graph with {num_variables} variables: {variables}.")
 
