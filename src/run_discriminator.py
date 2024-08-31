@@ -1,15 +1,14 @@
 
 import argparse
-import numpy as np
 import tqdm
-from typing import Optional, Any
+from typing import Optional, Any, List
 
 from data.dataset import SeriesDataset
 from data.structure.loaders import DiscriminatorLoader, DiscriminatorCommunityLoader
 from data.constants import MASKED_VARIABLES, VECTOR_COLUMNS
 from model.behaviour_model import TSLinearCausal, DISCRIMINATORS, BEHAVIOUR_MODELS
-from model.causal_graph_formatter import CausalGraphFormatter
 from script_utils.data_commons import DataManager
+from script_utils.graph_commons import load_graph
 
 import torch
 from torch.utils.data import DataLoader
@@ -54,7 +53,6 @@ if args.model_type not in MODELS.keys():
 
 # Set constants
 TAU_MAX = 5
-LOW_FILTER = 0.075
 variables = VECTOR_COLUMNS
 num_variables = len(variables)
 
@@ -63,10 +61,10 @@ loader = DiscriminatorCommunityLoader if args.community else DiscriminatorLoader
 
 # Create lazy model class
 class LazyModel(): # Lazy loading model to avoid loading it if not needed (i.e. if the dataset is loaded from a save and not re-computed)
-    def __init__(self, model_type : str, model_savefile : str, filter : Optional[str] = None):
+    def __init__(self, model_type : str, model_savefile : str, filter : Optional[List[str]] = None):
         self.model_type = model_type
         self.model_savefile = model_savefile
-        self.filter = filter
+        self.filter = [] if filter is None else filter
         self.model = None
         
         if torch.cuda.is_available():
@@ -79,29 +77,9 @@ class LazyModel(): # Lazy loading model to avoid loading it if not needed (i.e. 
         print(f"Model save provided. Loading {self.model_type} model from {self.model_savefile}...")
         if self.model_type == "causal":
             print("Causal model detected.")
-            val_matrix = np.load(f'{self.model_savefile}/val_matrix.npy')
-            graph = np.load(f'{self.model_savefile}/graph.npy')
-
-            if self.filter is not None:
-                for f in self.filter.split(","):
-                    print(f"Filtering results using {f}...")
-                    if f == 'low':
-                        filtered_values = CausalGraphFormatter(graph, val_matrix).low_filter(LOW_FILTER)
-                        val_matrix = filtered_values.get_val_matrix()
-                        graph = filtered_values.get_graph()
-                    elif f == "neighbor_effect":
-                        filtered_values = CausalGraphFormatter(graph, val_matrix).var_filter([], [variables.index(v) for v in variables if v.startswith('close_neighbour_') or v.startswith('distant_neighbour_')])
-                        val_matrix = filtered_values.get_val_matrix()
-                        graph = filtered_values.get_graph()
-                    else:
-                        print(f"Filter {f} not recognised. Skipping filter...")
-
-            val_matrix = torch.nan_to_num(torch.from_numpy(val_matrix).float())
-            graph[np.where(graph != "-->")] = "0"
-            graph[np.where(graph == "-->")] = "1"
-            graph = graph.astype(np.int64)
-            graph = torch.from_numpy(graph).float()
-            model = TSLinearCausal(num_variables, TAU_MAX+1, graph_weights=graph*val_matrix)
+            graph_weights = load_graph(self.model_savefile, variables, self.filter, "all")
+            model = TSLinearCausal(num_variables, TAU_MAX+1, graph_weights=graph_weights)
+            model = model.to(self.device)
         else:
             print("Parametric model detected.")
             model = MODELS[self.model_type].load_from_checkpoint(self.model_savefile, num_variables=num_variables, lookback=TAU_MAX+1, map_location=self.device)
@@ -116,8 +94,7 @@ class LazyModel(): # Lazy loading model to avoid loading it if not needed (i.e. 
 
 
 # Create optional model
-model = LazyModel(args.model_type, args.save, args.filter)
-
+model = LazyModel(args.model_type, args.save, None if args.filter is None else args.filter.split(","))
 
 
 # Read data
@@ -170,17 +147,4 @@ if args.discriminator_save is None:
 
 
 # Test model against discriminator
-accuracy = []
-with torch.no_grad():
-    for x, y in tqdm.tqdm(test_loader):
-            x = x.to(discriminator.device)
-            y = y.to(discriminator.device).unsqueeze(-1)
-            
-            # Make prediction
-            y_pred = discriminator(x)
-            y_pred = (y_pred > 0.5).int()
-
-            # Calculate accuracy
-            accuracy.extend(((y_pred) == y).float().tolist())
-
-print(f"Discriminator accuracy: {torch.tensor(accuracy).mean()}")
+trainer.test(discriminator, test_loader)

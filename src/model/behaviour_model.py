@@ -314,20 +314,32 @@ class LSTMDiscriminator(pl.LightningModule):
     def training_step(self, batch, batch_idx):
         x, y = batch
         y_pred = self(x)
-        loss = torch.nn.functional.binary_cross_entropy(y_pred, y.unsqueeze(-1).float())
+        loss = torch.nn.functional.binary_cross_entropy(y_pred, y.float())
         self.log('train_loss', loss)
         return loss
     
     def validation_step(self, batch, batch_idx):
         x, y = batch
         y_pred = self(x)
-        loss = torch.nn.functional.binary_cross_entropy(y_pred, y.unsqueeze(-1).float())
+        loss = torch.nn.functional.binary_cross_entropy(y_pred, y.float())
         self.log('val_loss', loss)
+        return loss
+    
+    def test_step(self, batch, batch_idx):
+        x, y = batch
+        y_pred = self(x)
+        loss = torch.nn.functional.binary_cross_entropy(y_pred, y.float())
+        acc = self.accuracy(y_pred, y)
+        self.log('test_loss', loss)
+        self.log('test_accuracy', acc)
         return loss
     
     def predict_step(self, batch, batch_idx):
         x, y = batch
         return self(x)
+    
+    def accuracy(self, y_pred, y):
+        return ((y_pred > 0.5) == y).float().mean()
     
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters(), lr=1e-3)
@@ -360,20 +372,32 @@ class TransformerDiscriminator(pl.LightningModule):
     def training_step(self, batch, batch_idx):
         x, y = batch
         y_pred = self(x)
-        loss = torch.nn.functional.binary_cross_entropy(y_pred, y.unsqueeze(-1).float())
+        loss = torch.nn.functional.binary_cross_entropy(y_pred, y.float())
         self.log('train_loss', loss)
         return loss
     
     def validation_step(self, batch, batch_idx):
         x, y = batch
         y_pred = self(x)
-        loss = torch.nn.functional.binary_cross_entropy(y_pred, y.unsqueeze(-1).float())
+        loss = torch.nn.functional.binary_cross_entropy(y_pred, y.float())
         self.log('val_loss', loss)
+        return loss
+    
+    def test_step(self, batch, batch_idx):
+        x, y = batch
+        y_pred = self(x)
+        loss = torch.nn.functional.binary_cross_entropy(y_pred, y.float())
+        acc = self.accuracy(y_pred, y)
+        self.log('test_loss', loss)
+        self.log('test_accuracy', acc)
         return loss
     
     def predict_step(self, batch, batch_idx):
         x, y = batch
         return self(x)
+    
+    def accuracy(self, y_pred, y):
+        return ((y_pred > 0.5) == y).float().mean()
     
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters(), lr=1e-3)

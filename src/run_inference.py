@@ -1,18 +1,16 @@
 
 import argparse
-import os
 import re
-import numpy as np
 
 from data.dataset import SeriesDataset
 from data.structure.chronology import Chronology
 from data.structure.loaders import BehaviourSeriesLoader, GeneratorLoader, GeneratorCommunityLoader
 from data.constants import VECTOR_COLUMNS, MASKED_VARIABLES
 from model.behaviour_model import TSLinearCausal, BEHAVIOUR_MODELS
-from model.causal_graph_formatter import CausalGraphFormatter
 from evaluate.evaluation import direct_prediction_accuracy, mutual_information
 from evaluate.visualisation import generate_time_occurences, generate_sankey, generate_clusters
 from script_utils.data_commons import DataManager
+from script_utils.graph_commons import load_graph
 
 import torch
 from torch.utils.data import DataLoader
@@ -46,7 +44,6 @@ if save.endswith('/'):
 
 # Set constants
 TAU_MAX = 5
-LOW_FILTER = 0.075
 
 
 # Load chronology and dataset
@@ -77,42 +74,18 @@ random_loader = DataLoader(test_dataset, batch_size=4, shuffle=True)
 
 # Get model
 print(f"Save provided. Loading {args.model_type} model from {save}...")
+if torch.cuda.is_available():
+    map_location=torch.device('cuda')
+else:
+    map_location=torch.device('cpu')
+
 if args.model_type == "causal":
     print("Causal model detected.")
-    val_matrix = np.load(f'{save}/val_matrix.npy')
-    graph = np.load(f'{save}/graph.npy')
-
-    if args.filter is not None:
-        for f in args.filter.split(","):
-            print(f"Filtering results using {f}...")
-            if f == 'low':
-                filtered_values = CausalGraphFormatter(graph, val_matrix).low_filter(LOW_FILTER)
-                val_matrix = filtered_values.get_val_matrix()
-                graph = filtered_values.get_graph()
-            elif f == "neighbor_effect":
-                filtered_values = CausalGraphFormatter(graph, val_matrix).var_filter([], [variables.index(v) for v in variables if v.startswith('close_neighbour_') or v.startswith('distant_neighbour_')])
-                val_matrix = filtered_values.get_val_matrix()
-                graph = filtered_values.get_graph()
-            elif f == "corr":
-                filtered_values = CausalGraphFormatter(graph, val_matrix).corr_filter()
-                val_matrix = filtered_values.get_val_matrix()
-                graph = filtered_values.get_graph()
-            else:
-                print(f"Filter {f} not recognised. Skipping filter...")
-
-    val_matrix = torch.nan_to_num(torch.from_numpy(val_matrix).float())
-    graph[np.where(graph != "-->")] = "0"
-    graph[np.where(graph == "-->")] = "1"
-    graph = graph.astype(np.int64)
-    graph = torch.from_numpy(graph).float()
-
-    model = TSLinearCausal(num_variables, TAU_MAX+1, graph_weights=graph*val_matrix)
+    graph_weights = load_graph(save, variables, [] if args.filter is None else args.filter.split(","), "all")
+    model = TSLinearCausal(num_variables, TAU_MAX+1, graph_weights=graph_weights)
+    model = model.to(map_location)
 else:
     print("Parametric model detected.")
-    if torch.cuda.is_available():
-        map_location=torch.device('cuda')
-    else:
-        map_location=torch.device('cpu')
     model = MODELS[args.model_type].load_from_checkpoint(save, num_variables=num_variables, lookback=TAU_MAX+1, map_location=map_location)
 
     save_split = save.split('/')
