@@ -1,11 +1,11 @@
 
 import argparse
-import tqdm
 from typing import Optional, Any, List
 
 from data.dataset import SeriesDataset
+from data.structure.chronology import Chronology
 from data.structure.loaders import DiscriminatorLoader, DiscriminatorCommunityLoader
-from data.constants import MASKED_VARIABLES, VECTOR_COLUMNS, TAU_MAX
+from data.constants import TAU_MAX
 from model.behaviour_model import TSLinearCausal, DISCRIMINATORS, BEHAVIOUR_MODELS
 from script_utils.data_commons import DataManager
 from script_utils.graph_commons import load_graph
@@ -51,8 +51,16 @@ if args.model_type not in MODELS.keys():
     raise ValueError(f"Model type {args.model_type} not supported. Options: {','.join(MODELS.keys())}.")
 
 
-# Set constants
-variables = VECTOR_COLUMNS
+
+# Set variables. /!\ Chronology will be re-written twice if force_data_computation is enabled. User must also make sure that variables between train and test set are identical.
+chronology = DataManager.load_data(
+    path=args.data_path,
+    data_type=Chronology,
+    force_data_computation=args.force_data_computation,
+    saving_allowed=True,
+)
+variables = chronology.get_labels()
+masked_variables = [var for var in variables if var not in chronology.get_labels('behaviour')]
 num_variables = len(variables)
 
 loader = DiscriminatorCommunityLoader if args.community else DiscriminatorLoader
@@ -103,7 +111,7 @@ test_discr_dataset = DataManager.load_data(
     loader_type=loader,
     dataset_kwargs={"model": model},
     chronology_kwargs={"fix_errors": args.fix_errors_data, "filter_null_state_trajectories": args.filter_null_state_trajectories},
-    loader_kwargs={"lookback": args.tau_max+1, "skip_stationary": args.skip_stationary, "vector_columns": VECTOR_COLUMNS, "masked_variables": MASKED_VARIABLES},
+    loader_kwargs={"lookback": args.tau_max+1, "skip_stationary": args.skip_stationary, "vector_columns": variables, "masked_variables": masked_variables},
     force_data_computation=args.force_data_computation,
     saving_allowed=True,
 )
@@ -115,7 +123,7 @@ if args.discriminator_save is None:
         loader_type=loader,
         dataset_kwargs={"model": model},
         chronology_kwargs={"fix_errors": args.fix_errors_data, "filter_null_state_trajectories": args.filter_null_state_trajectories},
-        loader_kwargs={"lookback": args.tau_max+1, "skip_stationary": args.skip_stationary, "vector_columns": VECTOR_COLUMNS, "masked_variables": MASKED_VARIABLES},
+        loader_kwargs={"lookback": args.tau_max+1, "skip_stationary": args.skip_stationary, "vector_columns": variables, "masked_variables": masked_variables},
         force_data_computation=args.force_data_computation,
         saving_allowed=True,
     )
@@ -128,11 +136,11 @@ test_loader = DataLoader(test_discr_dataset, batch_size=64, shuffle=True)
 
 if args.discriminator_save is not None:
     print(f"Discriminator save provided. Loading results from {args.discriminator_save}...")
-    discriminator = DISCRIMINATORS[args.discriminator_type].load_from_checkpoint(args.discriminator_save, num_variables=num_variables-len(MASKED_VARIABLES), lookback=args.tau_max+1)
+    discriminator = DISCRIMINATORS[args.discriminator_type].load_from_checkpoint(args.discriminator_save, num_variables=num_variables-len(masked_variables), lookback=args.tau_max+1)
 else:
     # Train discriminator
     print("Discriminator save not provided. Building a new discriminator.")
-    discriminator = DISCRIMINATORS[args.discriminator_type](num_variables-len(MASKED_VARIABLES), args.tau_max+1)
+    discriminator = DISCRIMINATORS[args.discriminator_type](num_variables-len(masked_variables), args.tau_max+1)
     discriminator.train()
 
 

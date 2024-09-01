@@ -200,6 +200,24 @@ class Chronology:
 
     def get_snapshot(self, time : int) -> 'Chronology.Snapshot':
         return self.snapshots[time - self.start_time]
+    
+    def get_labels(self, type : str = "all") -> List[str]:
+        if type == "all":
+            zone_labels = sorted(list(self.zone_labels))
+            behaviour_labels = sorted(list(self.behaviour_labels))
+            close_zone_labels = [f"close_neighbour_{zone}" for zone in zone_labels]
+            distant_zone_labels = [f"distant_neighbour_{zone}" for zone in zone_labels]
+            close_behaviour_labels = [f"close_neighbour_{behaviour}" for behaviour in behaviour_labels]
+            distant_behaviour_labels = [f"distant_neighbour_{behaviour}" for behaviour in behaviour_labels]
+            return list(zone_labels) + close_zone_labels + distant_zone_labels + list(behaviour_labels) + close_behaviour_labels + distant_behaviour_labels
+        elif type == "all_names":
+            return sorted(list(self.zone_labels)) + sorted(list(self.behaviour_labels))
+        elif type == "zone":
+            return sorted(list(self.zone_labels))
+        elif type == "behaviour":
+            return sorted(list(self.behaviour_labels))
+        else:
+            raise ValueError(f"Label type {type} not supported. Options: 'all', 'all_names', 'zone', 'behaviour'.")
 
     def deep_copy(self) -> 'Chronology':
         # Copy attributes

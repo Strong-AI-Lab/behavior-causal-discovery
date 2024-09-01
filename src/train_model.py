@@ -1,10 +1,10 @@
 
 import argparse
-import os
 
 from data.dataset import SeriesDataset
+from data.structure.chronology import Chronology
 from data.structure.loaders import BehaviourSeriesLoader
-from data.constants import MASKED_VARIABLES, VECTOR_COLUMNS, TAU_MAX
+from data.constants import TAU_MAX
 from model.behaviour_model import BEHAVIOUR_MODELS
 from script_utils.data_commons import DataManager
 from script_utils.graph_commons import load_graph
@@ -43,10 +43,19 @@ args = parser.parse_args()
 assert args.model_type in MODELS.keys(), f"Model type {args.model_type} not supported. Options: {','.join(MODELS.keys())}."
 assert args.model_type != "causal", f"Model type {args.model_type} does not support training. Use `run_discovery.py` instead."
 
-# Set constants
-variables = VECTOR_COLUMNS
+
+# Set variables. /!\ Chronology will be re-written twice if force_data_computation is enabled.
+chronology = DataManager.load_data(
+    path=args.data_path,
+    data_type=Chronology,
+    force_data_computation=args.force_data_computation,
+    saving_allowed=True,
+)
+variables = chronology.get_labels()
+masked_variables = [var for var in variables if var not in chronology.get_labels('behaviour')]
 num_variables = len(variables)
 
+print(f"Graph with {num_variables} variables: {variables}.")
 
 # Load dataset
 train_dataset = DataManager.load_data(
@@ -54,11 +63,10 @@ train_dataset = DataManager.load_data(
     data_type=SeriesDataset,
     loader_type=BehaviourSeriesLoader,
     chronology_kwargs={"fix_errors": args.fix_errors_data, "filter_null_state_trajectories": args.filter_null_state_trajectories},
-    loader_kwargs={"lookback": args.tau_max+1, "skip_stationary": args.skip_stationary},
+    loader_kwargs={"lookback": args.tau_max+1, "skip_stationary": args.skip_stationary, "vector_columns": variables},
     force_data_computation=args.force_data_computation,
     saving_allowed=True,
 )
-
 
 
 # Build data loader
@@ -67,8 +75,8 @@ train_loader = DataLoader(dataset[0], batch_size=64, shuffle=True)
 val_loader = DataLoader(dataset[1], batch_size=64, shuffle=False)
 
 # Mask context variables for predition
-masked_idxs = [variables.index(var) for var in MASKED_VARIABLES]
-print(f"Masking {len(masked_idxs)} variables: {MASKED_VARIABLES}")
+masked_idxs = [variables.index(var) for var in masked_variables]
+print(f"Masking {len(masked_idxs)} variables: {masked_variables}")
 
 
 # Build model

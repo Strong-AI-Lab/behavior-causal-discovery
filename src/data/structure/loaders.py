@@ -3,7 +3,6 @@ import abc
 from typing import Tuple, List, Optional, Dict, Any, Union
 
 from data.structure.chronology import Chronology
-from data.constants import VECTOR_COLUMNS, MASKED_VARIABLES
 from dynamics.solver import DynamicsSolver
 
 import numpy as np
@@ -51,10 +50,10 @@ class Loader(metaclass=abc.ABCMeta):
 
 
 class BehaviourSimpleLoader(Loader):
-    def __init__(self, skip_stationary : bool = False, vector_columns : List[str] = None):
+    def __init__(self, skip_stationary : bool = False, vector_columns : Optional[List[str]] = None):
         super().__init__(skip_stationary)
         if vector_columns is None:
-            vector_columns = VECTOR_COLUMNS
+            vector_columns = []
         self.vector_columns = vector_columns
 
     def _state_to_vector(self, state : Chronology.State, structure : Chronology) -> torch.Tensor:
@@ -109,7 +108,7 @@ class BehaviourSeriesLoader(SeriesLoader):
     def __init__(self, lookback : int, target_offset_start : int = 1, target_offset_end : int = 1, skip_stationary : bool = False, vector_columns : Optional[List[str]] = None):
         super().__init__(lookback, target_offset_start, target_offset_end, skip_stationary)
         if vector_columns is None:
-            vector_columns = VECTOR_COLUMNS
+            vector_columns = []
         self.vector_columns = vector_columns
 
     def _state_to_vector(self, state : Chronology.State, structure : Chronology) -> torch.Tensor:
@@ -306,7 +305,7 @@ class GeneratorLoader(BehaviourSeriesLoader):
     def __init__(self, lookback : int, target_offset_start : int = 1, target_offset_end : int = 1, skip_stationary : bool = False, vector_columns : List[str] = None, masked_variables : Optional[List[str]] = None):
         super().__init__(lookback, target_offset_start, target_offset_end, skip_stationary, vector_columns)
         if masked_variables is None:
-            masked_variables = MASKED_VARIABLES
+            masked_variables = []
         self.masked_variables = masked_variables
 
         masked_ids = [self.vector_columns.index(var) for var in self.masked_variables]

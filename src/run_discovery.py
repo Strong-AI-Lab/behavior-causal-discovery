@@ -6,8 +6,9 @@ import re
 import numpy as np
 import matplotlib.pyplot as plt
 
+from data.structure.chronology import Chronology
 from data.structure.loaders import BehaviourSimpleLoader
-from data.constants import VECTOR_COLUMNS, TAU_MAX, ALPHA_LEVEL, PC_ALPHA, LOW_FILTER_DEFAULT, HIGH_FILTER_DEFAULT, CAUSAL_GRAPH_SAVE_FOLDER_DEFAULT
+from data.constants import TAU_MAX, ALPHA_LEVEL, PC_ALPHA, LOW_FILTER_DEFAULT, HIGH_FILTER_DEFAULT, CAUSAL_GRAPH_SAVE_FOLDER_DEFAULT
 from model.causal_graph_formatter import CausalGraphFormatter
 from script_utils.data_commons import DataManager
 
@@ -51,24 +52,29 @@ filter = args.filter
 skips = args.skip.split(",") if args.skip is not None else []
 
 
+# Set variables. /!\ Chronology will be re-written twice if force_data_computation is enabled.
+chronology = DataManager.load_data(
+    path=args.data_path,
+    data_type=Chronology,
+    force_data_computation=args.force_data_computation,
+    saving_allowed=True,
+)
+variables = chronology.get_labels()
+num_variables = len(variables)
+
+print(f"Graph with {num_variables} variables: {variables}.")
+
+
 # Create sequences
 sequences = DataManager.load_data(
     path=args.data_path,
     data_type=dict,
     loader_type=BehaviourSimpleLoader,
     chronology_kwargs={"fix_errors": args.fix_errors_data, "filter_null_state_trajectories": args.filter_null_state_trajectories},
-    loader_kwargs={"skip_stationary": args.skip_stationary},
+    loader_kwargs={"skip_stationary": args.skip_stationary, "vector_columns": variables},
     force_data_computation=args.force_data_computation,
     saving_allowed=True,
 )
-
-
-
-# Set constants
-variables = VECTOR_COLUMNS
-num_variables = len(variables)
-
-print(f"Graph with {num_variables} variables: {variables}.")
 
 
 # Load model and set save folder
@@ -140,7 +146,6 @@ tp.write_csv(
     val_matrix=results['val_matrix'],
     graph=results['graph'],
     var_names=variables,
-    # save_name=f'{save_folder}/links.csv',
     save_name=os.path.join(save_folder, 'links.csv'),
     digits=5,
 )

@@ -6,7 +6,7 @@ import os
 from data.dataset import SeriesDataset
 from data.structure.chronology import Chronology
 from data.structure.loaders import BehaviourSeriesLoader, GeneratorLoader, GeneratorCommunityLoader
-from data.constants import VECTOR_COLUMNS, MASKED_VARIABLES, TAU_MAX, RESULTS_SAVE_FOLDER_DEFAULT
+from data.constants import TAU_MAX, RESULTS_SAVE_FOLDER_DEFAULT
 from model.behaviour_model import TSLinearCausal, BEHAVIOUR_MODELS
 from evaluate.evaluation import direct_prediction_accuracy, mutual_information
 from evaluate.visualisation import generate_time_occurences, generate_sankey, generate_clusters
@@ -44,28 +44,30 @@ args = parser.parse_args()
 model_save = os.path.normpath(args.model_save)
 
 
-# Load chronology and dataset
+# Set variables. /!\ Chronology will be re-written twice if force_data_computation is enabled.
+chronology = DataManager.load_data(
+    path=args.data_path,
+    data_type=Chronology,
+    force_data_computation=args.force_data_computation,
+    saving_allowed=True,
+)
+variables = chronology.get_labels()
+masked_variables = [var for var in variables if var not in chronology.get_labels('behaviour')]
+num_variables = len(variables)
+
+print(f"Graph with {num_variables} variables: {variables}.")
+
+
+# Load dataset
 test_dataset = DataManager.load_data(
     path=args.data_path,
     data_type=SeriesDataset,
     loader_type=BehaviourSeriesLoader,
     chronology_kwargs={"fix_errors": args.fix_errors_data, "filter_null_state_trajectories": args.filter_null_state_trajectories},
-    loader_kwargs={"lookback": args.tau_max+1, "skip_stationary": args.skip_stationary},
+    loader_kwargs={"lookback": args.tau_max+1, "skip_stationary": args.skip_stationary, "vector_columns": variables},
     force_data_computation=args.force_data_computation,
     saving_allowed=True,
 )
-chronology = DataManager.load_data(
-    path=args.data_path,
-    data_type=Chronology,
-    force_data_computation=False,
-    saving_allowed=False,
-)
-
-
-
-variables = VECTOR_COLUMNS
-num_variables = len(variables)
-print(f"Graph with {num_variables} variables: {variables}.")
 
 random_loader = DataLoader(test_dataset, batch_size=4, shuffle=True)
 
@@ -95,10 +97,10 @@ os.makedirs(save_folder, exist_ok=True)
 
 # Mask context variables for predition
 MIN_LENGTH = 30
-masked_idxs = [variables.index(var) for var in MASKED_VARIABLES]
+masked_idxs = [variables.index(var) for var in masked_variables]
 close_neighbor_idxs = [variables.index(var) for var in variables if var.startswith('close_neighbour_') and not var.endswith('_zone')]
 distant_neighbor_idxs = [variables.index(var) for var in variables if var.startswith('distant_neighbour_') and not var.endswith('_zone')]
-print(f"Masking {len(masked_idxs)} variables: {MASKED_VARIABLES}")
+print(f"Masking {len(masked_idxs)} variables: {masked_variables}")
 
 
 
@@ -118,7 +120,7 @@ with torch.no_grad():
     print(f"Results will be saved in {save_folder}.") 
 
     # Generate series
-    generation_loader = GeneratorLoader(args.tau_max+1, skip_stationary=True, vector_columns=VECTOR_COLUMNS, masked_variables=MASKED_VARIABLES)
+    generation_loader = GeneratorLoader(args.tau_max+1, skip_stationary=True, vector_columns=variables, masked_variables=masked_variables)
     series = generation_loader.load(chronology, model, build_series=True)
 
     # Visualise time occurences for series
@@ -134,7 +136,7 @@ with torch.no_grad():
 
 
     # Generate community series
-    community_generation_loader = GeneratorCommunityLoader(args.tau_max+1, skip_stationary=True, vector_columns=VECTOR_COLUMNS, masked_variables=MASKED_VARIABLES)
+    community_generation_loader = GeneratorCommunityLoader(args.tau_max+1, skip_stationary=True, vector_columns=variables, masked_variables=masked_variables)
     community_series = community_generation_loader.load(chronology, model, build_series=True)
 
     # Visualise time occurences for community series
