@@ -42,7 +42,7 @@ class DataManager():
             },
             "pickle" : {
                 "class" : dict,
-                "loading_func": pickle.load,
+                "loading_func": lambda path : pickle.load(open(path, 'rb')),
                 "extension" : "pickle",
             }
         }
@@ -102,7 +102,7 @@ class DataManager():
 
         # Save dataset if allowed
         if self.saving_allowed:
-            savepath = self.get_savepath(path, "pickle")
+            savepath = self.get_savepath(path, "pickle", loader_type.__name__)
             with open(savepath, 'wb') as f:
                 pickle.dump(dataset, f)
             print(f"Dataset saved to {savepath}")
@@ -147,7 +147,12 @@ class DataManager():
                 chronology = Chronology.deserialize(savepath_chr)
 
                 # Create dataset
-                dataset = self.create_dataset(path, chronology, loader_type, dataset_kwargs, loader_kwargs)
+                if savetype_str == "series_dataset":
+                    dataset = self.create_dataset(path, chronology, loader_type, dataset_kwargs, loader_kwargs)
+                elif savetype_str == "pickle":
+                    dataset = self.create_pickle(path, chronology, loader_type, loader_kwargs, loading_kwargs)
+                else:
+                    raise ValueError(f"Data type {savetype_str} not supported.")
                 return dataset
             
         # Else, create the data: chronology then dataset if required

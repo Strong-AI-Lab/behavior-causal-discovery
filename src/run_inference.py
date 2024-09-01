@@ -115,6 +115,8 @@ with torch.no_grad():
     print(f"Mutual Information: {cmi}")
 
 
+    print(f"Results will be saved in {save_folder}.") 
+
     # Generate series
     generation_loader = GeneratorLoader(args.tau_max+1, skip_stationary=True, vector_columns=VECTOR_COLUMNS, masked_variables=MASKED_VARIABLES)
     series = generation_loader.load(chronology, model, build_series=True)
@@ -143,7 +145,5 @@ with torch.no_grad():
 
     # Visualise series clustering
     generate_clusters(community_series, save_folder, nb_variables, prefix="community")
-
-    print(f"Figures saved in {save_folder}.")
 
 

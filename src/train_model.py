@@ -1,6 +1,6 @@
 
 import argparse
-import numpy as np
+import os
 
 from data.dataset import SeriesDataset
 from data.structure.loaders import BehaviourSeriesLoader
@@ -76,7 +76,7 @@ if args.model_save is None:
         model = MODELS[args.model_type](num_variables=num_variables, lookback=args.tau_max+1, masked_idxs_for_training=masked_idxs)
 else:
     print(f"Save provided. Loading {args.model_type} model from {args.model_save}...")
-    if args.model_type.startswith("causal_"):
+    if args.model_type.startswith("causal_") and not args.model_save.endswith(".ckpt"):
         print("Causal model detected.")
         graph_weights = load_graph(args.model_save, variables, [] if args.filter is None else args.filter.split(","), args.causal_graph)
         model = MODELS[args.model_type](num_variables=num_variables, lookback=args.tau_max+1, graph_weights=graph_weights, masked_idxs_for_training=masked_idxs)

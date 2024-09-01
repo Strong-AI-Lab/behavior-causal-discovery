@@ -94,6 +94,7 @@ else:
     save_folder = os.path.join(save_folder, f'save_{time.strftime("%Y%m%d-%H%M%S")}')
     results = None
 
+print(f"Results will be saved in {save_folder}.")
 os.makedirs(save_folder)
 data = pp.DataFrame(sequences, analysis_mode = 'multiple', var_names=variables)
 pcmci = PCMCI(dataframe=data, cond_ind_test=ParCorr())

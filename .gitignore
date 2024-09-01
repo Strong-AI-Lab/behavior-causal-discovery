@@ -6,6 +6,9 @@ nohup.out
 lightning_logs*/
 wandb/
 .pytest_cache/
-meerkat_modelling
+meerkat_modelling/
 data/gen*/
 data/anim*/
+causal_graphs/
+visualisations/
+visualizations/
