@@ -6,12 +6,13 @@ import os
 from data.dataset import SeriesDataset
 from data.structure.chronology import Chronology
 from data.structure.loaders import BehaviourSeriesLoader, GeneratorLoader, GeneratorCommunityLoader
-from data.constants import TAU_MAX, RESULTS_SAVE_FOLDER_DEFAULT
+from data.constants import RESULTS_SAVE_FOLDER_DEFAULT
 from model.behaviour_model import TSLinearCausal, BEHAVIOUR_MODELS
 from evaluate.evaluation import direct_prediction_accuracy, mutual_information
 from evaluate.visualisation import generate_time_occurences, generate_sankey, generate_clusters
 from script_utils.data_commons import DataManager
 from script_utils.graph_commons import load_graph
+from script_utils.parser_commons import add_loader_arguments_to_parser, add_lookback_arguments_to_parser, add_causal_arguments_to_parser
 
 import torch
 from torch.utils.data import DataLoader
@@ -29,18 +30,10 @@ parser.add_argument('model_save', type=str, help='Load the causal graph from a s
 parser.add_argument('data_path', type=str, help='Path to the data folder.')
 parser.add_argument('--save_folder', type=str, default=RESULTS_SAVE_FOLDER_DEFAULT, help='Folder to save the results.')
 parser.add_argument('--model_type', type=str, default="causal", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
-parser.add_argument('--filter', type=str, default=None, help='If provided, filters the causal graph to only include the most significant links. Options: ' + 
-                                                                '"low"  : remove links with low values; ' +
-                                                                '"neighbor_effect" : remove links to neighbors, ' + 
-                                                                '"corr" : remove correlations without causation. ' +
-                                                                'Multiple filters can be applied by separating them with a comma.')
-parser.add_argument('--force_data_computation', action="store_true", help='If specified, forces the computation of the force data from the raw data.')
-parser.add_argument('--tau_max', type=int, default=TAU_MAX, help='Maximum lag to consider.')
-parser.add_argument('--fix_errors_data', action="store_true", help='If specified, fixes simple errors and fills missing values in the data using estimation heuristics.')
-parser.add_argument('--filter_null_state_trajectories', action="store_true", help='If specified, removes trajectories with null states from data.')
-parser.add_argument('--do_not_skip_stationary', action="store_false", dest="skip_stationary", help='If specified, does not skip stationary trajectories when loading data.')
+parser = add_causal_arguments_to_parser(parser)
+parser = add_lookback_arguments_to_parser(parser)
+parser = add_loader_arguments_to_parser(parser)
 args = parser.parse_args()
-
 model_save = os.path.normpath(args.model_save)
 
 

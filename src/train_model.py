@@ -4,10 +4,10 @@ import argparse
 from data.dataset import SeriesDataset
 from data.structure.chronology import Chronology
 from data.structure.loaders import BehaviourSeriesLoader
-from data.constants import TAU_MAX
 from model.behaviour_model import BEHAVIOUR_MODELS
 from script_utils.data_commons import DataManager
 from script_utils.graph_commons import load_graph
+from script_utils.parser_commons import add_loader_arguments_to_parser, add_lookback_arguments_to_parser, add_causal_arguments_to_parser
 
 import torch
 from torch.utils.data import DataLoader
@@ -27,17 +27,10 @@ parser.add_argument('data_path', type=str, help='Path to the data folder.')
 parser.add_argument('--model_type',type=str, default="lstm", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
 parser.add_argument('--model_save', type=str, default=None, help='If provided, loads the model from a save. The save can be a `model.ckpt` file. If the model_type if `causal_*`, a save folder from a causal_discovery run can also be used.')
 parser.add_argument('--wandb_project', type=str, default=None, help='If specified, logs the run to wandb under the specified project.')
-parser.add_argument('--force_data_computation', action="store_true", help='If specified, forces the computation of the force data from the raw data.')
 parser.add_argument('--causal_graph', type=str, default="all", help='Only used when a save folder from a causal discovery run is loaded. Controls if the graph contains the edges the coefficients. Options: "all", "coefficients", "edges".')
-parser.add_argument('--filter', type=str, default=None, help='If provided, filters the causal graph to only include the most significant links. Options: ' + 
-                                                                '"low" : remove links with low values; ' +
-                                                                '"neighbor_effect" : remove links to neighbors, ' + 
-                                                                '"corr" : remove correlations without causation. ' +
-                                                                'Multiple filters can be applied by separating them with a comma.')
-parser.add_argument('--tau_max', type=int, default=TAU_MAX, help='Maximum lag to consider.')
-parser.add_argument('--fix_errors_data', action="store_true", help='If specified, fixes simple errors and fills missing values in the data using estimation heuristics.')
-parser.add_argument('--filter_null_state_trajectories', action="store_true", help='If specified, removes trajectories with null states from data.')
-parser.add_argument('--do_not_skip_stationary', action="store_false", dest="skip_stationary", help='If specified, does not skip stationary trajectories when loading data.')
+parser = add_causal_arguments_to_parser(parser)
+parser = add_lookback_arguments_to_parser(parser)
+parser = add_loader_arguments_to_parser(parser)
 args = parser.parse_args()
 
 assert args.model_type in MODELS.keys(), f"Model type {args.model_type} not supported. Options: {','.join(MODELS.keys())}."

@@ -8,8 +8,8 @@ from data.structure.chronology import Chronology
 from model.behaviour_model import BEHAVIOUR_MODELS
 from model.dynamics_model import DYNAMIC_MODELS
 from model.graph_dynamics_model import GRAPH_DYNAMIC_MODELS
-from data.constants import TAU_MAX, DATA_STRUCTURES_SAVE_FOLDER_DEFAULT
-
+from data.constants import DATA_STRUCTURES_SAVE_FOLDER_DEFAULT
+from script_utils.parser_commons import add_lookback_arguments_to_parser
 
 MODELS = {**DYNAMIC_MODELS, **GRAPH_DYNAMIC_MODELS, **BEHAVIOUR_MODELS}
 
@@ -22,8 +22,8 @@ parser.add_argument('structure', type=str, help='Load the structure from a save 
 parser.add_argument('--mode', type=str, default="dynamic", help=f'Mode of the generator. Options: {",".join(GENERATOR_MODE_LOADER.keys())}.')
 parser.add_argument('--model_type',type=str, default="dynamical_lstm", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
 parser.add_argument('--nb_steps', type=int, default=1, help='Number of steps to generate.')
-parser.add_argument('--tau_max', type=int, default=TAU_MAX, help='Maximum lag to consider.')
 parser.add_argument('--save_folder', type=str, default=DATA_STRUCTURES_SAVE_FOLDER_DEFAULT, help='Folder to save the results.')
+parser = add_lookback_arguments_to_parser(parser)
 args = parser.parse_args()
 
 

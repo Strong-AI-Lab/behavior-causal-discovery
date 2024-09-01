@@ -5,10 +5,10 @@ from typing import Optional, Any, List
 from data.dataset import SeriesDataset
 from data.structure.chronology import Chronology
 from data.structure.loaders import DiscriminatorLoader, DiscriminatorCommunityLoader
-from data.constants import TAU_MAX
 from model.behaviour_model import TSLinearCausal, DISCRIMINATORS, BEHAVIOUR_MODELS
 from script_utils.data_commons import DataManager
 from script_utils.graph_commons import load_graph
+from script_utils.parser_commons import add_loader_arguments_to_parser, add_lookback_arguments_to_parser, add_causal_arguments_to_parser
 
 import torch
 from torch.utils.data import DataLoader
@@ -29,16 +29,9 @@ parser.add_argument('--train_data_path', type=str, help='Path to the training da
 parser.add_argument('--discriminator_type', type=str, default="lstm", help=f'Type of discriminator to use. Options: {",".join(DISCRIMINATORS.keys())}.')
 parser.add_argument('--model_type', type=str, default="causal", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
 parser.add_argument('--community', action='store_true', help='If provided, the discriminator is trained and evaluated on community-generated data.')
-parser.add_argument('--filter', type=str, default=None, help='If provided and the model is non-parametric, filters the causal graph to only include the most significant links. Options: ' + 
-                                                                '"low"  : remove links with low values; ' +
-                                                                '"neighbor_effect" : remove links to neighbors, ' + 
-                                                                '"corr" : remove correlations without causation. ' +
-                                                                'Multiple filters can be applied by separating them with a comma.')
-parser.add_argument('--force_data_computation', action="store_true", help='If specified, forces the computation of the force data from the raw data.')
-parser.add_argument('--tau_max', type=int, default=TAU_MAX, help='Maximum lag to consider.')
-parser.add_argument('--fix_errors_data', action="store_true", help='If specified, fixes simple errors and fills missing values in the data using estimation heuristics.')
-parser.add_argument('--filter_null_state_trajectories', action="store_true", help='If specified, removes trajectories with null states from data.')
-parser.add_argument('--do_not_skip_stationary', action="store_false", dest="skip_stationary", help='If specified, does not skip stationary trajectories when loading data.')
+parser = add_causal_arguments_to_parser(parser)
+parser = add_lookback_arguments_to_parser(parser)
+parser = add_loader_arguments_to_parser(parser)
 args = parser.parse_args()
 
 if args.discriminator_save is None and args.train_data_path is None:

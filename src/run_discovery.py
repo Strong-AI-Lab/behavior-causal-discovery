@@ -11,6 +11,7 @@ from data.structure.loaders import BehaviourSimpleLoader
 from data.constants import TAU_MAX, ALPHA_LEVEL, PC_ALPHA, LOW_FILTER_DEFAULT, HIGH_FILTER_DEFAULT, CAUSAL_GRAPH_SAVE_FOLDER_DEFAULT
 from model.causal_graph_formatter import CausalGraphFormatter
 from script_utils.data_commons import DataManager
+from script_utils.parser_commons import add_loader_arguments_to_parser, add_lookback_arguments_to_parser
 
 from tigramite.pcmci import PCMCI
 from tigramite.independence_tests.parcorr import ParCorr
@@ -39,11 +40,8 @@ parser.add_argument('--skip', type=str, default=None, help='If provided, skips t
                                                                 '"result_graph" : skip result graph plot; ' +
                                                                 '"result_time_series_graph" : skip result time series graph plot. ' +
                                                                 'Multiple plots can be skipped by separating them with a comma.')
-parser.add_argument('--force_data_computation', action="store_true", help='If specified, forces the computation of the force data from the raw data.')
-parser.add_argument('--tau_max', type=int, default=TAU_MAX, help='Maximum lag to consider.')
-parser.add_argument('--fix_errors_data', action="store_true", help='If specified, fixes simple errors and fills missing values in the data using estimation heuristics.')
-parser.add_argument('--filter_null_state_trajectories', action="store_true", help='If specified, removes trajectories with null states from data.')
-parser.add_argument('--do_not_skip_stationary', action="store_false", dest="skip_stationary", help='If specified, does not skip stationary trajectories when loading data.')
+parser = add_lookback_arguments_to_parser(parser)
+parser = add_loader_arguments_to_parser(parser)
 args = parser.parse_args()
 
 model_save = args.model_save
