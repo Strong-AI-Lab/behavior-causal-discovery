@@ -1,20 +1,20 @@
 
 import numpy as np
 import torch
+import os
 
 from model.causal_graph_formatter import CausalGraphFormatter
-
-LOW_FILTER = 0.075
+from data.constants import LOW_FILTER_DEFAULT
 
 
 def load_graph(savefile : str, variables : list, filter : list, edge_type : str) -> torch.Tensor:
-    val_matrix = np.load(f'{savefile}/val_matrix.npy')
-    graph = np.load(f'{savefile}/graph.npy')
+    val_matrix = np.load(os.path.join(savefile, 'val_matrix.npy'))
+    graph = np.load(os.path.join(savefile, 'graph.npy'))
 
     for f in filter:
         print(f"Filtering results using {f}...")
         if f == 'low':
-            filtered_values = CausalGraphFormatter(graph, val_matrix).low_filter(LOW_FILTER)
+            filtered_values = CausalGraphFormatter(graph, val_matrix).low_filter(LOW_FILTER_DEFAULT)
             val_matrix = filtered_values.get_val_matrix()
             graph = filtered_values.get_graph()
         elif f == "neighbor_effect":

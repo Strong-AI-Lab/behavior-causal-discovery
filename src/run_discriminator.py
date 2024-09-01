@@ -5,7 +5,7 @@ from typing import Optional, Any, List
 
 from data.dataset import SeriesDataset
 from data.structure.loaders import DiscriminatorLoader, DiscriminatorCommunityLoader
-from data.constants import MASKED_VARIABLES, VECTOR_COLUMNS
+from data.constants import MASKED_VARIABLES, VECTOR_COLUMNS, TAU_MAX
 from model.behaviour_model import TSLinearCausal, DISCRIMINATORS, BEHAVIOUR_MODELS
 from script_utils.data_commons import DataManager
 from script_utils.graph_commons import load_graph
@@ -22,7 +22,7 @@ MODELS = {
 # Parse arguments
 print("Parsing arguments..")
 parser = argparse.ArgumentParser()
-parser.add_argument('save', type=str, help='Load the parametric model or the causal graph from a save folder.')
+parser.add_argument('model_save', type=str, help='Load the parametric model or the causal graph from a save folder.')
 parser.add_argument('data_path', type=str, help='Path to the data folder.')
 parser.add_argument('--discriminator_save', type=str, default=None, help='If provided, loads the discriminator from a save folder instead of running the algorithm again.')
 parser.add_argument('--train_data_path', type=str, help='Path to the training data folder. Required if a discriminator save is not provided to train the discriminator.')
@@ -35,13 +35,13 @@ parser.add_argument('--filter', type=str, default=None, help='If provided and th
                                                                 '"corr" : remove correlations without causation. ' +
                                                                 'Multiple filters can be applied by separating them with a comma.')
 parser.add_argument('--force_data_computation', action="store_true", help='If specified, forces the computation of the force data from the raw data.')
+parser.add_argument('--tau_max', type=int, default=TAU_MAX, help='Maximum lag to consider.')
+parser.add_argument('--fix_errors_data', action="store_true", help='If specified, fixes simple errors and fills missing values in the data using estimation heuristics.')
+parser.add_argument('--filter_null_state_trajectories', action="store_true", help='If specified, removes trajectories with null states from data.')
+parser.add_argument('--do_not_skip_stationary', action="store_false", dest="skip_stationary", help='If specified, does not skip stationary trajectories when loading data.')
 args = parser.parse_args()
 
-print(f"Arguments: save={args.save}")
-if args.discriminator_save is not None:
-    discriminator_save = args.discriminator_save
-    print(f"Arguments: discriminator_save={discriminator_save}")
-elif args.train_data_path is None:
+if args.discriminator_save is None and args.train_data_path is None:
     raise ValueError("If a discriminator save is not provided, a training data path must be provided.")
 
 if args.discriminator_type not in DISCRIMINATORS.keys():
@@ -52,7 +52,6 @@ if args.model_type not in MODELS.keys():
 
 
 # Set constants
-TAU_MAX = 5
 variables = VECTOR_COLUMNS
 num_variables = len(variables)
 
@@ -78,11 +77,11 @@ class LazyModel(): # Lazy loading model to avoid loading it if not needed (i.e. 
         if self.model_type == "causal":
             print("Causal model detected.")
             graph_weights = load_graph(self.model_savefile, variables, self.filter, "all")
-            model = TSLinearCausal(num_variables, TAU_MAX+1, graph_weights=graph_weights)
+            model = TSLinearCausal(num_variables, args.tau_max+1, graph_weights=graph_weights)
             model = model.to(self.device)
         else:
             print("Parametric model detected.")
-            model = MODELS[self.model_type].load_from_checkpoint(self.model_savefile, num_variables=num_variables, lookback=TAU_MAX+1, map_location=self.device)
+            model = MODELS[self.model_type].load_from_checkpoint(self.model_savefile, num_variables=num_variables, lookback=args.tau_max+1, map_location=self.device)
 
         return model
 
@@ -94,7 +93,7 @@ class LazyModel(): # Lazy loading model to avoid loading it if not needed (i.e. 
 
 
 # Create optional model
-model = LazyModel(args.model_type, args.save, None if args.filter is None else args.filter.split(","))
+model = LazyModel(args.model_type, args.model_save, None if args.filter is None else args.filter.split(","))
 
 
 # Read data
@@ -103,7 +102,8 @@ test_discr_dataset = DataManager.load_data(
     data_type=SeriesDataset,
     loader_type=loader,
     dataset_kwargs={"model": model},
-    loader_kwargs={"lookback": TAU_MAX+1, "skip_stationary": True, "vector_columns": VECTOR_COLUMNS, "masked_variables": MASKED_VARIABLES},
+    chronology_kwargs={"fix_errors": args.fix_errors_data, "filter_null_state_trajectories": args.filter_null_state_trajectories},
+    loader_kwargs={"lookback": args.tau_max+1, "skip_stationary": args.skip_stationary, "vector_columns": VECTOR_COLUMNS, "masked_variables": MASKED_VARIABLES},
     force_data_computation=args.force_data_computation,
     saving_allowed=True,
 )
@@ -114,7 +114,8 @@ if args.discriminator_save is None:
         data_type=SeriesDataset,
         loader_type=loader,
         dataset_kwargs={"model": model},
-        loader_kwargs={"lookback": TAU_MAX+1, "skip_stationary": True, "vector_columns": VECTOR_COLUMNS, "masked_variables": MASKED_VARIABLES},
+        chronology_kwargs={"fix_errors": args.fix_errors_data, "filter_null_state_trajectories": args.filter_null_state_trajectories},
+        loader_kwargs={"lookback": args.tau_max+1, "skip_stationary": args.skip_stationary, "vector_columns": VECTOR_COLUMNS, "masked_variables": MASKED_VARIABLES},
         force_data_computation=args.force_data_computation,
         saving_allowed=True,
     )
@@ -126,12 +127,12 @@ print(f"Graph with {num_variables} variables: {variables}.")
 test_loader = DataLoader(test_discr_dataset, batch_size=64, shuffle=True)
 
 if args.discriminator_save is not None:
-    print(f"Discriminator save provided. Loading results from {discriminator_save}...")
-    discriminator = DISCRIMINATORS[args.discriminator_type].load_from_checkpoint(args.save, num_variables=num_variables-len(MASKED_VARIABLES), lookback=TAU_MAX+1)
+    print(f"Discriminator save provided. Loading results from {args.discriminator_save}...")
+    discriminator = DISCRIMINATORS[args.discriminator_type].load_from_checkpoint(args.discriminator_save, num_variables=num_variables-len(MASKED_VARIABLES), lookback=args.tau_max+1)
 else:
     # Train discriminator
     print("Discriminator save not provided. Building a new discriminator.")
-    discriminator = DISCRIMINATORS[args.discriminator_type](num_variables-len(MASKED_VARIABLES), TAU_MAX+1)
+    discriminator = DISCRIMINATORS[args.discriminator_type](num_variables-len(MASKED_VARIABLES), args.tau_max+1)
     discriminator.train()
 
 

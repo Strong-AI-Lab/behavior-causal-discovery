@@ -7,11 +7,10 @@ import pickle
 from data.structure.chronology import Chronology
 from data.structure.loaders import Loader
 from data.dataset import SeriesDataset
+from data.constants import DATA_STRUCTURES_SAVE_FOLDER_DEFAULT
 
 
 class DataManager():
-
-    DEFAULT_SAVE_FOLDER = os.path.join("data","gen")
 
     @staticmethod
     def folder_to_files(folder : str) -> List[str]:
@@ -21,7 +20,7 @@ class DataManager():
             return [folder]
         
 
-    def __init__(self, save_folder : str = DEFAULT_SAVE_FOLDER, saving_allowed : bool = True, force_data_computation : bool = False, path_components_in_save_name : int = 2):
+    def __init__(self, save_folder : str = DATA_STRUCTURES_SAVE_FOLDER_DEFAULT, saving_allowed : bool = True, force_data_computation : bool = False, path_components_in_save_name : int = 2):
         self.save_folder = save_folder
         if not os.path.exists(save_folder):
             os.makedirs(save_folder, exist_ok=True)
@@ -178,7 +177,7 @@ class DataManager():
                 dataset_kwargs : Optional[dict] = None,
                 loader_kwargs : Optional[dict] = None,
                 loading_kwargs : Optional[dict] = None,
-                save_folder : str = DEFAULT_SAVE_FOLDER,
+                save_folder : str = DATA_STRUCTURES_SAVE_FOLDER_DEFAULT,
                 saving_allowed : bool = True,
                 force_data_computation : bool = False,
                 path_components_in_save_name : int = 2,

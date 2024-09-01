@@ -60,8 +60,7 @@ def generate_time_occurences(series, predicted_variable_names, save, nb_variable
 
         if prefix is not None:
             save_file = f"{prefix}_{save_file}"
-        os.makedirs(f"results/{save.split('/')[-1]}", exist_ok=True)
-        plt.savefig(f"results/{save.split('/')[-1]}/{save_file}.png", bbox_inches='tight')
+        plt.savefig(os.path.join(save, f"{save_file}.png"), bbox_inches='tight')
 
 
 
@@ -112,8 +111,7 @@ def generate_sankey(series, predicted_variable_names, save, nb_variables, min_le
 
         if prefix is not None:
             save_file = f"{prefix}_{save_file}"
-        os.makedirs(f"results/{save.split('/')[-1]}", exist_ok=True)
-        fig.write_image(f"results/{save.split('/')[-1]}/{save_file}_full.png")
+        fig.write_image(os.path.join(save, f"{save_file}_full.png"))
             
         # Flattened diagram
         fig_flat = go.Figure(data=[go.Sankey(
@@ -131,7 +129,7 @@ def generate_sankey(series, predicted_variable_names, save, nb_variables, min_le
             color = link_colors[:nb_variables*nb_variables]
         ))]) 
         fig_flat.update_layout(title_text=save_file, font_size=38, width=900, height=1800)
-        fig_flat.write_image(f"results/{save.split('/')[-1]}/{save_file}_flat.png")
+        fig_flat.write_image(os.path.join(save, f"{save_file}_flat.png"))
 
 
 
@@ -166,7 +164,6 @@ def generate_clusters(series, save, nb_variables, cluster_lists=None, prefix=Non
 
         if prefix is not None:
             file_name = f"{prefix}_{file_name}"
-        os.makedirs(f"results/{save.split('/')[-1]}", exist_ok=True)
-        plt.savefig(f"results/{save.split('/')[-1]}/{file_name}.png")
+        plt.savefig(os.path.join(save, f"{file_name}.png"))
 
     

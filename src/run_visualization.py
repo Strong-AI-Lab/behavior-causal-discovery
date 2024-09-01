@@ -11,16 +11,14 @@ import matplotlib.cm as colormaps
 import matplotlib.patches as patches
 
 from data.structure.chronology import Chronology
-
-
-DEFAULT_SAVE_FOLDER = "data/anim"
+from data.constants import VISUALISATION_SAVE_FOLDER_DEFAULT
 
 
 # Parse arguments
 print("Parsing arguments..")
 parser = argparse.ArgumentParser()
 parser.add_argument('structure', type=str, help='Load the model from a save folder.')
-parser.add_argument('--save_folder', type=str, default=DEFAULT_SAVE_FOLDER, help=f'If specified, saves the animation to the specified folder. If not specified, the animation is saved to {DEFAULT_SAVE_FOLDER}.')
+parser.add_argument('--save_folder', type=str, default=VISUALISATION_SAVE_FOLDER_DEFAULT, help=f'If specified, saves the animation to the specified folder. If not specified, the animation is saved to {VISUALISATION_SAVE_FOLDER_DEFAULT}.')
 parser.add_argument('--save_name', type=str, default=None, help='If specified, saves the animation to the specified file. If not specified, the animation is saved to a file with the current time.')
 parser.add_argument('--max_t', type=int, default=None, help='If specified, only runs the animation for the specified number of timesteps.')
 parser.add_argument('--show_neighbours', action='store_true', help='If specified, shows the neighbours of each agent.')
