@@ -143,6 +143,7 @@ class ChronologyGenerator:
         for idx, state in last_snapshot.states.items():
             new_states[idx] = State(individual_id=idx, 
                                     zone=state.zone, # /!\ cannot be modified for now
+                                    type=state.type, # /!\ cannot be modified (individuals cannot change type)
                                     behaviour=behaviours[idx],
                                     coordinates=coordinates[idx], 
                                     close_neighbours=close_adjacency_list[idx], 

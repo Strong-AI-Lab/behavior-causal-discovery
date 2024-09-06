@@ -41,6 +41,7 @@ model_save = os.path.normpath(args.model_save)
 chronology = DataManager.load_data(
     path=args.data_path,
     data_type=Chronology,
+    chronology_kwargs={"fix_errors": args.fix_errors_data, "filter_null_state_trajectories": args.filter_null_state_trajectories},
     force_data_computation=args.force_data_computation,
     saving_allowed=True,
 )
@@ -91,8 +92,6 @@ os.makedirs(save_folder, exist_ok=True)
 # Mask context variables for predition
 MIN_LENGTH = 30
 masked_idxs = [variables.index(var) for var in masked_variables]
-close_neighbor_idxs = [variables.index(var) for var in variables if var.startswith('close_neighbour_') and not var.endswith('_zone')]
-distant_neighbor_idxs = [variables.index(var) for var in variables if var.startswith('distant_neighbour_') and not var.endswith('_zone')]
 print(f"Masking {len(masked_idxs)} variables: {masked_variables}")
 
 

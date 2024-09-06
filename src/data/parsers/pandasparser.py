@@ -14,6 +14,7 @@ class Namekeys:
     behaviour_key : str = "Behaviour"
     individual_key : str = "ID"
     zone_key : str = "Zone"
+    type_key : str = "Meerkat type"
     time_key : str = "Time"
     close_neighbour_key : str = "Close_neighbours"
     distant_neighbour_key : str = "Distant_neighbours"
@@ -94,6 +95,8 @@ class PandasParser(Parser):
         structure.first_occurence = data.drop_duplicates(self.namekeys.individual_key).set_index(self.namekeys.individual_key)[self.namekeys.time_key].to_dict()
         structure.zone_labels = self.listtoformat(data[self.namekeys.zone_key].unique().tolist())
         structure.zone_labels = set([zone + '_zone' for zone in structure.zone_labels])
+        structure.type_labels = self.listtoformat(data[self.namekeys.type_key].unique().tolist())
+        structure.type_labels = set([type + '_type' for type in structure.type_labels])
         structure.behaviour_labels = set(self.listtoformat(data[self.namekeys.behaviour_key].unique().tolist()))
 
         # Find start of all individual sequences
@@ -157,11 +160,12 @@ class PandasParser(Parser):
     def _parse_state(self, individual_id : int, data: pd.DataFrame) -> State:
         behaviour = self.toformat(data[self.namekeys.behaviour_key].iloc[0])
         zone = self.toformat(data[self.namekeys.zone_key].iloc[0]) + '_zone'
+        type_state = self.toformat(data[self.namekeys.type_key].iloc[0]) + '_type'
         coordinates = self.tocoordinates(data[self.namekeys.coordinates_key].iloc[0])
         close_neighbours = self.toneighbours(data[self.namekeys.close_neighbour_key].iloc[0])
         distant_neighbours = self.toneighbours(data[self.namekeys.distant_neighbour_key].iloc[0])
 
-        return State(individual_id, zone, behaviour, coordinates, close_neighbours, distant_neighbours, None, None, None)
+        return State(individual_id, zone, type_state, behaviour, coordinates, close_neighbours, distant_neighbours, None, None, None)
     
     
     

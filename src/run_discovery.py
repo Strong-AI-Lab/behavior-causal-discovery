@@ -32,6 +32,7 @@ parser.add_argument('--filter', type=str, default=None, help='If provided, filte
                                                                 '"neighbor_effect" : remove links to neighbors; ' + 
                                                                 '"corr" : remove correlations without causation; ' +
                                                                 '"zone" : remove links to zone variables; ' +
+                                                                '"type" : remove links to type variables; ' +
                                                                 '"zero" : remove variables with no links. Careful, the order of the filters matters. ' +
                                                                 'Multiple filters can be applied by separating them with a comma.')
 parser.add_argument('--skip', type=str, default=None, help='If provided, skips the specified plots. Options: ' +
@@ -54,6 +55,7 @@ skips = args.skip.split(",") if args.skip is not None else []
 chronology = DataManager.load_data(
     path=args.data_path,
     data_type=Chronology,
+    chronology_kwargs={"fix_errors": args.fix_errors_data, "filter_null_state_trajectories": args.filter_null_state_trajectories},
     force_data_computation=args.force_data_computation,
     saving_allowed=True,
 )
@@ -178,6 +180,11 @@ if filter is not None and not ("result_graph" in skips and "result_time_series_g
             remove_bidirectional = re.match(r'zone=(\w+)', f).group(1) == "bidirectional" if re.match(r'zone=\w+', f) else False
             results = CausalGraphFormatter(results['graph'], results['val_matrix']) \
                         .var_filter([], [variables.index(v) for v in variables if v.endswith('_zone')], remove_bidirectional=remove_bidirectional) \
+                        .get_results()
+        elif f == "type" or re.match(r'type=\w+', f):
+            remove_bidirectional = re.match(r'type=(\w+)', f).group(1) == "bidirectional" if re.match(r'type=\w+', f) else False
+            results = CausalGraphFormatter(results['graph'], results['val_matrix']) \
+                        .var_filter([], [variables.index(v) for v in variables if v.endswith('_type')], remove_bidirectional=remove_bidirectional) \
                         .get_results()
         elif f == "zero":
             results = CausalGraphFormatter(results['graph'], results['val_matrix']) \

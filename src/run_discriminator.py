@@ -49,6 +49,7 @@ if args.model_type not in MODELS.keys():
 chronology = DataManager.load_data(
     path=args.data_path,
     data_type=Chronology,
+    chronology_kwargs={"fix_errors": args.fix_errors_data, "filter_null_state_trajectories": args.filter_null_state_trajectories},
     force_data_computation=args.force_data_computation,
     saving_allowed=True,
 )

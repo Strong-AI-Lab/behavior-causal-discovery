@@ -1,5 +1,5 @@
 
-from typing import List, Dict, Tuple, Union, Optional, ClassVar, Set
+from typing import List, Dict, Tuple, Union, Optional, ClassVar, Set, Any
 import pandas as pd
 import numpy as np
 from dataclasses import dataclass
@@ -14,6 +14,7 @@ class Chronology:
     class State:
         individual_id: int
         zone: str
+        type: str
         behaviour: str
         coordinates: Tuple[float, float, float]
         close_neighbours: List[int]
@@ -24,10 +25,10 @@ class Chronology:
         coord_epsilon: ClassVar[float] = 100
 
         def __hash__(self) -> int:
-            return hash(self.individual_id) + hash(self.zone) + hash(self.behaviour) + hash(self.coordinates) + hash(tuple(self.close_neighbours)) + hash(tuple(self.distant_neighbours)) + (hash(self.snapshot) if self.snapshot is not None else 0)
+            return hash(self.individual_id) + hash(self.zone) + hash(self.type) + hash(self.behaviour) + hash(self.coordinates) + hash(tuple(self.close_neighbours)) + hash(tuple(self.distant_neighbours)) + (hash(self.snapshot) if self.snapshot is not None else 0)
 
         def __repr__(self) -> str:
-            return f"{self.__class__.__name__}(individual_id={self.individual_id}, zone={self.zone}, behaviour={self.behaviour}, coordinates={self.coordinates}, close_neighbours={self.close_neighbours}, " + \
+            return f"{self.__class__.__name__}(individual_id={self.individual_id}, zone={self.zone}, type={self.type}, behaviour={self.behaviour}, coordinates={self.coordinates}, close_neighbours={self.close_neighbours}, " + \
                     f"distant_neighbours={self.distant_neighbours}, snapshot={str(self.snapshot.__class__.__name__) + '(time=' + str(self.snapshot.time) + '...)' if self.snapshot is not None else None}, " + \
                     f"past_state={str(self.past_state.__class__.__name__) + '(individual_id=' + str(self.past_state.individual_id) + '...)' if self.past_state is not None else None}, " + \
                     f"future_state={str(self.future_state.__class__.__name__) + '(individual_id=' + str(self.future_state.individual_id) + '...)' if self.future_state is not None else None})"
@@ -35,6 +36,7 @@ class Chronology:
         def time_eq(self, other: 'Chronology.State') -> bool: # /!\ snapshots, past and future states are not compared!
             return self.individual_id == other.individual_id and \
                    self.zone == other.zone and \
+                   self.type == other.type and \
                    self.behaviour == other.behaviour and \
                    self.coordinates_eq(other) and \
                    self.close_neighbours == other.close_neighbours and \
@@ -44,13 +46,14 @@ class Chronology:
             return np.allclose(self.coordinates, other.coordinates, atol=self.coord_epsilon)
         
         def deep_copy(self) -> 'Chronology.State': # Deep copy /!\ past and future states are not copied
-            return Chronology.State(self.individual_id, self.zone, self.behaviour, self.coordinates, self.close_neighbours.copy(), self.distant_neighbours.copy(), self.snapshot, self.past_state, self.future_state)
+            return Chronology.State(self.individual_id, self.zone, self.type, self.behaviour, self.coordinates, self.close_neighbours.copy(), self.distant_neighbours.copy(), self.snapshot, self.past_state, self.future_state)
         
         def to_json(self) -> dict: # Serialisation does not save snapshot, past and future states. They must be managed at upper levels (Snapshot handles `snapshot` attribute, Chronology handles `past_state` and `future_state` attributes)
             return {
                 "hash" : hash(self),
                 "individual_id" : self.individual_id,
                 "zone" : self.zone,
+                "type" : self.type,
                 "behaviour" : self.behaviour,
                 "coordinates" : self.coordinates,
                 "close_neighbours" : self.close_neighbours,
@@ -62,7 +65,7 @@ class Chronology:
         
         @classmethod
         def from_json(cls, json_data : dict) -> 'Chronology.State': # Deserialisation does not load snapshot, past and future states. They must be managed at upper levels
-            return cls(json_data["individual_id"], json_data["zone"], json_data["behaviour"], tuple(json_data["coordinates"]), json_data["close_neighbours"], json_data["distant_neighbours"], None, None, None)
+            return cls(json_data["individual_id"], json_data["zone"], json_data["type"], json_data["behaviour"], tuple(json_data["coordinates"]), json_data["close_neighbours"], json_data["distant_neighbours"], None, None, None)
 
 
     @dataclass
@@ -154,6 +157,7 @@ class Chronology:
                     first_occurence : Dict[int, int] = None,
                     all_occurences : Dict[int, List[int]] = None,
                     zone_labels : Set[str] = None,
+                    type_labels : Set[str] = None,
                     behaviour_labels : Set[str] = None,
                     parse_data : bool = True,
                     fix_errors : bool = False, # Find missing data and update with last values. If set false, some functions (e.g. split, merge) may return an error
@@ -167,6 +171,7 @@ class Chronology:
         self.first_occurence = first_occurence if first_occurence is not None else {}
         self.all_occurences = all_occurences if all_occurences is not None else {}
         self.zone_labels = zone_labels if zone_labels is not None else set()
+        self.type_labels = type_labels if type_labels is not None else set()
         self.behaviour_labels = behaviour_labels if behaviour_labels is not None else set()
 
         self.raw_data = data
@@ -193,6 +198,7 @@ class Chronology:
                self.first_occurence == other.first_occurence and \
                self.all_occurences == other.all_occurences and \
                self.zone_labels == other.zone_labels and \
+               self.type_labels == other.type_labels and \
                self.behaviour_labels == other.behaviour_labels and \
                len(self.snapshots) == len(other.snapshots) and \
                all([(self.snapshots[i] is None and other.snapshots[i] is None) or (self.snapshots[i] is not None and other.snapshots[i] is not None and (self.snapshots[i].time_eq(other.snapshots[i]))) for i in range(len(self.snapshots))])
@@ -201,23 +207,32 @@ class Chronology:
     def get_snapshot(self, time : int) -> 'Chronology.Snapshot':
         return self.snapshots[time - self.start_time]
     
+    @staticmethod
+    def sorted_null_flex(l : List[Any]) -> List[Any]:
+        return sorted(l, key=lambda x : (x is None, x))
+    
     def get_labels(self, type : str = "all") -> List[str]:
         if type == "all":
-            zone_labels = sorted(list(self.zone_labels))
-            behaviour_labels = sorted(list(self.behaviour_labels))
+            zone_labels = Chronology.sorted_null_flex(list(self.zone_labels))
+            type_labels = Chronology.sorted_null_flex(list(self.type_labels))
+            behaviour_labels = Chronology.sorted_null_flex(list(self.behaviour_labels))
             close_zone_labels = [f"close_neighbour_{zone}" for zone in zone_labels]
             distant_zone_labels = [f"distant_neighbour_{zone}" for zone in zone_labels]
+            close_type_labels = [f"close_neighbour_{type_l}" for type_l in type_labels]
+            distant_type_labels = [f"distant_neighbour_{type_l}" for type_l in type_labels]
             close_behaviour_labels = [f"close_neighbour_{behaviour}" for behaviour in behaviour_labels]
             distant_behaviour_labels = [f"distant_neighbour_{behaviour}" for behaviour in behaviour_labels]
-            return list(zone_labels) + close_zone_labels + distant_zone_labels + list(behaviour_labels) + close_behaviour_labels + distant_behaviour_labels
+            return list(zone_labels) + close_zone_labels + distant_zone_labels + list(type_labels) + close_type_labels + distant_type_labels + list(behaviour_labels) + close_behaviour_labels + distant_behaviour_labels
         elif type == "all_names":
-            return sorted(list(self.zone_labels)) + sorted(list(self.behaviour_labels))
+            return Chronology.sorted_null_flex(list(self.zone_labels)) + Chronology.sorted_null_flex(list(self.type_labels)) + Chronology.sorted_null_flex(list(self.behaviour_labels))
         elif type == "zone":
-            return sorted(list(self.zone_labels))
+            return Chronology.sorted_null_flex(list(self.zone_labels))
+        elif type == "type":
+            return Chronology.sorted_null_flex(list(self.type_labels))
         elif type == "behaviour":
-            return sorted(list(self.behaviour_labels))
+            return Chronology.sorted_null_flex(list(self.behaviour_labels))
         else:
-            raise ValueError(f"Label type {type} not supported. Options: 'all', 'all_names', 'zone', 'behaviour'.")
+            raise ValueError(f"Label type {type} not supported. Options: 'all', 'all_names', 'zone', 'type', 'behaviour'.")
 
     def deep_copy(self) -> 'Chronology':
         # Copy attributes
@@ -228,6 +243,7 @@ class Chronology:
         individuals_ids_copy = self.individuals_ids.copy()
         first_occurence_copy = self.first_occurence.copy()
         zone_labels_copy = self.zone_labels.copy()
+        type_labels_copy = self.type_labels.copy()
         behaviour_labels_copy = self.behaviour_labels.copy()
         snapshots_copy = [None if snapshot is None else snapshot.deep_copy() for snapshot in self.snapshots]
 
@@ -246,7 +262,7 @@ class Chronology:
                             snapshots=snapshots_copy, individuals_ids=individuals_ids_copy,
                             first_occurence=first_occurence_copy,
                             all_occurences={ind_id : self.all_occurences[ind_id].copy() for ind_id in self.all_occurences.keys()},
-                            zone_labels=zone_labels_copy, behaviour_labels=behaviour_labels_copy)
+                            zone_labels=zone_labels_copy, type_labels=type_labels_copy, behaviour_labels=behaviour_labels_copy)
 
 
 
@@ -309,6 +325,7 @@ class Chronology:
                                 first_occurence=chr0_first_occurence,
                                 all_occurences=chr0_all_occurences,
                                 zone_labels=chronology.zone_labels, 
+                                type_labels=chronology.type_labels,
                                 behaviour_labels=chronology.behaviour_labels)
         
         chronology1 = Chronology(data=None, parser=None,
@@ -321,6 +338,7 @@ class Chronology:
                                 first_occurence=chr1_first_occurence,
                                 all_occurences=chr1_all_occurences,
                                 zone_labels=chronology.zone_labels, 
+                                type_labels=chronology.type_labels,
                                 behaviour_labels=chronology.behaviour_labels)
         
         return chronology0, chronology1
@@ -339,6 +357,7 @@ class Chronology:
 
         # Merge chronologiy labels
         merged_zone_labels = chronology0.zone_labels | chronology1.zone_labels
+        merged_type_labels = chronology0.type_labels | chronology1.type_labels
         merged_behaviour_labels = chronology0.behaviour_labels | chronology1.behaviour_labels
         
         # Offset chronology1 times
@@ -404,6 +423,7 @@ class Chronology:
                             first_occurence=merged_first_occurence,
                             all_occurences=merged_all_occurences,
                             zone_labels=merged_zone_labels,
+                            type_labels=merged_type_labels,
                             behaviour_labels=merged_behaviour_labels)
 
 
@@ -431,6 +451,7 @@ class Chronology:
             "first_occurence" : self.first_occurence,
             "all_occurences" : self.all_occurences,
             "zone_labels" : list(self.zone_labels),
+            "type_labels" : list(self.type_labels),
             "behaviour_labels" : list(self.behaviour_labels)
         }
 
@@ -440,6 +461,7 @@ class Chronology:
         first_occurence = {int(ind_id) : time for ind_id, time in json_data["first_occurence"].items()}
         all_occurences = {int(ind_id) : times for ind_id, times in json_data["all_occurences"].items()}
         zone_labels = set(json_data["zone_labels"])
+        type_labels = set(json_data["type_labels"])
         behaviour_labels = set(json_data["behaviour_labels"])
 
         chronology = cls(data=None, parser=None, 
@@ -452,6 +474,7 @@ class Chronology:
                     first_occurence=first_occurence,
                     all_occurences=all_occurences,
                     zone_labels=zone_labels,
+                    type_labels=type_labels,
                     behaviour_labels=behaviour_labels,
                     parse_data=False)
         
@@ -511,6 +534,9 @@ class Chronology:
         elif state == "zone":
             state_distribution = {zone : 0 for zone in self.zone_labels}
             attribute = "zone"
+        elif state == "type":
+            state_distribution = {type : 0 for type in self.type_labels}
+            attribute = "type"
         
         nb_nonzero_neighbours = 0
         for neighbour_id in adjacency_list:
@@ -529,7 +555,7 @@ class Chronology:
         ind_id = state.individual_id
         time = state.snapshot.time
 
-        for attribute, labels in [("behaviour", self.behaviour_labels), ("zone", self.zone_labels)]:
+        for attribute, labels in [("behaviour", self.behaviour_labels), ("zone", self.zone_labels), ("type", self.type_labels)]:
             if getattr(state, attribute) is None:
                 distribution = {attr_val : 0 for attr_val in labels}
 
@@ -556,9 +582,13 @@ class Chronology:
                 else:
                     raise ValueError("Fix mode must be either 'max' or 'random'!")
 
-    def _fix_states(self, weight_past : float = 2.0, weight_future : float = 1.0, weight_close_neighbours : float = 1.0, weight_distant_neighbours : float = 0.5, fix_mode : str = "max") -> None: # Find missing behaviour and zone data and update with most likely value
+    def _fix_states(self, weight_past : float = 2.0, weight_future : float = 1.0, weight_close_neighbours : float = 1.0, weight_distant_neighbours : float = 0.5, fix_mode : str = "max") -> None: # Find missing behaviour, zone and type data and update with most likely value
         try:
             self.zone_labels.remove(None)
+        except KeyError:
+            pass
+        try:
+            self.type_labels.remove(None)
         except KeyError:
             pass
         try:
@@ -579,9 +609,11 @@ class Chronology:
         # Interpolate zone and behaviour
         if time_ratio > 0.5:
             zone = state1.zone
+            type_state = state1.type
             behaviour = state1.behaviour
         else:
             zone = state0.zone
+            type_state = state0.type
             behaviour = state0.behaviour
 
         # Interpolate coordinates
@@ -589,7 +621,7 @@ class Chronology:
         coord1 = state1.coordinates
         coordinates = tuple([coord0[i] + time_ratio * (coord1[i] - coord0[i]) for i in range(len(coord0))])
 
-        return Chronology.State(state0.individual_id, zone, behaviour, coordinates, [], [], None, None, None)
+        return Chronology.State(state0.individual_id, zone, type_state, behaviour, coordinates, [], [], None, None, None)
 
     def _attach_states(self, state0 : 'Chronology.State', state1 : 'Chronology.State') -> None:
         start_time = state0.snapshot.time
@@ -655,7 +687,7 @@ class Chronology:
                     fix_mode : str = "max",
                     time_threshold : int = 20) -> None:
         
-        # Fix missing behaviour and zone data
+        # Fix missing behaviour, zone and type data
         self._fix_states(weight_past, weight_future, weight_close_neighbours, weight_distant_neighbours, fix_mode)
 
         # Fix cut sequences

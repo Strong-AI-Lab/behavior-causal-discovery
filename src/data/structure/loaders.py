@@ -58,20 +58,24 @@ class BehaviourSimpleLoader(Loader):
 
     def _state_to_vector(self, state : Chronology.State, structure : Chronology) -> torch.Tensor:
         nb_zones = len(structure.zone_labels)
+        nb_types = len(structure.type_labels)
         nb_behaviours = len(structure.behaviour_labels)
 
-        vector = torch.zeros((nb_zones + nb_behaviours) * 3) # zone and behaviour information for current individual, close neighbours and distant neighbours
+        vector = torch.zeros((nb_zones + nb_types + nb_behaviours) * 3) # zone, type and behaviour information for current individual, close neighbours and distant neighbours
         vector[self.vector_columns.index(state.zone)] = 1.0
+        vector[self.vector_columns.index(state.type)] = 1.0
         vector[self.vector_columns.index(state.behaviour)] = 1.0
 
         for cn in state.close_neighbours:
             cn_state = state.snapshot.states[cn]
             vector[self.vector_columns.index('close_neighbour_' + cn_state.zone)] += 1.0
+            vector[self.vector_columns.index('close_neighbour_' + cn_state.type)] += 1.0
             vector[self.vector_columns.index('close_neighbour_' + cn_state.behaviour)] += 1.0
 
         for dn in state.distant_neighbours:
             dn_state = state.snapshot.states[dn]
             vector[self.vector_columns.index('distant_neighbour_' + dn_state.zone)] += 1.0
+            vector[self.vector_columns.index('distant_neighbour_' + dn_state.type)] += 1.0
             vector[self.vector_columns.index('distant_neighbour_' + dn_state.behaviour)] += 1.0
 
         return vector
@@ -113,20 +117,24 @@ class BehaviourSeriesLoader(SeriesLoader):
 
     def _state_to_vector(self, state : Chronology.State, structure : Chronology) -> torch.Tensor:
         nb_zones = len(structure.zone_labels)
+        nb_types = len(structure.type_labels)
         nb_behaviours = len(structure.behaviour_labels)
 
-        vector = torch.zeros((nb_zones + nb_behaviours) * 3) # zone and behaviour information for current individual, close neighbours and distant neighbours
+        vector = torch.zeros((nb_zones + nb_types + nb_behaviours) * 3) # zone, type and behaviour information for current individual, close neighbours and distant neighbours
         vector[self.vector_columns.index(state.zone)] = 1.0
+        vector[self.vector_columns.index(state.type)] = 1.0
         vector[self.vector_columns.index(state.behaviour)] = 1.0
 
         for cn in state.close_neighbours:
             cn_state = state.snapshot.states[cn]
             vector[self.vector_columns.index('close_neighbour_' + cn_state.zone)] += 1.0
+            vector[self.vector_columns.index('close_neighbour_' + cn_state.type)] += 1.0
             vector[self.vector_columns.index('close_neighbour_' + cn_state.behaviour)] += 1.0
 
         for dn in state.distant_neighbours:
             dn_state = state.snapshot.states[dn]
             vector[self.vector_columns.index('distant_neighbour_' + dn_state.zone)] += 1.0
+            vector[self.vector_columns.index('distant_neighbour_' + dn_state.type)] += 1.0
             vector[self.vector_columns.index('distant_neighbour_' + dn_state.behaviour)] += 1.0
 
         return vector
