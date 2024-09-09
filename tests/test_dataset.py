@@ -18,7 +18,7 @@ class TestSeriesDataset:
             states_ind = []
             prev_state = None
             for _ in range(4):
-                state = Chronology.State(ind_id, "zone_1", "behaviour_1", (0,0,0), [], [], None, prev_state, None)
+                state = Chronology.State(ind_id, "zone_1", "type_1", "behaviour_1", (0,0,0), [], [], None, prev_state, None)
                 states_ind.append(state)
                 if prev_state:
                     prev_state.future_state = state
@@ -71,6 +71,7 @@ class TestSeriesDataset:
                 2: 0
             },
             zone_labels=["zone_1", "zone_2"],
+            type_labels=["type_1"],
             behaviour_labels=["behaviour_1", "behaviour_2"],
             parse_data=False)
 
@@ -81,6 +82,7 @@ class TestSeriesDataset:
             skip_stationary=False,
             vector_columns=[
                 "zone_1", "zone_2", "close_neighbour_zone_1", "close_neighbour_zone_2", "distant_neighbour_zone_1", "distant_neighbour_zone_2",
+                "type_1", "close_neighbour_type_1", "distant_neighbour_type_1",
                 "behaviour_1", "behaviour_2", "close_neighbour_behaviour_1", "close_neighbour_behaviour_2", "distant_neighbour_behaviour_1", "distant_neighbour_behaviour_2"
             ])
     
@@ -94,43 +96,48 @@ class TestSeriesDataset:
 
     def test_getitem(self, dataset):
         x, y, i = dataset[0]
-        assert x.shape == (2, 12)
-        assert y.shape == (2, 12)
+        assert x.shape == (2, 15)
+        assert y.shape == (2, 15)
         assert i == 0
-
-        true_x = torch.zeros(2, 12)
+        true_x = torch.zeros(2, 15)
         true_x[0, 1] = 1
         true_x[1, 0] = 1
         true_x[:, 6] = 1
+        true_x[:, 9] = 1
         assert (x == true_x).all()
 
-        true_y = torch.zeros(2, 12)
+        true_y = torch.zeros(2, 15)
         true_y[:, 0] = 1
-        true_y[0, 6] = 1
-        true_y[1, 7] = 1
+        true_y[:, 6] = 1
+        true_y[0, 9] = 1
+        true_y[1, 10] = 1
         assert (y == true_y).all()
 
 
 
     def test_getitem_last(self, dataset):
         x, y, i = dataset[-1]
-        assert x.shape == (2, 12)
-        assert y.shape == (2, 12)
+        assert x.shape == (2, 15)
+        assert y.shape == (2, 15)
         assert i == 2
 
-        true_x = torch.zeros(2, 12)
+        true_x = torch.zeros(2, 15)
         true_x[:, 0] = 1
         true_x[:, 6] = 1
+        true_x[:, 9] = 1
         assert (x == true_x).all()
 
-        true_y = torch.zeros(2, 12)
+        true_y = torch.zeros(2, 15)
         true_y[0, 0] = 1
         true_y[1, 1] = 1
         true_y[:, 6] = 1
+        true_y[:, 9] = 1
         true_y[1, 2] = 1
         true_y[1, 4] = 1
+        true_y[1, 7] = 1
         true_y[1, 8] = 1
-        true_y[1, 10] = 1
+        true_y[1, 11] = 1
+        true_y[1, 13] = 1
         assert (y == true_y).all()
 
 
@@ -143,7 +150,7 @@ class TestDynamicSeriesDataset:
             states_ind = []
             prev_state = None
             for t in range(4):
-                state = Chronology.State(ind_id, "zone_1", "behaviour_1", (t,t,t), [], [], None, prev_state, None)
+                state = Chronology.State(ind_id, "zone_1", "type_1", "behaviour_1", (t,t,t), [], [], None, prev_state, None)
                 states_ind.append(state)
                 if prev_state:
                     prev_state.future_state = state
@@ -190,6 +197,7 @@ class TestDynamicSeriesDataset:
                 2: 0
             },
             zone_labels=["zone_1", "zone_2"],
+            type_labels=["type_1"],
             behaviour_labels=["behaviour_1", "behaviour_2"],
             parse_data=False)
     
@@ -236,7 +244,7 @@ class TestDynamicGraphSeriesDataset:
             states_ind = []
             prev_state = None
             for t in range(4):
-                state = Chronology.State(ind_id, "zone_1", "behaviour_1", (t,t,t), [], [], None, prev_state, None)
+                state = Chronology.State(ind_id, "zone_1", "type_1", "behaviour_1", (t,t,t), [], [], None, prev_state, None)
                 states_ind.append(state)
                 if prev_state:
                     prev_state.future_state = state
@@ -287,6 +295,7 @@ class TestDynamicGraphSeriesDataset:
                 3: 0
             },
             zone_labels=["zone_1", "zone_2"],
+            type_labels=["type_1"],
             behaviour_labels=["behaviour_1", "behaviour_2"],
             parse_data=False)
     
@@ -359,7 +368,7 @@ class TestGeneratorDataset:
             states_ind = []
             prev_state = None
             for t in range(4):
-                state = Chronology.State(ind_id, "zone_1", "behaviour_1", (t,t,t), [], [], None, prev_state, None)
+                state = Chronology.State(ind_id, "zone_1", "type_1", "behaviour_1", (t,t,t), [], [], None, prev_state, None)
                 states_ind.append(state)
                 if prev_state:
                     prev_state.future_state = state
@@ -410,6 +419,7 @@ class TestGeneratorDataset:
                 3: 0
             },
             zone_labels=["zone_1", "zone_2"],
+            type_labels=["type_1"],
             behaviour_labels=["behaviour_1", "behaviour_2"],
             parse_data=False)
 
@@ -418,13 +428,15 @@ class TestGeneratorDataset:
         return loader_class(
             lookback=2, 
             vector_columns=["zone_1", "zone_2", "close_neighbour_zone_1", "close_neighbour_zone_2", "distant_neighbour_zone_1", "distant_neighbour_zone_2", 
+                            "type_1", "close_neighbour_type_1", "distant_neighbour_type_1",
                             "behaviour_1", "behaviour_2", "close_neighbour_behaviour_1", "close_neighbour_behaviour_2", "distant_neighbour_behaviour_1", "distant_neighbour_behaviour_2"], 
             masked_variables=["zone_1", "zone_2", "close_neighbour_zone_1", "close_neighbour_zone_2", "distant_neighbour_zone_1", "distant_neighbour_zone_2",
+                              "type_1", "close_neighbour_type_1", "distant_neighbour_type_1",
                               "close_neighbour_behaviour_1", "close_neighbour_behaviour_2", "distant_neighbour_behaviour_1", "distant_neighbour_behaviour_2"])
 
     @pytest.fixture
     def model(self):
-        return LSTMPredictor(num_variables=12, lookback=2)
+        return LSTMPredictor(num_variables=15, lookback=2)
 
     def test_load_series(self, chronology, loader, model):
         series = loader.load(chronology, model, build_series=True)
@@ -457,7 +469,7 @@ class TestDiscriminatorDataset:
             states_ind = []
             prev_state = None
             for t in range(4):
-                state = Chronology.State(ind_id, "zone_1", "behaviour_1", (t,t,t), [], [], None, prev_state, None)
+                state = Chronology.State(ind_id, "zone_1", "type_1", "behaviour_1", (t,t,t), [], [], None, prev_state, None)
                 states_ind.append(state)
                 if prev_state:
                     prev_state.future_state = state
@@ -508,6 +520,7 @@ class TestDiscriminatorDataset:
                 3: 0
             },
             zone_labels=["zone_1", "zone_2"],
+            type_labels=["type_1"],
             behaviour_labels=["behaviour_1", "behaviour_2"],
             parse_data=False)
 
@@ -516,17 +529,18 @@ class TestDiscriminatorDataset:
         return loader_class(
             lookback=2, 
             vector_columns=["zone_1", "zone_2", "close_neighbour_zone_1", "close_neighbour_zone_2", "distant_neighbour_zone_1", "distant_neighbour_zone_2", 
+                            "type_1", "close_neighbour_type_1", "distant_neighbour_type_1",
                             "behaviour_1", "behaviour_2", "close_neighbour_behaviour_1", "close_neighbour_behaviour_2", "distant_neighbour_behaviour_1", "distant_neighbour_behaviour_2"], 
             masked_variables=[])
 
     @pytest.fixture
     def model(self):
-        return LSTMPredictor(num_variables=12, lookback=2)
+        return LSTMPredictor(num_variables=15, lookback=2)
 
     def test_load_dataset(self, chronology, loader, model):
         x, y = loader.load(chronology, model)
         
-        assert x.shape == (16, 2, 12)
+        assert x.shape == (16, 2, 15)
         assert y.shape == (16, 1)
 
 
