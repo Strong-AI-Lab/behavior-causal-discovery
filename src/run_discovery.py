@@ -8,8 +8,9 @@ import matplotlib.pyplot as plt
 
 from data.structure.chronology import Chronology
 from data.structure.loaders import BehaviourSimpleLoader
-from data.constants import TAU_MAX, ALPHA_LEVEL, PC_ALPHA, LOW_FILTER_DEFAULT, HIGH_FILTER_DEFAULT, CAUSAL_GRAPH_SAVE_FOLDER_DEFAULT
+from data.constants import ALPHA_LEVEL, PC_ALPHA, LOW_FILTER_DEFAULT, HIGH_FILTER_DEFAULT, CAUSAL_GRAPH_SAVE_FOLDER_DEFAULT
 from model.causal_graph_formatter import CausalGraphFormatter
+from evaluate.visualisation import plot_graph_graphviz
 from script_utils.data_commons import DataManager
 from script_utils.parser_commons import add_loader_arguments_to_parser, add_lookback_arguments_to_parser
 
@@ -205,9 +206,13 @@ else:
     tp.plot_graph(graph=results['graph'], val_matrix=results['val_matrix'], var_names=variables, node_label_size = 38, label_fontsize = 45, figsize = (40, 40), node_size = 0.25, arrow_linewidth=36.0)
     plt.savefig(os.path.join(save_folder, 'result_graph.png'))
 
+    plot_graph_graphviz(results['graph'], results['val_matrix'], variables, save_folder, 'result_graph_alter_vis')
+
 if "result_time_series_graph" in skips:
     print("Skipping result time series graph plot...")
 else:
     print("Visualising time series graph...")
-    tp.plot_time_series_graph(val_matrix=results['val_matrix'], graph=results['graph'], var_names=variables, link_colorbar_label='MCI', label_fontsize = 40, figsize = (90, 40), node_size = 0.05, arrow_linewidth=12.0)
+    tp.plot_time_series_graph(graph=results['graph'], val_matrix=results['val_matrix'], var_names=variables, link_colorbar_label='MCI', label_fontsize = 40, figsize = (90, 40), node_size = 0.05, arrow_linewidth=12.0)
     plt.savefig(os.path.join(save_folder, 'result_time_series_graph.png'))
+
+    plot_graph_graphviz(results['graph'], results['val_matrix'], variables, save_folder, 'result_time_series_graph_alter_vis', keep_time=True)

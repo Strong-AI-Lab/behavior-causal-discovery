@@ -1,8 +1,11 @@
 
 import os
+from typing import List, Dict, Tuple, Optional
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 import plotly.graph_objects as go
 import numpy as np
+import networkx as nx
 
 from sklearn.cluster import BisectingKMeans, KMeans
 from sklearn.manifold import MDS
@@ -34,8 +37,71 @@ COLOR_TAGS = [
     ] # taken from https://raw.githubusercontent.com/plotly/plotly.js/master/test/image/mocks/sankey_energy.json
 
 
+def flatten_time_graph(graph : np.ndarray):
+    # [nb_variables, nb_variables, tau] -> [nb_variables*tau, nb_variables*tau]
+    nb_variables = graph.shape[0]
+    tau = graph.shape[-1]
+    new_graph = np.zeros((tau*nb_variables, tau*nb_variables))
+    for i in range(tau):
+        for j in range(i, tau):
+            new_graph[i*nb_variables:(i+1)*nb_variables, j*nb_variables:(j+1)*nb_variables] = graph[:, :, i] # add links from timestep i to timestep j
+    return new_graph
 
-def generate_time_occurences(series, predicted_variable_names, save, nb_variables, min_length, prefix=None):
+
+def prep_labels(labels : List[str], max_length : int = 12):
+    new_labels = []
+    label_lengths = []
+    for label in labels:
+        words = label.split("_")
+        words[0] = words[0].capitalize()
+        lines = []
+        line = ""
+        for word in words:
+            if len(line) > 0 and len(line) + len(word) > max_length:
+                lines.append(line)
+                line = ""
+            line += f"{word} "
+        lines.append(line)
+        label_lengths.append(max([len(line) for line in lines]))
+        new_labels.append("\n".join(lines))
+    return new_labels, label_lengths
+
+
+def plot_graph_graphviz(graph : np.ndarray, val_matrix : np.ndarray, var_names : List[str], save_folder : str, save_file : str, keep_time : bool = False):
+    # Create adjacency matrix
+    graph = np.copy(graph)
+    graph[np.where(graph == "-->")] = "1"
+    graph[np.where(graph == "o-o")] = "1"
+    graph[np.where(graph == "")] = "0"
+    graph = graph.astype(np.int64)
+    graph=graph*val_matrix
+    graph=np.nan_to_num(graph)
+
+    # Remove time dimension
+    if not keep_time:
+        graph = graph.sum(axis=-1) # Flatten time dimension
+    else:
+        tau = graph.shape[-1]
+        graph = flatten_time_graph(graph) # Expand time dimension (add time sensitive variables to flattened graph)
+        var_names = [f"{var}_{i}" for i in range(tau) for var in var_names]
+    np.fill_diagonal(graph, 0) # Remove self loops
+
+
+    # Create plot
+    ng=nx.from_numpy_array(graph, create_using=nx.DiGraph)
+    new_labels, label_lengths = prep_labels(var_names)
+    ng=nx.relabel_nodes(ng, dict(enumerate(new_labels)))
+    edge_colors = dict([((u, v,), attrs['weight']) for u, v, attrs in ng.edges(data=True)])
+    node_sizes = [400*(i+1) for i in label_lengths]
+    nb_nodes = len(ng.nodes)
+    
+    plt.figure(figsize=(10 + int(np.log(nb_nodes)), 10 + int(np.log(nb_nodes))))
+    pos = nx.spring_layout(ng,scale=2)
+    nx.draw(ng, pos, with_labels=True, node_size=node_sizes, node_color='white', edgecolors='black', font_size=10, font_family='serif', font_color='black', edge_color=list(edge_colors.values()), edge_cmap=cm.coolwarm, width=3, arrowsize=15)
+    plt.savefig(os.path.join(save_folder, f"{save_file}.png"), bbox_inches='tight')
+
+
+def generate_time_occurences(series : Dict[int, List[Tuple[torch.Tensor, torch.Tensor]]], predicted_variable_names : List[str], save : str, nb_variables : int, min_length : int, prefix : Optional[str] = None):
     x_axis = [i for _ in range(nb_variables) for i in range(min_length)]
     y_axis = [i for i in range(nb_variables) for _ in range(min_length)]
     area_pred = [0] * (nb_variables * min_length)
@@ -64,7 +130,7 @@ def generate_time_occurences(series, predicted_variable_names, save, nb_variable
 
 
 
-def generate_sankey(series, predicted_variable_names, save, nb_variables, min_length, prefix=None):
+def generate_sankey(series : Dict[int, List[Tuple[torch.Tensor, torch.Tensor]]], predicted_variable_names, save : str, nb_variables : int, min_length : int, prefix : Optional[str] = None):
     for save_file, truth in [('prediction_sankey', 0), ('true_sankey', 1)]:
         labels = []
         colors = []
@@ -137,7 +203,7 @@ CLUSTERING_ALGORITHMS = {
     "Bisecting K-Means": BisectingKMeans,
     "K-Means": KMeans,
 }
-def generate_clusters(series, save, nb_variables, cluster_lists=None, prefix=None):
+def generate_clusters(series : Dict[int, List[Tuple[torch.Tensor, torch.Tensor]]], save : str, nb_variables, cluster_lists : Optional[List[int]] = None, prefix : Optional[str] = None):
     if cluster_lists is None:
         cluster_lists = [4, 8, 16]
     
