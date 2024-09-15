@@ -64,6 +64,15 @@ class DynamicalGraphPredictor(DynamicalPredictor):
 
 
 class DynGCNPredictor(DynamicalGraphPredictor):
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        parser = super(DynGCNPredictor, cls).add_to_parser(parser)
+        parser.add_argument('--hidden_channels', type=int, default=64, help='Number of hidden channels in the model.')
+        parser.add_argument('--num_layers', type=int, default=3, help='Number of layers in the model.')
+        parser.add_argument('--dropout', type=float, default=0.5, help='Dropout rate.')
+        return parser
+
     def __init__(self, lookback, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, hidden_channels=64, num_layers=3, dropout=0.5):
         super(DynGCNPredictor, self).__init__(friction_penalty, acceleration_penalty, velocity_penalty, energy_penalty)
         
@@ -88,6 +97,15 @@ class DynGCNPredictor(DynamicalGraphPredictor):
     
 
 class DynGATPredictor(DynamicalGraphPredictor):
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        parser = super(DynGATPredictor, cls).add_to_parser(parser)
+        parser.add_argument('--hidden_channels', type=int, default=64, help='Number of hidden channels in the model.')
+        parser.add_argument('--num_layers', type=int, default=3, help='Number of layers in the model.')
+        parser.add_argument('--dropout', type=float, default=0.5, help='Dropout rate.')
+        return parser
+
     def __init__(self, lookback, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, hidden_channels=64, num_layers=3, dropout=0.5):
         super(DynGATPredictor, self).__init__(friction_penalty, acceleration_penalty, velocity_penalty, energy_penalty)
         
@@ -112,6 +130,15 @@ class DynGATPredictor(DynamicalGraphPredictor):
     
 
 class DynGATv2Predictor(DynamicalGraphPredictor):
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        parser = super(DynGATv2Predictor, cls).add_to_parser(parser)
+        parser.add_argument('--hidden_channels', type=int, default=64, help='Number of hidden channels in the model.')
+        parser.add_argument('--num_layers', type=int, default=3, help='Number of layers in the model.')
+        parser.add_argument('--dropout', type=float, default=0.5, help='Dropout rate.')
+        return parser
+
     def __init__(self, lookback, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, hidden_channels=64, num_layers=3, dropout=0.5):
         super(DynGATv2Predictor, self).__init__(friction_penalty, acceleration_penalty, velocity_penalty, energy_penalty)
         

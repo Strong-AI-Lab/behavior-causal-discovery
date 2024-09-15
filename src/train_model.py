@@ -24,16 +24,15 @@ MODELS = {
 print("Parsing arguments..")
 parser = argparse.ArgumentParser()
 parser.add_argument('data_path', type=str, help='Path to the data folder.')
-parser.add_argument('--model_type',type=str, default="lstm", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
+parser.add_argument('--model_type',type=str, default="lstm", choices=MODELS.keys(), help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
 parser.add_argument('--model_save', type=str, default=None, help='If provided, loads the model from a save. The save can be a `model.ckpt` file. If the model_type if `causal_*`, a save folder from a causal_discovery run can also be used.')
 parser.add_argument('--wandb_project', type=str, default=None, help='If specified, logs the run to wandb under the specified project.')
 parser.add_argument('--causal_graph', type=str, default="all", help='Only used when a save folder from a causal discovery run is loaded. Controls if the graph contains the edges the coefficients. Options: "all", "coefficients", "edges".')
 parser = add_causal_arguments_to_parser(parser)
 parser = add_lookback_arguments_to_parser(parser)
 parser = add_loader_arguments_to_parser(parser)
-args = parser.parse_args()
+args, unknown_args = parser.parse_known_args()
 
-assert args.model_type in MODELS.keys(), f"Model type {args.model_type} not supported. Options: {','.join(MODELS.keys())}."
 assert args.model_type != "causal", f"Model type {args.model_type} does not support training. Use `run_discovery.py` instead."
 
 
@@ -75,7 +74,13 @@ print(f"Masking {len(masked_idxs)} variables: {masked_variables}")
 
 # Build model
 if args.model_save is None:
-        model = MODELS[args.model_type](num_variables=num_variables, lookback=args.tau_max+1, masked_idxs_for_training=masked_idxs)
+        model_kwargs = {} # Add model specific arguments from command line
+        if len(unknown_args) > 0:
+            model_parser = MODELS[args.model_type].add_to_parser(argparse.ArgumentParser())
+            model_args = model_parser.parse_args(unknown_args)
+            model_kwargs = vars(model_args)
+
+        model = MODELS[args.model_type](num_variables=num_variables, lookback=args.tau_max+1, masked_idxs_for_training=masked_idxs, **model_kwargs)
 else:
     print(f"Save provided. Loading {args.model_type} model from {args.model_save}...")
     if args.model_type.startswith("causal_") and not args.model_save.endswith(".ckpt"):

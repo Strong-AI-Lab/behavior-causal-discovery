@@ -25,14 +25,12 @@ MODELS = {
 print("Parsing arguments..")
 parser = argparse.ArgumentParser()
 parser.add_argument('data_path', type=str, help='Path to the data folder.')
-parser.add_argument('--model_type',type=str, default="dynamical_lstm", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
+parser.add_argument('--model_type',type=str, default="dynamical_lstm", choices=MODELS.keys(), help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
 parser.add_argument('--model_save', type=str, default=None, help='If provided, loads the model from a save. The save can be a `model.ckpt` file. If the model_type if `causal_*`, a save folder from a causal_discovery run can also be used.')
 parser.add_argument('--wandb_project', type=str, default=None, help='If specified, logs the run to wandb under the specified project.')
 parser = add_lookback_arguments_to_parser(parser)
 parser = add_loader_arguments_to_parser(parser)
-args = parser.parse_args()
-
-assert args.model_type in MODELS.keys(), f"Model type {args.model_type} not supported. Options: {','.join(MODELS.keys())}."
+args, unknown_args = parser.parse_known_args()
 
 is_graph_model = False
 if args.model_type in GRAPH_DYNAMIC_MODELS.keys():
@@ -64,8 +62,14 @@ else:
 
 # Build model
 if args.model_save is None:
+    model_kwargs = {} # Add model specific arguments from command line
+    if len(unknown_args) > 0:
+        model_parser = MODELS[args.model_type].add_to_parser(argparse.ArgumentParser())
+        model_args = model_parser.parse_args(unknown_args)
+        model_kwargs = vars(model_args)
+
     print(f"No save provided. Building {args.model_type} model...")
-    model = MODELS[args.model_type](lookback=args.tau_max+1)
+    model = MODELS[args.model_type](lookback=args.tau_max+1, **model_kwargs)
 else:
     print(f"Save provided. Loading {args.model_type} model from {args.model_save}...")
     model = MODELS[args.model_type].load_from_checkpoint(args.model_save, lookback=args.tau_max+1)

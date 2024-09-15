@@ -25,13 +25,11 @@ print("Parsing arguments..")
 parser = argparse.ArgumentParser()
 parser.add_argument('model_save', type=str, help='Load the model from a save folder.')
 parser.add_argument('data_path', type=str, help='Path to the data folder.')
-parser.add_argument('--model_type',type=str, default="dynamical_lstm", help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
+parser.add_argument('--model_type',type=str, default="dynamical_lstm", choices=MODELS.keys(), help=f'Type of model to use. Options: {",".join(MODELS.keys())}.')
 parser.add_argument('--wandb_project', type=str, default=None, help='If specified, logs the run to wandb under the specified project.')
 parser = add_lookback_arguments_to_parser(parser)
 parser = add_loader_arguments_to_parser(parser)
 args = parser.parse_args()
-
-assert args.model_type in MODELS.keys(), f"Model type {args.model_type} not supported. Options: {','.join(MODELS.keys())}."
 
 is_graph_model = False
 if args.model_type in GRAPH_DYNAMIC_MODELS.keys():

@@ -15,6 +15,15 @@ DEFAULT_RANDOM_FACTOR = 0.1
 
 # Dynamical Lightning module
 class DynamicalPredictor(pl.LightningModule):
+    
+    @classmethod
+    def add_to_parser(cls, parser):
+        parser.add_argument('--friction_penalty', type=float, default=DEFAULT_FRICTION_PENALTY, help='Penalty for the friction force.')
+        parser.add_argument('--acceleration_penalty', type=float, default=DEFAULT_ACCELERATION_PENALTY, help='Penalty for the acceleration loss.')
+        parser.add_argument('--velocity_penalty', type=float, default=DEFAULT_VELOCITY_PENALTY, help='Penalty for the velocity loss.')
+        parser.add_argument('--energy_penalty', type=float, default=DEFAULT_ENERGY_PENALTY, help='Penalty for the energy loss.')
+        return parser
+
     def __init__(self, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY):
         super().__init__()
         self.friction_penalty = friction_penalty
@@ -116,6 +125,15 @@ class DynamicalPredictor(pl.LightningModule):
 
 
 class DynLSTMPredictor(DynamicalPredictor):
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        parser = super().add_to_parser(parser)
+        parser.add_argument('--hidden_size', type=int, default=256, help='Size of the hidden layers.')
+        parser.add_argument('--num_layers', type=int, default=3, help='Number of layers in the LSTM.')
+        parser.add_argument('--include_velocity', action='store_true', help='Include velocity in the input.')
+        return parser
+
     def __init__(self, lookback, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, hidden_size=256, num_layers=3, include_velocity=True):
         super().__init__(friction_penalty, acceleration_penalty, velocity_penalty, energy_penalty)
         self.lookback = lookback
@@ -150,6 +168,15 @@ class DynLSTMPredictor(DynamicalPredictor):
     
 
 class DynMLPPredictor(DynamicalPredictor):
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        parser = super().add_to_parser(parser)
+        parser.add_argument('--hidden_size', type=int, default=128, help='Size of the hidden layers.')
+        parser.add_argument('--num_layers', type=int, default=2, help='Number of layers in the MLP.')
+        parser.add_argument('--include_velocity', action='store_true', help='Include velocity in the input.')
+        return parser
+
     def __init__(self, lookback, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, hidden_size=128, num_layers=2, include_velocity=True):
         super().__init__(friction_penalty, acceleration_penalty, velocity_penalty, energy_penalty)
         self.lookback = lookback
@@ -204,6 +231,17 @@ class DynMLPPredictor(DynamicalPredictor):
     
 
 class DynTransformerPredictor(DynamicalPredictor):
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        parser = super().add_to_parser(parser)
+        parser.add_argument('--hidden_size', type=int, default=192, help='Size of the hidden layers.')
+        parser.add_argument('--nhead', type=int, default=3, help='Number of heads in the transformer.')
+        parser.add_argument('--num_encoder_layers', type=int, default=2, help='Number of layers in the encoder.')
+        parser.add_argument('--num_decoder_layers', type=int, default=2, help='Number of layers in the decoder.')
+        parser.add_argument('--include_velocity', action='store_true', help='Include velocity in the input.')
+        return parser
+
     def __init__(self, lookback, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, hidden_size=192, nhead=3, num_encoder_layers=2, num_decoder_layers=2, include_velocity=True):
         super().__init__(friction_penalty, acceleration_penalty, velocity_penalty, energy_penalty)
         self.lookback = lookback
@@ -252,6 +290,14 @@ class DynTransformerPredictor(DynamicalPredictor):
 
 
 class DynVariationalPredictor(DynamicalPredictor):
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        parser = super().add_to_parser(parser)
+        parser.add_argument('--beta', type=float, default=DEFAULT_KL_BETA, help='Beta parameter for the KL divergence.')
+        parser.add_argument('--random_factor', type=float, default=DEFAULT_RANDOM_FACTOR, help='Random factor for the sampling.')
+        return parser
+
     def __init__(self, inner, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, beta=DEFAULT_KL_BETA, random_factor=DEFAULT_RANDOM_FACTOR):
         super().__init__(friction_penalty, acceleration_penalty, velocity_penalty, energy_penalty)
         self.inner = inner
@@ -324,14 +370,47 @@ class DynVariationalPredictor(DynamicalPredictor):
         return loss
     
 
-def DynVariationalMLPPredictor(lookback, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, hidden_size=128, num_layers=2, beta=DEFAULT_KL_BETA):
-    return DynVariationalPredictor(DynMLPPredictor(lookback, hidden_size=hidden_size, num_layers=num_layers, include_velocity=True), beta=beta, friction_penalty=friction_penalty, acceleration_penalty=acceleration_penalty, velocity_penalty=velocity_penalty, energy_penalty=energy_penalty)
+class DynVariationalMLPWrapper():
+    
+    @classmethod
+    def add_to_parser(cls, parser):
+        parser = DynMLPPredictor.add_to_parser(parser)
+        parser = DynVariationalPredictor.add_to_parser(parser)
+        return parser
+    
+    def __new__(wrapper, *args, **kwargs):
+        return DynVariationalMLPWrapper.__call__(*args,**kwargs) # forbids instance creation and calls __call__ instead
 
-def DynVariationalLSTMPredictor(lookback, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, hidden_size=256, num_layers=3, beta=DEFAULT_KL_BETA):
-    return DynVariationalPredictor(DynLSTMPredictor(lookback, hidden_size=hidden_size, num_layers=num_layers, include_velocity=True), beta=beta, friction_penalty=friction_penalty, acceleration_penalty=acceleration_penalty, velocity_penalty=velocity_penalty, energy_penalty=energy_penalty)
+    def __call__(friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, beta=DEFAULT_KL_BETA, random_factor=DEFAULT_RANDOM_FACTOR, **kwargs):
+        return DynVariationalPredictor(DynMLPPredictor(**kwargs), friction_penalty=friction_penalty, acceleration_penalty=acceleration_penalty, velocity_penalty=velocity_penalty, energy_penalty=energy_penalty, beta=beta, random_factor=random_factor)
+    
+class DynVariationalLSTMWrapper():
+    
+    @classmethod
+    def add_to_parser(cls, parser):
+        parser = DynLSTMPredictor.add_to_parser(parser)
+        parser = DynVariationalPredictor.add_to_parser(parser)
+        return parser
+    
+    def __new__(wrapper, *args, **kwargs):
+        return DynVariationalLSTMWrapper.__call__(*args,**kwargs) # forbids instance creation and calls __call__ instead
 
-def DynVariationalTransformerPredictor(lookback, friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, hidden_size=192, nhead=3, num_encoder_layers=2, num_decoder_layers=2, beta=DEFAULT_KL_BETA):
-    return DynVariationalPredictor(DynTransformerPredictor(lookback, hidden_size=hidden_size, nhead=nhead, num_encoder_layers=num_encoder_layers, num_decoder_layers=num_decoder_layers, include_velocity=True), beta=beta, friction_penalty=friction_penalty, acceleration_penalty=acceleration_penalty, velocity_penalty=velocity_penalty, energy_penalty=energy_penalty)
+    def __call__(friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, beta=DEFAULT_KL_BETA, random_factor=DEFAULT_RANDOM_FACTOR, **kwargs):
+        return DynVariationalPredictor(DynLSTMPredictor(**kwargs), friction_penalty=friction_penalty, acceleration_penalty=acceleration_penalty, velocity_penalty=velocity_penalty, energy_penalty=energy_penalty, beta=beta, random_factor=random_factor)
+    
+class DynVariationalTransformerWrapper():
+        
+        @classmethod
+        def add_to_parser(cls, parser):
+            parser = DynTransformerPredictor.add_to_parser(parser)
+            parser = DynVariationalPredictor.add_to_parser(parser)
+            return parser
+        
+        def __new__(wrapper, *args, **kwargs):
+            return DynVariationalTransformerWrapper.__call__(*args,**kwargs) # forbids instance creation and calls __call__ instead
+    
+        def __call__(friction_penalty=DEFAULT_FRICTION_PENALTY, acceleration_penalty=DEFAULT_ACCELERATION_PENALTY, velocity_penalty=DEFAULT_VELOCITY_PENALTY, energy_penalty=DEFAULT_ENERGY_PENALTY, beta=DEFAULT_KL_BETA, random_factor=DEFAULT_RANDOM_FACTOR, **kwargs):
+            return DynVariationalPredictor(DynTransformerPredictor(**kwargs), friction_penalty=friction_penalty, acceleration_penalty=acceleration_penalty, velocity_penalty=velocity_penalty, energy_penalty=energy_penalty, beta=beta, random_factor=random_factor)
 
 
 
@@ -340,7 +419,7 @@ DYNAMIC_MODELS = {
     "dynamical_mlp": DynMLPPredictor,
     "dynamical_transformer": DynTransformerPredictor,
     "dynamical_variational": DynVariationalPredictor,
-    "dynamical_variational_lstm": DynVariationalLSTMPredictor,
-    "dynamical_variational_mlp": DynVariationalMLPPredictor,
-    "dynamical_variational_transformer": DynVariationalTransformerPredictor
+    "dynamical_variational_lstm": DynVariationalLSTMWrapper,
+    "dynamical_variational_mlp": DynVariationalMLPWrapper,
+    "dynamical_variational_transformer": DynVariationalTransformerWrapper,
 }

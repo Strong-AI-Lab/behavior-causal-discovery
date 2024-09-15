@@ -1,4 +1,6 @@
 
+from typing import List, Optional
+
 import torch
 import pytorch_lightning as pl
 import torch_geometric as tg
@@ -8,7 +10,12 @@ import torch_geometric as tg
 
 # TS Lightning module
 class TSPredictor(pl.LightningModule):
-    def __init__(self, masked_idxs_for_training=None):
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        return parser
+
+    def __init__(self, masked_idxs_for_training : Optional[List[int]] = None):
         super().__init__()
         self.masked_idxs_for_training = masked_idxs_for_training
     
@@ -85,7 +92,12 @@ class TSLinearCausal(TSPredictor):
             [0., 0., 3., 0.]]])
     ```
     """
-    def __init__(self, num_variables, lookback, graph_weights : torch.Tensor = None, masked_idxs_for_training=None):
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        return super().add_to_parser(parser)
+
+    def __init__(self, num_variables : int, lookback : int, graph_weights : Optional[torch.Tensor] = None, masked_idxs_for_training : Optional[List[int]] = None):
         super().__init__()
         self.num_variables = num_variables
         self.lookback = lookback # lookback = = size of the shifting window = tau_max + 1
@@ -95,7 +107,7 @@ class TSLinearCausal(TSPredictor):
             graph_weights = graph_weights.transpose(1,2).reshape((num_variables, 1, num_variables*lookback)).to(torch.float32)
             self.conv.weight.data = graph_weights
 
-    def forward(self, x):
+    def forward(self, x : torch.Tensor):
         batch_size = x.shape[0] # x shape is (batch_size, lookback, num_variables)
         x = x.view((batch_size,1, self.num_variables*self.lookback))
         x = self.conv(x)[:,:,:self.lookback].transpose(1,2)
@@ -107,7 +119,14 @@ class TSLinearCausal(TSPredictor):
 
 # Graph Neural Network model
 class TSGNNPredictor(TSPredictor):
-    def __init__(self, num_variables, lookback, graph_weights, hidden_size=128, gnn_class=tg.nn.GCNConv, masked_idxs_for_training=None):
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        parser = super().add_to_parser(parser)    
+        parser.add_argument('--hidden_size', type=int, default=128, help='Hidden size of the GNN.')
+        return parser
+
+    def __init__(self, num_variables : int, lookback : int, graph_weights : torch.Tensor, hidden_size : int = 128, gnn_class : type[torch.nn.Module] = tg.nn.GCNConv, masked_idxs_for_training : Optional[List[int]] = None):
         super().__init__(masked_idxs_for_training)
         self.num_variables = num_variables
         self.lookback = lookback
@@ -124,7 +143,7 @@ class TSGNNPredictor(TSPredictor):
 
         self.save_hyperparameters()
 
-    def forward(self, x):
+    def forward(self, x : torch.Tensor):
         batch_size = x.shape[0]
         features = torch.nn.functional.one_hot(torch.arange(self.num_variables)).reshape((1,1,self.num_variables,self.num_variables)).repeat(batch_size,self.lookback,1,1).to(x.device)
         features = x.unsqueeze(-1) * features
@@ -154,7 +173,12 @@ class TSGNNPredictor(TSPredictor):
 
 # Neural Causal Discovery model
 class TSNeuralCausal(TSPredictor):
-    def __init__(self, num_variables, lookback, neural_model, causal_model, masked_idxs_for_training=None):
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        return super().add_to_parser(parser)
+
+    def __init__(self, num_variables : int, lookback : int, neural_model : torch.nn.Module, causal_model : torch.nn.Module, masked_idxs_for_training : Optional[List[int]] = None):
         super().__init__(masked_idxs_for_training)
         self.num_variables = num_variables
         self.lookback = lookback
@@ -166,7 +190,7 @@ class TSNeuralCausal(TSPredictor):
         
         self.save_hyperparameters(ignore=['neural_model','causal_model'])
 
-    def forward(self, x):
+    def forward(self, x : torch.Tensor):
         neural_response = self.neural_model(x)
         causal_response = self.causal_model(x)
 
@@ -176,7 +200,15 @@ class TSNeuralCausal(TSPredictor):
 
 # LSTM prediction model
 class LSTMPredictor(TSPredictor):
-    def __init__(self, num_variables, lookback, hidden_size=128, num_layers=1, masked_idxs_for_training=None):
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        parser = super().add_to_parser(parser)
+        parser.add_argument('--hidden_size', type=int, default=128, help='Hidden size of the LSTM.')
+        parser.add_argument('--num_layers', type=int, default=1, help='Number of LSTM layers.')
+        return parser
+
+    def __init__(self, num_variables : int, lookback : int, hidden_size : int = 128, num_layers : int = 1, masked_idxs_for_training : Optional[List[int]] = None):
         super().__init__(masked_idxs_for_training)
         self.num_variables = num_variables
         self.lookback = lookback
@@ -187,7 +219,7 @@ class LSTMPredictor(TSPredictor):
         self.linear = torch.nn.Linear(hidden_size, num_variables)
         self.save_hyperparameters()
 
-    def forward(self, x):
+    def forward(self, x : torch.Tensor):
         batch_size = x.shape[0]
         x, _ = self.lstm(x)
         x = self.linear(x.reshape((batch_size*self.lookback, self.hidden_size)))
@@ -197,7 +229,16 @@ class LSTMPredictor(TSPredictor):
 
 # Transformer prediction model
 class TransformerPredictor(TSPredictor):
-    def __init__(self, num_variables, lookback, nhead=3, num_encoder_layers=1, num_decoder_layers=1, masked_idxs_for_training=None):
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        parser = super().add_to_parser(parser)
+        parser.add_argument('--nhead', type=int, default=3, help='Number of attention heads.')
+        parser.add_argument('--num_encoder_layers', type=int, default=1, help='Number of encoder layers.')
+        parser.add_argument('--num_decoder_layers', type=int, default=1, help='Number of decoder layers.')
+        return parser
+
+    def __init__(self, num_variables : int, lookback : int, nhead : int = 3, num_encoder_layers : int = 1, num_decoder_layers : int = 1, masked_idxs_for_training : Optional[List[int]] = None):
         super().__init__(masked_idxs_for_training)
         self.num_variables = num_variables
         self.lookback = lookback
@@ -209,7 +250,7 @@ class TransformerPredictor(TSPredictor):
         self.linear = torch.nn.Linear(num_variables, num_variables)
         self.save_hyperparameters()
     
-    def forward(self, x):
+    def forward(self, x : torch.Tensor):
         outputs = torch.zeros_like(x)
         
         for i in range(1,self.lookback+1):
@@ -221,6 +262,11 @@ class TransformerPredictor(TSPredictor):
 
 # Wrappers for loading
 class CausalGCNWrapper():
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        return TSGNNPredictor.add_to_parser(parser)
+
     def __new__(wrapper, *args, **kwargs):
         return CausalGCNWrapper.__call__(*args,**kwargs) # forbids instance creation and calls __call__ instead
 
@@ -229,10 +275,15 @@ class CausalGCNWrapper():
         return TSGNNPredictor.load_from_checkpoint(*args, num_variables=num_variables, lookback=lookback, gnn_class=tg.nn.GCNConv, **kwargs)
     
     @staticmethod
-    def __call__(num_variables, lookback, graph_weights, hidden_size=128, masked_idxs_for_training=None):
+    def __call__(num_variables, lookback, graph_weights, hidden_size=128, masked_idxs_for_training : Optional[List[int]] = None):
         return TSGNNPredictor(num_variables, lookback, graph_weights, hidden_size, gnn_class=tg.nn.GCNConv, masked_idxs_for_training=masked_idxs_for_training)
     
 class CausalGATWrapper():
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        return TSGNNPredictor.add_to_parser(parser)
+    
     def __new__(wrapper, *args, **kwargs):
         return CausalGATWrapper.__call__(*args,**kwargs) # forbids instance creation and calls __call__ instead
 
@@ -241,10 +292,15 @@ class CausalGATWrapper():
         return TSGNNPredictor.load_from_checkpoint(*args, num_variables=num_variables, lookback=lookback, gnn_class=tg.nn.GATConv, **kwargs)
     
     @staticmethod
-    def __call__(num_variables, lookback, graph_weights, hidden_size=128, masked_idxs_for_training=None):
+    def __call__(num_variables, lookback, graph_weights, hidden_size=128, masked_idxs_for_training : Optional[List[int]] = None):
         return TSGNNPredictor(num_variables, lookback, graph_weights, hidden_size, gnn_class=tg.nn.GATConv, masked_idxs_for_training=masked_idxs_for_training)
     
 class CausalGATv2Wrapper():
+
+    @classmethod
+    def add_to_parser(cls, parser):
+        return TSGNNPredictor.add_to_parser(parser)
+    
     def __new__(wrapper, *args, **kwargs):
         return CausalGATv2Wrapper.__call__(*args,**kwargs) # forbids instance creation and calls __call__ instead
 
@@ -253,7 +309,7 @@ class CausalGATv2Wrapper():
         return TSGNNPredictor.load_from_checkpoint(*args, num_variables=num_variables, lookback=lookback, gnn_class=tg.nn.GATv2Conv, **kwargs)
     
     @staticmethod
-    def __call__(num_variables, lookback, graph_weights, hidden_size=128, masked_idxs_for_training=None):
+    def __call__(num_variables, lookback, graph_weights, hidden_size=128, masked_idxs_for_training : Optional[List[int]] = None):
         return TSGNNPredictor(num_variables=num_variables, lookback=lookback, graph_weights=graph_weights, hidden_size=hidden_size, gnn_class=tg.nn.GATv2Conv, masked_idxs_for_training=masked_idxs_for_training)
 
 
@@ -268,7 +324,7 @@ class CausalLSTMWrapper():
         return TSNeuralCausal.load_from_checkpoint(*args, num_variables=num_variables, lookback=lookback, neural_model=neural_model, causal_model=causal_model, **kwargs)
     
     @staticmethod
-    def __call__(num_variables, lookback, graph_weights=None, hidden_size=128, num_layers=1, masked_idxs_for_training=None):
+    def __call__(num_variables, lookback, graph_weights=None, hidden_size=128, num_layers=1, masked_idxs_for_training : Optional[List[int]] = None):
         neural_model = LSTMPredictor(num_variables, lookback, hidden_size, num_layers)
         causal_model = TSLinearCausal(num_variables, lookback, graph_weights)
         return TSNeuralCausal(num_variables, lookback, neural_model, causal_model, masked_idxs_for_training)
@@ -284,7 +340,7 @@ class CausalTransformerWrapper():
         return TSNeuralCausal.load_from_checkpoint(*args, num_variables=num_variables, lookback=lookback, neural_model=neural_model, causal_model=causal_model, **kwargs)
     
     @staticmethod
-    def __call__(num_variables, lookback, graph_weights=None, nhead=3, num_encoder_layers=1, num_decoder_layers=1, masked_idxs_for_training=None):
+    def __call__(num_variables, lookback, graph_weights=None, nhead=3, num_encoder_layers=1, num_decoder_layers=1, masked_idxs_for_training : Optional[List[int]] = None):
         neural_model = TransformerPredictor(num_variables, lookback, nhead, num_encoder_layers, num_decoder_layers)
         causal_model = TSLinearCausal(num_variables, lookback, graph_weights)
         return TSNeuralCausal(num_variables, lookback, neural_model, causal_model, masked_idxs_for_training)
@@ -293,7 +349,7 @@ class CausalTransformerWrapper():
 
 # LSTM Model that discriminates between real and generated time series
 class LSTMDiscriminator(pl.LightningModule):
-    def __init__(self, num_variables, lookback, hidden_size=128, num_layers=1):
+    def __init__(self, num_variables : int, lookback : int, hidden_size : int = 128, num_layers : int = 1):
         super().__init__()
         self.num_variables = num_variables
         self.lookback = lookback
@@ -304,7 +360,7 @@ class LSTMDiscriminator(pl.LightningModule):
         self.linear = torch.nn.Linear(lookback*hidden_size, 1)
         self.save_hyperparameters()
 
-    def forward(self, x):
+    def forward(self, x : torch.Tensor):
         batch_size = x.shape[0]
         x, _ = self.lstm(x)
         x = self.linear(x.reshape((batch_size, self.lookback*self.hidden_size)))
@@ -350,7 +406,7 @@ class LSTMDiscriminator(pl.LightningModule):
 
 # Transformer Model that discriminates between real and generated time series
 class TransformerDiscriminator(pl.LightningModule):
-    def __init__(self, num_variables, lookback, nhead=3, num_encoder_layers=6, num_decoder_layers=6):
+    def __init__(self, num_variables : int, lookback : int, nhead : int = 3, num_encoder_layers : int = 6, num_decoder_layers : int = 6):
         super().__init__()
         self.num_variables = num_variables
         self.lookback = lookback
@@ -362,7 +418,7 @@ class TransformerDiscriminator(pl.LightningModule):
         self.linear = torch.nn.Linear(lookback*num_variables, 1)
         self.save_hyperparameters()
     
-    def forward(self, x):
+    def forward(self, x : torch.Tensor):
         batch_size = x.shape[0]
         x = self.transformer(x, x)
         x = self.linear(x.view(batch_size, self.lookback*self.num_variables))
