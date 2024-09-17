@@ -4,23 +4,6 @@ import numpy as np
 
 class CausalGraphFormatter():
 
-    @staticmethod
-    def from_pandas(results : pd.DataFrame, var_names : list, tau_max : int):
-        graph = np.zeros((len(var_names), len(var_names), tau_max+1), dtype='<U3')
-        graph[:] = ""
-
-        val_matrix = np.zeros((len(var_names), len(var_names), tau_max + 1))
-
-        for idx, i, j, tau, link_type, link_value in results.itertuples(): # TODO: fix, put links in BOTH directions
-            i = var_names.index(i)
-            j = var_names.index(j)
-            link_value = float(link_value)
-
-            graph[i,j,tau] = link_type
-            val_matrix[i,j,tau] = link_value
-            
-        return CausalGraphFormatter(graph, val_matrix)
-
 
     def __init__(self, graph : np.array, val_matrix : np.array, var_names : list = None):
         self.graph = graph

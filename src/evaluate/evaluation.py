@@ -1,16 +1,16 @@
 
+from typing import List
 import tqdm
-from collections import Counter
 
 import torch
-import torch.nn.functional as F
+from torch.utils.data import DataLoader
 
 
 # Direct prediction accuracy computation
-def direct_prediction_accuracy(model, loader, num_variables, masked_idxs):
-    acc = torch.tensor(0.0)
-    acc_last = torch.tensor(0.0)
+def direct_prediction_accuracy(model : torch.nn.Module, loader : DataLoader, num_variables : int, masked_idxs : List[int]):
     device = model.device
+    acc = torch.tensor(0.0).to(device)
+    acc_last = torch.tensor(0.0).to(device)
     for i, (x, y, _) in enumerate(tqdm.tqdm(loader)):
         x = x.to(device)
         y = y.to(device)
@@ -21,21 +21,25 @@ def direct_prediction_accuracy(model, loader, num_variables, masked_idxs):
         # Remove masked variables
         y_pred = y_pred[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
         y = y[:,:,torch.where(~torch.tensor([i in masked_idxs for i in range(num_variables)]))[0]]
-
+        
         y_pred = y_pred.softmax(dim=-1)
 
         # Calculate accuracy
-        acc = acc * i / (i+1) + (y_pred.argmax(dim=-1) == y.argmax(dim=-1)).float().mean() / (i+1)
-        acc_last = acc_last * i / (i+1) + (y_pred[:,-1,:].argmax(dim=-1) == y[:,-1,:].argmax(dim=-1)).float().mean() / (i+1)
+        acc += (y_pred.argmax(dim=-1) == y.argmax(dim=-1)).float().mean()
+        acc_last += (y_pred[:,-1,:].argmax(dim=-1) == y[:,-1,:].argmax(dim=-1)).float().mean()
+    
+    acc /= len(loader)
+    acc_last /= len(loader)
+
     return acc, acc_last
 
 
 
-def entropy(y, n=2):
+def entropy(y : torch.Tensor, n : int = 2):
     y = y.clamp(min=1e-8, max=1-1e-8)
     return -torch.sum(y * torch.log(y), dim=-1) / torch.log(torch.tensor(n).float())
 
-def mutual_information(model, loader, num_variables, masked_idxs):
+def mutual_information(model : torch.nn.Module, loader : DataLoader, num_variables : int, masked_idxs : List[int]):
     y_preds = []
     ys = []
     device = model.device

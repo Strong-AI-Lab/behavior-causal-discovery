@@ -203,12 +203,18 @@ CLUSTERING_ALGORITHMS = {
     "Bisecting K-Means": BisectingKMeans,
     "K-Means": KMeans,
 }
-def generate_clusters(series : Dict[int, List[Tuple[torch.Tensor, torch.Tensor]]], save : str, nb_variables, cluster_lists : Optional[List[int]] = None, prefix : Optional[str] = None):
+def generate_clusters(data_pred : torch.Tensor, data_truth : torch.Tensor, save : str, nb_variables : int, tau : int, cluster_lists : Optional[List[int]] = None, prefix : Optional[str] = None, max_data_points : Optional[int] = None):
     if cluster_lists is None:
         cluster_lists = [4, 8, 16]
     
-    data_pred = torch.stack([y_pred.view((nb_variables,)) for s in series.values() for y_pred, y in s]).detach().numpy()
-    data_truth = torch.stack([y.view((nb_variables,)) for s in series.values() for y_pred, y in s]).detach().numpy()
+    data_pred = data_pred.view(-1,nb_variables*tau).detach().numpy()
+    data_truth = data_truth.view(-1,nb_variables*tau).detach().numpy()
+
+    if max_data_points is not None:
+        rng = np.random.default_rng()
+        indices = rng.choice(range(data_pred.shape[0]), max_data_points, replace=False)
+        data_pred = data_pred[indices]
+        data_truth = data_truth[indices]
 
     embedding = MDS(n_components=2)
     for data, file_name in [(data_pred, "prediction_clusters"), (data_truth, "true_clusters")]: # predicted series + ground truth series
