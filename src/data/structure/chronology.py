@@ -1,9 +1,11 @@
 
+import os
 from typing import List, Dict, Tuple, Union, Optional, ClassVar, Set, Any
 import pandas as pd
 import numpy as np
 from dataclasses import dataclass
 import json
+import matplotlib.pyplot as plt
 
 from data.parsers.baseparser import Parser
 
@@ -145,7 +147,7 @@ class Chronology:
         return times.index(max(filter(lambda x : x <= time, times)))
     
 
-    def __init__(self, 
+    def __init__(self,
                     data : pd.DataFrame, 
                     parser : Optional[Parser] = None,
                     start_time : int = 0,
@@ -693,3 +695,121 @@ class Chronology:
         # Fix cut sequences
         self._fix_sequences(time_threshold)
 
+
+
+    def _display_statistics(self, save_folder : Optional[str] = None) -> None:
+        stats_str = ''
+        stats_str += f"Start time: {self.start_time} - End time: {self.end_time} (inclusive)  - {self.end_time - self.start_time + 1} time steps\n"
+        stats_str += f'Snapshot count: {len(self.snapshots)}\n'
+        stats_str += f'Stationary times count: {len(self.stationary_times)}\n'
+        stats_str += f'Empty times count: {len(self.empty_times)}\n'
+        stats_str += f'None times count: {len([i for i in range(self.start_time, self.end_time + 1) if self.snapshots[i] is None])}\n'
+        stats_str += f'Empty and none times match: {len([i for i in range(self.start_time, self.end_time + 1) if self.snapshots[i] is None and i in self.empty_times])}\n'
+        stats_str += f'Individual count: {len(self.individuals_ids)}\n'
+        stats_str += f'Individuals: {self.individuals_ids}\n'
+        stats_str += f'Zone labels: {self.zone_labels}\n'
+        stats_str += f'Type labels: {self.type_labels}\n'
+        stats_str += f'Behaviour labels: {self.behaviour_labels}\n'
+
+        if save_folder is not None:
+            with open(os.path.join(save_folder, "chronology_stats.txt"), "w+") as f:
+                f.write(stats_str)
+        else:
+            print(stats_str)
+
+    def _display_snapshot_distribution(self, save_folder : Optional[str] = None) -> None:
+        t = list(range(self.start_time, self.end_time + 1))
+        snapshot_distribution = []
+        snapshot_labels = []
+        label_colors = {'null' : 'r', 'stationary' : 'g', 'empty' : 'b', 'normal' : 'y'}
+        for snapshot in self.snapshots:
+            if snapshot is not None:
+                snapshot_distribution.append(len(snapshot.states))
+                if snapshot.time in self.stationary_times:
+                    snapshot_labels.append('stationary')
+                elif snapshot.time in self.empty_times:
+                    snapshot_labels.append('empty') # Should not appear as covered by null states
+                else:
+                    snapshot_labels.append('normal')
+            else:
+                snapshot_distribution.append(0)
+                snapshot_labels.append('null')
+
+        plt.clf()
+        plt.figure(figsize=(20, 10))
+        labelled = {key : False for key in label_colors.keys()}
+        for i in range(len(snapshot_distribution)):
+            add_kwargs = {}
+            if not labelled[snapshot_labels[i]]:
+                add_kwargs['label'] = snapshot_labels[i]
+                labelled[snapshot_labels[i]] = True
+            plt.scatter(t[i], snapshot_distribution[i], color=label_colors[snapshot_labels[i]], s=10, **add_kwargs)
+        plt.xlabel('Time')
+        plt.ylabel('Individual count')
+        plt.title('Snapshot distribution')
+        plt.legend()
+
+        if save_folder is not None:
+            plt.savefig(os.path.join(save_folder, "snapshot_distribution.png"))
+        else:
+            plt.show()
+
+    def _display_coordinates_movements(self, save_folder : Optional[str] = None) -> None:
+        plt.clf()
+        plt.figure(figsize=(20, 10))
+        for ind_id in self.individuals_ids:
+            times = self.all_occurences[ind_id]
+            x = []
+            y = []
+            for time in times:
+                state = self.get_snapshot(time).states[ind_id]
+                x.append(state.coordinates[0])
+                y.append(state.coordinates[1])
+
+                while state.future_state is not None:
+                    state = state.future_state
+                    x.append(state.coordinates[0])
+                    y.append(state.coordinates[1])
+
+            plt.plot(x, y, label=f'Individual {ind_id}')
+        plt.xlabel('X')
+        plt.ylabel('Y')
+        plt.title('Individual trajectories')
+
+        if save_folder is not None:
+            plt.savefig(os.path.join(save_folder, "trajectories.png"))
+        else:
+            plt.show()
+
+    def _display_attr_distribution(self, attribute : str, save_folder : Optional[str] = None) -> None:
+        distributions = {}
+
+        for snapshot in filter(lambda x : x is not None, self.snapshots):
+            for state in snapshot.states.values():
+                val = getattr(state, attribute)
+                if val is None:
+                    val = 'None'
+                if len(val) > 10:
+                    val = val[:10] + '...'
+                if val not in distributions:
+                    distributions[val] = 0
+                distributions[val] += 1
+
+        plt.clf()
+        plt.figure(figsize=(20, 10))
+        plt.bar(distributions.keys(), distributions.values())
+        plt.xlabel(attribute)
+        plt.ylabel('Individual count')
+        plt.title(f'{attribute} distribution')
+
+        if save_folder is not None:
+            plt.savefig(os.path.join(save_folder, f"{attribute}_distribution.png"))
+        else:
+            plt.show()
+
+    def _display_distributions(self, save_folder : Optional[str] = None) -> None:
+        self._display_statistics(save_folder)
+        self._display_snapshot_distribution(save_folder)
+        self._display_coordinates_movements(save_folder)
+        for attribute in ["zone", "type", "behaviour"]:
+            self._display_attr_distribution(attribute, save_folder)
