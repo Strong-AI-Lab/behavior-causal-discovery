@@ -36,6 +36,16 @@ is_graph_model = False
 if args.model_type in GRAPH_DYNAMIC_MODELS.keys():
     is_graph_model = True
 
+model_kwargs = {} # Add model specific arguments from command line
+if len(unknown_args) > 0:
+    model_parser = MODELS[args.model_type].add_to_parser(argparse.ArgumentParser(add_help=False))
+    model_args, unknown_remains = model_parser.parse_known_args(unknown_args)
+
+    if len(unknown_remains) > 0: # Raise error if unknown arguments are provided and exit
+        argparse.ArgumentParser(parents=[parser,model_parser],add_help=False).error(f"unrecognized arguments for main parser or {args.model_type} model parser: {' '.join(unknown_remains)}")
+
+    model_kwargs = vars(model_args)
+
 
 # Load dataset
 train_dataset = DataManager.load_data(
@@ -62,12 +72,6 @@ else:
 
 # Build model
 if args.model_save is None:
-    model_kwargs = {} # Add model specific arguments from command line
-    if len(unknown_args) > 0:
-        model_parser = MODELS[args.model_type].add_to_parser(argparse.ArgumentParser())
-        model_args = model_parser.parse_args(unknown_args)
-        model_kwargs = vars(model_args)
-
     print(f"No save provided. Building {args.model_type} model...")
     model = MODELS[args.model_type](lookback=args.tau_max+1, **model_kwargs)
 else:

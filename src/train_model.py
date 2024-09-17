@@ -35,6 +35,16 @@ args, unknown_args = parser.parse_known_args()
 
 assert args.model_type != "causal", f"Model type {args.model_type} does not support training. Use `run_discovery.py` instead."
 
+model_kwargs = {} # Add model specific arguments from command line
+if len(unknown_args) > 0:
+    model_parser = MODELS[args.model_type].add_to_parser(argparse.ArgumentParser(add_help=False))
+    model_args, unknown_remains = model_parser.parse_known_args(unknown_args)
+
+    if len(unknown_remains) > 0: # Raise error if unknown arguments are provided and exit
+        argparse.ArgumentParser(parents=[parser,model_parser],add_help=False).error(f"unrecognized arguments for main parser or {args.model_type} model parser: {' '.join(unknown_remains)}")
+
+    model_kwargs = vars(model_args)
+
 
 # Set variables. /!\ Chronology will be re-written twice if force_data_computation is enabled.
 chronology = DataManager.load_data(
@@ -74,12 +84,6 @@ print(f"Masking {len(masked_idxs)} variables: {masked_variables}")
 
 # Build model
 if args.model_save is None:
-        model_kwargs = {} # Add model specific arguments from command line
-        if len(unknown_args) > 0:
-            model_parser = MODELS[args.model_type].add_to_parser(argparse.ArgumentParser())
-            model_args = model_parser.parse_args(unknown_args)
-            model_kwargs = vars(model_args)
-
         model = MODELS[args.model_type](num_variables=num_variables, lookback=args.tau_max+1, masked_idxs_for_training=masked_idxs, **model_kwargs)
 else:
     print(f"Save provided. Loading {args.model_type} model from {args.model_save}...")
