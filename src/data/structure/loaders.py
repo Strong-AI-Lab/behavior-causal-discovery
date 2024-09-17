@@ -16,24 +16,24 @@ class Loader(metaclass=abc.ABCMeta):
 
     def _struct_to_sequences(self, structure : Chronology) -> Dict[int, torch.Tensor]:
         sequences = {}
+
+        skip_times = []
+        if self.skip_stationary: # Skip stationary states
+            skip_times = structure.stationary_times
+
         for ind_id in structure.individuals_ids:
             seq_ind = []
-            snapshot = structure.get_snapshot(structure.first_occurence[ind_id])
-            state = snapshot.states[ind_id]
-            seq_ind.append(self._state_to_vector(state, structure))
-            skip_states = []
-
-            if self.skip_stationary: # Skip stationary states
-                for time in structure.stationary_times:
-                    sationary_snapshot = structure.get_snapshot(time)
-                    if ind_id in sationary_snapshot.states:
-                        skip_states.append(sationary_snapshot.states[ind_id])
+            for start_time in structure.all_occurences[ind_id]:
+                snapshot = structure.get_snapshot(start_time)
+                state = snapshot.states[ind_id]
+                seq_ind.append(self._state_to_vector(state, structure))
+                    
+                while state.future_state: # Build sequence by looking at future states
+                    state = state.future_state
+                    time = state.snapshot.time
+                    if time not in skip_times:
+                        seq_ind.append(self._state_to_vector(state, structure))
                 
-            while state.future_state: # Build sequence by looking at future states
-                state = state.future_state
-                if state not in skip_states:
-                    seq_ind.append(self._state_to_vector(state, structure))
-            
             sequences[ind_id] = torch.stack(seq_ind) # [sequence_length, dimensions]
         
         return sequences
