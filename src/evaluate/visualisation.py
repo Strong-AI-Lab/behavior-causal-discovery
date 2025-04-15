@@ -1,8 +1,11 @@
 
 import os
+from typing import List, Dict, Tuple, Optional
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 import plotly.graph_objects as go
 import numpy as np
+import networkx as nx
 
 from sklearn.cluster import BisectingKMeans, KMeans
 from sklearn.manifold import MDS
@@ -34,8 +37,71 @@ COLOR_TAGS = [
     ] # taken from https://raw.githubusercontent.com/plotly/plotly.js/master/test/image/mocks/sankey_energy.json
 
 
+def flatten_time_graph(graph : np.ndarray):
+    # [nb_variables, nb_variables, tau] -> [nb_variables*tau, nb_variables*tau]
+    nb_variables = graph.shape[0]
+    tau = graph.shape[-1]
+    new_graph = np.zeros((tau*nb_variables, tau*nb_variables))
+    for i in range(tau):
+        for j in range(i, tau):
+            new_graph[i*nb_variables:(i+1)*nb_variables, j*nb_variables:(j+1)*nb_variables] = graph[:, :, i] # add links from timestep i to timestep j
+    return new_graph
 
-def generate_time_occurences(series, predicted_variable_names, save, nb_variables, min_length, prefix=None):
+
+def prep_labels(labels : List[str], max_length : int = 12):
+    new_labels = []
+    label_lengths = []
+    for label in labels:
+        words = label.split("_")
+        words[0] = words[0].capitalize()
+        lines = []
+        line = ""
+        for word in words:
+            if len(line) > 0 and len(line) + len(word) > max_length:
+                lines.append(line)
+                line = ""
+            line += f"{word} "
+        lines.append(line)
+        label_lengths.append(max([len(line) for line in lines]))
+        new_labels.append("\n".join(lines))
+    return new_labels, label_lengths
+
+
+def plot_graph_graphviz(graph : np.ndarray, val_matrix : np.ndarray, var_names : List[str], save_folder : str, save_file : str, keep_time : bool = False):
+    # Create adjacency matrix
+    graph = np.copy(graph)
+    graph[np.where(graph == "-->")] = "1"
+    graph[np.where(graph == "o-o")] = "1"
+    graph[np.where(graph == "")] = "0"
+    graph = graph.astype(np.int64)
+    graph=graph*val_matrix
+    graph=np.nan_to_num(graph)
+
+    # Remove time dimension
+    if not keep_time:
+        graph = graph.sum(axis=-1) # Flatten time dimension
+    else:
+        tau = graph.shape[-1]
+        graph = flatten_time_graph(graph) # Expand time dimension (add time sensitive variables to flattened graph)
+        var_names = [f"{var}_{i}" for i in range(tau) for var in var_names]
+    np.fill_diagonal(graph, 0) # Remove self loops
+
+
+    # Create plot
+    ng=nx.from_numpy_array(graph, create_using=nx.DiGraph)
+    new_labels, label_lengths = prep_labels(var_names)
+    ng=nx.relabel_nodes(ng, dict(enumerate(new_labels)))
+    edge_colors = dict([((u, v,), attrs['weight']) for u, v, attrs in ng.edges(data=True)])
+    node_sizes = [400*(i+1) for i in label_lengths]
+    nb_nodes = len(ng.nodes)
+    
+    plt.figure(figsize=(10 + int(np.log(nb_nodes)), 10 + int(np.log(nb_nodes))))
+    pos = nx.spring_layout(ng,scale=2)
+    nx.draw(ng, pos, with_labels=True, node_size=node_sizes, node_color='white', edgecolors='black', font_size=10, font_family='serif', font_color='black', edge_color=list(edge_colors.values()), edge_cmap=cm.coolwarm, width=3, arrowsize=15)
+    plt.savefig(os.path.join(save_folder, f"{save_file}.png"), bbox_inches='tight')
+
+
+def generate_time_occurences(series : Dict[int, List[Tuple[torch.Tensor, torch.Tensor]]], predicted_variable_names : List[str], save : str, nb_variables : int, min_length : int, prefix : Optional[str] = None):
     x_axis = [i for _ in range(nb_variables) for i in range(min_length)]
     y_axis = [i for i in range(nb_variables) for _ in range(min_length)]
     area_pred = [0] * (nb_variables * min_length)
@@ -45,8 +111,8 @@ def generate_time_occurences(series, predicted_variable_names, save, nb_variable
         for i, (y_pred, y) in enumerate(s):
             if i >= min_length:
                 break
-            area_pred[y_pred[-1].argmax(dim=-1).tolist() * min_length + i] += 1
-            area[y[-1].argmax(dim=-1).tolist() * min_length + i] += 1
+            area_pred[y_pred.argmax(dim=-1).tolist() * min_length + i] += 1
+            area[y.argmax(dim=-1).tolist() * min_length + i] += 1
 
     max_val = max(max(area_pred), max(area))
     for save_file, results in [('prediction_time_occurences', area_pred), ('true_time_occurences', area)]:
@@ -60,12 +126,11 @@ def generate_time_occurences(series, predicted_variable_names, save, nb_variable
 
         if prefix is not None:
             save_file = f"{prefix}_{save_file}"
-        os.makedirs(f"results/{save.split('/')[-1]}", exist_ok=True)
-        plt.savefig(f"results/{save.split('/')[-1]}/{save_file}.png", bbox_inches='tight')
+        plt.savefig(os.path.join(save, f"{save_file}.png"), bbox_inches='tight')
 
 
 
-def generate_sankey(series, predicted_variable_names, save, nb_variables, min_length, prefix=None):
+def generate_sankey(series : Dict[int, List[Tuple[torch.Tensor, torch.Tensor]]], predicted_variable_names, save : str, nb_variables : int, min_length : int, prefix : Optional[str] = None):
     for save_file, truth in [('prediction_sankey', 0), ('true_sankey', 1)]:
         labels = []
         colors = []
@@ -86,8 +151,8 @@ def generate_sankey(series, predicted_variable_names, save, nb_variables, min_le
                 for i, s in series.items():
                     if t >= len(s):
                         continue
-                    x = s[t-1][truth][-1].argmax(dim=-1).tolist()
-                    y = s[t][truth][-1].argmax(dim=-1).tolist()
+                    x = s[t-1][truth].argmax(dim=-1).tolist()
+                    y = s[t][truth].argmax(dim=-1).tolist()
                     vals[x * nb_variables + y] += 1
                 values.extend(vals)
                 flattened_values = [flattened_values[i] + vals[i] for i in range(nb_variables * nb_variables)]
@@ -112,8 +177,7 @@ def generate_sankey(series, predicted_variable_names, save, nb_variables, min_le
 
         if prefix is not None:
             save_file = f"{prefix}_{save_file}"
-        os.makedirs(f"results/{save.split('/')[-1]}", exist_ok=True)
-        fig.write_image(f"results/{save.split('/')[-1]}/{save_file}_full.png")
+        fig.write_image(os.path.join(save, f"{save_file}_full.png"))
             
         # Flattened diagram
         fig_flat = go.Figure(data=[go.Sankey(
@@ -131,7 +195,7 @@ def generate_sankey(series, predicted_variable_names, save, nb_variables, min_le
             color = link_colors[:nb_variables*nb_variables]
         ))]) 
         fig_flat.update_layout(title_text=save_file, font_size=38, width=900, height=1800)
-        fig_flat.write_image(f"results/{save.split('/')[-1]}/{save_file}_flat.png")
+        fig_flat.write_image(os.path.join(save, f"{save_file}_flat.png"))
 
 
 
@@ -139,12 +203,18 @@ CLUSTERING_ALGORITHMS = {
     "Bisecting K-Means": BisectingKMeans,
     "K-Means": KMeans,
 }
-def generate_clusters(series, save, nb_variables, tau, cluster_lists=None, prefix=None):
+def generate_clusters(data_pred : torch.Tensor, data_truth : torch.Tensor, save : str, nb_variables : int, tau : int, cluster_lists : Optional[List[int]] = None, prefix : Optional[str] = None, max_data_points : Optional[int] = None):
     if cluster_lists is None:
         cluster_lists = [4, 8, 16]
     
-    data_pred = torch.stack([y_pred.view((nb_variables*tau,)) for s in series.values() for y_pred, y in s]).detach().numpy()
-    data_truth = torch.stack([y.view((nb_variables*tau,)) for s in series.values() for y_pred, y in s]).detach().numpy()
+    data_pred = data_pred.view(-1,nb_variables*tau).detach().numpy()
+    data_truth = data_truth.view(-1,nb_variables*tau).detach().numpy()
+
+    if max_data_points is not None:
+        rng = np.random.default_rng()
+        indices = rng.choice(range(data_pred.shape[0]), max_data_points, replace=False)
+        data_pred = data_pred[indices]
+        data_truth = data_truth[indices]
 
     embedding = MDS(n_components=2)
     for data, file_name in [(data_pred, "prediction_clusters"), (data_truth, "true_clusters")]: # predicted series + ground truth series
@@ -166,7 +236,6 @@ def generate_clusters(series, save, nb_variables, tau, cluster_lists=None, prefi
 
         if prefix is not None:
             file_name = f"{prefix}_{file_name}"
-        os.makedirs(f"results/{save.split('/')[-1]}", exist_ok=True)
-        plt.savefig(f"results/{save.split('/')[-1]}/{file_name}.png")
+        plt.savefig(os.path.join(save, f"{file_name}.png"))
 
     

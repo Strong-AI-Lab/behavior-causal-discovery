@@ -1,64 +1,24 @@
 
+import os
 
-MASKED_VARIABLES = [
-    'foraging_zone', 
-    'background_zone', 
-    'waiting_area_zone', 
-    'door_zone', 
-    'sand_area_zone', 
-    'mound_zone', 
-    'left_sticks_area_zone', 
-    'right_sand_area_zone', 
-    'right_sticks_area_zone', 
-    'around_mound_zone', 
-    'close_neighbour_foraging_zone', 
-    'close_neighbour_background_zone', 
-    'close_neighbour_waiting_area_zone', 
-    'close_neighbour_door_zone', 
-    'close_neighbour_sand_area_zone', 
-    'close_neighbour_mound_zone', 
-    'close_neighbour_left_sticks_area_zone', 
-    'close_neighbour_right_sand_area_zone', 
-    'close_neighbour_right_sticks_area_zone', 
-    'close_neighbour_around_mound_zone', 
-    'distant_neighbour_foraging_zone', 
-    'distant_neighbour_background_zone', 
-    'distant_neighbour_waiting_area_zone', 
-    'distant_neighbour_door_zone', 
-    'distant_neighbour_sand_area_zone', 
-    'distant_neighbour_mound_zone', 
-    'distant_neighbour_left_sticks_area_zone', 
-    'distant_neighbour_right_sand_area_zone', 
-    'distant_neighbour_right_sticks_area_zone', 
-    'distant_neighbour_around_mound_zone',
-    'close_neighbour_moving', 
-    'close_neighbour_foraging', 
-    'close_neighbour_high_sitting/standing_(vigilant)', 
-    'close_neighbour_raised_guarding_(vigilant)', 
-    'close_neighbour_low_sitting/standing_(stationary)', 
-    'close_neighbour_groom', 
-    'close_neighbour_human_interaction', 
-    'close_neighbour_playfight', 
-    'close_neighbour_sunbathe', 
-    'close_neighbour_interacting_with_foreign_object', 
-    'close_neighbour_dig_burrow', 
-    'close_neighbour_lying/resting_(stationary)', 
-    'close_neighbour_allogroom', 
-    'close_neighbour_carry_pup', 
-    'close_neighbour_interact_with_pup', 
-    'distant_neighbour_moving', 
-    'distant_neighbour_foraging', 
-    'distant_neighbour_high_sitting/standing_(vigilant)', 
-    'distant_neighbour_raised_guarding_(vigilant)', 
-    'distant_neighbour_low_sitting/standing_(stationary)', 
-    'distant_neighbour_groom', 
-    'distant_neighbour_human_interaction', 
-    'distant_neighbour_playfight', 
-    'distant_neighbour_sunbathe', 
-    'distant_neighbour_interacting_with_foreign_object', 
-    'distant_neighbour_dig_burrow', 
-    'distant_neighbour_lying/resting_(stationary)', 
-    'distant_neighbour_allogroom', 
-    'distant_neighbour_carry_pup', 
-    'distant_neighbour_interact_with_pup'
-    ]
+# Constants for model settings
+TAU_MAX = 5
+
+
+# Constants for causal graph
+ALPHA_LEVEL = 0.05
+PC_ALPHA = 0.05
+LOW_FILTER_DEFAULT = 0.075
+HIGH_FILTER_DEFAULT = 0.925
+
+
+# Constants for visualisation
+MAX_CLUSTER_DATA_POINTS = 2000
+
+
+# Saving constants
+RESULTS_SAVE_FOLDER_DEFAULT = "results"
+CAUSAL_GRAPH_SAVE_FOLDER_DEFAULT = "causal_graphs"
+DATA_STRUCTURES_SAVE_FOLDER_DEFAULT = os.path.join("data","gen")
+VISUALISATION_SAVE_FOLDER_DEFAULT = "visualisations"
+

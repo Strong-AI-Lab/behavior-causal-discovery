@@ -3,4 +3,12 @@ __pycache__/
 saves/
 results/
 nohup.out
-lightning_logs/
+lightning_logs*/
+wandb/
+.pytest_cache/
+meerkat_modelling/
+data/gen*/
+data/anim*/
+causal_graphs/
+visualisations/
+visualizations/
